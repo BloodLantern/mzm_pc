@@ -276,7 +276,7 @@ void unk_818cc(void)
     u16* dst;
     const u16* src;
     u16 nextSlot;
-    u16 currSlot;
+    u16 currSlot = 0;
     u16 part;
     u16 yPosition;
     u16 xPosition;

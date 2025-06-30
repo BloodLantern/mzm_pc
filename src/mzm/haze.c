@@ -117,8 +117,7 @@ void HazeSetupCode(u8 hazeValue)
             break;
 
         case HAZE_VALUE_BG3:
-            DmaTransfer(3, Haze_Bg3, &gNonGameplayRam.inGame[640], 0x200, 16);
-            gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
+            gHazeProcessCodePointer = Haze_Bg3;
 
             gHazeInfo.enabled = TRUE;
 
@@ -128,8 +127,7 @@ void HazeSetupCode(u8 hazeValue)
             break;
 
         case HAZE_VALUE_BG3_STRONG_WEAK:
-            DmaTransfer(3, Haze_Bg3StrongWeak, &gNonGameplayRam.inGame[640], 0x200, 16);
-            gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
+            gHazeProcessCodePointer = Haze_Bg3StrongWeak;
 
             gHazeInfo.enabled = TRUE;
 
@@ -139,8 +137,7 @@ void HazeSetupCode(u8 hazeValue)
             break;
 
         case HAZE_VALUE_BG3_NONE_WEAK:
-            DmaTransfer(3, Haze_Bg3NoneWeak, &gNonGameplayRam.inGame[640], 0x200, 16);
-            gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
+            gHazeProcessCodePointer = Haze_Bg3NoneWeak;
 
             gHazeInfo.enabled = TRUE;
 
@@ -150,8 +147,7 @@ void HazeSetupCode(u8 hazeValue)
             break;
 
         case HAZE_VALUE_BG3_BG2_STRONG_WEAK_MEDIUM:
-            DmaTransfer(3, Haze_Bg3Bg2StrongWeakMedium, &gNonGameplayRam.inGame[640], 0x200, 16);
-            gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
+            gHazeProcessCodePointer = Haze_Bg3Bg2StrongWeakMedium;
 
             gHazeInfo.enabled = TRUE;
 
@@ -161,8 +157,7 @@ void HazeSetupCode(u8 hazeValue)
             break;
 
         case HAZE_VALUE_BG3_BG2_BG1:
-            DmaTransfer(3, Haze_Bg3Bg2Bg1, &gNonGameplayRam.inGame[640], 0x200, 16);
-            gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
+            gHazeProcessCodePointer = Haze_Bg3Bg2Bg1;
 
             gHazeInfo.enabled = TRUE;
 
@@ -190,8 +185,7 @@ void HazeSetupCode(u8 hazeValue)
 
             gBackdropColor = COLOR_WHITE;
 
-            DmaTransfer(3, Haze_PowerBombExpanding, &gNonGameplayRam.inGame[640], 0x200, 16);
-            gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
+            gHazeProcessCodePointer = Haze_PowerBombExpanding;
 
             gHazeInfo.enabled = TRUE;
 
@@ -204,8 +198,7 @@ void HazeSetupCode(u8 hazeValue)
             break;
 
         case HAZE_VALUE_POWER_BOMB_RETRACTING:
-            DmaTransfer(3, Haze_PowerBombRetracting, &gNonGameplayRam.inGame[640], 0x200, 16);
-            gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
+            gHazeProcessCodePointer = Haze_PowerBombRetracting;
 
             gHazeInfo.enabled = TRUE;
 

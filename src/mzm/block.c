@@ -738,7 +738,7 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
     u16 blockY;
     u16 blockX;
     u16 clipdata;
-    u16 result;
+    u16 result = 0;
     u16 position;
 
     blockX = xPosition / BLOCK_SIZE;

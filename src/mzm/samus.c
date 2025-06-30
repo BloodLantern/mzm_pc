@@ -1003,7 +1003,7 @@ void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics
 void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset, u32 request)
 {
     u8 found;
-    u8 effect;
+    u8 effect = 0;
     u8 canSpawn;
     u8 i;
     u16 yPosition;

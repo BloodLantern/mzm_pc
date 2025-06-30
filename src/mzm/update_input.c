@@ -4,6 +4,7 @@
 #include "mzm/types.h"
 
 #include "mzm_include.h"
+#include "mzm_input.hpp"
 
 /**
  * @brief 968 | 38 | Updates the input
@@ -11,9 +12,9 @@
  */
 void UpdateInput(void)
 {
-    u16 keys;
+    u16 keys = 0;
+    UpdateInputModern(&keys);
 
-    keys = KEY_MASK & ~read16(REG_KEY_INPUT);
     gChangedInput = keys & ~gPreviousButtonInput;
     gButtonInput = keys;
     gPreviousButtonInput = keys;

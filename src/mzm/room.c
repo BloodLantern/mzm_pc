@@ -180,7 +180,7 @@ void RoomLoadTileset(void)
     gTilemapAndClipPointers.pClipCollisions = gClipdataCollisionTypes;
     gTilemapAndClipPointers.pClipBehaviors = gClipdataBehaviorTypes;
 
-    DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 2 * sizeof(u16), 16); // write past?
+    DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap), 16);
 
     if (gCurrentArea > AREA_TEST)
     {
@@ -193,7 +193,7 @@ void RoomLoadTileset(void)
         DmaTransfer(3, sClipdataBehaviorTypes, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 16);
     }
 
-    DmaTransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 16); // write past?
+    DmaTransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap), 16);
     DmaTransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 16);
     DmaTransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 16);
 

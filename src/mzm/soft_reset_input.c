@@ -54,9 +54,6 @@ void SoftReset(void)
     write16(REG_BLDY, BLDY_MAX_VALUE);
     write16(REG_BLDCNT, 0xff);
 
-    dma_fill32(3, 0, EWRAM_BASE, EWRAM_SIZE);
-    dma_fill32(3, 0, IWRAM_BASE, IWRAM_SIZE - 0x200);
-
     ClearGfxRam();
     LoadInterruptCode();
     CallbackSetVBlank(SoftResetVBlankCallback);

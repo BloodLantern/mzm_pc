@@ -183,8 +183,7 @@ void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
     }while(0);
     gLastAreaNameVisited.mapY = --yPosition;
 
-    //pMap = &gDecompressedMinimapData[actualX + actualY * MINIMAP_SIZE];
-    pMap = &((u16*)(0x02034800))[actualX + actualY * MINIMAP_SIZE];
+    pMap = &gDecompressedMinimapData[actualX + actualY * MINIMAP_SIZE];
 
     offset = area * MINIMAP_SIZE + actualY;
 
@@ -378,7 +377,7 @@ void MinimapDraw(void)
         return;
 
     src = (u16*)gDecompressedMinimapVisitedTiles;
-    dst = (u32*)0x2037e20 + (gUpdateMinimapFlag - 1) * 24; // gMinimapTilesGfx
+    dst = (u32*)gMinimapTilesGfx + (gUpdateMinimapFlag - 1) * 24;
 
     if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
         yOffset = 1;
@@ -617,8 +616,7 @@ void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
     if (area >= MAX_AMOUNT_OF_AREAS)
         return;
 
-    // 0x2033800 = gMinimapTilesWithObtainedItems
-    src = (u32*)(0x2033800 + area * 512 / 4);
+    src = (u32*)(gMinimapTilesWithObtainedItems + area * 512 / 4);
 
     for (i = 0; i < MINIMAP_SIZE; i++, src++)
     {
@@ -718,7 +716,7 @@ void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
         itemY = (yPosition - SCREEN_Y_PADDING) / SCREEN_SIZE_Y_BLOCKS + gCurrentRoomEntry.mapY;
 
         offset = gCurrentArea * MINIMAP_SIZE;
-        ptr = (u32*)(0x2033800) + offset; // gMinimapTilesWithObtainedItems
+        ptr = (u32*)(gMinimapTilesWithObtainedItems) + offset;
         ptr[itemY] |= sExploredMinimapBitFlags[itemX];
 
 
@@ -774,12 +772,12 @@ void MinimapLoadTilesWithObtainedItems(void)
     u32 xOffset;
     u32 yOffset;
 
-    BitFill(3, 0, (void*)0x2033800, sizeof(gMinimapTilesWithObtainedItems), 16);
+    BitFill(3, 0, (void*)gMinimapTilesWithObtainedItems, sizeof(gMinimapTilesWithObtainedItems), 16);
 
     for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
     {
-        pItem = ((struct ItemInfo*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA); // gItemsCollected
-        pTiles = ((u32*)0x2033800 + i * MINIMAP_SIZE); // gMinimapTilesWithObtainedItems
+        pItem = ((struct ItemInfo*)gItemsCollected + i * MAX_AMOUNT_OF_ITEMS_PER_AREA);
+        pTiles = ((u32*)gMinimapTilesWithObtainedItems + i * MINIMAP_SIZE);
 
         for (j = 0; j < MINIMAP_SIZE * 2; j++, pItem++)
         {

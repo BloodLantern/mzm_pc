@@ -445,13 +445,7 @@ void InitAndLoadGenerics(void)
     DMA_SET(3, sCommonSpritesPal, PALRAM_BASE + 0x240, C_32_2_16(DMA_ENABLE, sizeof(sCommonSpritesPal) / 2));
     SamusInit();
 
-    do {
-    } while ((u16)(read16(REG_VCOUNT) - 21) < 140); // read16(REG_VCOUNT) <= SCREEN_SIZE_Y
-
     RoomLoad();
-
-    do {
-    } while ((u16)(read16(REG_VCOUNT) - 21) < 140); // read16(REG_VCOUNT) <= SCREEN_SIZE_Y
 
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE && gGameModeSub3 != 0)
     {
@@ -463,9 +457,6 @@ void InitAndLoadGenerics(void)
     DMA_SET(3, gSamusPalette, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, gSamusPaletteSize / sizeof(u16)));
 
     TransferSamusAndBgGraphics();
-
-    do {
-    } while ((u16)(read16(REG_VCOUNT) - 21) < 140); // read16(REG_VCOUNT) <= SCREEN_SIZE_Y
 
     HudGenericResetHUDData();
     SpriteLoadAllData();

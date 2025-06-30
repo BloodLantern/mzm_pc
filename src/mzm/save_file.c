@@ -1779,7 +1779,7 @@ void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
         gLastDoorUsed = pDemo->lastDoorUsed;
         gUseMotherShipDoors = pDemo->useMotherShipDoors;
 
-        DmaTransfer(3, pDemo->visitedMinimapTiles, (u32*)0x02037400 + gCurrentArea * MINIMAP_SIZE, sizeof(pDemo->visitedMinimapTiles), 16);
+        DmaTransfer(3, pDemo->visitedMinimapTiles, &gVisitedMinimapTiles[gCurrentArea * 32], sizeof(pDemo->visitedMinimapTiles), 16);
         DmaTransfer(3, pDemo->hatchesOpened, gHatchesOpened[gCurrentArea], sizeof(pDemo->hatchesOpened), 16);
     }
     else if (loadSamusData == TRUE)

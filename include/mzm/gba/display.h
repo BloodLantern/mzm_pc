@@ -1,6 +1,11 @@
 #ifndef GBA_DISPLAY_H
 #define GBA_DISPLAY_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "gba/memory.h"
 
 #define REG_DISPCNT (REG_BASE + 0x000)
@@ -151,5 +156,9 @@
 #define REFRESH_RATE (CLOCKRATE / FRAME_DRAW_CYCLES)
 
 #define SAMPLES_PER_SECOND(s) (REFRESH_RATE * (s) + 1.f/2)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GBA_DISPLAY_H */

@@ -1,6 +1,11 @@
 #ifndef IN_GAME_CUTSCENE_CONSTANTS_H
 #define IN_GAME_CUTSCENE_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum InGameCutsceneScene {
     IGC_CLOSE_UP = 4,
     IGC_LONG_BEAM_HINT = 7,
@@ -19,5 +24,9 @@ enum BackgroundFlash {
     BG_FLASH_HEAVY_YELLOW,
     BG_FLASH_QUICK_YELLOW,
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

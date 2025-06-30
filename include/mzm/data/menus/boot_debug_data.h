@@ -1,6 +1,11 @@
 #ifndef BOOT_DEBUG_DATA_H
 #define BOOT_DEBUG_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "macros.h"
 
@@ -69,5 +74,9 @@ extern const struct OamArray sBootDebugOam[6];
 extern const u8 sZeroSaveText[8];
 
 #endif /* DEBUG */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* BOOT_DEBUG_DATA_H */

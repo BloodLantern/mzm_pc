@@ -1,6 +1,11 @@
 #ifndef KRAID_AI_H
 #define KRAID_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum KraidPart {
@@ -24,5 +29,9 @@ void Kraid(void);
 void KraidPart(void);
 void KraidSpike(void);
 void KraidNail(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* KRAID_AI_H */

@@ -1,6 +1,11 @@
 #ifndef SAVE_FILE_STRUCT_H
 #define SAVE_FILE_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "macros.h"
 #include "gba.h"
@@ -248,5 +253,9 @@ extern struct SectionInfo gSectionInfo;
 // Place holder symbols?
 extern u16 gSramDemoInputData[DEMO_MAX_DURATION];
 extern u16 gSramDemoInputDuration[DEMO_MAX_DURATION];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SAVE_FILE_STRUCT_H */

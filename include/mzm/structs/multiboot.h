@@ -1,6 +1,11 @@
 #ifndef MULTIBOOT_STRUCTS_H
 #define MULTIBOOT_STRUCTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #define READ_SIO_MULTI(i) (*(((vu16*)REG_SIO_MULTI) + i))
@@ -78,5 +83,9 @@ struct MultiBootData {
 };
 
 extern u16 gMultiBootRequiredData[MULTIBOOT_MAX_CHILD];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MULTIBOOT_STRUCTS_H */

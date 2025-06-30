@@ -1,6 +1,11 @@
 #ifndef ERASE_SRAM_CONSTANTS_H
 #define ERASE_SRAM_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define ERASE_SRAM_OPTION_CHANGED_FLAG 0x80
 
 enum EraseSramOption {
@@ -35,5 +40,9 @@ enum EraseSramSound {
 
     ERASE_SRAM_SOUND_END
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

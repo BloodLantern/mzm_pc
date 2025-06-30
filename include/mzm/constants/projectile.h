@@ -1,6 +1,11 @@
 #ifndef PROJECTILE_CONSTANTS_H
 #define PROJECTILE_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define PROJ_STATUS_NONE                   0
 #define PROJ_STATUS_EXISTS                 (1 << 0)
 #define PROJ_STATUS_ON_SCREEN              (1 << 1)
@@ -181,5 +186,9 @@ enum ProjectileStage {
 #define CHARGED_WAVE_BEAM_HITBOX_BOTTOM (BLOCK_SIZE + EIGHTH_BLOCK_SIZE)
 #define CHARGED_WAVE_BEAM_HITBOX_LEFT (QUARTER_BLOCK_SIZE + PIXEL_SIZE)
 #define CHARGED_WAVE_BEAM_HITBOX_RIGHT (QUARTER_BLOCK_SIZE + PIXEL_SIZE)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PROJECTILE_CONSTANTS_H */

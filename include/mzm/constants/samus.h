@@ -1,6 +1,11 @@
 #ifndef SAMUS_CONSTANTS_H
 #define SAMUS_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define BBF_NONE        0
 #define BBF_LONG_BEAM   (1 << 0)
 #define BBF_ICE_BEAM    (1 << 1)
@@ -308,5 +313,9 @@ enum SamusHitbox {
 #define SAMUS_HAZARD_DAMAGE_TYPE_NONE 0
 #define SAMUS_HAZARD_DAMAGE_TYPE_LIQUID 1
 #define SAMUS_HAZARD_DAMAGE_TYPE_ROOM 15
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SAMUS_CONSTANTS_H */

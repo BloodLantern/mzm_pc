@@ -1,6 +1,11 @@
 #ifndef PARASITE_DATA_H
 #define PARASITE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -34,5 +39,9 @@ extern const struct FrameData sParasiteOam_Expelled[9];
 extern const struct FrameData sParasiteOam_Dying_Unused[5];
 
 extern const struct FrameData sParasiteOam_Dying[11];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PARASITE_DATA_H */

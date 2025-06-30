@@ -1,6 +1,11 @@
 #ifndef TEXT_POINTERS_DATA_H
 #define TEXT_POINTERS_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "location_text.h"
 
@@ -47,5 +52,9 @@ extern const u16* const sSpanishTextPointers_Description[DESCRIPTION_TEXT_END - 
 extern const u16* const sSpanishTextPointers_Story[3];
 
 #endif // REGION_US_BETA
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TEXT_POINTERS_DATA_H */

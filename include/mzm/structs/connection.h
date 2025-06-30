@@ -1,6 +1,11 @@
 #ifndef CONNECTION_STRUCT_H
 #define CONNECTION_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "macros.h"
 
@@ -131,5 +136,9 @@ extern u8 gNumberOfValidHatchesInRoom;
 extern struct HatchFlashingAnimation gHatchFlashingAnimation;
 
 #define LOCK_DOORS() gDoorUnlockTimer = 1
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CONNECTION_STRUCT_H */

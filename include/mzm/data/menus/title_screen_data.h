@@ -1,6 +1,11 @@
 #ifndef TITLE_SCREEN_DATA_H
 #define TITLE_SCREEN_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 #include "structs/menus/title_screen.h"
@@ -30,5 +35,9 @@ extern const struct MenuOamData sTitleScreenTopSparkleBaseOam;
 extern const struct MenuOamData sTitleScreenBottomSparkleBaseOam;
 
 extern const struct OamArray sTitleScreenOam[TITLE_SCREEN_OAM_ID_END];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TITLE_SCREEN_DATA_H */

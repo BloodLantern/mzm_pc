@@ -1,6 +1,11 @@
 #ifndef BOOT_DEBUG_H
 #define BOOT_DEBUG_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/game_state.h"
 
@@ -36,5 +41,9 @@ void BootDebugSectionSetFilesColor(void);
 void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption);
 void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 palette);
 void BootDebugDrawTextAtAddress(u16* dst, const u8* text, u8 palette);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

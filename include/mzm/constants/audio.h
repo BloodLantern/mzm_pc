@@ -1,6 +1,11 @@
 #ifndef AUDIO_CONSTANTS_H
 #define AUDIO_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum Sound {
     MUSIC_NONE, // 0x0
     MUSIC_BRINSTAR, // 0x1
@@ -870,5 +875,9 @@ enum SoundModeFrequency {
 #define SOUND_ACTION_STEREO_FLAG       (0xF << SOUND_ACTION_STEREO_SHIFT)
 
 #define PCM_DMA_BUF_SIZE 1536
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* AUDIO_CONSTANTS_H */

@@ -1,6 +1,11 @@
 #ifndef ANIMATED_GRAPHICS_CONSTANTS_H
 #define ANIMATED_GRAPHICS_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum BackgroundEffectNum {
     BACKGROUND_EFFECT_NONE,
     BACKGROUND_EFFECT_LIGHTNING,
@@ -104,5 +109,9 @@ enum AnimatedGfxId {
 #define ANIMATED_GFX_TANK_SIZE (ANIMATED_GFX_SIZE * ANIMATED_GFX_TANK_NBR)
 #define ANIMATED_GFX_TANK_VRAM_POS(position) (ANIMATED_GFX_VRAM_BASE + ANIMATED_GFX_SIZE * 16 + ANIMATED_GFX_SIZE / 4 + ANIMATED_GFX_SIZE * (position))
 #define ANIMATED_GFX_TANK_POS(type, frame) (ANIMATED_GFX_SIZE * ANIMATED_GFX_TANK_NBR * (type) + ANIMATED_GFX_SIZE * (frame))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ANIMATED_GRAPHICS_CONSTANTS_H */

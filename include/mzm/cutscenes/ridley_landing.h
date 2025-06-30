@@ -1,6 +1,11 @@
 #ifndef RIDLEY_LANDING_CUTSCENE
 #define RIDLEY_LANDING_CUTSCENE
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 
@@ -27,5 +32,9 @@ u8 RidleyLandingShipInSpace(void);
 u8 RidleyLandingInit(void);
 u8 RidleyLandingSubroutine(void);
 void RidleyLandingProcessOAM(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* RIDLEY_LANDING_CUTSCENE */

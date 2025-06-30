@@ -1,6 +1,11 @@
 #ifndef TANGLE_VINE_DATA_H
 #define TANGLE_VINE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -202,5 +207,9 @@ extern const struct FrameData sTangleVineGerutaPartOam_Geruta[9];
 extern const struct FrameData sTangleVineLarvaRightOam[5];
 
 extern const struct FrameData sTangleVineLarvaLeftOam[5];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TANGLE_VINE_DATA_H */

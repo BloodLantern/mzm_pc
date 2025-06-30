@@ -1,6 +1,11 @@
 #ifndef ZEELA_DATA_H
 #define ZEELA_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -23,5 +28,9 @@ extern const struct FrameData sZeelaOam_FallingOnWall[9];
 extern const struct FrameData sZeelaEyesOam_Idle[2];
 extern const struct FrameData sZeelaEyesOam_Spinning_Unused[5];
 extern const struct FrameData sZeelaEyesOam_Exploding[4];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ZEELA_DATA_H */

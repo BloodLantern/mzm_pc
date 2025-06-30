@@ -1,6 +1,11 @@
 #ifndef RINKA_DATA_H
 #define RINKA_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -14,5 +19,9 @@ extern const struct FrameData sRinkaOrangeOam_Moving[5];
 
 extern const struct FrameData sRinkaGreenOam_Spawning[16];
 extern const struct FrameData sRinkaGreenOam_Moving[5];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* RINKA_DATA_H */

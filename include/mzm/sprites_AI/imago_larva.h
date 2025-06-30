@@ -1,6 +1,11 @@
 #ifndef IMAGO_LARVA_AI_H
 #define IMAGO_LARVA_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/sprite.h"
 
@@ -17,5 +22,9 @@ enum ImagoLarvaPart {
 
 void ImagoLarva(void);
 void ImagoLarvaPart(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* IMAGO_LARVA_AI_H */

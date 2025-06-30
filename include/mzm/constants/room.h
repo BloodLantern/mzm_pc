@@ -1,6 +1,11 @@
 #ifndef ROOM_CONSTANTS_H
 #define ROOM_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define ROOM_SCROLLS_FLAG_NO_SCROLLS 2
 #define ROOM_SCROLLS_FLAG_HAS_SCROLLS 3
 
@@ -41,5 +46,9 @@ enum RoomEffect {
 #define BG_PROP_CLOSE_UP (BG_PROP_LZ77_COMPRESSED | 1)
 #define BG_PROP_DARK_ROOM (BG_PROP_LZ77_COMPRESSED | 5)
 #define BG_PROP_STARTS_FROM_BOTTOM (BG_PROP_LZ77_COMPRESSED | 6)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

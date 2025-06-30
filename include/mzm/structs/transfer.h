@@ -1,6 +1,11 @@
 #ifndef TRANSFER_STRUCTS_H
 #define TRANSFER_STRUCTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 struct TransferStatus {
@@ -39,5 +44,9 @@ extern u8 gTransferGbaId; // unused, 0 = parent, 1-3 = child 1-3 GBA
 
 extern u16 gTransferUpdateResult;
 extern struct TransferManager gTransferManager;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TRANSFER_STRUCTS_H */

@@ -1,6 +1,11 @@
 #ifndef COLOR_FADING_CONSTANTS_H
 #define COLOR_FADING_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define COLOR_DATA_BG_EWRAM ((u16*)(EWRAM_BASE + 0x35000))
 #define COLOR_DATA_OBJ_EWRAM ((u16*)(EWRAM_BASE + 0x35200))
 // todo: Naming
@@ -91,5 +96,9 @@ enum ColorFadingSubroutine {
 
 #define COLOR_FADING_STATUS_ON_BG  (1 << 0)
 #define COLOR_FADING_STATUS_ON_OBJ (1 << 1)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

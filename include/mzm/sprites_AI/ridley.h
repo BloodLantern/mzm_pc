@@ -1,6 +1,11 @@
 #ifndef RIDLEY_AI_H
 #define RIDLEY_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum RidleyPart {
@@ -31,5 +36,9 @@ void Ridley(void);
 void RidleyTail(void);
 void RidleyPart(void);
 void RidleyFireball(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* RIDLEY_AI_H */

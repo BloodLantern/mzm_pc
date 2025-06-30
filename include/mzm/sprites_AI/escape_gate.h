@@ -1,6 +1,11 @@
 #ifndef ESCAPE_GATE_AI_H
 #define ESCAPE_GATE_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #define ESCAPE_GATE_POSE_LOAD_GRAPHICS 0x1
@@ -11,5 +16,9 @@
 #define ESCAPE_GATE_POSE_ESCAPING 0x27
 
 void EscapeGate(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ESCAPE_GATE_AI_H */

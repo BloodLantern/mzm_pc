@@ -1,6 +1,11 @@
 #ifndef STATUE_OPENING_CUTSCENE
 #define STATUE_OPENING_CUTSCENE
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 
@@ -21,5 +26,9 @@ u8 StatueOpeningOpening(void);
 u8 StatueOpeningInit(void);
 u8 StatueOpeningSubroutine(void);
 void StatueOpeningProcessOAM(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* STATUE_OPENING_CUTSCENE */

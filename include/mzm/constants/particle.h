@@ -1,6 +1,11 @@
 #ifndef PARTICLE_CONSTANTS_H
 #define PARTICLE_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum ParticleEffectId {
     PE_SPRITE_SPLASH_WATER_SMALL,
     PE_SPRITE_SPLASH_WATER_BIG,
@@ -76,5 +81,9 @@ enum ParticleEffectId {
 #define PARTICLE_STATUS_LOW_PRIORITY       (1 << 5)
 #define PARTICLE_STATUS_ABSOLUTE_POSITION  (1 << 6)
 #define PARTICLE_STATUS_X_FLIP             (1 << 7)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PARTICLE_CONSTANTS_H */

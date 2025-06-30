@@ -1,6 +1,11 @@
 #ifndef CLIPDATA_CONSTANTS_H
 #define CLIPDATA_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum ClipdataAffectingAction {
     CAA_NONE, 
     CAA_REMOVE_SOLID, 
@@ -491,5 +496,9 @@ enum ClipdataTest {
 
     CLIPDATA_TEST_END = 160
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -1,6 +1,11 @@
 #ifndef BLOCK_DATA_H
 #define BLOCK_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #include "constants/block.h"
@@ -40,5 +45,9 @@ extern const s8 sSubBombChainPositionOffset[4][4];
 extern const u8 sBlockTouchOffsets[4][2];
 
 extern const u16 sMotherBrainGlassBreakingBaseTilemapValues[5];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

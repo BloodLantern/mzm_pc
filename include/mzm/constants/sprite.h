@@ -1,6 +1,11 @@
 #ifndef SPRITE_CONSTANTS_H
 #define SPRITE_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define SPRITE_STATUS_EXISTS             (1 << 0)
 #define SPRITE_STATUS_ONSCREEN           (1 << 1)
 #define SPRITE_STATUS_NOT_DRAWN          (1 << 2)
@@ -420,5 +425,9 @@ enum SamusStandingOnSpriteStatus {
 #define SPRITE_RNG_MAX (16)
 // Computes a probability for the sprite rng value [0;16[
 #define SPRITE_RNG_PROB(prob) ((s32)((prob) * SPRITE_RNG_MAX))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SPRITE_CONSTANTS_H */

@@ -1,6 +1,11 @@
 #ifndef GAME_STATE_CONSTANTS_H
 #define GAME_STATE_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum GameMode {
     GM_SOFT_RESET,
     GM_INTRO,
@@ -69,5 +74,9 @@ enum SubGameMode {
     SUB_GAME_MODE_DYING = 5,
     SUB_GAME_MODE_NO_CLIP,
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GAME_STATE_CONSTANTS_H */

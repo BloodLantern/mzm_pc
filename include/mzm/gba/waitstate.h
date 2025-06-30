@@ -1,6 +1,11 @@
 #ifndef GBA_WAITSTATE_H
 #define GBA_WAITSTATE_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "gba/memory.h"
 
 #define REG_WAITCNT (REG_BASE + 0x204)
@@ -40,5 +45,9 @@
 #define WAIT_PREFETCH (1 << 13)
 
 #define WAIT_GAMEPACK_CGB (1 << 14)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GBA_WAITSTATE_H */

@@ -1,6 +1,11 @@
 #ifndef TITLE_SCREEN_MENU_H
 #define TITLE_SCREEN_MENU_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/menus/title_screen.h"
 
@@ -35,5 +40,9 @@ void TitleScreenDrawString(const u8* pString, u16* dst, u8 palette);
 #ifdef DEBUG
 void TitleScreenDrawDebugText(void);
 #endif // DEBUG
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TITLE_SCREEN_MENU_H */

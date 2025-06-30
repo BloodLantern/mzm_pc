@@ -1,6 +1,11 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 // Functions
@@ -22,5 +27,9 @@ void ConnectionLockHatchesWithTimer(void);
 void ConnectionCheckHatchLockEvents(void);
 void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dstRoomPlusOne);
 void ConnectionCheckPlayCutsceneDuringAreaConnection(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CONNECTION_H */

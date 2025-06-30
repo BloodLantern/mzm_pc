@@ -1,6 +1,11 @@
 #ifndef RIDLEY_SPAWN_CUTSCENE
 #define RIDLEY_SPAWN_CUTSCENE
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 
@@ -20,5 +25,9 @@ u8 RidleySpawnSamusLookingUp(void);
 u8 RidleySpawnInit(void);
 u8 RidleySpawnSubroutine(void);
 void RidleySpawnProcessOAM(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* RIDLEY_SPAWN_CUTSCENE */

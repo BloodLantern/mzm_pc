@@ -1,6 +1,11 @@
 #ifndef ENDING_AND_GALLERY_DATA_H
 #define ENDING_AND_GALLERY_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "constants/ending_and_gallery.h"
 #include "structs/ending_and_gallery.h"
@@ -99,5 +104,9 @@ extern const u32 sCreditsChozoDrawingGfx[4770];
 extern const u32 sCreditsChozoDrawingTileTable[368];
 
 extern const u32 sUnlockedOptionsTileTable[127];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ENDING_AND_GALLERY_DATA_H */

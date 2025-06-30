@@ -1,6 +1,11 @@
 #ifndef GBA_CABLE_LINK_H
 #define GBA_CABLE_LINK_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "gba/memory.h"
 
 #define REG_TM0CNT_L (REG_BASE + 0x100)
@@ -49,5 +54,9 @@
 
 #define TIMER_CONTROL_IRQ_ENABLE (1 << 6)
 #define TIMER_CONTROL_ACTIVE     (1 << 7)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GBA_CABLE_LINK_H */

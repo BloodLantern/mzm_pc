@@ -1,6 +1,11 @@
 #ifndef PARASITE_AI_H
 #define PARASITE_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/sprite.h"
 
@@ -28,5 +33,9 @@
 u32 ParasiteCount(void);
 void ParasiteMultiple(void);
 void Parasite(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PARASITE_AI_H */

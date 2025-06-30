@@ -1,6 +1,11 @@
 #ifndef GAME_OVER_CONSTANTS_H
 #define GAME_OVER_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum GameOverCursorAction {
     SAMUS_CURSOR_ACTION_LOADING,
     SAMUS_CURSOR_ACTION_MOVING,
@@ -21,5 +26,9 @@ enum GameOverOamId {
 
     GAME_OVER_OAM_ID_END
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

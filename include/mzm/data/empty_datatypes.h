@@ -1,6 +1,11 @@
 #ifndef EMPTY_DATATYPES_H
 #define EMPTY_DATATYPES_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "structs/block.h"
 #include "structs/connection.h"
 #include "structs/transparency.h"
@@ -45,5 +50,9 @@ extern const struct BldalphaData sBldalphaData_Empty;
 extern const struct BldyData sBldyData_Empty;
 
 extern const struct DefaultTransparency sDefaultTransparency_Empty;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

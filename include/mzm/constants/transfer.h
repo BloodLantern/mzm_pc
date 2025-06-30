@@ -1,6 +1,11 @@
 #ifndef TRANSFER_CONSTANTS_H
 #define TRANSFER_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define TRANSFER_ERROR_SHIFT 4
 #define TRANSFER_ERROR_NONE                           (0)
 #define TRANSFER_ERROR_VERIFY_TIMEOUT                 (1 << 0)
@@ -30,5 +35,9 @@ enum TransferStage {
     TRANSFER_STAGE_VERIFY_DATA, // Transfer the data and ensure data properly transferred
     TRANSFER_STAGE_TERMINATE_CONNECTION, // Serial finished
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TRANSFER_CONSTANTS_H */

@@ -1,6 +1,11 @@
 #ifndef MELLA_DATA_H
 #define MELLA_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -19,5 +24,9 @@ extern const u16 sMellaPal[16];
 
 extern const struct FrameData sMellaOam_Idle[9];
 extern const struct FrameData sMellowOAM_Moving[9];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MELLA_DATA_H */

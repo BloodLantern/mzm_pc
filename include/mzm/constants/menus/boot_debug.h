@@ -1,6 +1,11 @@
 #ifndef BOOT_DEBUG_CONSTANTS_H
 #define BOOT_DEBUG_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum BootDebugMenuDepth {
     BOOT_DEBUG_MENU_MAIN,
     BOOT_DEBUG_MENU_SUB,
@@ -113,5 +118,9 @@ enum BootDebugColor {
     BOOT_DEBUG_COLOR_AZURE_WHITE_3,
     BOOT_DEBUG_COLOR_BLACK,
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

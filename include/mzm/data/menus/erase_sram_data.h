@@ -1,6 +1,11 @@
 #ifndef ERASE_SRAM_MENU_DATA_H
 #define ERASE_SRAM_MENU_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 #include "constants/menus/erase_sram.h"
@@ -38,5 +43,9 @@ extern const u16 sEraseSramMenuSoundsID[ERASE_SRAM_SOUND_END];
 extern const u16 sEraseSramMenuCursorPosition[2][2];
 extern const u16 sEraseSramMenuCursorPositionOffset[ERASE_SRAM_OPTION_END][2];
 extern const struct OamArray sEraseSramMenuOam[ERASE_SRAM_OAM_ID_END];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ERASE_SRAM_MENU_DATA_H */

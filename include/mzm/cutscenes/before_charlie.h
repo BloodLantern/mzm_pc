@@ -1,6 +1,11 @@
 #ifndef BEFORE_CHARLIE_CUTSCENE
 #define BEFORE_CHARLIE_CUTSCENE
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 #include "macros.h"
@@ -29,5 +34,9 @@ void BeforeCharlieWallAndGreyScrollCloseUp(struct CutsceneGraphicsData* pGraphic
 u8 BeforeCharlieChozoWallSides(void);
 u8 BeforeCharlieInit(void);
 u8 BeforeCharlieSubroutine(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* BEFORE_CHARLIE_CUTSCENE */

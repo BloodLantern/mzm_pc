@@ -1,6 +1,11 @@
 #ifndef IN_GAME_H
 #define IN_GAME_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/samus.h"
 
@@ -13,5 +18,9 @@ void VBlankCodeInGame(void);
 void VBlankInGame_Empty(void);
 void InitAndLoadGenerics(void);
 void UpdateNoClip_Debug(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* IN_GAME_H */

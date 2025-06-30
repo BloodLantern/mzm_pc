@@ -1,6 +1,11 @@
 #ifndef EVENT_CONSTANTS_H
 #define EVENT_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum Event {
     EVENT_NONE,
     EVENT_EASY,
@@ -91,5 +96,9 @@ enum EventAction {
     EVENT_ACTION_TOGGLING,
     EVENT_ACTION_CHECKING
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* EVENT_CONSTANTS_H */

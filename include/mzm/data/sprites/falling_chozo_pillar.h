@@ -1,6 +1,11 @@
 #ifndef FALLING_CHOZO_PILLAR_DATA_H
 #define FALLING_CHOZO_PILLAR_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -10,5 +15,9 @@ extern const u16 sFallingChozoPillarPal[16];
 extern const u16 sFallingChozoPillarOAM_Falling_Frame0[25];
 
 extern const struct FrameData sFallingChozoPillarOAM_Falling[2];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

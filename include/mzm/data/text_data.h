@@ -1,6 +1,11 @@
 #ifndef TEXT_DATA_H
 #define TEXT_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #include "structs/text.h"
@@ -510,5 +515,9 @@ extern const u16 sSpanishText_Story_Exterminate[];
 extern const u16 sSpanishText_Story_Defeat[];
 
 #endif // REGION_US_BETA
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TEXT_DATA_H */

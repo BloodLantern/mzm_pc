@@ -1,6 +1,11 @@
 #ifndef PAUSE_SCREEN_CONSTANTS_H
 #define PAUSE_SCREEN_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum PauseScreenSubroutine {
     PAUSE_SCREEN_SUBROUTINE_MAP_SCREEN,
     PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN,
@@ -313,5 +318,9 @@ enum ChozoStatueHintSubroutineStage {
 
 #define TARGET_MOVEMENT_FLAG  (1 << 0)
 #define TARGET_SCROLLING_FLAG (1 << 1)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

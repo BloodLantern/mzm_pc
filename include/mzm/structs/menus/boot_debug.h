@@ -1,6 +1,11 @@
 #ifndef BOOT_DEBUG_STRUCT_H
 #define BOOT_DEBUG_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/menu.h"
 #include "structs/game_state.h"
@@ -32,5 +37,9 @@ struct BootDebugData {
     struct FileScreenOptionsUnlocked fileScreenOptions;
     struct MenuOamData menuOam[4];
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* BOOT_DEBUG_STRUCT_H */

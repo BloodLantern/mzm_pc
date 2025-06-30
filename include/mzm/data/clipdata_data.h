@@ -1,6 +1,11 @@
 #ifndef CLIPDATA_DATA_H
 #define CLIPDATA_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #include "constants/connection.h"
@@ -16,5 +21,9 @@ extern const u8 sGroundEffectsClipdataValues[8];
 extern const struct ElevatorPair sElevatorRoomPairs[ELEVATOR_ROUTE_COUNT]; 
 extern const u8 sScroll_Empty[11];
 extern const struct CameraScrollVelocityCaps sScrollVelocityCaps[SCROLL_VELOCITY_CAP_END];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CLIPDATA_DATA_H */

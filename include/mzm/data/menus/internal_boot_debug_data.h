@@ -1,6 +1,11 @@
 #ifndef INTERNAL_BOOT_DEBUG_DATA_H
 #define INTERNAL_BOOT_DEBUG_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "constants/cutscene.h"
 
@@ -13,5 +18,9 @@ extern const u8* const sBootDebugDemoStateTextPointers[5];
 extern u8 sBootDebugTextToggleColors[2][2];
 
 #endif /* DEBUG */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* INTERNAL_BOOT_DEBUG_DATA_H */

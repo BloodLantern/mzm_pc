@@ -1,6 +1,11 @@
 #ifndef ENTER_TOURIAN_CUTSCENE
 #define ENTER_TOURIAN_CUTSCENE
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 
@@ -14,5 +19,9 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam);
 u8 EnterTourianInit(void);
 u8 EnterTourianSubroutine(void);
 void EnterTourianProcessOAM(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ENTER_TOURIAN_CUTSCENE */

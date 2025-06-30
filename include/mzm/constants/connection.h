@@ -1,6 +1,11 @@
 #ifndef CONNECTION_CONSTANTS_H
 #define CONNECTION_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum Area {
     AREA_BRINSTAR,
     AREA_KRAID,
@@ -107,5 +112,9 @@ enum ElevatorRoute {
 #define ELEVATOR_DIRECTION_UP -1
 
 #define HATCH_VERTICAL_SIZE 4
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CONNECTION_CONSTANTS_H */

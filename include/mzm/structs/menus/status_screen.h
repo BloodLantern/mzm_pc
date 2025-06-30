@@ -1,6 +1,11 @@
 #ifndef STATUS_SCREEN_MENU_STRUCT_H
 #define STATUS_SCREEN_MENU_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 struct StatusScreenItemData {
@@ -33,5 +38,9 @@ struct PauseDebugEnergyAmmoInfo {
     u8 lastDigit;
 };
 #endif // DEBUG
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* STATUS_SCREEN_MENU_STRUCT_H */

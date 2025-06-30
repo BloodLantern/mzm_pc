@@ -1,6 +1,11 @@
 #ifndef RUINS_TEST_AI_H
 #define RUINS_TEST_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum RuinsTestFightStage {
@@ -24,5 +29,9 @@ void RuinsTestShootableSymbol(void);
 void RuinsTestGhost(void);
 void RuinsTestSamusReflectionEnd(void);
 void RuinsTestLightning(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* RUINS_TEST_AI_H */

@@ -1,6 +1,11 @@
 #ifndef STATUS_SCREEN_CONSTANTS_H
 #define STATUS_SCREEN_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define ITEM_TOGGLE_CHECKING 0
 #define ITEM_TOGGLE_TOGGLING 1
 #define ITEM_TOGGLE_CHECKING2 2
@@ -161,5 +166,9 @@ enum PauseDebugGroup {
     PAUSE_DEBUG_GROUP_END
 };
 #endif // DEBUG
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

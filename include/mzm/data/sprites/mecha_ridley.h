@@ -1,6 +1,11 @@
 #ifndef MECHA_RIDLEY_DATA_H
 #define MECHA_RIDLEY_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -258,5 +263,9 @@ extern const struct FrameData sMechaRidleyPartOam_LeftArmSwingingAtGround[11];
 extern const struct FrameData sMechaRidleyPartOam_LeftArmSwingingAtCloseGround[11];
 
 extern const struct FrameData sMechaRidleyPartOam_EyeDying[3];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MECHA_RIDLEY_DATA_H */

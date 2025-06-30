@@ -1,6 +1,11 @@
 #ifndef SPRITE_DATA_H
 #define SPRITE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "constants/sprite.h"
 
@@ -51,5 +56,9 @@ extern const u16 sPrimarySpriteStats[PSPRITE_END][9];
 extern const u16 sSecondarySpriteStats[SSPRITE_END][9];
 
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

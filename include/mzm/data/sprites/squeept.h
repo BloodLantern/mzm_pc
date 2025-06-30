@@ -1,6 +1,11 @@
 #ifndef SQUEEPT_DATA_H
 #define SQUEEPT_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -14,5 +19,9 @@ extern const struct FrameData sSqueeptOam_TurningAround[6];
 extern const struct FrameData sSqueeptOam_TurningAround_Unused[6];
 extern const struct FrameData sSqueeptOam_GoingDown[3];
 extern const struct FrameData sSqueeptOam_GoingUp[8];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SQUEEPT_DATA_H */

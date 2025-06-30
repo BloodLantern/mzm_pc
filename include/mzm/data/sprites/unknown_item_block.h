@@ -1,6 +1,11 @@
 #ifndef UNKNOWN_ITEM_BLOCK_DATA_H
 #define UNKNOWN_ITEM_BLOCK_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -15,5 +20,9 @@ extern const struct FrameData sUnknownItemBlockOam_Idle[2];
 extern const struct FrameData sUnknownItemBlockOam_Activated[7];
 extern const struct FrameData sUnknownItemBlockOam_Exploding[11];
 extern const struct FrameData sUnknownItemBlockLightOam_Idle[3];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UNKNOWN_ITEM_BLOCK_DATA_H */

@@ -1,6 +1,11 @@
 #ifndef CROCOMIRE_AI_H
 #define CROCOMIRE_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum CrocomirePart {
@@ -16,5 +21,9 @@ enum CrocomirePart {
 
 void Crocomire(void);
 void CrocomirePart(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CROCOMIRE_AI_H */

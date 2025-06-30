@@ -1,6 +1,11 @@
 #ifndef ENDING_AND_GALLERY_CONSTANTS_H
 #define ENDING_AND_GALLERY_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define ENDING_FLAG_NEW_TIME_ATTACK_RECORD  (1 << 0)
 #define ENDING_FLAG_UNKNOWN                 (1 << 4)
 #define ENDING_FLAG_FIRST_TIME_ATTACK_CLEAR (1 << 5)
@@ -53,5 +58,9 @@ enum EndingImage {
 #define ENDING_OAM_TYPE_NONE 0
 #define ENDING_OAM_TYPE_CHAR 1
 #define ENDING_OAM_TYPE_LINE 2
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

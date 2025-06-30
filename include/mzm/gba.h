@@ -1,6 +1,11 @@
 #ifndef GBA_H
 #define GBA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /* This just serves as an easier way to get all the GBA headers */
 
 #include "io.h"
@@ -13,5 +18,9 @@
 #include "gba/memory.h"
 #include "gba/waitstate.h"
 #include "gba/cable_link.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GBA_H */

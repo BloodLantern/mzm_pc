@@ -1,6 +1,11 @@
 #ifndef CUTSCENE_CONSTANTS_H
 #define CUTSCENE_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define CUTSCENE_DATA sNonGameplayRamPointer->cutscene
 
 enum Cutscene {
@@ -46,5 +51,9 @@ enum CutsceneType {
 #define CUTSCENE_SPECIAL_EFFECT_STATUS_SPRITE_ENDED (1 << 1)
 #define CUTSCENE_SPECIAL_EFFECT_STATUS_ON_BG        (1 << 2)
 #define CUTSCENE_SPECIAL_EFFECT_STATUS_BG_ENDED     (1 << 3)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CUTSCENE_CONSTANTS_H */

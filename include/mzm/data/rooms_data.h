@@ -1,6 +1,11 @@
 #ifndef DOORS_DATA_H
 #define DOORS_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "structs/connection.h"
 #include "structs/room.h"
 
@@ -47,5 +52,9 @@ extern const struct RoomEntryROM sTest2RoomEntries[5];
 extern const struct RoomEntryROM sTest3RoomEntries[5];
 
 extern const struct RoomEntryROM sTestRoomEntries[1];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DOORS_DATA_H */

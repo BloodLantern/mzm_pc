@@ -1,6 +1,11 @@
 #ifndef CABLE_LINK_STRUCTS_H
 #define CABLE_LINK_STRUCTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 struct IoTransferInfo {
@@ -28,5 +33,9 @@ extern u32 gDataSentSize;
 extern u32 gMultibootErrorFlags;  // set but never read
 extern u8 gMultibootInProgress;   // set but never read
 extern u32 gMultibootUnk_3005880; // read but never set (always 0)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CABLE_LINK_STRUCTS_H */

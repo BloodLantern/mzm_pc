@@ -1,6 +1,11 @@
 #ifndef SPRITE_UTIL_CONSTANTS_H
 #define SPRITE_UTIL_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define NSLR_OUT_OF_RANGE 0x0
 #define NSLR_LEFT 0x4
 #define NSLR_RIGHT 0x8
@@ -41,5 +46,9 @@ enum SplashSize {
 #define SPRITE_COLLISION_FLAG_ON_BOTTOM (1 << 1)
 #define SPRITE_COLLISION_FLAG_ON_LEFT   (1 << 2)
 #define SPRITE_COLLISION_FLAG_ON_RIGHT  (1 << 3)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

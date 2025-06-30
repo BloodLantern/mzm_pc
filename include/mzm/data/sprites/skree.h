@@ -1,6 +1,11 @@
 #ifndef SKREE_DATA_H
 #define SKREE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -22,5 +27,9 @@ extern const struct FrameData sSkreeOam_CrashingUnused4[5];
 
 extern const struct FrameData sSkreeExplosionOAM_GoingDown[4];
 extern const struct FrameData sSkreeExplosionOAM_GoingUp[4];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SKREE_DATA_H */

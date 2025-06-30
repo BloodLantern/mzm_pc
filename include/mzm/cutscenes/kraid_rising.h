@@ -1,6 +1,11 @@
 #ifndef KRAID_RISING_CUTSCENE
 #define KRAID_RISING_CUTSCENE
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "gba.h"
 #include "structs/cutscene.h"
@@ -35,5 +40,9 @@ u8 KraidRisingOpeningEyes(void);
 u8 KraidRisingInit(void);
 u8 KraidRisingSubroutine(void);
 void KraidRisingProcessOam(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* KRAID_RISING_CUTSCENE */

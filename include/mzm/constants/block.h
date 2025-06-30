@@ -1,6 +1,11 @@
 #ifndef BLOCK_CONSTANTS_H
 #define BLOCK_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum BlockType {
     BLOCK_TYPE_NONE,
     BLOCK_TYPE_SHOT_BLOCK_REFORM,
@@ -85,5 +90,9 @@ enum SubBombChainRequest {
 
     SUB_BOMB_CHAIN_REQUEST_END
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

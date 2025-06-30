@@ -1,6 +1,11 @@
 #ifndef UNKNOWN_ITEM_CHOZO_STATUE_AI_H
 #define UNKNOWN_ITEM_CHOZO_STATUE_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum UnknownItemChozoStatuePart {
@@ -18,5 +23,9 @@ void UnknownItemChozoStatuePart(void);
 void UnknownItemChozoStatueRefill(void);
 void ChozoStatueStandingChangeClipdata(u8 bodyCaa, u8 handCaa);
 void ChozoStatueSeatedChangeClipdata(u8 caa);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UNKNOWN_ITEM_CHOZO_STATUE_AI_H */

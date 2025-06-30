@@ -1,6 +1,11 @@
 #ifndef SRAM_MISC
 #define SRAM_MISC
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum SramOperation {
@@ -23,5 +28,9 @@ enum SramOperation {
 void EraseSram(void);
 u8* DoSramOperation(u8 operation);
 u32 unk_fbc(u8 param_1);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SRAM_MISC */

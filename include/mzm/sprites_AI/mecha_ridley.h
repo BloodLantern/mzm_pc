@@ -1,6 +1,11 @@
 #ifndef MECHA_RIDLEY_AI_H
 #define MECHA_RIDLEY_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum MechaRidleyPart {
@@ -24,5 +29,9 @@ void MechaRidleyPart(void);
 void MechaRidleyLaser(void);
 void MechaRidleyMissile(void);
 void MechaRidleyFireball(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MECHA_RIDLEY_AI_H */

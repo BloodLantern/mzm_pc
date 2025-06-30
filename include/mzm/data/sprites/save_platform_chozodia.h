@@ -1,6 +1,11 @@
 #ifndef SAVE_PLATFORM_CHOZODIA_DATA_H
 #define SAVE_PLATFORM_CHOZODIA_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -26,5 +31,9 @@ extern const struct FrameData sSavePlatformChozodiaPartOam_Tube_Unused[5];
 extern const struct FrameData sSavePlatformChozodiaPartOam_TubeDespawning[17];
 extern const struct FrameData sSavePlatformChozodiaPartOam_Ray[9];
 extern const struct FrameData sSavePlatformChozodiaPartOam_RefillLight[9];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SAVE_PLATFORM_CHOZODIA_DATA_H */

@@ -1,6 +1,11 @@
 #ifndef FILE_SELECT_MENU_DATA_H
 #define FILE_SELECT_MENU_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "constants/menus/file_select.h"
 #include "constants/text.h"
@@ -43,5 +48,9 @@ extern const struct Message sFileScreenMessage_Empty;
 
 extern const u8 sNesMetroidDataCheck[18];
 extern const u16 sTimeAttackButtonCode[5];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* FILE_SELECT_MENU_DATA_H */

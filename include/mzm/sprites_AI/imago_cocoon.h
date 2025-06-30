@@ -1,6 +1,11 @@
 #ifndef IMAGO_COCOON_AI_H
 #define IMAGO_COCOON_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum ImagoCocoonPart {
@@ -26,5 +31,9 @@ void DefeatedImagoCocoon(void);
 void ImagoCocoonCeilingVine(void);
 void EventTriggerDiscoveredImagoPassage(void);
 void ImagoCocoonAfterFight(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* IMAGO_COCOON_AI_H */

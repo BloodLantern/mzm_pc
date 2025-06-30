@@ -1,6 +1,11 @@
 #ifndef GBA_AUDIO_H
 #define GBA_AUDIO_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "gba/memory.h"
 
 #define REG_SOUND1CNT_L (REG_BASE + 0x60)
@@ -37,5 +42,9 @@
 
 #define SOUNDCNT_ENVELOPE_INCREASE (1 << 11)
 #define SOUNDCNT_RESTART_SOUND (1 << 15)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GBA_AUDIO_H */

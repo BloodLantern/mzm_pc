@@ -1,6 +1,11 @@
 #ifndef GUNSHIP_DATA_DATA_H
 #define GUNSHIP_DATA_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -119,5 +124,9 @@ extern const struct FrameData sGunshipOam_Flying[7];
 extern const struct FrameData sGunshipPartOam_FlamesHorizontal[4];
 
 extern const struct FrameData sGunshipPartOam_FlamesVertical[4];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

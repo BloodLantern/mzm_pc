@@ -1,6 +1,11 @@
 #ifndef CABLE_LINK_CONSTANTS_H
 #define CABLE_LINK_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum ActiveTransfer {
     ACTIVE_TRANSFER_NONE,
     ACTIVE_TRANSFER_CONNECT,
@@ -31,5 +36,9 @@ enum TransferResult {
     TRANSFER_RESULT_FAILURE,
     TRANSFER_RESULT_SUCCESS2 // Related to number of received images
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -1,6 +1,11 @@
 #ifndef LOCATION_TEXT_H
 #define LOCATION_TEXT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 // Globals
@@ -53,5 +58,9 @@ u8 LocationTextGetChozodia(void);
 u8 LocationTextGetTourian(void);
 u8 LocationTextLoadAreaBannerGfx(void);
 u8 LocationTextGetGfxSlot(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* LOCATION_TEXT_H */

@@ -1,6 +1,11 @@
 #ifndef SAVE_PLATFORM_DATA_H
 #define SAVE_PLATFORM_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -25,5 +30,9 @@ extern const struct FrameData sSavePlatformPartOam_TubeIdle[3];
 extern const struct FrameData sSavePlatformPartOam_Tube_Unused[5];
 extern const struct FrameData sSavePlatformPartOam_TubeDespawning[17];
 extern const struct FrameData sSavePlatformPartOam_Ray[9];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* #define SAVE_PLATFORM_DATA_H */

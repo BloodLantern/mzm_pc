@@ -1,6 +1,11 @@
 #ifndef REO_DATA_H
 #define REO_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -20,5 +25,9 @@ extern const struct FrameData sReoOam_Moving[13];
 extern const struct FrameData sReoOam_Unused2[21];
 extern const struct FrameData sReoOam_Unused3[9];
 extern const struct FrameData sReoOam_Moving_Unused[5];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* REO_DATA_H */

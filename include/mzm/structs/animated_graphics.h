@@ -1,6 +1,11 @@
 #ifndef ANIMATED_GRAPHICS_STRUCT_H
 #define ANIMATED_GRAPHICS_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 struct BackgroundEffect {
@@ -72,5 +77,9 @@ extern struct AnimatedPaletteTiming gAnimatedPaletteTiming;
 extern s8 gDisableAnimatedPalette;
 extern u8 gDisableAnimatedGraphicsTimer;
 extern u16 gAnimatedGraphicsToUpdate;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ANIMATED_GRAPHICS_STRUCT_H */

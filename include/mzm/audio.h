@@ -1,6 +1,11 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/audio.h"
 
@@ -43,5 +48,9 @@ void AudioCommand_EndOfTie(struct TrackVariables* pVariables);
 void Music_EmptyCommand(struct TrackVariables* pVariables);
 void ClearRegistersForPsg(struct PSGSoundData* pSound, u8 channel);
 void ClearRegistersForPsg_Unused(struct PSGSoundData* pSound, u8 channel);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* AUDIO_H */

@@ -1,6 +1,11 @@
 #ifndef KRAID_DATA_H
 #define KRAID_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -145,5 +150,9 @@ extern const struct FrameData sKraidOam_2cb29c[2];
 extern const struct FrameData sKraidOam_2cb2ac[2];
 
 extern const struct FrameData sKraidSpikeOam[9];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* KRAID_DATA_H */

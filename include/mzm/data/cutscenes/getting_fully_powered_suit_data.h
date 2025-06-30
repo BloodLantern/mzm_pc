@@ -1,6 +1,11 @@
 #ifndef GETTING_FULLY_POWERED_SUIT_DATA_H
 #define GETTING_FULLY_POWERED_SUIT_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "structs/cutscene.h"
 #include "cutscenes/getting_fully_powered_suit.h"
 
@@ -25,5 +30,9 @@ extern const u32 sGettingFullyPoweredSuitSamusTileTable[387];
 extern const u8 sGettingFullyPoweredSuitBackgroundGfx[13872];
 extern const u32 sGettingFullyPoweredSuitBackgroundTileTable[734];
 extern const u16 sGettingFullyPoweredSuitRingPal[7 * 16];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GETTING_FULLY_POWERED_SUIT_DATA_H */

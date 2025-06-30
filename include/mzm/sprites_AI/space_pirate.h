@@ -1,6 +1,11 @@
 #ifndef SPACE_PIRATE_AI_H
 #define SPACE_PIRATE_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #define SPACE_PIRATE_POSE_WALKING_INIT 0x8
@@ -154,5 +159,9 @@ void SpacePirateLaserCheckExplodingAnimEnded(void);
 void SpacePirateLaserMove(void);
 void SpacePirate(void);
 void SpacePirateLaser(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SPACE_PIRATE_AI_H */

@@ -1,6 +1,11 @@
 #ifndef IO_H
 #define IO_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #define write64(addr, val) (*(vu64 *)(addr)) = (val)
@@ -12,5 +17,9 @@
 #define read32(addr) (*(vu32 *)(addr))
 #define read16(addr) (*(vu16 *)(addr))
 #define read8(addr) (*(vu8 *)(addr))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* IO_H */

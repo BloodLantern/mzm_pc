@@ -1,6 +1,11 @@
 #ifndef TITLE_SCREEN_CONSTANTS_H
 #define TITLE_SCREEN_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define TITLE_SCREEN_TYPE_FIRST_COMET_ACTIVE    (1 << 0)
 #define TITLE_SCREEN_TYPE_FIRST_COMET_ENDED     (1 << 1)
 #define TITLE_SCREEN_TYPE_SECOND_COMET_ACTIVE   (1 << 2)
@@ -38,5 +43,9 @@ enum TitleScreenCopyrightSymbol {
     TITLE_SCREEN_COPYRIGHT_SYMBOL_REGISTERED_TRADEMARK, // ®️
     TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK // ™️
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

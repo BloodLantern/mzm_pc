@@ -1,6 +1,11 @@
 #ifndef RIDLEY_DATA_H
 #define RIDLEY_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -104,5 +109,9 @@ extern const struct FrameData sRidleyOam_Square[2];
 
 extern const struct FrameData sRidleyFireballOam_Small[2];
 extern const struct FrameData sRidleyFireballOam_Big[2];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* RIDLEY_DATA_H */

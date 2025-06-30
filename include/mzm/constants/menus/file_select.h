@@ -1,6 +1,11 @@
 #ifndef FILE_SELECT_CONSTANTS_H
 #define FILE_SELECT_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define FILE_SELECT_TILE_TWO_DOTS_HIGH 0x1CA
 #define FILE_SELECT_TILE_TWO_DOTS_LOW 0x1EA
 #define FILE_SELECT_TILE_MINUS_HIGH 0x1CB
@@ -320,5 +325,9 @@ enum MenuSoundRequest {
 #define MENU_FLAG_COPY    (1 << 3)
 #define MENU_FLAG_ERASE   (1 << 4)
 #define MENU_FLAG_OPTIONS (1 << 5)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* FILE_SELECT_CONSTANTS_H */

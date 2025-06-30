@@ -1,6 +1,11 @@
 #ifndef ANIMATED_GFX_DATA_H
 #define ANIMATED_GFX_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "structs/animated_graphics.h"
 #include "constants/animated_graphics.h"
 
@@ -18,5 +23,9 @@ extern const u16 sBackgroundEffectBehavior_HeavyYellow[20][BACKGROUND_EFFECT_BEH
 extern const u16 sBackgroundEffectBehavior_ExitZebes[30][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END];
 extern const u16 sBackgroundEffectBehavior_IntroText[30][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END];
 extern const u16 sBackgroundEffectBehavior_AllBlackWhite[39][BACKGROUND_EFFECT_BEHAVIOR_FIELD_END];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ANIMATED_GFX_DATA_H */

@@ -1,6 +1,11 @@
 #ifndef AUDIO_DATA_H
 #define AUDIO_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "constants/audio.h"
 #include "structs/audio.h"
 
@@ -25,5 +30,9 @@ extern const MusicFunc_T sMusicCommandFunctionPointers[30];
 extern const struct TrackGroupROMData sMusicTrackDataRom[9];
 
 extern const struct SoundEntry sSoundDataEntries[SOUND_END];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* AUDIO_DATA_H */

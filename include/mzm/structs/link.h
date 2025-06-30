@@ -1,6 +1,11 @@
 #ifndef LINK_STRUCTS_H
 #define LINK_STRUCTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #define MAX_LINK_PLAYERS 2
@@ -143,5 +148,9 @@ extern u16 gRecvNonzeroCheck;
 extern u8 gLastSendQueueCount;
 extern u8 gLastRecvQueueCount;
 extern struct LinkInfo gLink;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* LINK_STRUCTS_H */

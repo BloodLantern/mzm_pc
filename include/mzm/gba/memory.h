@@ -1,6 +1,11 @@
 #ifndef GBA_MEMORY_H
 #define GBA_MEMORY_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #define EWRAM_BASE (void *)0x02000000
 #define EWRAM_SIZE (256 * 0x400)
 
@@ -31,5 +36,9 @@
 
 #define SRAM_BASE (void *)0x0e000000
 #define SRAM_SIZE (32 * 0x400)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GBA_MEMORY_H */

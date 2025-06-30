@@ -1,6 +1,11 @@
 #ifndef STATUS_SCREEN_MENU_DATA_H
 #define STATUS_SCREEN_MENU_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "constants/menus/status_screen.h"
 #include "constants/game_state.h"
@@ -120,5 +125,9 @@ extern const struct StatusScreenItemAcquisitionData sStatusScreenItemsAcquisitio
 extern const u8 sStatusScreenUnknownItemsPartialFlash[8];
 extern const u8 sStatusScreenUnknownItemsFullFlash[6];
 extern const u8 sStatusScreenUnknownItemsNamesFlash[4];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* STATUS_SCREEN_MENU_DATA_H */

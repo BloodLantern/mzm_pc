@@ -1,6 +1,11 @@
 #ifndef UNKNOWN_ITEM_CHOZO_STATUE_DATA_H
 #define UNKNOWN_ITEM_CHOZO_STATUE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -75,5 +80,9 @@ extern const u16 sChozoStatueGravitySuitPal[80];
 
 extern const u32 sChozoStatuePlasmaBeamGfx[1356];
 extern const u16 sChozoStatuePlasmaBeamPal[80];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UNKNOWN_ITEM_CHOZO_STATUE_DATA_H */

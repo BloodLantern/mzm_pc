@@ -1,6 +1,11 @@
 #ifndef IO_TRANSFER_DATA_H
 #define IO_TRANSFER_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cable_link.h"
 
@@ -45,5 +50,9 @@ extern const u8 sErrorString_SendOverflow[20];
 extern const u8 sErrorString_ReceiveOverflow[20];
 extern const u8 sErrorString_SioInternal[20];
 extern const u8 sErrorString_SioStop[20];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* IO_TRANSFER_DATA_H */

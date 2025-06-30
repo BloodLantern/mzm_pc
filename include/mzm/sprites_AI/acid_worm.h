@@ -1,6 +1,11 @@
 #ifndef ACID_WORM_AI_H
 #define ACID_WORM_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #define ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE 0x1
@@ -23,5 +28,9 @@
 void AcidWorm(void);
 void AcidWormPart(void);
 void AcidWormSpit(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ACID_WORM_AI_H */

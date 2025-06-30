@@ -1,6 +1,11 @@
 #ifndef ZIPLINE_GENERATOR_DATA_H
 #define ZIPLINE_GENERATOR_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -16,5 +21,9 @@ extern const struct FrameData sZiplineGeneratorOam_Activated[7];
 extern const struct FrameData sZiplineGeneratorPartOam_MorphSymbolActivating[7];
 extern const struct FrameData sZiplineGeneratorPartOam_MorphSymbolActivated[9];
 extern const struct FrameData sZiplineGeneratorPartOam_ElectricityActivating[12];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ZIPLINE_GENERATOR_DATA_H */

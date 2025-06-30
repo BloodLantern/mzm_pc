@@ -1,6 +1,11 @@
 #ifndef IMAGO_AI_H
 #define IMAGO_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum ImagoPart {
@@ -20,5 +25,9 @@ void ImagoPart(void);
 void ImagoNeedle(void);
 void ImagoDamagedStinger(void);
 void ImagoEgg(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* IMAGO_AI_H */

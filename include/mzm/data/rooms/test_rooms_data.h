@@ -1,6 +1,11 @@
 #ifndef TEST_ROOMS_DATA_H
 #define TEST_ROOMS_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/room.h"
 
@@ -41,5 +46,9 @@ extern const u8 sTest3_0_SpriteData[7 * 3];
 extern const u8 sTest3_1_SpriteData[1 * 3];
 extern const u8 sTest3_2_SpriteData[1 * 3];
 extern const u8 sTest3_3_SpriteData[3 * 3];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TEST_ROOMS_DATA_H */

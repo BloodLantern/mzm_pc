@@ -1,6 +1,11 @@
 #ifndef SIDEHOPPER_DATA_H
 #define SIDEHOPPER_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -16,5 +21,9 @@ extern const struct FrameData sSidehopperOam_ShakingHead[9];
 extern const struct FrameData sSidehopperOam_JumpWarning[6];
 extern const struct FrameData sSidehopperOam_Jumping[4];
 extern const struct FrameData sSidehopperOam_Landing[7];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SIDEHOPPER_DATA_H */

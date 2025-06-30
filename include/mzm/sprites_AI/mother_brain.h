@@ -1,6 +1,11 @@
 #ifndef MOTHER_BRAIN_AI_H
 #define MOTHER_BRAIN_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 // Mother brain part
@@ -19,5 +24,9 @@ void MotherBrainPart(void);
 void MotherBrainBeam(void);
 void MotherBrainBlock(void);
 void MotherBrainGlassBreaking(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MOTHER_BRAIN_AI_H */

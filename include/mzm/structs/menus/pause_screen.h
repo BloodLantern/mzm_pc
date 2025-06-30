@@ -1,6 +1,11 @@
 #ifndef MAP_SCREEN_MENU_STRUCT_H
 #define MAP_SCREEN_MENU_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "constants/menus/status_screen.h"
 #include "structs/menu.h"
@@ -299,5 +304,9 @@ struct PauseScreenData {
     struct MenuOamData borderArrowsOam[4];
     struct MenuOamData worldMapOam[24];
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MAP_SCREEN_MENU_STRUCT_H */

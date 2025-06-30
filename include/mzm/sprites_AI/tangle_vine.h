@@ -1,6 +1,11 @@
 #ifndef TANGLE_VINE_AI_H
 #define TANGLE_VINE_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 enum TangleVineGerutaPart {
     TANGLE_VINE_GERUTA_PART_GRIP,
     TANGLE_VINE_GERUTA_PART_GERUTA,
@@ -19,5 +24,9 @@ void TangleVineTall(void);
 void TangleVineMedium(void);
 void TangleVineCurved(void);
 void TangleVineShort(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TANGLE_VINE_AI_H */

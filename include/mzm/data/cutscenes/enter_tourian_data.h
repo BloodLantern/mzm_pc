@@ -1,6 +1,11 @@
 #ifndef ENTER_TOURIAN_DATA_H
 #define ENTER_TOURIAN_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "structs/cutscene.h"
 
 extern const struct CutscenePageData sEnterTourianPageData[2];
@@ -19,5 +24,9 @@ extern const u32 sEnterTourianDeadSpacePirateGfx_2[77];
 extern const u32 sEnterTourianDeadSpacePirateGfx_3[32];
 extern const u32 sEnterTourianBackgroundTileTable[385];
 extern const u32 sEnterTourianForegroundTileTable[385];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ENTER_TOURIAN_DATA_H */

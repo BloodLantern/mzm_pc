@@ -1,6 +1,11 @@
 #ifndef CUTSCENE_STRUCT_H
 #define CUTSCENE_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -199,5 +204,9 @@ extern s8 gCurrentCutscene;
 
 extern s8 gOamXOffset_NonGameplay;
 extern s8 gOamYOffset_NonGameplay;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

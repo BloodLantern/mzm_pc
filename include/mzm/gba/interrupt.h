@@ -1,6 +1,11 @@
 #ifndef GBA_INTERRUPT_H
 #define GBA_INTERRUPT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "gba/memory.h"
 
 #define REG_IME (REG_BASE + 0x208)
@@ -22,5 +27,9 @@
 #define IF_DMA3    (1 << 11)
 #define IF_KEYPAD  (1 << 12)
 #define IF_GAMEPAK (1 << 13)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GBA_INTERRUPT_H */

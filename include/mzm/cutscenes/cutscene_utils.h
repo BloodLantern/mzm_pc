@@ -1,6 +1,11 @@
 #ifndef CUTSCENE_UTILS_H
 #define CUTSCENE_UTILS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/cutscene.h"
 
@@ -37,5 +42,9 @@ u8 CutsceneUpdateFading(void);
 #ifdef DEBUG
 void CutsceneCheckSkipStage(u8 fade);
 #endif // DEBUG
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // CUTSCENE_UTILS_H

@@ -1,6 +1,11 @@
 #ifndef GAME_STATE_STRUCT_H
 #define GAME_STATE_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "input.h"
 
@@ -63,5 +68,9 @@ extern s16 gDebugVCount_InGameStart;
 extern u16 gDebugVCount_InGameEnd;
 extern s16 gDebugVCount_VBlankEnd;
 extern s16 gDebugVCount_AudioMax;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

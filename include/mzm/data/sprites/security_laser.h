@@ -1,6 +1,11 @@
 #ifndef SECURITY_LASER_DATA_H
 #define SECURITY_LASER_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -36,5 +41,9 @@ extern const struct FrameData sSecurityLaserOam_HorizontalSmallDisappearing_Unus
 extern const struct FrameData sSecurityLaserOam_HorizontalMediumDisappearing_Unused[7];
 extern const struct FrameData sSecurityLaserOam_HorizontalLargeDisappearing_Unused[7];
 extern const struct FrameData sSecurityLaserOam_HorizontalVeryLargeDisappearing_Unused[7];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SECURITY_LASER_DATA_H */

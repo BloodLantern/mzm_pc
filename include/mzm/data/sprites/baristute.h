@@ -1,6 +1,11 @@
 #ifndef BARISTUTE_DATA_H
 #define BARISTUTE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -26,5 +31,9 @@ extern const struct FrameData sBaristuteOam_WalkingFast[7];
 extern const struct FrameData sBaristuteOam_WalkingVeryFast[7];
 
 extern const struct FrameData sBaristuteOam_WalkingExtremelyFast[7];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* BARISTUTE_DATA_H */

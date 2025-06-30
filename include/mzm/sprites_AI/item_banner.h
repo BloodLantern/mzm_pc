@@ -1,6 +1,11 @@
 #ifndef ITEM_BANNER_AI_H
 #define ITEM_BANNER_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 // Item banner
@@ -13,5 +18,9 @@
 
 void ItemBanner(void);
 void SaveYesNoCursor(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ITEM_BANNER_AI_H* */

@@ -1,6 +1,11 @@
 #ifndef PARTICLE_DATA_H
 #define PARTICLE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -529,5 +534,9 @@ extern const struct FrameData sSpriteDebrisOAM[5];
 extern const struct FrameData sSpriteDebrisOAM_Unused[7];
 
 // 833bd34
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

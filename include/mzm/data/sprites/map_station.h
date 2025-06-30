@@ -1,6 +1,11 @@
 #ifndef MAP_STATION_DATA_H
 #define MAP_STATION_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -28,5 +33,9 @@ extern const struct FrameData sMapStationPartOam_FrontScreenIdle[7];
 extern const struct FrameData sMapStationPartOam_FrontScreenDownloading[7];
 
 extern const struct FrameData sMapStationPartOam_FrontScreenDownloaded[6];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MAP_STATION_DATA_H */

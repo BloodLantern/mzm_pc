@@ -1,6 +1,11 @@
 #ifndef METROID_DATA_H
 #define METROID_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 #include "macros.h"
@@ -19,5 +24,9 @@ extern const struct FrameData sMetroidShellOam_Idle[3];
 extern const struct FrameData sMetroidOam_Moving[17];
 extern const struct FrameData sMetroidOam_SamusGrabbed[15];
 extern const struct FrameData sMetroidOam_Spawning[3];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* METROID_DATA_H */

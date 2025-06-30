@@ -1,6 +1,11 @@
 #ifndef INTERNAL_FILE_SELECT_MENU_DATA_H
 #define INTERNAL_FILE_SELECT_MENU_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 #include "constants/menus/file_select.h"
@@ -29,5 +34,9 @@ extern const u8 sFileSelectBlankPassword[20];
 extern const u8 sFileSelectBlank100Password[20];
 #endif // REGION_US_BETA
 extern const u16 sMenuSounds[MENU_SOUND_REQUEST_END];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* INTERNAL_FILE_SELECT_MENU_DATA_H */

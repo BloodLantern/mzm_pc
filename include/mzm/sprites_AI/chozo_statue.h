@@ -1,6 +1,11 @@
 #ifndef CHOZO_STATUE_AI_H
 #define CHOZO_STATUE_AI_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 
 enum ChozoStatueBehavior {
@@ -66,5 +71,9 @@ void ChozoStatue(void);
 void ChozoStatuePart(void);
 void ChozoStatueRefill(void);
 #endif /* CHOZO_STATUE_IGNORE_FUNCTIONS */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* CHOZO_STATUE_AI_H */

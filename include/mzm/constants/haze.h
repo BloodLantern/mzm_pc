@@ -1,6 +1,11 @@
 #ifndef HAZE_CONSTANTS_H
 #define HAZE_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 // Flags unused?
 #define HAZE_FLAG_ENABLED_FLAG 0x1
 #define HAZE_FLAG_NO_ACTIVE_FLAG 0x7F
@@ -19,5 +24,9 @@ enum HazeValue {
     HAZE_VALUE_AFTER_POWER_BOMB,
     HAZE_VALUE_COLD,
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

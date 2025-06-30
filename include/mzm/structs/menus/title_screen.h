@@ -1,6 +1,11 @@
 #ifndef TITLE_SCREEN_STRUCT_H
 #define TITLE_SCREEN_STRUCT_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "structs/menu.h"
 
@@ -50,5 +55,9 @@ struct TitleScreenData {
     struct TitleScreenOamTiming oamTimings[3];
     struct MenuOamData oam[7];
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TITLE_SCREEN_STRUCT_H */

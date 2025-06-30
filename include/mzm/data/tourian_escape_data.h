@@ -1,6 +1,11 @@
 #ifndef TOURIAN_ESCAPE_DATA_H
 #define TOURIAN_ESCAPE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 #include "macros.h"
@@ -204,5 +209,9 @@ extern const u32 sTourianEscapeSamusLookingAtMotherShipGfx[2153];
 extern const u32 sTourianEscapeSamusLookingAtMotherShipTileTable[577];
 extern const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipGfx[3112];
 extern const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipTileTable[577];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TOURIAN_ESCAPE_DATA_H */

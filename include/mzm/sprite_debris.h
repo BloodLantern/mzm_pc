@@ -1,6 +1,11 @@
 #ifndef SPRITE_DEBRIS_H
 #define SPRITE_DEBRIS_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -27,5 +32,9 @@ void SpriteDebrisProcessAll(void);
 void SpriteDebrisDraw(struct SpriteDebris* pDebris);
 void SpriteDebrisDrawAll(void);
 void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SPRITE_DEBRIS_H */

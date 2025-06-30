@@ -1,6 +1,11 @@
 #ifndef VISUAL_EFFECTS_DATA_H
 #define VISUAL_EFFECTS_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "macros.h"
 #include "oam.h"
@@ -34,5 +39,9 @@ extern const struct FrameData sParticleSpriteSplashAcidSmallOam[7];
 
 extern const u8 sEscapeTimerDigitsGfx[1024 * 2];
 extern const u16 sParticleEscapeOam_Frame0[OAM_DATA_SIZE(8)];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* VISUAL_EFFECTS_DATA_H */

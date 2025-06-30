@@ -1,6 +1,11 @@
 #ifndef HOLTZ_DATA_H
 #define HOLTZ_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "macros.h"
 #include "oam.h"
@@ -57,5 +62,9 @@ extern const struct FrameData sHoltzOam_IdleAware[4];
 extern const struct FrameData sHoltzOam_GoingUp[8];
 
 extern const struct FrameData sHoltzOam_BonkingOnCeiling[10];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -1,6 +1,11 @@
 #ifndef POLYP_DATA_H
 #define POLYP_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -24,5 +29,9 @@ extern const struct FrameData sPolypProjectileOam_Right[5];
 extern const struct FrameData sPolypProjectileOam_Left[5];
 
 extern const struct FrameData sPolypProjectileOam_Exploding[5];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* POLYP_DATA_H */

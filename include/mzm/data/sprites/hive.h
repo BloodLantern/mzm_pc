@@ -1,6 +1,11 @@
 #ifndef HIVE_DATA_H
 #define HIVE_DATA_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "types.h"
 #include "oam.h"
 
@@ -76,5 +81,9 @@ extern const struct FrameData sHiveOam_Phase2[12];
 extern const struct FrameData sHiveOam_Phase3[13];
 
 extern const struct FrameData sHiveOam_Dying[32];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

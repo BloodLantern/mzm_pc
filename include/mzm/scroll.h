@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/scroll.h"
+#include "mzm/types.h"
+#include "mzm/structs/scroll.h"
 
 void ScrollProcess(struct Coordinates* pCoords);
 void ScrollScreen(u16 screenX, u16 screenY);

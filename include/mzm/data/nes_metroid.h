@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 typedef void (*NesEmuFunc_T)(void*);
 
@@ -20,4 +20,3 @@ extern const u8 sNesMetroidData[];
 #endif
 
 #endif /* NES_METROID_DATA_H */
-

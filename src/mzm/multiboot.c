@@ -1,9 +1,11 @@
-#include "types.h"
-#include "macros.h"
-#include "gba.h"
-#include "multiboot.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
+#include "mzm/multiboot.h"
 
-#include "structs/multiboot.h"
+#include "mzm/structs/multiboot.h"
+
+#include "mzm_include.h"
 
 static u32 MultiBootSend(struct MultiBootData* pMultiBoot, u16 data);
 static u32 MultiBootHandshake(struct MultiBootData* pMultiBoot);
@@ -11,7 +13,7 @@ static void MultiBootWaitSendDone(void);
 
 /**
  * @brief 89164 | 3c | Initialize multiboot data and set serial communication to multiplayer
- * 
+ *
  * @param pMultiBoot Multi boot param pointer
  */
 void MultiBootInit(struct MultiBootData* pMultiBoot)
@@ -30,7 +32,7 @@ void MultiBootInit(struct MultiBootData* pMultiBoot)
 
 /**
  * @brief 891a0 | 3f0 | Handles transfer of multiboot data over serial communication
- * 
+ *
  * @param pMultiBoot Multi boot data pointer
  * @return u32 Status of the connection, non-zero is error
  */
@@ -61,7 +63,7 @@ output_burst:
         pMultiBoot->sendFlag = FALSE;
 
         /* There is a problem if SIO is busy at this point, or an error was received.
-         * There may be a problem with the connection(connected to JOY) and      
+         * There may be a problem with the connection(connected to JOY) and
          * communication does not have timeout error.
          * When the connection ID is not the parent, or there is a bad connection, or the receive ID was set to child, an error occurs.
          */
@@ -110,7 +112,7 @@ output_burst:
         case MULTIBOOT_REQ_PREP_REC:
             /* client not doing recognition
              * Value should be CLIENT_INFO 000 0 ccc 0
-             * First, check if some kind of response(other than 0xffff) 
+             * First, check if some kind of response(other than 0xffff)
              * from machine.
              */
             mask = 0xE;
@@ -127,7 +129,7 @@ output_burst:
             mask &= 0xE; /* 4P-2P: d3-d1 is 1 */
             pMultiBoot->responseBit = mask; /* mark connected children */
 
-            /* Machine recognized as client, 
+            /* Machine recognized as client,
              * must be CLIENT_INFO 000 0 ccc 0.
              */
             for (i = MULTIBOOT_MAX_CHILD; i != 0; i--)
@@ -148,7 +150,7 @@ output_burst:
 
             if (mask == 0)
             {
-                /* From client, until at least one returns value other than 
+                /* From client, until at least one returns value other than
                  * 0xffff, maintain fixed time until redo of recognition processing
                  */
                 pMultiBoot->checkWait = MULTIBOOT_CONNECTION_CHECK_WAIT;
@@ -340,7 +342,7 @@ output_burst:
             /* When client is being recognized,
              * value is MASTER_START_PROBE - 1, ..-2, ..., 0
              * 0x61 - 1,               0x5f
-             * lower bytes are 000 0 ccc 0 
+             * lower bytes are 000 0 ccc 0
              */
             for (i = MULTIBOOT_MAX_CHILD; i != 0; i--)
             {
@@ -358,7 +360,7 @@ output_burst:
 
             if (pMultiBoot->probeCount == MULTIBOOT_REC_COMPLETE)
             {
-                /* From recognized, those leftover last are 
+                /* From recognized, those leftover last are
                  * qualified as client.
                  */
                 pMultiBoot->clientBit = pMultiBoot->probeTargetBit & 0xE;
@@ -367,7 +369,7 @@ output_burst:
             }
             break;
     }
-    
+
     output_header:
     /* If no target, ends with error in middle. */
     if (pMultiBoot->probeTargetBit == 0)
@@ -391,10 +393,10 @@ output_burst:
         return i;
     }
 
-    /* If Low speed recognition mode, for each frame of call, 2 bytes of 
+    /* If Low speed recognition mode, for each frame of call, 2 bytes of
      * communication.
      * If High speed recognition mode,
-     * (time to end of communication + sufficient time for child 
+     * (time to end of communication + sufficient time for child
      * interrupt processing)
      * Wait, continued communication.
      */
@@ -408,7 +410,7 @@ output_burst:
 
 /**
  * @brief 89590 | 4c | Send data
- * 
+ *
  * @param pMultiBoot Multi boot param pointer
  * @param data Data to send
  * @return u16 Status of the connection, non-zero is error
@@ -416,7 +418,7 @@ output_burst:
 static u32 MultiBootSend(struct MultiBootData* pMultiBoot, u16 data)
 {
     /* If still busy at this point, problem has occurred.
-     * There may be a problem with the connection(connected to JOY) and      
+     * There may be a problem with the connection(connected to JOY) and
      * communication does not have timeout error.
      * (reconnect cable) May be first communication so no check for
      * error bit or connection ID.
@@ -436,7 +438,7 @@ static u32 MultiBootSend(struct MultiBootData* pMultiBoot, u16 data)
 
 /**
  * @brief 895dc | 24 | Begin recognizing the client
- * 
+ *
  * @param pMultiBoot Multi boot param pointer
  */
 void MultiBootStartProbe(struct MultiBootData* pMultiBoot)
@@ -454,7 +456,7 @@ void MultiBootStartProbe(struct MultiBootData* pMultiBoot)
 
 /**
  * @brief 89600 | b8 | Starts data transfer from the parent
- * 
+ *
  * @param pMultiBoot Multi boot param pointer
  * @param src Data source pointer
  * @param length Data size
@@ -467,7 +469,7 @@ void MultiBootStartParent(struct MultiBootData* pMultiBoot, const u8* src, s32 l
     s32 var_2;
 
     var_2 = palette_speed;
-    
+
     if (pMultiBoot->probeCount != MULTIBOOT_REQ_PREP_REC || pMultiBoot->clientBit == 0 || pMultiBoot->checkWait != 0)
     {
         /* Recognition processing, cannot do processing */
@@ -513,7 +515,7 @@ void MultiBootStartParent(struct MultiBootData* pMultiBoot, const u8* src, s32 l
 
 /**
  * @brief 896b8 | 14 | Check if the transfer was completed
- * 
+ *
  * @param pMultiBoot Multi boot param pointer
  * @return u32 bool, transfer was completed
  */
@@ -531,7 +533,7 @@ u32 MultiBootCheckComplete(struct MultiBootData* pMultiBoot)
 
 /**
  * @brief 896cc | ec | Perform handshake to confirm the boot has succeeded
- * 
+ *
  * @param pMultiBoot Multi boot param pointer
  * @return u32 Status of handshake, 0 is success, otherwise failure
  */
@@ -593,10 +595,10 @@ static u32 MultiBootHandshake(struct MultiBootData* pMultiBoot)
                 if ((pMultiBoot->clientBit & (1 << i)) && value != pMultiBoot->systemWork_1[1])
                 {
                     /* Desired data did not come from all children.
-                     * If reach this point and have error, stop(infinite loop) child, 
+                     * If reach this point and have error, stop(infinite loop) child,
                      * and no retry by parent.
                      * On parent's screen display,
-                     * "Communication failure. Turn off power and check connection. 
+                     * "Communication failure. Turn off power and check connection.
                      *  Turn on power again."
                      */
                     MultiBootInit(pMultiBoot);
@@ -620,7 +622,7 @@ static u32 MultiBootHandshake(struct MultiBootData* pMultiBoot)
 
 /**
  * @brief 897b8 | 18 | Wait for an amount of cycles for the child to interrupt
- * 
+ *
  * @param cycles Cycles to wait
  */
 NAKED_FUNCTION
@@ -629,15 +631,15 @@ static void MultiBootWaitCycles(s32 cycles)
     // Assumed to be hand written due to the use of PC and no cmp before the bgt
     // Closest approximation: https://decomp.me/scratch/4CRCE
 
-    /* Depending on if this is in CPU internal working, CPU external 
-     * working, ROM, the CPU cycles used for one of this function's wait 
+    /* Depending on if this is in CPU internal working, CPU external
+     * working, ROM, the CPU cycles used for one of this function's wait
      * loops is different.
      * CPU External Working (0x02XXXXXX) ... 12 cycles/loop
-     * ROM        (0x08XXXXXX) ... 13 cycles/loop 
+     * ROM        (0x08XXXXXX) ... 13 cycles/loop
      *            (Have prefetch  Setup maximum speed)
      * CPU Internal Working (0x03XXXXXX) ... 4  cycles/loop
      * If address area other than above, temporarily use 4 cycles/loop.
-     * If set up lower cycles/loop than actual, 
+     * If set up lower cycles/loop than actual,
      * can get specified cycle number wait.
      *
      * Use AGB system clock 16.78MHz as hint for argument, cycles.
@@ -664,7 +666,7 @@ static void MultiBootWaitCycles(s32 cycles)
 
 /**
  * @brief 897d0 | 3c | Wait up to one frame for communication to be completed
- * 
+ *
  */
 static void MultiBootWaitSendDone(void)
 {

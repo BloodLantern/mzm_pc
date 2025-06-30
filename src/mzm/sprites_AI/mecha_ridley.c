@@ -1,25 +1,27 @@
-#include "sprites_AI/mecha_ridley.h"
-#include "transparency.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/sprites_AI/mecha_ridley.h"
+#include "mzm/transparency.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/mecha_ridley.h"
-#include "data/sprite_data.h"
-#include "data/frame_data_pointers.h"
+#include "mzm/data/sprites/mecha_ridley.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/sprite_util.h"
-#include "constants/sprite.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/text.h"
 
-#include "structs/connection.h"
-#include "structs/in_game_timer.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/animated_graphics.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/in_game_timer.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/animated_graphics.h"
+
+#include "mzm_include.h"
 
 #define MECHA_RIDLEY_POSE_CRAWLING_INIT 0x1
 #define MECHA_RIDLEY_POSE_DELAY_BEFORE_CRAWLING 0x2
@@ -125,7 +127,7 @@ if (gSubSpriteData1.health < maxHealth * 3 / 4)                     \
 
 /**
  * Boss work map :
- * 
+ *
  * 1 : Mecha ridley spawn Y position
  * 2 : Mecha ridley spawn X position
  * 3 : Last heigth of samus
@@ -137,12 +139,12 @@ if (gSubSpriteData1.health < maxHealth * 3 / 4)                     \
  * 9 : Core spawn health
  * 10 : Cover spawn health
  * 11 : Completion percentage
- * 
+ *
  */
 
 /**
  * Sub sprite data (work variables) map :
- * 
+ *
  * 2 : Missile attack timer
  * 3 : Health threshold
  * 4 : Right arm ram slot
@@ -152,7 +154,7 @@ if (gSubSpriteData1.health < maxHealth * 3 / 4)                     \
 
 /**
  * @brief 4ba9c | 68 | Sync the sub sprites of Mecha ridley
- * 
+ *
  */
 static void MechaRidleySyncSubSprites(void)
 {
@@ -175,7 +177,7 @@ static void MechaRidleySyncSubSprites(void)
 
 /**
  * @brief 4bb04 | 84 | Handles the green palette cycle
- * 
+ *
  */
 static void MechaRidleyPartGreenGlow(void)
 {
@@ -207,7 +209,7 @@ static void MechaRidleyPartGreenGlow(void)
 
 /**
  * @brief 4bb88 | a4 | Loads the fireball graphics
- * 
+ *
  */
 static void MechaRidleyLoadFireballsGfx(void)
 {
@@ -234,7 +236,7 @@ static void MechaRidleyLoadFireballsGfx(void)
 
 /**
  * @brief 4bc2c | a4 | Loads the missile graphics
- * 
+ *
  */
 static void MechaRidleyLoadMissilesGfx(void)
 {
@@ -261,7 +263,7 @@ static void MechaRidleyLoadMissilesGfx(void)
 
 /**
  * @brief 4bcd0 | 128 | Update the height of mecha ridley based on samus' relative position
- * 
+ *
  * @return u8 bool, changing height
  */
 static u8 MechaRidleyUpdateHeight(void)
@@ -363,7 +365,7 @@ static u8 MechaRidleyUpdateHeight(void)
 
 /**
  * @brief 4bdf8 | bc | Initializes mecha ridley to be crawling back
- * 
+ *
  * @param leftArmSlot Left arm ram slot
  */
 static void MechaRidleyCrawlingBackwardsInit(u8 leftArmSlot)
@@ -407,7 +409,7 @@ static void MechaRidleyCrawlingBackwardsInit(u8 leftArmSlot)
 
 /**
  * @brief 4beb4 | b4 | Initializes mecha ridley to do the swinging attack
- * 
+ *
  * @param leftArmSlot Left arm ram slot
  */
 static void MechaRidleyClawAttackInit(u8 leftArmSlot)
@@ -446,7 +448,7 @@ static void MechaRidleyClawAttackInit(u8 leftArmSlot)
 
 /**
  * @brief 4bf68 | 230 | Initializes Mecha ridley
- * 
+ *
  */
 static void MechaRidleyInit(void)
 {
@@ -569,7 +571,7 @@ static void MechaRidleyInit(void)
 
 /**
  * @brief 4c198 | 48 | Initializes Mecha ridley to be walking at the beginning of the fight
- * 
+ *
  */
 static void MechaRidleyStartWalking(void)
 {
@@ -586,7 +588,7 @@ static void MechaRidleyStartWalking(void)
 
 /**
  * @brief 4c1e0 | 20 | Delay before mecha starts crawling
- * 
+ *
  */
 static void MechaRidleyDelayBeforeCrawling(void)
 {
@@ -597,7 +599,7 @@ static void MechaRidleyDelayBeforeCrawling(void)
 
 /**
  * @brief 4c200 | a4 | Handles mecha ridley crawling at the beginning of the fight
- * 
+ *
  */
 static void MechaRidleyCrawling(void)
 {
@@ -656,7 +658,7 @@ static void MechaRidleyCrawling(void)
 
 /**
  * @brief 4c2a4 | 98 | Handles the fading at the start of the battle
- * 
+ *
  */
 static void MechaRidleyStartBattle(void)
 {
@@ -666,7 +668,7 @@ static void MechaRidleyStartBattle(void)
     {
         gCurrentSprite.work1 = 2;
         palRow = ++gCurrentSprite.work0;
-        
+
         if (palRow >= ARRAY_SIZE(sMechaRidleyFadingPal) / PAL_ROW)
         {
             gCurrentSprite.pose = MECHA_RIDLEY_POSE_IDLE;
@@ -693,7 +695,7 @@ static void MechaRidleyStartBattle(void)
 
 /**
  * @brief 4c33c | 8c | Checks if the fireball attack should start
- * 
+ *
  * @param ramSlot Left arm ram slot
  * @return u8 bool, starting
  */
@@ -729,7 +731,7 @@ static u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot)
 
 /**
  * @brief 4c3c8 | 38 | Handles Mecha being idle
- * 
+ *
  */
 static void MechaRidleyIdle(void)
 {
@@ -744,7 +746,7 @@ static void MechaRidleyIdle(void)
 
 /**
  * @brief 4c400 | 12c | Handles the claw attack
- * 
+ *
  */
 static void MechaRidleyClawAttack(void)
 {
@@ -815,7 +817,7 @@ static void MechaRidleyClawAttack(void)
 
 /**
  * @brief 4c52c | b0 | Handles mecha ridley standing up
- * 
+ *
  */
 static void MechaRidleyStandingUp(void)
 {
@@ -855,7 +857,7 @@ static void MechaRidleyStandingUp(void)
 
 /**
  * @brief 4c5dc | 54 | Handles mecha ridley being curled up
- * 
+ *
  */
 static void MechaRidleyCurledUp(void)
 {
@@ -884,7 +886,7 @@ static void MechaRidleyCurledUp(void)
 
 /**
  * @brief 4c630 | 78 | Handles mecha ridley retracting
- * 
+ *
  */
 static void MechaRidleyRetracting(void)
 {
@@ -916,7 +918,7 @@ static void MechaRidleyRetracting(void)
 
 /**
  * @brief 4c6a8 | 90 | Handles mecha ridley crawling backwards
- * 
+ *
  */
 static void MechaRidleyCrawlingBack(void)
 {
@@ -958,7 +960,7 @@ static void MechaRidleyCrawlingBack(void)
 
 /**
  * @brief 4c738 | 4c | Initializes mecha ridley standing up for the fireballs attack
- * 
+ *
  */
 static void MechaRidleyStandingForFireballsInit(void)
 {
@@ -982,7 +984,7 @@ static void MechaRidleyStandingForFireballsInit(void)
 
 /**
  * @brief 4c784 | 38 | Handles mecha ridley standing up for the fireballs attack
- * 
+ *
  */
 static void MechaRidleyStandingForFireballs(void)
 {
@@ -1000,7 +1002,7 @@ static void MechaRidleyStandingForFireballs(void)
 
 /**
  * @brief 4c7bc | 38 | Handles mecha ridley opening its mouth for the fireballs attack
- * 
+ *
  */
 static void MechaRidleyCheckOpeningMouthAnimEnded(void)
 {
@@ -1019,7 +1021,7 @@ static void MechaRidleyCheckOpeningMouthAnimEnded(void)
 
 /**
  * @brief 4c7f4 | bc | Handles mecha ridley spitting fireballs
- * 
+ *
  */
 static void MechaRidleyFireballsAttack(void)
 {
@@ -1057,7 +1059,7 @@ static void MechaRidleyFireballsAttack(void)
 
 /**
  * @brief 4c8b0 | 30 | Handles mecha ridley closing its mouth after the fireballs attack
- * 
+ *
  */
 static void MechaRidleyCheckClosingMouthAnimEnded(void)
 {
@@ -1073,8 +1075,8 @@ static void MechaRidleyCheckClosingMouthAnimEnded(void)
 }
 
 /**
- * @brief 4c8e0 | 4c | Handles mecha ridley retracting after the fireballs attack 
- * 
+ * @brief 4c8e0 | 4c | Handles mecha ridley retracting after the fireballs attack
+ *
  */
 static void MechaRidleyRetractingAfterFireballAttack(void)
 {
@@ -1094,7 +1096,7 @@ static void MechaRidleyRetractingAfterFireballAttack(void)
 
 /**
  * @brief 4c92c | 68 | Initializes mecha ridley to be dying
- * 
+ *
  */
 static void MechaRidleyDyingInit(void)
 {
@@ -1118,14 +1120,14 @@ static void MechaRidleyDyingInit(void)
 
 /**
  * @brief 4c994 | 9c | Handles mecha ridley dying
- * 
+ *
  */
 static void MechaRidleyDying(void)
 {
     u8 rng;
     u32 offset;
     u32 yPosition;
-    
+
     rng = gSpriteRng * 2;
 
     if (gCurrentSprite.invincibilityStunFlashTimer != 0)
@@ -1165,7 +1167,7 @@ static void MechaRidleyDying(void)
 
 /**
  * @brief 4ca30 | 1a8 | Handles mecha ridley fading when dying
- * 
+ *
  */
 static void MechaRidleyGlowFading(void)
 {
@@ -1221,7 +1223,7 @@ static void MechaRidleyGlowFading(void)
 
 /**
  * @brief 4cbd8 | 244 | Handles the spawn of the energy drops
- * 
+ *
  */
 static void MechaRidleySpawnDrops(void)
 {
@@ -1309,7 +1311,7 @@ static void MechaRidleySpawnDrops(void)
 
 /**
  * @brief 4ce1c | a4 | Handles the first eye glow after the fight
- * 
+ *
  */
 static void MechaRidleyFirstEyeGlow(void)
 {
@@ -1344,7 +1346,7 @@ static void MechaRidleyFirstEyeGlow(void)
 
 /**
  * @brief 4cec0 | c8 | Handles the second eye glow after the fight
- * 
+ *
  */
 static void MechaRidleySecondEyeGlow(void)
 {
@@ -1372,13 +1374,13 @@ static void MechaRidleySecondEyeGlow(void)
         {
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_MECHA_RIDLEY_KILLED);
-            
+
             // Start escape
             SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_CHOZODIA_ESCAPE, 0, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
             // Save IGT
             gInGameTimerAtBosses[3] = gInGameTimer;
-            
+
             // Unlock doors
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
 
@@ -1392,7 +1394,7 @@ static void MechaRidleySecondEyeGlow(void)
 
 /**
  * @brief 4cf88 | 358 | Initializes a mecha ridley part sprite
- * 
+ *
  */
 static void MechaRidleyPartInit(void)
 {
@@ -1581,7 +1583,7 @@ static void MechaRidleyPartInit(void)
 
 /**
  * @brief 4d2e0 | 10 | Handles the head part being idle
- * 
+ *
  */
 static void MechaRidleyPartHeadIdle(void)
 {
@@ -1591,7 +1593,7 @@ static void MechaRidleyPartHeadIdle(void)
 
 /**
  * @brief 4d2f0 | 48 | Handles the core part being idle
- * 
+ *
  */
 static void MechaRidleyPartCoverIdle(void)
 {
@@ -1610,7 +1612,7 @@ static void MechaRidleyPartCoverIdle(void)
 
 /**
  * @brief 4d338 | 6c | Handles the cover part exploding
- * 
+ *
  */
 static void MechaRidleyPartCoreCoverExplosion(void)
 {
@@ -1638,7 +1640,7 @@ static void MechaRidleyPartCoreCoverExplosion(void)
 
 /**
  * @brief 4d3a4 | 190 | Handles the missile launcher part being idle
- * 
+ *
  */
 static void MechaRidleyPartMissileLauncherIdle(void)
 {
@@ -1737,7 +1739,7 @@ static void MechaRidleyPartMissileLauncherIdle(void)
 
 /**
  * @brief 4d534 | 1f4 | Handles the eye part being idle
- * 
+ *
  */
 static void MechaRidleyPartEyeIdle(void)
 {
@@ -1785,7 +1787,7 @@ static void MechaRidleyPartEyeIdle(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
-                // Get direction, each direction has 1/4 chance of happening, except up, which can't be selected 
+                // Get direction, each direction has 1/4 chance of happening, except up, which can't be selected
                 if (rng >= SPRITE_RNG_PROB(.75f))
                 {
                     gCurrentSprite.pOam = sMechaRidleyPartOam_EyeShootingLaserSlightlyDown;
@@ -1860,7 +1862,7 @@ static void MechaRidleyPartEyeIdle(void)
 
 /**
  * @brief 4d728 | 200 | Handles the right arm part being idle
- * 
+ *
  */
 static void MechaRidleyPartRightArmIdle(void)
 {
@@ -1998,7 +2000,7 @@ static void MechaRidleyPartRightArmIdle(void)
                 leftHitbox = -(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
                 rightHitbox = BLOCK_SIZE;
                 break;
-            
+
             case 7:
                 if (gCurrentSprite.animationDurationCounter == 1 && gSpriteData[ramSlot].pose > 7)
                     SoundPlay(SOUND_MECHA_RIDLEY_RIGHT_ARM_CRAWLING);
@@ -2034,7 +2036,7 @@ static void MechaRidleyPartRightArmIdle(void)
 
 /**
  * @brief 4d928 | 238 | Handles the left arm part being idle
- * 
+ *
  */
 static void MechaRidleyPartLeftArmIdle(void)
 {
@@ -2163,7 +2165,7 @@ static void MechaRidleyPartLeftArmIdle(void)
                 leftHitbox = -BLOCK_SIZE * 5;
                 rightHitbox = BLOCK_SIZE;
                 break;
-            
+
             case 2:
                 topHitbox = BLOCK_SIZE;
                 bottomHitbox = BLOCK_SIZE * 3;
@@ -2240,7 +2242,7 @@ static void MechaRidleyPartLeftArmIdle(void)
 
 /**
  * @brief 4db60 | 1f8 | Handles the neck part being idle
- * 
+ *
  */
 static void MechaRidleyPartNeckIdle(void)
 {
@@ -2444,7 +2446,7 @@ static void MechaRidleyPartNeckIdle(void)
 
 /**
  * @brief 4dd58 | 384 | Mecha ridley AI
- * 
+ *
  */
 void MechaRidley(void)
 {
@@ -2501,7 +2503,7 @@ void MechaRidley(void)
                 gBossWork.work3 = MECHA_RIDLEY_SAMUS_POSITION_MIDDLE;
         }
     }
-    
+
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:
@@ -2624,7 +2626,7 @@ void MechaRidley(void)
 
 /**
  * @brief 4e0dc | 3c4 | Mecha ridley part AI
- * 
+ *
  */
 void MechaRidleyPart(void)
 {
@@ -2722,7 +2724,7 @@ void MechaRidleyPart(void)
             if (gSubSpriteData1.workVariable3 > HEALTH_THRESHOLD_COVER_DAMAGED)
                 gCurrentSprite.invincibilityStunFlashTimer = gSpriteData[ramSlot].invincibilityStunFlashTimer;
         }
-        else 
+        else
         {
             if (gSpriteData[ramSlot].pose > MECHA_RIDLEY_POSE_DELAY_BEFORE_CRAWLING)
                 BlackSpacePirateProjectileCollision();
@@ -2809,7 +2811,7 @@ void MechaRidleyPart(void)
         case 0x43:
         case MECHA_RIDLEY_PART_POSE_COVER_BROKEN:
             break;
-        
+
         default:
             MechaRidleySyncSubSprites();
             break;
@@ -2818,7 +2820,7 @@ void MechaRidleyPart(void)
 
 /**
  * @brief 4e4a0 | 118 | Mecha ridley laser AI
- * 
+ *
  */
 void MechaRidleyLaser(void)
 {
@@ -2906,7 +2908,7 @@ void MechaRidleyLaser(void)
 
 /**
  * @brief 4e5b8 | 208 | Mecha ridley missile AI
- * 
+ *
  */
 void MechaRidleyMissile(void)
 {
@@ -2933,7 +2935,7 @@ void MechaRidleyMissile(void)
             gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.rotation = 0xA0;
             gCurrentSprite.scaling = Q_8_8(1.f);
-            
+
             gCurrentSprite.work0 = 30;
             gCurrentSprite.pose = 9;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
@@ -2979,9 +2981,9 @@ void MechaRidleyMissile(void)
                 movement = 0x5C;
             else
                 movement = HALF_BLOCK_SIZE;
-            
+
             SpriteUtilMoveSpriteTowardsSamus(gSamusData.yPosition - HALF_BLOCK_SIZE, gSamusData.xPosition, 0x28, 0x28, 2);
-            
+
             gCurrentSprite.rotation = SpriteUtilMakeSpriteFaceSamusRotation(gCurrentSprite.rotation,
                 gSamusData.yPosition - movement, gSamusData.xPosition,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition);
@@ -3012,7 +3014,7 @@ void MechaRidleyMissile(void)
 
 /**
  * @brief 4e7c0 | 150 | Mecha ridley fireball AI
- * 
+ *
  */
 void MechaRidleyFireball(void)
 {
@@ -3026,7 +3028,7 @@ void MechaRidleyFireball(void)
             gCurrentSprite.drawDistanceTop = 0x14;
             gCurrentSprite.drawDistanceBottom = 0x14;
             gCurrentSprite.drawDistanceHorizontal = 0x14;
-            
+
             gCurrentSprite.hitboxTop = -0x1C;
             gCurrentSprite.hitboxBottom = 0x1C;
             gCurrentSprite.hitboxLeft = -0x1C;

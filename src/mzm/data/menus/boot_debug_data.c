@@ -1,7 +1,9 @@
-#include "data/menus/boot_debug_data.h"
-#include "constants/event.h"
-#include "oam.h"
-#include "structs/cutscene.h"
+#include "mzm/data/menus/boot_debug_data.h"
+#include "mzm/constants/event.h"
+#include "mzm/oam.h"
+#include "mzm/structs/cutscene.h"
+
+#include "mzm_include.h"
 
 #ifdef DEBUG
 

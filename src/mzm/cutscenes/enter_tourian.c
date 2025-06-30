@@ -1,25 +1,27 @@
-#include "cutscenes/enter_tourian.h"
-#include "cutscenes/cutscene_utils.h"
-#include "color_effects.h"
-#include "dma.h"
-#include "macros.h"
+#include "mzm/cutscenes/enter_tourian.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/color_effects.h"
+#include "mzm/dma.h"
+#include "mzm/macros.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/generic_data.h"
-#include "data/cutscenes/enter_tourian_data.h"
-#include "data/cutscenes/internal_enter_tourian_data.h"
-#include "data/sprites/metroid.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/generic_data.h"
+#include "mzm/data/cutscenes/enter_tourian_data.h"
+#include "mzm/data/cutscenes/internal_enter_tourian_data.h"
+#include "mzm/data/sprites/metroid.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
-#include "constants/game_state.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/game_state.h"
-#include "structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/display.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 67080 | 310 | Handles the entire cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 EnterTourianAnimation(void)
@@ -180,7 +182,7 @@ u8 EnterTourianAnimation(void)
 
 /**
  * @brief 67390 | 50 | Handles the movement of the backgrounds
- * 
+ *
  */
 void EnterTourianScrollBackground(void)
 {
@@ -202,7 +204,7 @@ void EnterTourianScrollBackground(void)
 
 /**
  * @brief 673e0 | 378 | Updates a metroid
- * 
+ *
  * @param pOam Cutscene oam data pointer
  * @param metroidId Metroid oam
  */
@@ -268,7 +270,7 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
                 pOam->yVelocity = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 2 ? -PIXEL_SIZE : PIXEL_SIZE;
                 pOam->yPosition += pOam->yVelocity;
             }
-            
+
             pOam->unk_18 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x3F) + 8;
 
             if (pOam->unk_18 == pOam->unk_16)
@@ -361,7 +363,7 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
 
     pShell->yPosition = pOam->yPosition;
     pShell->xPosition = pOam->xPosition;
-    
+
     position = *CutsceneGetBgHorizontalPointer(sEnterTourianPageData[0].bg);
     var_2 = position - pOam->xPosition;
     position = var_2 + (NON_GAMEPLAY_START_BG_POS - HALF_BLOCK_SIZE - ONE_SUB_PIXEL);
@@ -377,7 +379,7 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
 
 /**
  * @brief 67758 | 8c | Updates the metroid palette
- * 
+ *
  * @param pPalette Cutscene palette data pointer
  * @param grabbedPal bool, use grabbed pal
  */
@@ -419,7 +421,7 @@ void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalette, u8 g
 
 /**
  * @brief 677e4 | 168 | Updates the pirate
- * 
+ *
  * @param pOam Cutscene oam data pointer
  */
 void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
@@ -498,7 +500,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
 
 /**
  * @brief 6794c | 3c0 | Initializes the enter tourian cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 EnterTourianInit(void)
@@ -516,7 +518,7 @@ u8 EnterTourianInit(void)
     CallLZ77UncompVram(sEnterTourianDeadSpacePirateGfx_2, VRAM_BASE + 0x10400);
     CallLZ77UncompVram(sEnterTourianDeadSpacePirateGfx_3, VRAM_BASE + 0x10800);
     CallLZ77UncompVram(sMetroidGfx, VRAM_BASE + 0x14000);
-    
+
     CallLZ77UncompVram(sEnterTourianBackgroundGfx, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
     CallLZ77UncompVram(sEnterTourianForegroundGfx, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
 
@@ -548,7 +550,7 @@ u8 EnterTourianInit(void)
     CUTSCENE_DATA.oam[5].currentAnimationFrame = 4;
     CUTSCENE_DATA.oam[7].currentAnimationFrame = 8;
 
-    
+
     CUTSCENE_DATA.oam[0].oamID = 2;
     CUTSCENE_DATA.oam[0].exists = TRUE;
     CUTSCENE_DATA.oam[0].boundBackground = 3;
@@ -606,7 +608,7 @@ u8 EnterTourianSubroutine(void)
 
 /**
  * @brief 67d40 | 4c | Processes the OAM for the cutscene
- * 
+ *
  */
 void EnterTourianProcessOAM(void)
 {

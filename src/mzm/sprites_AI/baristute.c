@@ -1,20 +1,22 @@
-#include "sprites_AI/baristute.h"
-#include "macros.h"
+#include "mzm/sprites_AI/baristute.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/baristute.h"
-#include "data/sprite_data.h"
-#include "data/generic_data.h"
+#include "mzm/data/sprites/baristute.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/generic_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/connection.h"
-#include "structs/sprite.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define BARISTUTE_POSE_JUMP_WARNING_INIT 0x8
 #define BARISTUTE_POSE_CHECK_WARNING_ENDED 0x9
@@ -33,7 +35,7 @@
 
 /**
  * @brief 47600 | 20 | Checks if samus is near the baristute (8 blocks range on each side)
- * 
+ *
  * @return bool, samus is near
  */
 static u8 BaristuteCheckSamusInRange(void)
@@ -49,7 +51,7 @@ static u8 BaristuteCheckSamusInRange(void)
 
 /**
  * @brief 47620 | 90 | Initializes a baristute sprite
- * 
+ *
  */
 static void BaristuteInit(void)
 {
@@ -88,7 +90,7 @@ static void BaristuteInit(void)
 
 /**
  * @brief 476b0 | 34 | Initializes a baristute to do the warning before a jump
- * 
+ *
  */
 static void BaristuteJumpWarningInit(void)
 {
@@ -104,7 +106,7 @@ static void BaristuteJumpWarningInit(void)
 
 /**
  * @brief 476e4 | 7c | Checks if the animation before jumping has ended
- * 
+ *
  */
 static void BaristuteCheckBeforeJumpingAnimEnded(void)
 {
@@ -131,7 +133,7 @@ static void BaristuteCheckBeforeJumpingAnimEnded(void)
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.work3 = 0;
         gCurrentSprite.pOam = sBaristuteOam_Jumping;
-        
+
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_JUMPING);
     }
@@ -139,7 +141,7 @@ static void BaristuteCheckBeforeJumpingAnimEnded(void)
 
 /**
  * @brief 47760 | 100 | Handles the baristute jumping
- * 
+ *
  */
 static void BaristuteJumping(void)
 {
@@ -209,7 +211,7 @@ static void BaristuteJumping(void)
 
 /**
  * @brief 47860 | 3c | Initializes a baristute to be landing
- * 
+ *
  */
 static void BaristuteLandingInit(void)
 {
@@ -228,7 +230,7 @@ static void BaristuteLandingInit(void)
 
 /**
  * @brief 4789c | 1c | Checks if the landing animation has nearly ended
- * 
+ *
  */
 static void BaristuteCheckLandingAnimNearEnded(void)
 {
@@ -238,7 +240,7 @@ static void BaristuteCheckLandingAnimNearEnded(void)
 
 /**
  * @brief 478b8 | 30 | Initializes a baristute to be idle
- * 
+ *
  */
 static void BaristuteIdleInit(void)
 {
@@ -254,7 +256,7 @@ static void BaristuteIdleInit(void)
 
 /**
  * @brief 478e8 | cc | Handles a baristute being idle
- * 
+ *
  */
 static void BaristuteIdle(void)
 {
@@ -335,12 +337,12 @@ static void BaristuteIdle(void)
 
 /**
  * @brief 479b4 | 74 | Initializes a baristute to be walking
- * 
+ *
  */
 static void BaristuteWalkingInit(void)
 {
     u8 paletteRow;
-    
+
     gCurrentSprite.pose = BARISTUTE_POSE_WALKING;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
@@ -373,7 +375,7 @@ static void BaristuteWalkingInit(void)
 
 /**
  * @brief 47a28 | 50 | Checks if the walking sound should play, if yes plays it
- * 
+ *
  */
 static void BaristutePlayWalkingSound(void)
 {
@@ -396,7 +398,7 @@ static void BaristutePlayWalkingSound(void)
 
 /**
  * @brief 47a78 | d4 | Handles a baristute walking
- * 
+ *
  */
 static void BaristuteWalking(void)
 {
@@ -410,7 +412,7 @@ static void BaristuteWalking(void)
     walkingDistance = BLOCK_SIZE * 6;
     if (gCurrentSprite.work1 == 3)
         walkingDistance *= 2;
-    
+
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check collision
@@ -467,7 +469,7 @@ static void BaristuteWalking(void)
 
 /**
  * @brief 47b4c | 24 | Initializes a baristute to bve falling
- * 
+ *
  */
 static void BaristuteFallingInit(void)
 {
@@ -481,7 +483,7 @@ static void BaristuteFallingInit(void)
 
 /**
  * @brief 47b70 | 70 | Handles a baristute falling
- * 
+ *
  */
 static void BaristuteFalling(void)
 {
@@ -518,7 +520,7 @@ static void BaristuteFalling(void)
 
 /**
  * @brief 47be0 | 150 | Handles a baristute death
- * 
+ *
  */
 static void BaristuteDeath(void)
 {
@@ -578,7 +580,7 @@ static void BaristuteDeath(void)
 
         SpriteSpawnDropFollowers(spriteId, gCurrentSprite.roomSlot, 0, gCurrentSprite.primarySpriteRamSlot,
             yPosition - (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) + rng, xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE - PIXEL_SIZE) - rng, 0);
-        
+
         if (MOD_AND(sRandomNumberTable[gSpriteRng], 2))
             spriteId = PSPRITE_LARGE_ENERGY_DROP;
         else
@@ -591,7 +593,7 @@ static void BaristuteDeath(void)
 
 /**
  * @brief 47d30 | 18c | Baristute AI
- * 
+ *
  */
 void Baristute(void)
 {
@@ -651,7 +653,7 @@ void Baristute(void)
         case BARISTUTE_POSE_WALKING:
             BaristuteWalking();
             break;
-        
+
         case BARISTUTE_POSE_IDLE_INIT:
             BaristuteIdleInit();
 

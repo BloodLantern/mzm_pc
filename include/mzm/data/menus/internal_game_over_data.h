@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/game_state.h"
+#include "mzm/types.h"
+#include "mzm/constants/game_state.h"
 
 extern const u32* const sGameOverTextPromptGfxPointers[LANGUAGE_END];
 extern const u8 sGameOverTextPaletteMaxTimers[3];

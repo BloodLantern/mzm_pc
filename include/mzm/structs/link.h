@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define MAX_LINK_PLAYERS 2
 #define CMD_LENGTH 2

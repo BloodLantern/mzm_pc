@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 void SramWriteUnchecked(u8* src, u8* dest, u32 size);
 void SramWrite(u8* src, u8* dest, u32 size);

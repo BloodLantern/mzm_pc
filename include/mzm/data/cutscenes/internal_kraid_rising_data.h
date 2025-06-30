@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
-#include "cutscenes/kraid_rising.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/cutscenes/kraid_rising.h"
 
 // 75fe5c
 

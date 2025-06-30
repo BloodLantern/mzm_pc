@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/connection.h"
+#include "mzm/types.h"
+#include "mzm/structs/connection.h"
 
 // Structs
 

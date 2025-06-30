@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 enum RuinsTestFightStage {
     RUINS_TEST_FIGHT_STAGE_ON_GOING,

@@ -1,22 +1,24 @@
-#include "sprites_AI/item_banner.h"
-#include "gba.h"
-#include "sprites_AI/ruins_test.h"
-#include "macros.h"
+#include "mzm/sprites_AI/item_banner.h"
+#include "mzm/gba.h"
+#include "mzm/sprites_AI/ruins_test.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/item_banner.h"
+#include "mzm/data/sprites/item_banner.h"
 
-#include "constants/audio.h"
-#include "constants/demo.h"
-#include "constants/game_state.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/demo.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/bg_clip.h"
-#include "structs/demo.h"
-#include "structs/game_state.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 // Save yes no cursor
 
@@ -32,7 +34,7 @@
 
 /**
  * @brief 1b6b8 | 110 | Initializes an item banner sprite
- * 
+ *
  */
 static void ItemBannerInit(void)
 {
@@ -112,7 +114,7 @@ static void ItemBannerInit(void)
 
 /**
  * @brief 1b7c8 | 5c | Initializes the Gfx for an item banner
- * 
+ *
  */
 static void ItemBannerGfxInit(void)
 {
@@ -123,7 +125,7 @@ static void ItemBannerGfxInit(void)
         SpriteLoadGfx(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot); // Load Gfx
     else if (gCurrentSprite.ITEM_BANNER_TIMER == DELTA_TIME * 8)
         SpriteLoadPal(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot, 1); // Load Pal
-    
+
     if (gCurrentSprite.ITEM_BANNER_TIMER == 0)
     {
         // Loading done, set pop up behavior
@@ -135,7 +137,7 @@ static void ItemBannerGfxInit(void)
 
 /**
  * @brief 1b824 | 184 | Handles the pop up animation and the custom behavior based on the current message
- * 
+ *
  */
 static void ItemBannerPopUp(void)
 {
@@ -189,7 +191,7 @@ static void ItemBannerPopUp(void)
 
                 SoundPlay(MUSIC_GETTING_TANK_JINGLE);
             }
-            
+
             // Check is one line message (new item/ability, save complete, map text)
             if (gCurrentSprite.ITEM_BANNER_NEW_ITEM || msg == MESSAGE_SAVE_COMPLETE ||
                 (MESSAGE_IS_MAP(msg) || msg == MESSAGE_FULLY_POWERED_SUIT))
@@ -242,7 +244,7 @@ static void ItemBannerPopUp(void)
 
 /**
  * @brief 1b9a8 | 68 | Handles the item banner being static
- * 
+ *
  */
 static void ItemBannerStatic(void)
 {
@@ -268,7 +270,7 @@ static void ItemBannerStatic(void)
 
 /**
  * @brief 1ba10 | 50 | Initializes the item banner to be removing
- * 
+ *
  */
 static void ItemBannerRemovalInit(void)
 {
@@ -288,7 +290,7 @@ static void ItemBannerRemovalInit(void)
 
 /**
  * @brief 1ba60 | b4 | Handles behavior during the removal animation
- * 
+ *
  */
 static void ItemBannerRemovalAnimation(void)
 {
@@ -330,7 +332,7 @@ static void ItemBannerRemovalAnimation(void)
 
 /**
  * @brief 1bb14 | e8 | Item banner AI
- * 
+ *
  */
 void ItemBanner(void)
 {
@@ -341,7 +343,7 @@ void ItemBanner(void)
         case SPRITE_POSE_UNINITIALIZED:
             ItemBannerInit();
             break;
-        
+
         case ITEM_BANNER_POSE_GFX_INIT:
             ItemBannerGfxInit();
             break;
@@ -366,7 +368,7 @@ void ItemBanner(void)
 
 /**
  * @brief 1bbfc | 190 | Save yes no cursor AI
- * 
+ *
  */
 void SaveYesNoCursor(void)
 {

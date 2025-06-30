@@ -6,14 +6,14 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
 
-#include "structs/menus/boot_debug.h"
+#include "mzm/structs/menus/boot_debug.h"
 
-#include "constants/menus/boot_debug.h"
-#include "constants/game_state.h"
-#include "constants/demo.h"
+#include "mzm/constants/menus/boot_debug.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/demo.h"
 
 #ifdef DEBUG
 

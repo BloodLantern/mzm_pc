@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "gba/memory.h"
+#include "mzm/gba/memory.h"
 
 #define REG_SOUND1CNT_L (REG_BASE + 0x60)
 #define REG_SOUND1CNT_H (REG_BASE + 0x62)

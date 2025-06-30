@@ -6,12 +6,12 @@ extern "C"
 {
 #endif
 
-#include "macros.h"
-#include "types.h"
+#include "mzm/macros.h"
+#include "mzm/types.h"
 
-#include "constants/cutscene.h"
+#include "mzm/constants/cutscene.h"
 
-#include "structs/cutscene.h"
+#include "mzm/structs/cutscene.h"
 
 extern const struct CutsceneInfo sCutsceneData[CUTSCENE_END];
 

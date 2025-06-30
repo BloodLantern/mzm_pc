@@ -1,6 +1,8 @@
-#include "data/sprites/charge_beam.h"
+#include "mzm/data/sprites/charge_beam.h"
 
-#include "macros.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sChargeBeamIdleYMovement[66] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1,

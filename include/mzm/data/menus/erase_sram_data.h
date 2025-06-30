@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
-#include "constants/menus/erase_sram.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/constants/menus/erase_sram.h"
 
 extern const u16 sEraseSramMenuObjectsPal[7 * 16];
 extern const u16 sEraseSramMenuBackgroundPal[15 * 16 - 1];

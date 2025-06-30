@@ -1,8 +1,10 @@
-#include "data/cutscenes/enter_tourian_data.h"
-#include "macros.h"
-#include "gba.h"
+#include "mzm/data/cutscenes/enter_tourian_data.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
 
-#include "data/sprites/metroid.h"
+#include "mzm/data/sprites/metroid.h"
+
+#include "mzm_include.h"
 
 const struct CutscenePageData sEnterTourianPageData[2] = {
     [0] = {

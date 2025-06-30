@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/audio.h"
+#include "mzm/types.h"
+#include "mzm/constants/audio.h"
 
 // Structs
 

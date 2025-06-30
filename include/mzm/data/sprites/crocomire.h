@@ -6,10 +6,10 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
 
 enum CrocomireOam {
     CROCOMIRE_OAM_PART_BODY_IDLE,

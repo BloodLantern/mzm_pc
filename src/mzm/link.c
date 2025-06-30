@@ -1,15 +1,17 @@
-#include "cable_link.h"
-#include "macros.h"
-#include "gba.h"
-#include "link.h"
+#include "mzm/cable_link.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
+#include "mzm/link.h"
 
-#include "data/io_transfer_data.h"
+#include "mzm/data/io_transfer_data.h"
 
-#include "constants/cable_link.h"
+#include "mzm/constants/cable_link.h"
 
-#include "structs/cable_link.h"
-#include "structs/game_state.h"
-#include "structs/link.h"
+#include "mzm/structs/cable_link.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/link.h"
+
+#include "mzm_include.h"
 
 static u8* LinkHandleConnection(void);
 static void LinkBuildSendCmd(u16 command);
@@ -36,7 +38,7 @@ static void LinkSendRecvDone(void);
 
 /**
  * @brief 89e30 | 164 | Handle transfer of fusion gallery images
- * 
+ *
  * @return u8 The result of the transfer
  */
 u8 FusionGalleryLinkProcess(void)
@@ -116,14 +118,14 @@ u8 FusionGalleryLinkProcess(void)
 
 /**
  * @brief 89f94 | 198 | Handle connection, sending/receiving commands, and errors
- * 
+ *
  * @return u8* Garbage, contains no value/undefined behavior
  */
 static u8* LinkHandleConnection(void)
 {
     vu32 c;
     u32* link_stat;
-    
+
     gShouldAdvanceLinkState = gFrameCounter8Bit & 1;
     link_stat = &gLinkStatus;
     *link_stat = LinkMain(&gShouldAdvanceLinkState, gSendCmd, gRecvCmds);
@@ -183,13 +185,13 @@ static u8* LinkHandleConnection(void)
 
 /**
  * @brief 8a12c | a8 | Input commands into the send queue
- * 
+ *
  * @param command The command to send
  */
 static void LinkBuildSendCmd(u16 command)
 {
     u32 value;
-    
+
     switch (command)
     {
         case LINKCMD_8800:
@@ -221,7 +223,7 @@ static void LinkBuildSendCmd(u16 command)
 
 /**
  * @brief 8a1d4 | 8c | Process commands from the receive queue
- * 
+ *
  */
 static void LinkProcessRecvCmds(void)
 {
@@ -259,7 +261,7 @@ static void LinkProcessRecvCmds(void)
 
 /**
  * @brief 8a260 | 68 | Disable serial transfer
- * 
+ *
  */
 static void LinkDisableSerial(void)
 {
@@ -281,7 +283,7 @@ static void LinkDisableSerial(void)
 
 /**
  * @brief 8a2c8 | D4 | Enable serial transfer
- * 
+ *
  */
 static void LinkEnableSerial(void)
 {
@@ -322,7 +324,7 @@ static void LinkEnableSerial(void)
 
 /**
  * @brief 8a39c | 10 | Reset the state of the serial transfer
- * 
+ *
  */
 static void LinkResetSerial(void)
 {
@@ -332,7 +334,7 @@ static void LinkResetSerial(void)
 
 /**
  * @brief 8a3ac | 120 | Handle connection, sending data, and checking errors
- * 
+ *
  * @param shouldAdvanceLinkState Should advance link state
  * @param sendCmd The commands to send
  * @param recvCmds A queue of received commands
@@ -439,7 +441,7 @@ static u32 LinkMain(u8* shouldAdvanceLinkState, u16 sendCmd[CMD_LENGTH], u16 rec
 
 /**
  * @brief 8a4cc | 2c | Check if the current connection is parent or child
- * 
+ *
  */
 static void LinkCheckParentOrChild(void)
 {
@@ -458,7 +460,7 @@ static void LinkCheckParentOrChild(void)
 
 /**
  * @brief 8a4f8 | 50 | Load timer 3 if all GBA's are ready
- * 
+ *
  */
 static void LinkInitTimer(void)
 {
@@ -478,7 +480,7 @@ static void LinkInitTimer(void)
 
 /**
  * @brief 8a548 | e0 | Put commands into send queue
- * 
+ *
  * @param sendCmd The commands to send
  */
 static void LinkEnqueueSendCmd(u16 sendCmd[CMD_LENGTH])
@@ -521,7 +523,7 @@ static void LinkEnqueueSendCmd(u16 sendCmd[CMD_LENGTH])
 
 /**
  * @brief 8a628 | 108 | Get commands from recieve queue
- * 
+ *
  * @param recvCmds A queue of received commands
  */
 static void LinkDequeueRecvCmds(u16 recvCmds[MAX_LINK_PLAYERS][CMD_LENGTH])
@@ -570,7 +572,7 @@ static void LinkDequeueRecvCmds(u16 recvCmds[MAX_LINK_PLAYERS][CMD_LENGTH])
 
 /**
  * @brief 8a730 | 70 | Keep track of VSync frames and either start a transfer or lag out if enough frames has passed
- * 
+ *
  */
 void LinkVSync(void)
 {
@@ -597,13 +599,13 @@ void LinkVSync(void)
                     LinkStartTransfer();
                 }
                 break;
-            
+
             case LINK_STATE_HANDSHAKE:
                 LinkStartTransfer();
                 break;
         }
     }
-    
+
     else if (gLink.session.state == LINK_STATE_CONN_ESTABLISHED || gLink.session.state == LINK_STATE_HANDSHAKE)
     {
         gNumVBlanksWithoutSerialIntr++;
@@ -613,7 +615,7 @@ void LinkVSync(void)
             {
                 gLink.connection.sioErrorFlags = LAG_CHILD;
             }
-            
+
             if (gLink.session.state == LINK_STATE_HANDSHAKE)
             {
                 gLink.session.localId = 0;
@@ -626,7 +628,7 @@ void LinkVSync(void)
 
 /**
  * @brief 8a7a0 | 10 | Reload timer 3 and start serial transfer
- * 
+ *
  */
 static void LinkReloadTransfer(void)
 {
@@ -637,7 +639,7 @@ static void LinkReloadTransfer(void)
 
 /**
  * @brief 8a7b0 | 90 | Establish a connection and send data
- * 
+ *
  */
 static void LinkCommunicate(void)
 {
@@ -683,7 +685,7 @@ static void LinkCommunicate(void)
 
 /**
  * @brief 8a840 | 10 | Start a serial transfer
- * 
+ *
  */
 static void LinkStartTransfer(void)
 {
@@ -692,7 +694,7 @@ static void LinkStartTransfer(void)
 
 /**
  * @brief 8a850 | fc | Try to perform the handshake between the parent and child connections
- * 
+ *
  * @return u8 bool, handshake was successfully performed
  */
 static u8 LinkDoHandshake(void)
@@ -717,7 +719,7 @@ static u8 LinkDoHandshake(void)
     write64(gLink.session.handshakeBuffer, read64(REG_SIO_MULTI));
 
     for (i = 0; i < MAX_LINK_PLAYERS; i++)
-    {    
+    {
         if ((gLink.session.handshakeBuffer[i] & ~3) == CHILD_HANDSHAKE || gLink.session.handshakeBuffer[i] == PARENT_HANDSHAKE)
         {
             playerCount++;
@@ -745,7 +747,7 @@ static u8 LinkDoHandshake(void)
         {
             return TRUE;
         }
-    
+
         if (gLink.session.playerCount > 1)
         {
             gLink.connection.unk_11 = (minRecv & 3) + 1;
@@ -767,7 +769,7 @@ static u8 LinkDoHandshake(void)
 
 /**
  * @brief 8a94c | 108 | Receive a command from the receive queue
- * 
+ *
  */
 static void LinkDoRecv(void)
 {
@@ -822,7 +824,7 @@ static void LinkDoRecv(void)
 
 /**
  * @brief 8aa54 | 9c | Send a command from the send queue
- * 
+ *
  */
 static void LinkDoSend(void)
 {
@@ -851,7 +853,7 @@ static void LinkDoSend(void)
         {
             gSendBufferEmpty = TRUE;
         }
-            
+
         if (gSendBufferEmpty)
         {
             write16(REG_SIO_DATA8, 0);
@@ -867,7 +869,7 @@ static void LinkDoSend(void)
 
 /**
  * @brief 8aaf0 | 34 | Stops the timer for the parent
- * 
+ *
  */
 static void LinkStopTimer(void)
 {
@@ -881,7 +883,7 @@ static void LinkStopTimer(void)
 
 /**
  * @brief 8ab24 | 30 | Send a signal that the receive command is done
- * 
+ *
  */
 static void LinkSendRecvDone(void)
 {
@@ -898,7 +900,7 @@ static void LinkSendRecvDone(void)
 
 /**
  * @brief 8ab54 | 48 | Clear the commands in the send queue
- * 
+ *
  */
 void LinkResetSendBuffer(void)
 {
@@ -919,7 +921,7 @@ void LinkResetSendBuffer(void)
 
 /**
  * @brief 8ab9c | 5c | Clear the commands in the receive queue
- * 
+ *
  */
 void LinkResetRecvBuffer(void)
 {

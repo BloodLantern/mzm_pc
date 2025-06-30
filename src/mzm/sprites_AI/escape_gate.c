@@ -1,20 +1,22 @@
-#include "sprites_AI/escape_gate.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/sprites_AI/escape_gate.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/escape_gate.h"
+#include "mzm/data/sprites/escape_gate.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 4e910 | b0 | Updates the hitbox of the escape gate
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void EscapeGateChangeCcaa(u8 caa)
@@ -56,7 +58,7 @@ static void EscapeGateChangeCcaa(u8 caa)
 
 /**
  * @brief 4e9c0 | 348 | Escape gate AI
- * 
+ *
  */
 void EscapeGate(void)
 {

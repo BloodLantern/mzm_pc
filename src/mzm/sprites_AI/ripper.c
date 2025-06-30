@@ -1,16 +1,18 @@
-#include "sprites_AI/ripper.h"
-#include "macros.h"
+#include "mzm/sprites_AI/ripper.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/ripper.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/ripper.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/clipdata.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define RIPPER_POSE_MOVING_INIT 0x8
 #define RIPPER_POSE_MOVING 0x9
@@ -22,7 +24,7 @@
 
 /**
  * @brief 1bd8c | 70 | Initializes a ripper sprite
- * 
+ *
  */
 static void RipperInit(void)
 {
@@ -49,7 +51,7 @@ static void RipperInit(void)
 
 /**
  * @brief 1bdfc | 20 | Initializes a ripper to be moving
- * 
+ *
  */
 static void RipperMovingInit(void)
 {
@@ -62,7 +64,7 @@ static void RipperMovingInit(void)
 
 /**
  * @brief 1be1c | 6c | Handles a ripper moving
- * 
+ *
  */
 static void RipperMove(void)
 {
@@ -99,7 +101,7 @@ static void RipperMove(void)
 
 /**
  * @brief 1be88 | 20 | Initializes a ripper to be turning around
- * 
+ *
  */
 static void RipperTurnAroundInit(void)
 {
@@ -112,7 +114,7 @@ static void RipperTurnAroundInit(void)
 
 /**
  * @brief 1bea8 | 38 | Handles the first part of a ripper turning around
- * 
+ *
  */
 static void RipperTurnAroundFirstPart(void)
 {
@@ -129,7 +131,7 @@ static void RipperTurnAroundFirstPart(void)
 
 /**
  * @brief 1bee0 | 1c | Handles the second part of a ripper turning around
- * 
+ *
  */
 static void RipperTurnAroundSecondPart(void)
 {
@@ -139,7 +141,7 @@ static void RipperTurnAroundSecondPart(void)
 
 /**
  * @brief 1befc | dc | Ripper AI
- * 
+ *
  */
 void Ripper(void)
 {
@@ -164,25 +166,25 @@ void Ripper(void)
         case SPRITE_POSE_UNINITIALIZED:
             RipperInit();
             break;
-            
+
         case RIPPER_POSE_MOVING_INIT:
             RipperMovingInit();
 
         case RIPPER_POSE_MOVING:
             RipperMove();
             break;
-            
+
         case RIPPER_POSE_TURNING_AROUND_INIT:
             RipperTurnAroundInit();
 
         case RIPPER_POSE_TURNING_AROUND_FIRST_PART:
             RipperTurnAroundFirstPart();
             break;
-            
+
         case RIPPER_POSE_TURNING_AROUND_SECOND_PART:
             RipperTurnAroundSecondPart();
             break;
-            
+
         default:
             SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);

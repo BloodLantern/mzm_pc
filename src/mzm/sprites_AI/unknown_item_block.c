@@ -1,21 +1,23 @@
-#include "sprites_AI/unknown_item_block.h"
-#include "gba/display.h"
-#include "macros.h"
+#include "mzm/sprites_AI/unknown_item_block.h"
+#include "mzm/gba/display.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/unknown_item_block.h"
+#include "mzm/data/sprites/unknown_item_block.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 4a930 | 70 | Updates the clipdata of the 4 blocks of the unknown item block
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void UnknownItemBlockChangeClipdata(u8 caa)
@@ -37,7 +39,7 @@ static void UnknownItemBlockChangeClipdata(u8 caa)
     // Bottom left
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + BLOCK_SIZE * 1, xPosition + BLOCK_SIZE * 0);
-    
+
     // Bottom right
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + BLOCK_SIZE * 1, xPosition + BLOCK_SIZE * 1);
@@ -45,7 +47,7 @@ static void UnknownItemBlockChangeClipdata(u8 caa)
 
 /**
  * @brief 4a9a0 | 22c | Unknown item block AI
- * 
+ *
  */
 void UnknownItemBlock(void)
 {
@@ -147,7 +149,7 @@ void UnknownItemBlock(void)
                     gSpriteData[activated].status &= ~SPRITE_STATUS_NOT_DRAWN;
                     gSpriteData[activated].bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
                     gSpriteData[activated].drawOrder = 1;
-                    
+
                     gSpriteData[activated].hitboxTop = 0;
                     gSpriteData[activated].hitboxBottom = 0;
                     gSpriteData[activated].hitboxLeft = 0;
@@ -198,7 +200,7 @@ void UnknownItemBlock(void)
 
 /**
  * @brief 4abcc | 34 | Unknown item block light AI
- * 
+ *
  */
 void UnknownItemBlockLight(void)
 {

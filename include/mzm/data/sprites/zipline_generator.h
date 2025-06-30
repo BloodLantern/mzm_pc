@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
 
 extern const u32 sZiplineGeneratorGfx[1124];
 extern const u16 sZiplineGeneratorPal[64];

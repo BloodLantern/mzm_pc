@@ -1,27 +1,29 @@
-#include "cutscenes/kraid_rising.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "oam.h"
-#include "oam_id.h"
-#include "syscall_wrappers.h"
+#include "mzm/cutscenes/kraid_rising.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/oam.h"
+#include "mzm/oam_id.h"
+#include "mzm/syscall_wrappers.h"
 
-#include "data/cutscenes/cutscenes_data.h"
-#include "data/cutscenes/internal_kraid_rising_data.h"
-#include "data/cutscenes/kraid_rising_data.h"
-#include "data/generic_data.h"
-#include "data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
+#include "mzm/data/cutscenes/internal_kraid_rising_data.h"
+#include "mzm/data/cutscenes/kraid_rising_data.h"
+#include "mzm/data/generic_data.h"
+#include "mzm/data/shortcut_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/game_state.h"
-#include "structs/display.h"
-#include "structs/samus.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 6240c | 2ec | Handles the kraid rising part
- * 
+ *
  * @return u8 FALSE
  */
 u8 KraidRisingRising(void)
@@ -150,7 +152,7 @@ u8 KraidRisingRising(void)
 
 /**
  * @brief 626f8 | 54 | Updates a puff
- * 
+ *
  * @param pOam Cutscene OAM Data Pointer
  * @param puffID Puff ID
  * @return struct CutsceneOamData* First param
@@ -184,7 +186,7 @@ struct CutsceneOamData* KraidRisingUpdatePuff(struct CutsceneOamData* pOam, u8 p
 
 /**
  * @brief 6274c | c0 | Updates a debris
- * 
+ *
  * @param pOam Cutscene OAM Data Pointer
  * @param puffID Debris ID
  * @return struct CutsceneOamData* First param
@@ -204,7 +206,7 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
 
         // Set spawn X (base + [0-64])
         pOam->xPosition = sKraidRisingDebrisSpawnXPosition[debrisID] + MOD_AND(sRandomNumberTable[~MOD_AND(gFrameCounter8Bit + debrisID, ARRAY_SIZE(sRandomNumberTable))], 64);
-        
+
         // Start above ceiling
         pOam->yPosition = -HALF_BLOCK_SIZE;
 
@@ -237,7 +239,7 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
 
 /**
  * @brief 6280c | 188 | Handles the kraid opening his eyes part of the cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 KraidRisingOpeningEyes(void)
@@ -321,8 +323,8 @@ u8 KraidRisingOpeningEyes(void)
 
 /**
  * @brief 62994 | 190 | Initializes the kraid rising cutscene
- * 
- * @return u8 
+ *
+ * @return u8
  */
 u8 KraidRisingInit(void)
 {
@@ -330,7 +332,7 @@ u8 KraidRisingInit(void)
 
     // Load close up palette
     DmaTransfer(3, sKraidRisingCloseUpPal, PALRAM_BASE, sizeof(sKraidRisingCloseUpPal), 16);
-    
+
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     // Load close up graphics
@@ -382,7 +384,7 @@ u8 KraidRisingInit(void)
 
 /**
  * @brief 62b24 | 37 | Kraid rising cutscene subroutine
- * 
+ *
  * @return u8 1 if ended, 0 otherwise
  */
 u8 KraidRisingSubroutine(void)
@@ -399,7 +401,7 @@ u8 KraidRisingSubroutine(void)
 
 /**
  * @brief 62b58 | 38 | Processes the OAM for the cutscene
- * 
+ *
  */
 void KraidRisingProcessOam(void)
 {

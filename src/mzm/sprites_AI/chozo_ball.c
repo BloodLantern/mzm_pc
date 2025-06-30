@@ -1,23 +1,25 @@
-#include "sprites_AI/chozo_ball.h"
-#include "sprites_AI/chozo_statue.h"
-#include "macros.h"
+#include "mzm/sprites_AI/chozo_ball.h"
+#include "mzm/sprites_AI/chozo_statue.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/chozo_statue.h"
-#include "data/sprites/unknown_item_chozo_statue.h"
+#include "mzm/data/sprites/chozo_statue.h"
+#include "mzm/data/sprites/unknown_item_chozo_statue.h"
 
-#include "constants/audio.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/text.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define CHOZO_BALL_FLICKER_TIMER work0
 
 /**
  * 162b0 | 94 | Spawns an item banner depending on the chozo statue sprite ID
- * 
+ *
  * @param spriteId Chozo statue sprite ID
  */
 static void ChozoBallSpawnItemBanner(u8 spriteId)
@@ -77,7 +79,7 @@ static void ChozoBallSpawnItemBanner(u8 spriteId)
 
 /**
  * @brief 16344 | 64 | Sets the closed OAM of a chozo ball based on the sprite ID
- * 
+ *
  * @param spriteId Chozo statue sprite ID
  */
 static void ChozoBallSetClosedOam(u8 spriteId)
@@ -88,7 +90,7 @@ static void ChozoBallSetClosedOam(u8 spriteId)
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
             gCurrentSprite.pOam = sChozoBallOam_UnknownClosed;
             break;
-        
+
         case PSPRITE_CHOZO_STATUE_SPACE_JUMP:
             gCurrentSprite.pOam = sChozoBallOam_UnknownClosed;
             break;
@@ -96,7 +98,7 @@ static void ChozoBallSetClosedOam(u8 spriteId)
         case PSPRITE_CHOZO_STATUE_GRAVITY:
             gCurrentSprite.pOam = sChozoBallOam_UnknownClosed;
             break;
-        
+
         case PSPRITE_CHOZO_STATUE_LONG:
         case PSPRITE_CHOZO_STATUE_ICE:
         case PSPRITE_CHOZO_STATUE_WAVE:
@@ -115,7 +117,7 @@ static void ChozoBallSetClosedOam(u8 spriteId)
 
 /**
  * @brief 163a8 | 64 | Sets the revealing OAM of a chozo ball based on the sprite ID
- * 
+ *
  * @param spriteId Chozo statue sprite ID
  */
 static void ChozoBallSetRevealingOam(u8 spriteId)
@@ -153,7 +155,7 @@ static void ChozoBallSetRevealingOam(u8 spriteId)
 
 /**
  * @brief 1640c | 64 | Sets the revealed OAM of a chozo ball based on the sprite ID
- * 
+ *
  * @param spriteId Chozo statue sprite ID
  */
 static void ChozoBallSetRevealedOam(u8 spriteId)
@@ -191,7 +193,7 @@ static void ChozoBallSetRevealedOam(u8 spriteId)
 
 /**
  * 16470 | 74 | Initializes a chozo ball sprite
- * 
+ *
  */
 static void ChozoBallInit(void)
 {
@@ -218,7 +220,7 @@ static void ChozoBallInit(void)
 
 /**
  * 164e4 | 4 | Empty function
- * 
+ *
  */
 static void ChozoBallEmpty(void)
 {
@@ -227,7 +229,7 @@ static void ChozoBallEmpty(void)
 
 /**
  * 164e8 | 70 | Initializes a chozo ball to be revealing
- * 
+ *
  */
 static void ChozoBallRevealingInit(void)
 {
@@ -248,7 +250,7 @@ static void ChozoBallRevealingInit(void)
 
 /**
  * 16558 | 3c | Checks if the revealing animation has ended
- * 
+ *
  */
 static void ChozoBallCheckRevealingAnimEnded(void)
 {
@@ -264,7 +266,7 @@ static void ChozoBallCheckRevealingAnimEnded(void)
 
 /**
  * 16594 | 1c | Registers the item grabbed and calls ChozoBallSpawnItemBanner
- * 
+ *
  */
 static void ChozoBallRegisterItem(void)
 {
@@ -286,8 +288,8 @@ static void ChozoBallRegisterItem(void)
 }
 
 /**
- * 16600 | 3c | Handles the flashing animation when the item gets grabbed 
- * 
+ * 16600 | 3c | Handles the flashing animation when the item gets grabbed
+ *
  */
 static void ChozoBallFlashAnimation(void)
 {
@@ -304,7 +306,7 @@ static void ChozoBallFlashAnimation(void)
 
 /**
  * 1663c | 58 | Chozo ball AI
- * 
+ *
  */
 void ChozoBall(void)
 {

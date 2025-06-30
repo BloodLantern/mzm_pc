@@ -1,6 +1,8 @@
-#include "data/sprites/dragon.h"
+#include "mzm/data/sprites/dragon.h"
 
-#include "macros.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sDragonFireballYMovement[40] = {
     -12, -12, -12, -12, -10, -10, -10, -10, -8, -8, -8, -8,

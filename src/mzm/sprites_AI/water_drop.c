@@ -1,14 +1,16 @@
-#include "sprites_AI/water_drop.h"
-#include "macros.h"
+#include "mzm/sprites_AI/water_drop.h"
+#include "mzm/macros.h"
 
-#include "data/particle_data.h"
-#include "data/sprite_data.h"
+#include "mzm/data/particle_data.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define WATER_DROP_POSE_CHECK_SPAWNING_ENDED 0x9
 #define WATER_DROP_POSE_SPLASHING_INIT 0xE
@@ -18,7 +20,7 @@
 
 /**
  * @brief 12780 | 2c | Initializes a water drop sprite
- * 
+ *
  */
 static void WaterDropInit(void)
 {
@@ -33,8 +35,8 @@ static void WaterDropInit(void)
 }
 
 /**
- * @brief 127ac | 288 | Water drop AI 
- * 
+ * @brief 127ac | 288 | Water drop AI
+ *
  */
 void WaterDrop(void)
 {
@@ -110,7 +112,7 @@ void WaterDrop(void)
 
                 // Fall
                 offset = gCurrentSprite.work3;
-                movement = sSpritesFallingSpeed[offset]; 
+                movement = sSpritesFallingSpeed[offset];
                 if (movement == SHORT_MAX)
                 {
                     movement = sSpritesFallingSpeed[offset - 1];

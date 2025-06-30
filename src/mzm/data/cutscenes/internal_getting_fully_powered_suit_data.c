@@ -1,7 +1,9 @@
-#include "data/cutscenes/internal_getting_fully_powered_suit_data.h"
-#include "cutscenes/cutscene_utils.h"
-#include "cutscenes/getting_fully_powered_suit.h"
-#include "macros.h"
+#include "mzm/data/cutscenes/internal_getting_fully_powered_suit_data.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/cutscenes/getting_fully_powered_suit.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const struct CutsceneSubroutineData sGettingFullyPoweredSuitSubroutineData[3] = {
     [0] = {

@@ -1,14 +1,16 @@
-#include "sprites_AI/security_laser.h"
-#include "macros.h"
-#include "gba.h"
+#include "mzm/sprites_AI/security_laser.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
 
-#include "data/sprites/security_laser.h"
+#include "mzm/data/sprites/security_laser.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define SECURITY_LASER_SMALL 0x2
 #define SECURITY_LASER_MEDIUM 0x3
@@ -23,7 +25,7 @@
 
 /**
  * @brief 37cbc | 21c | Initializes a security laser sprite
- * 
+ *
  */
 static void SecurityLaserInit(void)
 {
@@ -121,7 +123,7 @@ static void SecurityLaserInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
-    
+
     TransparencyUpdateBldcnt(0x1, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
         BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL);
 
@@ -144,7 +146,7 @@ static void SecurityLaserInit(void)
 
 /**
  * @brief 37ed8 | 13c | Handles a security laser being idle
- * 
+ *
  */
 static void SecurityLaserIdle(void)
 {
@@ -217,7 +219,7 @@ static void SecurityLaserIdle(void)
 
 /**
  * @brief 38014 | d4 | Checks if the despawning animation has ended
- * 
+ *
  */
 static void SecurityLaserCheckDespawnAnimEnded(void)
 {
@@ -272,7 +274,7 @@ static void SecurityLaserCheckDespawnAnimEnded(void)
 
 /**
  * @brief 380e8 | 1c | Continuously sets the alarm
- * 
+ *
  */
 static void SecurityLaserSetAlarm(void)
 {
@@ -282,7 +284,7 @@ static void SecurityLaserSetAlarm(void)
 
 /**
  * @brief 38104 | cc | Unused code
- * 
+ *
  */
 static void SecurityLaser_Unused(void)
 {
@@ -336,7 +338,7 @@ static void SecurityLaser_Unused(void)
 
 /**
  * @brief 381d0 | 138 | Security laser AI
- * 
+ *
  */
 void SecurityLaser(void)
 {
@@ -376,7 +378,7 @@ void SecurityLaser(void)
                 }
             }
         }
-        else if (gCurrentSprite.work3 != BLDALPHA_MAX_VALUE / 2)            
+        else if (gCurrentSprite.work3 != BLDALPHA_MAX_VALUE / 2)
         {
             gCurrentSprite.work3 = BLDALPHA_MAX_VALUE / 2;
             gCurrentSprite.work2 = TRUE;

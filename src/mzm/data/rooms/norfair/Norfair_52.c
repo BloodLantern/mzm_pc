@@ -1,5 +1,7 @@
-#include "data/rooms/norfair_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/norfair_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sNorfair_52_Clipdata[147] = INCBIN_U8("data/rooms/norfair/Norfair_52_Clipdata.gfx");
 
@@ -13,4 +15,3 @@ const u8 sNorfair_52_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
 };
 
 const u8 sNorfair_52_Bg0[694] = INCBIN_U8("data/rooms/norfair/Norfair_52_Bg0.gfx");
-

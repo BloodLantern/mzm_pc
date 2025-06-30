@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE 0x9
 #define UNKNOWN_ITEM_BLOCK_POSE_WAIT_FOR_PROJECITLE 0xB

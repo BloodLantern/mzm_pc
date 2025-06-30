@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 extern const u16 sCommonTilesPal[1 * 16];
 extern const u16 sDoorTransitionPal[15 * 16];

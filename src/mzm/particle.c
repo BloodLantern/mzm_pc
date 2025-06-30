@@ -1,31 +1,33 @@
-#include "particle.h"
-#include "sprites_AI/ruins_test.h"
-#include "escape.h" // Required
+#include "mzm/particle.h"
+#include "mzm/sprites_AI/ruins_test.h"
+#include "mzm/escape.h" // Required
 
-#include "data/engine_pointers.h"
-#include "data/projectile_data.h"
-#include "data/sprite_data.h"
-#include "data/particle_data.h"
-#include "data/visual_effects_data.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/projectile_data.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/particle_data.h"
+#include "mzm/data/visual_effects_data.h"
 
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/escape.h"
-#include "constants/game_state.h"
-#include "constants/particle.h"
-#include "constants/samus.h"
-#include "constants/projectile.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/escape.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/projectile.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/escape.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/escape.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 /**
  * 53dd0 | 98 | Checks if a particle effect is on screen
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
@@ -72,7 +74,7 @@ void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
 
 /**
  * 53e68 | 170 | Draws a particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleDraw(struct ParticleEffect* pParticle)
@@ -90,12 +92,12 @@ void ParticleDraw(struct ParticleEffect* pParticle)
     s32 i;
     u32 shape;
     u32 size;
-    
+
     prevSlot = gNextOamSlot;
     src = gCurrentParticleEffectOamFramePointer;
 
     partCount = *src++;
-    
+
     newSlot = partCount + prevSlot;
 
     if (newSlot < OAM_BUFFER_DATA_SIZE)
@@ -145,7 +147,7 @@ void ParticleDraw(struct ParticleEffect* pParticle)
                 size = gOamData[prevSlot + i].split.size;
                 gOamData[prevSlot + i].split.x = xPosition - (part + sOamXFlipOffsets[shape][size] * 8);
             }
-            
+
             dst++;
         }
 
@@ -155,7 +157,7 @@ void ParticleDraw(struct ParticleEffect* pParticle)
 
 /**
  * 53fd8 | 114 | Processes all the particle effects (calls subroutine and calls the draw function)
- * 
+ *
  */
 void ParticleProcessAll(void)
 {
@@ -175,7 +177,7 @@ void ParticleProcessAll(void)
 
                 if (pParticle->status & PARTICLE_STATUS_EXISTS)
                     ParticleDraw(pParticle);
-            } 
+            }
         }
     }
     else
@@ -218,7 +220,7 @@ void ParticleProcessAll(void)
 
 /**
  * 540ec | a0 | Sets a new particle effect with the given parameters
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param effect Particle effect ID
@@ -299,7 +301,7 @@ void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
 
 /**
  * 5418c | 50 | Updates the animation of a particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  * @param pOam Oam pointer of the particle
  * @return 1 if ended, 0 otherwise
@@ -331,7 +333,7 @@ u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, const struct FrameD
 
 /**
  * 541dc | 14 | Sets the current particle OAM Frame pointer depending on the parameters
- * 
+ *
  * @param pParticle Particle effect pointer
  * @param pOam Oam pointer of the particle
  */
@@ -343,7 +345,7 @@ void ParticleSetCurrentOamFramePointer(struct ParticleEffect* pParticle, const s
 
 /**
  * 541f0 | 44 | Subroutine for the sprite splash water small particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle)
@@ -368,7 +370,7 @@ void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle)
 
 /**
  * 54234 | 44 | Subroutine for the sprite splash water big particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle)
@@ -393,7 +395,7 @@ void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle)
 
 /**
  * 54278 | 44 | Subroutine for the sprite splash water huge particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle)
@@ -418,7 +420,7 @@ void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle)
 
 /**
  * 542bc | 44 | Subroutine for the sprite splash lava small particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle)
@@ -442,7 +444,7 @@ void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle)
 
 /**
  * 54300 | 44 | Subroutine for the sprite splash lava big particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle)
@@ -467,7 +469,7 @@ void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle)
 
 /**
  * 54344 | 44 | Subroutine for the sprite splash lava huge particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle)
@@ -492,7 +494,7 @@ void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle)
 
 /**
  * 54388 | 44 | Subroutine for the sprite splash acid small particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle)
@@ -517,7 +519,7 @@ void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle)
 
 /**
  * 54388 | 44 | Subroutine for the sprite splash acid big particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle)
@@ -542,7 +544,7 @@ void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle)
 
 /**
  * 54410 | 44 | Subroutine for the sprite splash acid huge particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteSplashAcidHuge(struct ParticleEffect* pParticle)
@@ -567,7 +569,7 @@ void ParticleSpriteSplashAcidHuge(struct ParticleEffect* pParticle)
 
 /**
  * 54454 | 38 | Subroutine for the shooting beam left particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamLeft(struct ParticleEffect* pParticle)
@@ -589,7 +591,7 @@ void ParticleShootingBeamLeft(struct ParticleEffect* pParticle)
 
 /**
  * 5448c | 38 | Subroutine for the shooting beam right particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamRight(struct ParticleEffect* pParticle)
@@ -611,7 +613,7 @@ void ParticleShootingBeamRight(struct ParticleEffect* pParticle)
 
 /**
  * 544c4 | 38 | Subroutine for the shooting beam diagonally up particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamDiagUpLeft(struct ParticleEffect* pParticle)
@@ -633,7 +635,7 @@ void ParticleShootingBeamDiagUpLeft(struct ParticleEffect* pParticle)
 
 /**
  * 544fc | 38 | Subroutine for the shooting beam diagonally down particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamDiagUpRight(struct ParticleEffect* pParticle)
@@ -655,7 +657,7 @@ void ParticleShootingBeamDiagUpRight(struct ParticleEffect* pParticle)
 
 /**
  * 54534 | 38 | Subroutine for the shooting beam diagonally left particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamDiagDownLeft(struct ParticleEffect* pParticle)
@@ -677,7 +679,7 @@ void ParticleShootingBeamDiagDownLeft(struct ParticleEffect* pParticle)
 
 /**
  * 5456c | 38 | Subroutine for the shooting beam diagonally right particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamDiagDownRight(struct ParticleEffect* pParticle)
@@ -699,7 +701,7 @@ void ParticleShootingBeamDiagDownRight(struct ParticleEffect* pParticle)
 
 /**
  * 545a4 | 38 | Subroutine for the shooting beam up left particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamUpLeft(struct ParticleEffect* pParticle)
@@ -721,7 +723,7 @@ void ParticleShootingBeamUpLeft(struct ParticleEffect* pParticle)
 
 /**
  * 545dc | 38 | Subroutine for the shooting beam up right particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamUpRight(struct ParticleEffect* pParticle)
@@ -743,7 +745,7 @@ void ParticleShootingBeamUpRight(struct ParticleEffect* pParticle)
 
 /**
  * 54614 | 38 | Subroutine for the shooting beam down left particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamDownLeft(struct ParticleEffect* pParticle)
@@ -765,7 +767,7 @@ void ParticleShootingBeamDownLeft(struct ParticleEffect* pParticle)
 
 /**
  * 5464c | 38 | Subroutine for the shooting beam down right particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShootingBeamDownRight(struct ParticleEffect* pParticle)
@@ -787,7 +789,7 @@ void ParticleShootingBeamDownRight(struct ParticleEffect* pParticle)
 
 /**
  * 54684 | 44 | Subroutine for the bomb particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleBomb(struct ParticleEffect* pParticle)
@@ -810,7 +812,7 @@ void ParticleBomb(struct ParticleEffect* pParticle)
 
 /**
  * 546c8 | 38 | Subroutine for the missile trail particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleMissileTrail(struct ParticleEffect* pParticle)
@@ -832,11 +834,11 @@ void ParticleMissileTrail(struct ParticleEffect* pParticle)
 
 /**
  * 54700 | 38 | Subroutine for the super missile trail particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSuperMissileTrail(struct ParticleEffect* pParticle)
-{    
+{
     APPLY_DELTA_TIME_INC(pParticle->frameCounter);
 
     if (ParticleUpdateAnimation(pParticle, sParticleSuperMissileTrailOam))
@@ -854,7 +856,7 @@ void ParticleSuperMissileTrail(struct ParticleEffect* pParticle)
 
 /**
  * 54738 | 48 | Subroutine for the beam trailing right particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleBeamTrailingRight(struct ParticleEffect* pParticle)
@@ -881,7 +883,7 @@ void ParticleBeamTrailingRight(struct ParticleEffect* pParticle)
 
 /**
  * 54780 | 48 | Subroutine for the beam trailing left particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleBeamTrailingLeft(struct ParticleEffect* pParticle)
@@ -908,7 +910,7 @@ void ParticleBeamTrailingLeft(struct ParticleEffect* pParticle)
 
 /**
  * 547c8 | 34 | Subroutine for the charged long beam trailing particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleChargedLongBeamTrail(struct ParticleEffect* pParticle)
@@ -927,7 +929,7 @@ void ParticleChargedLongBeamTrail(struct ParticleEffect* pParticle)
 
 /**
  * 547fc | 34 | Subroutine for the charged ice beam trailing particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleChargedIceBeamTrail(struct ParticleEffect* pParticle)
@@ -946,7 +948,7 @@ void ParticleChargedIceBeamTrail(struct ParticleEffect* pParticle)
 
 /**
  * 54830 | 34 | Subroutine for the charged wave beam trailing particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleChargedWaveBeamTrail(struct ParticleEffect* pParticle)
@@ -965,7 +967,7 @@ void ParticleChargedWaveBeamTrail(struct ParticleEffect* pParticle)
 
 /**
  * 54864 | 34 | Subroutine for the charged plasma beam trailing particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleChargedPlasmaBeamTrail(struct ParticleEffect* pParticle)
@@ -984,7 +986,7 @@ void ParticleChargedPlasmaBeamTrail(struct ParticleEffect* pParticle)
 
 /**
  * 54898 | 34 | Subroutine for the charged full beam beam trailing particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleChargedFullBeamTrail(struct ParticleEffect* pParticle)
@@ -1003,7 +1005,7 @@ void ParticleChargedFullBeamTrail(struct ParticleEffect* pParticle)
 
 /**
  * 548cc | 34 | Subroutine for the charged pistol trailing particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleChargedPistolTrail(struct ParticleEffect* pParticle)
@@ -1022,7 +1024,7 @@ void ParticleChargedPistolTrail(struct ParticleEffect* pParticle)
 
 /**
  * 54900 | 34 | Subroutine for the sprite explosion huge particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteExplosionHuge(struct ParticleEffect* pParticle)
@@ -1034,7 +1036,7 @@ void ParticleSpriteExplosionHuge(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1044,7 +1046,7 @@ void ParticleSpriteExplosionHuge(struct ParticleEffect* pParticle)
 
 /**
  * 54938 | 34 | Subroutine for the sprite explosion small particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteExplosionSmall(struct ParticleEffect* pParticle)
@@ -1056,7 +1058,7 @@ void ParticleSpriteExplosionSmall(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1066,7 +1068,7 @@ void ParticleSpriteExplosionSmall(struct ParticleEffect* pParticle)
 
 /**
  * 54970 | 34 | Subroutine for the sprite explosion medium particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteExplosionMedium(struct ParticleEffect* pParticle)
@@ -1078,7 +1080,7 @@ void ParticleSpriteExplosionMedium(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1088,7 +1090,7 @@ void ParticleSpriteExplosionMedium(struct ParticleEffect* pParticle)
 
 /**
  * 549a8 | 34 | Subroutine for the sprite explosion big particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteExplosionBig(struct ParticleEffect* pParticle)
@@ -1100,7 +1102,7 @@ void ParticleSpriteExplosionBig(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1110,7 +1112,7 @@ void ParticleSpriteExplosionBig(struct ParticleEffect* pParticle)
 
 /**
  * 549e0 | 34 | Subroutine for the sprite explosion single then big particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpriteExplosionSingleThenBig(struct ParticleEffect* pParticle)
@@ -1122,7 +1124,7 @@ void ParticleSpriteExplosionSingleThenBig(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1132,7 +1134,7 @@ void ParticleSpriteExplosionSingleThenBig(struct ParticleEffect* pParticle)
 
 /**
  * 54a18 | 38 | Subroutine for the screw attack destroyed particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleScrewAttackDestroyed(struct ParticleEffect* pParticle)
@@ -1144,7 +1146,7 @@ void ParticleScrewAttackDestroyed(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1154,7 +1156,7 @@ void ParticleScrewAttackDestroyed(struct ParticleEffect* pParticle)
 
 /**
  * 54a50 | 38 | Subroutine for the shinespark destroyed particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleShinesparkDestroyed(struct ParticleEffect* pParticle)
@@ -1166,7 +1168,7 @@ void ParticleShinesparkDestroyed(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1176,7 +1178,7 @@ void ParticleShinesparkDestroyed(struct ParticleEffect* pParticle)
 
 /**
  * 54a88 | 38 | Subroutine for the sudo attack destroyed particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticlePseudoScrewDestroyed(struct ParticleEffect* pParticle)
@@ -1188,7 +1190,7 @@ void ParticlePseudoScrewDestroyed(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1198,7 +1200,7 @@ void ParticlePseudoScrewDestroyed(struct ParticleEffect* pParticle)
 
 /**
  * 54ac0 | 38 | Subroutine for the speedbooster destroyed particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSpeedboosterDestroyed(struct ParticleEffect* pParticle)
@@ -1210,7 +1212,7 @@ void ParticleSpeedboosterDestroyed(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1220,7 +1222,7 @@ void ParticleSpeedboosterDestroyed(struct ParticleEffect* pParticle)
 
 /**
  * 54af8 | 38 | Subroutine for the main boss death particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleMainBossDeath(struct ParticleEffect* pParticle)
@@ -1232,7 +1234,7 @@ void ParticleMainBossDeath(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1242,7 +1244,7 @@ void ParticleMainBossDeath(struct ParticleEffect* pParticle)
 
 /**
  * 54b30 | 40 | Subroutine for the freezing sprite with ice particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleFreezingSpriteWithIce(struct ParticleEffect* pParticle)
@@ -1255,7 +1257,7 @@ void ParticleFreezingSpriteWithIce(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1265,7 +1267,7 @@ void ParticleFreezingSpriteWithIce(struct ParticleEffect* pParticle)
 
 /**
  * 54b70 | 40 | Subroutine for the freezing sprite with charged ice particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleFreezingSpriteWithChargedIce(struct ParticleEffect* pParticle)
@@ -1278,7 +1280,7 @@ void ParticleFreezingSpriteWithChargedIce(struct ParticleEffect* pParticle)
         pParticle->status = 0;
         return;
     }
-    
+
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
@@ -1288,7 +1290,7 @@ void ParticleFreezingSpriteWithChargedIce(struct ParticleEffect* pParticle)
 
 /**
  * 54bb0 | 3c | Subroutine for the hitting something with base beam particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithNormalBeam(struct ParticleEffect* pParticle)
@@ -1310,7 +1312,7 @@ void ParticleHittingSomethingWithNormalBeam(struct ParticleEffect* pParticle)
 
 /**
  * 54bec | 40 | Subroutine for the hitting something with long beam particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithLongBeam(struct ParticleEffect* pParticle)
@@ -1332,7 +1334,7 @@ void ParticleHittingSomethingWithLongBeam(struct ParticleEffect* pParticle)
 
 /**
  * 54c2c | 3c | Subroutine for the hitting something with ice beam particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithIceBeam(struct ParticleEffect* pParticle)
@@ -1354,7 +1356,7 @@ void ParticleHittingSomethingWithIceBeam(struct ParticleEffect* pParticle)
 
 /**
  * 54c68 | 40 | Subroutine for the hitting something with wave beam particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithWaveBeam(struct ParticleEffect* pParticle)
@@ -1376,7 +1378,7 @@ void ParticleHittingSomethingWithWaveBeam(struct ParticleEffect* pParticle)
 
 /**
  * 54ca8 | 3c | Subroutine for the hitting something with full beam no plasma particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithFullBeamNoPlasma(struct ParticleEffect* pParticle)
@@ -1398,7 +1400,7 @@ void ParticleHittingSomethingWithFullBeamNoPlasma(struct ParticleEffect* pPartic
 
 /**
  * 54ce4 | 3c | Subroutine for the hitting something with plasma beam particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithPlasmaBeam(struct ParticleEffect* pParticle)
@@ -1420,7 +1422,7 @@ void ParticleHittingSomethingWithPlasmaBeam(struct ParticleEffect* pParticle)
 
 /**
  * 54d20 | 3c | Subroutine for the hitting something with full beam particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithFullBeam(struct ParticleEffect* pParticle)
@@ -1442,7 +1444,7 @@ void ParticleHittingSomethingWithFullBeam(struct ParticleEffect* pParticle)
 
 /**
  * 54d5c | 40 | Subroutine for the hitting something invincible particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingInvincible(struct ParticleEffect* pParticle)
@@ -1464,7 +1466,7 @@ void ParticleHittingSomethingInvincible(struct ParticleEffect* pParticle)
 
 /**
  * 54d9c | 40 | Subroutine for the hitting something with missile particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithMissile(struct ParticleEffect* pParticle)
@@ -1487,7 +1489,7 @@ void ParticleHittingSomethingWithMissile(struct ParticleEffect* pParticle)
 
 /**
  * 54ddc | 50 | Subroutine for the hitting something with super missile particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleHittingSomethingWithSuperMissile(struct ParticleEffect* pParticle)
@@ -1513,7 +1515,7 @@ void ParticleHittingSomethingWithSuperMissile(struct ParticleEffect* pParticle)
 
 /**
  * 54e2c | 34 | Subroutine for the small dust particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSmallDust(struct ParticleEffect* pParticle)
@@ -1532,7 +1534,7 @@ void ParticleSmallDust(struct ParticleEffect* pParticle)
 
 /**
  * 54e60 | 34 | Subroutine for the medium dust particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleMediumDust(struct ParticleEffect* pParticle)
@@ -1551,7 +1553,7 @@ void ParticleMediumDust(struct ParticleEffect* pParticle)
 
 /**
  * 54e94 | 34 | Subroutine for the two medium dust particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleTwoMediumDust(struct ParticleEffect* pParticle)
@@ -1570,7 +1572,7 @@ void ParticleTwoMediumDust(struct ParticleEffect* pParticle)
 
 /**
  * 54e94 | 38 | Subroutine for the second small dust particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSecondSmallDust(struct ParticleEffect* pParticle)
@@ -1592,7 +1594,7 @@ void ParticleSecondSmallDust(struct ParticleEffect* pParticle)
 
 /**
  * 54e94 | 38 | Subroutine for the second medium dust particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSecondMediumDust(struct ParticleEffect* pParticle)
@@ -1614,7 +1616,7 @@ void ParticleSecondMediumDust(struct ParticleEffect* pParticle)
 
 /**
  * 54f00 | 38 | Subroutine for the second two medium dust particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSecondTwoMediumDust(struct ParticleEffect* pParticle)
@@ -1636,7 +1638,7 @@ void ParticleSecondTwoMediumDust(struct ParticleEffect* pParticle)
 
 /**
  * 54f70 | 88 | Plays a sound depending on the beams activated when beginning to charge a beam
- * 
+ *
  */
 void ParticlePlayBeginToChargeSound(void)
 {
@@ -1676,7 +1678,7 @@ void ParticlePlayBeginToChargeSound(void)
 
 /**
  * 54ff8 | 88 | Plays a sound depending on the beams activated when shooting a charged beam
- * 
+ *
  */
 void ParticleStopBeginToChargeSound(void)
 {
@@ -1716,7 +1718,7 @@ void ParticleStopBeginToChargeSound(void)
 
 /**
  * 55080 | 88 | Plays a sound depending on the beams activated when charging a fully charged beam
- * 
+ *
  */
 void ParticlePlayBeamFullChargedSound(void)
 {
@@ -1756,7 +1758,7 @@ void ParticlePlayBeamFullChargedSound(void)
 
 /**
  * 55108 | 100 | Subroutine for the charging beam particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleChargingBeam(struct ParticleEffect* pParticle)
@@ -1833,7 +1835,7 @@ void ParticleChargingBeam(struct ParticleEffect* pParticle)
 
 /**
  * 55208 | a8 | Subroutine for the escape particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleEscape(struct ParticleEffect* pParticle)
@@ -1847,7 +1849,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
             EscapeSetTimer();
             gCurrentEscapeStatus = ESCAPE_STATUS_HAPPENNING;
             break;
-        
+
         case 1:
             if (gCurrentEscapeStatus == ESCAPE_STATUS_FAILED)
             {
@@ -1880,7 +1882,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
 
 /**
  * 552b0 | a8 | Subroutine for the samus reflection particle effect
- * 
+ *
  * @param pParticle Particle effect pointer
  */
 void ParticleSamusReflection(struct ParticleEffect* pParticle)

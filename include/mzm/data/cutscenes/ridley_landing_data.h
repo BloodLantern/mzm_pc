@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "macros.h"
-#include "types.h"
+#include "mzm/macros.h"
+#include "mzm/types.h"
 
-#include "structs/cutscene.h"
-#include "cutscenes/ridley_landing.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/cutscenes/ridley_landing.h"
 
 extern const struct CutscenePageData sRidleyLandingPageData[5];
 

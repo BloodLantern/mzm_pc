@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 extern const u16 sSamusCloseUpPal[6 * 16];
 extern const u32 sSamusCloseUpGfx[2319];

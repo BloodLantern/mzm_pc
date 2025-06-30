@@ -1,19 +1,21 @@
-#include "sprites_AI/morph_ball_launcher.h"
-#include "macros.h"
-#include "gba/display.h"
+#include "mzm/sprites_AI/morph_ball_launcher.h"
+#include "mzm/macros.h"
+#include "mzm/gba/display.h"
 
-#include "data/sprites/morph_ball_launcher.h"
+#include "mzm/data/sprites/morph_ball_launcher.h"
 
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/projectile.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/projectile.h"
 
-#include "structs/display.h"
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/projectile.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/projectile.h"
+
+#include "mzm_include.h"
 
 #define MORPH_BALL_LAUNCHER_POSE_IDLE 0x9
 #define MORPH_BALL_LAUNCHER_POSE_DELAY_BEFORE_LAUNCHING 0xB
@@ -29,14 +31,14 @@ enum MorphBallLauncherPart {
 
 /**
  * @brief 268bc | 74 | Updates the clipdata of a morph ball launcher
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void MorphBallLauncherChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
-    
+
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
@@ -62,8 +64,8 @@ static void MorphBallLauncherChangeCcaa(u8 caa)
 }
 
 /**
- * @brief 26930 | 94 | Initializes a morph ball launcher sprite 
- * 
+ * @brief 26930 | 94 | Initializes a morph ball launcher sprite
+ *
  */
 static void MorphBallLauncherInit(void)
 {
@@ -98,7 +100,7 @@ static void MorphBallLauncherInit(void)
 
 /**
  * @brief 269c4 | 94 | Checks if there's a bomb on the launcher
- * 
+ *
  */
 static void MorphBallLauncherDetectBomb(void)
 {
@@ -141,7 +143,7 @@ static void MorphBallLauncherDetectBomb(void)
 
 /**
  * @brief 26a58 | 40 | Delay before samus is launched
- * 
+ *
  */
 static void MorphBallLauncherDelayBeforeLaunching(void)
 {
@@ -162,7 +164,7 @@ static void MorphBallLauncherDelayBeforeLaunching(void)
 
 /**
  * @brief 26a98 | 40 | Handles the launcher launching Samus
- * 
+ *
  */
 static void MorphBallLauncherLaunchSamus(void)
 {
@@ -189,7 +191,7 @@ static void MorphBallLauncherLaunchSamus(void)
 
 /**
  * @brief 26b08 | 48 | Morph ball launcher AI
- * 
+ *
  */
 void MorphBallLauncher(void)
 {
@@ -216,7 +218,7 @@ void MorphBallLauncher(void)
 
 /**
  * @brief 26b50 | e8 | Morph ball launcher part AI
- * 
+ *
  */
 void MorphBallLauncherPart(void)
 {

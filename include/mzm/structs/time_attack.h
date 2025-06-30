@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/in_game_timer.h"
+#include "mzm/types.h"
+#include "mzm/structs/in_game_timer.h"
 
 typedef void (*TimeAttackFunc_T)(u8*, s32);
 

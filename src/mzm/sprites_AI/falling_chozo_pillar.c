@@ -1,18 +1,20 @@
-#include "sprites_AI/falling_chozo_pillar.h"
-#include "sprites_AI/ruins_test.h"
-#include "macros.h"
+#include "mzm/sprites_AI/falling_chozo_pillar.h"
+#include "mzm/sprites_AI/ruins_test.h"
+#include "mzm/macros.h"
 
-#include "gba/display.h"
+#include "mzm/gba/display.h"
 
-#include "data/sprites/falling_chozo_pillar.h"
+#include "mzm/data/sprites/falling_chozo_pillar.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/sprite.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED 0x9
 #define FALLING_CHOZO_PILLAR_POSE_CHECK_ON_SCREEN 0x23
@@ -22,7 +24,7 @@
 
 /**
  * @brief 4b884 | 218 | Falling chozo pillar AI
- * 
+ *
  */
 void FallingChozoPillar(void)
 {

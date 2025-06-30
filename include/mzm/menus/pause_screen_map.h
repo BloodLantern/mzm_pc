@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menu.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/structs/menu.h"
+#include "mzm/structs/cutscene.h"
 
 void PauseScreenCountTanksInArea(void);
 void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks);

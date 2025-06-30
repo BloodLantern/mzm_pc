@@ -1,24 +1,26 @@
-#include "text.h"
-#include "dma.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/text.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/text_data.h"
-#include "data/text_pointers.h"
-#include "data/internal_text_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/cutscenes/internal_story_text_cutscene_data.h"
+#include "mzm/data/text_data.h"
+#include "mzm/data/text_pointers.h"
+#include "mzm/data/internal_text_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/cutscenes/internal_story_text_cutscene_data.h"
 
-#include "constants/text.h"
-#include "constants/menus/pause_screen.h"
+#include "mzm/constants/text.h"
+#include "mzm/constants/menus/pause_screen.h"
 
-#include "structs/game_state.h"
-#include "structs/menus/pause_screen.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/menus/pause_screen.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 6e460 | 24 | Gets the width of a character
- * 
+ *
  * @param charID Character
  * @return u8 Width
  */
@@ -32,7 +34,7 @@ u32 TextGetCharacterWidth(u16 charID)
 
 /**
  * @brief 6e484 | 4b8 | Draws a character in append mode
- * 
+ *
  * @param charID Character
  * @param dst Destination address
  * @param indent Indent
@@ -63,7 +65,7 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 
         pixelSrc = charID * 32 + pass * 0x400;
         srcGfx = (const u32*)&sCharactersGfx[pixelSrc];
-        
+
         if (width > 8)
             size = 16;
         else
@@ -74,10 +76,10 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
             for (i = 0; i < size; i++, dstGfx++, srcGfx++)
             {
                 pixelSrc = *srcGfx;
-                
+
                 if (pixelSrc == 0)
                     continue;
-                    
+
                 pixelDst = 0;
                 if (color != 0)
                     palette = color;
@@ -292,7 +294,7 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 
 /**
  * @brief 6e93c | 5f0 | Draws a character in mask mode
- * 
+ *
  * @param charID Character
  * @param dst Destination address
  * @param indent Indent
@@ -325,7 +327,7 @@ void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 
         pixelDst = charID * 0x20 + pass * 0x400;
         srcGfx = (const u32*)&sCharactersGfx[pixelDst];
-        
+
         if (width > 8)
             size = 16;
         else
@@ -334,7 +336,7 @@ void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
         for (i = 0; i < size; i++, srcGfx++)
         {
             pixelSrc = *srcGfx;
-            
+
             pixelDst = 0;
             if (color != 0)
                 palette = color;
@@ -563,7 +565,7 @@ void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 
 /**
  * @brief 6ef2c | ec | Draws the location text characters
- * 
+ *
  * @param param_1 To document
  * @param ppText Pointer to text pointer
  */
@@ -629,9 +631,9 @@ void TextDrawLocationTextCharacters(u8 param_1, const u16** ppText)
 
 /**
  * @brief 6f018 | 90 | Draws a location text
- * 
- * @param locationText 
- * @param gfxSlot 
+ *
+ * @param locationText
+ * @param gfxSlot
  */
 void TextDrawLocation(u8 locationText, u8 gfxSlot)
 {
@@ -648,7 +650,7 @@ void TextDrawLocation(u8 locationText, u8 gfxSlot)
 
 /**
  * @brief 6f0a8 | 1b0 | To document
- * 
+ *
  * @param textID Message ID
  * @param gfxSlot Gfx slot
  * @param param_3 To document
@@ -662,7 +664,7 @@ u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
     if (param_3 == 0xF)
     {
         gCurrentMessage = sMessage_Empty;
-        
+
         gCurrentMessage.messageID = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
         gCurrentMessage.gfxSlot = gfxSlot;
     }
@@ -738,7 +740,7 @@ u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 
 /**
  * @brief 6f258 | 34 | Starts a new message
- * 
+ *
  * @param textID Text ID
  * @param gfxSlot Graphics slot
  */
@@ -752,7 +754,7 @@ void TextStartMessage(u8 textID, u8 gfxSlot)
 
 /**
  * @brief 6f28c | 178 | Processes an item banner text
- * 
+ *
  * @return u8 Current line
  */
 u8 TextProcessItemBanner(void)
@@ -772,7 +774,7 @@ u8 TextProcessItemBanner(void)
         case 1:
             BitFill(3, -1, VRAM_BASE + 0x14800 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
             BitFill(3, -1, VRAM_BASE + 0x14C00 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
-            
+
             gCurrentMessage.stage++;
             break;
 
@@ -836,7 +838,7 @@ u8 TextProcessItemBanner(void)
 
 /**
  * @brief 6f404 | 20 | Starts a story text
- * 
+ *
  * @param textID Story text ID
  */
 void TextStartStory(u8 textID)
@@ -847,7 +849,7 @@ void TextStartStory(u8 textID)
 
 /**
  * @brief 6f424 | 180 | Processes a story text
- * 
+ *
  * @return u8 Current line
  */
 u8 TextProcessStory(void)
@@ -902,11 +904,11 @@ u8 TextProcessStory(void)
                 gCurrentMessage.stage = 3;
                 break;
             }
-            
+
             while (i != 0)
             {
                 maxLine = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID], dst);
-                
+
                 switch (maxLine)
                 {
                     case TEXT_STATE_ENDED:
@@ -952,7 +954,7 @@ u8 TextProcessStory(void)
 
 /**
  * @brief 6f5a4 | 20 | Starts a file screen text
- * 
+ *
  * @param textID File screen text ID
  */
 void TextStartFileScreen(u8 textID)
@@ -963,7 +965,7 @@ void TextStartFileScreen(u8 textID)
 
 /**
  * @brief 6f5c4 | bc | To document
- * 
+ *
  * @return u8 To document
  */
 u8 TextProcessFileScreenPopUp(void)
@@ -1010,7 +1012,7 @@ u8 TextProcessFileScreenPopUp(void)
 
                 if (flag)
                     break;
-                    
+
                 if (gCurrentMessage.line > 3)
                     break;
 
@@ -1033,7 +1035,7 @@ u8 TextProcessFileScreenPopUp(void)
 
 /**
  * @brief 6f680 | 30c | Processes the description text
- * 
+ *
  */
 void TextProcessDescription(void)
 {
@@ -1191,7 +1193,7 @@ void TextProcessDescription(void)
 
 /**
  * @brief 6f98c | 140 | Processes the current message
- * 
+ *
  * @param pMessage Message data pointer
  * @param pText Text pointer
  * @param dst Destination address
@@ -1248,7 +1250,7 @@ u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* ds
                     // Special color character, changes the color
                     pMessage->color = *pText;
                     break;
-                
+
                 case CHAR_DELAY_MASK:
                     // Special delay character, changes the delay
                     pMessage->delay = *pText;
@@ -1289,7 +1291,7 @@ u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* ds
                 state = TEXT_STATE_NEW_LINE;
                 break;
             }
-            
+
             if (state < TEXT_STATE_NOTHING)
             {
                 // Indent, color or delay character
@@ -1320,7 +1322,7 @@ u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* ds
 
 /**
  * @brief 6facc | ec | Draws the "yes no" prompt of the easy sleep menu
- * 
+ *
  */
 void TextDrawYesNoEasySleep(void)
 {
@@ -1374,7 +1376,7 @@ void TextDrawYesNoEasySleep(void)
 
 /**
  * @brief 6fbb8 | 148 | Draws the easy sleep text
- * 
+ *
  */
 void TextDrawEasySleep(void)
 {

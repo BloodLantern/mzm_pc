@@ -1,21 +1,23 @@
-#include "cutscenes/before_charlie.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "gba.h"
-#include "color_effects.h" // Required
+#include "mzm/cutscenes/before_charlie.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/color_effects.h" // Required
 
-#include "data/shortcut_pointers.h"
-#include "data/cutscenes/before_charlie_data.h"
-#include "data/cutscenes/internal_before_charlie_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/before_charlie_data.h"
+#include "mzm/data/cutscenes/internal_before_charlie_data.h"
 
-#include "constants/cutscene.h"
-#include "constants/audio.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/audio.h"
 
-#include "structs/display.h"
+#include "mzm/structs/display.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 663c8 | 270 | Handles the close up part
- * 
+ *
  * @return u8 FALSE
  */
 u8 BeforeCharlieSamusCloseUp(void)
@@ -28,7 +30,7 @@ u8 BeforeCharlieSamusCloseUp(void)
 
             CallLZ77UncompVram(sBeforeCharlieYoungSamusCloseUpGfx, BGCNT_TO_VRAM_CHAR_BASE(sBeforeCharliePageData[5].graphicsPage));
             CallLZ77UncompVram(sBeforeCharlieSamusCloseUpGfx, BGCNT_TO_VRAM_CHAR_BASE(sBeforeCharliePageData[6].graphicsPage));
-            
+
             CallLZ77UncompVram(sBeforeCharlieYoungSamusCloseUpTileTable, BGCNT_TO_VRAM_TILE_BASE(sBeforeCharliePageData[5].tiletablePage));
             CallLZ77UncompVram(sBeforeCharlieSamusCloseUpEyesClosedTileTable, BGCNT_TO_VRAM_TILE_BASE(sBeforeCharliePageData[8].tiletablePage));
             CallLZ77UncompVram(sBeforeCharlieSamusCloseUpEyesOpenedTileTable, BGCNT_TO_VRAM_TILE_BASE(sBeforeCharliePageData[7].tiletablePage));
@@ -47,7 +49,7 @@ u8 BeforeCharlieSamusCloseUp(void)
 
             CutsceneStartBackgroundFading(10);
             CUTSCENE_DATA.dispcnt = sBeforeCharliePageData[5].bg | sBeforeCharliePageData[8].bg |sBeforeCharliePageData[6].bg;
-            
+
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
@@ -137,7 +139,7 @@ u8 BeforeCharlieSamusCloseUp(void)
 
 /**
  * @brief 66638 | 2d8 | Handles the wall view and the grey voice part
- * 
+ *
  * @return u8 FALSE
  */
 u8 BeforeCharlieWallAndGreyVoice(void)
@@ -246,7 +248,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
 
 /**
  * @brief 66910 | 78 | Handles the scrolling of the wall and loads the young samus and grey voice graphics
- * 
+ *
  * @param pGraphics Cutscene graphics data pointer
  */
 void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGfx(struct CutsceneGraphicsData* pGraphics)
@@ -274,7 +276,7 @@ void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGfx(struct CutsceneGrap
 
 /**
  * @brief 66988 | 6c | Handles the monochrome palette transition
- * 
+ *
  * @param pGraphics Cutscene graphics data pointer
  */
 void BeforeCharlieWallAndGreyVoiceApplyMonochrome(struct CutsceneGraphicsData* pGraphics)
@@ -301,7 +303,7 @@ void BeforeCharlieWallAndGreyVoiceApplyMonochrome(struct CutsceneGraphicsData* p
 
 /**
  * @brief 669f4 | 3c | Handles the scrolling of the young samus and grey voice close up
- * 
+ *
  * @param pGraphics Cutscene graphics data pointer
  */
 void BeforeCharlieWallAndGreyScrollCloseUp(struct CutsceneGraphicsData* pGraphics)
@@ -323,7 +325,7 @@ void BeforeCharlieWallAndGreyScrollCloseUp(struct CutsceneGraphicsData* pGraphic
 
 /**
  * @brief 66a30 | 70 | Handles the view of the chozo side walls part
- * 
+ *
  * @return u8 FALSE
  */
 u8 BeforeCharlieChozoWallSides(void)
@@ -367,7 +369,7 @@ u8 BeforeCharlieChozoWallSides(void)
 
 /**
  * @brief 66aa0 | 130 | Initializes the before charlie cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 BeforeCharlieInit(void)
@@ -408,7 +410,7 @@ u8 BeforeCharlieInit(void)
 
 /**
  * @brief 66bd0 | 30 | Subroutine for the before charlie cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 BeforeCharlieSubroutine(void)

@@ -1,18 +1,20 @@
-#include "sprites_AI/explosion_zebes_escape.h"
+#include "mzm/sprites_AI/explosion_zebes_escape.h"
 
-#include "data/sprites/enemy_drop.h"
+#include "mzm/data/sprites/enemy_drop.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/bg_clip.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 12a34 | 2e0 | Explosion zebes escape AI
- * 
+ *
  */
 void ExplosionZebesEscape(void)
 {
@@ -29,7 +31,7 @@ void ExplosionZebesEscape(void)
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-        
+
         gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
         gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
         gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
@@ -40,7 +42,7 @@ void ExplosionZebesEscape(void)
         gCurrentSprite.hitboxRight = 0;
 
         gCurrentSprite.samusCollision = SSC_NONE;
-        
+
         // Default oam
         gCurrentSprite.pOam = sEnemyDropOam_LargeEnergy;
         gCurrentSprite.animationDurationCounter = 0;
@@ -108,7 +110,7 @@ void ExplosionZebesEscape(void)
         {
             ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
-            
+
             if (rngParam1 > 11)
             {
                 if (rngParam1 % 2)

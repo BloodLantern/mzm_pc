@@ -1,17 +1,19 @@
-#include "sprites_AI/space_pirate_carrying_power_bomb.h"
+#include "mzm/sprites_AI/space_pirate_carrying_power_bomb.h"
 
-#include "data/sprites/space_pirate_carrying_power_bomb.h"
-#include "data/sprites/space_pirate.h"
-#include "data/sprites/enemy_drop.h"
+#include "mzm/data/sprites/space_pirate_carrying_power_bomb.h"
+#include "mzm/data/sprites/space_pirate.h"
+#include "mzm/data/sprites/enemy_drop.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/connection.h"
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_SPAWNING 0x9
 #define SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_MOVING 0x23
@@ -27,7 +29,7 @@
 
 /**
  * @brief 4b604 | 180 | Space pirate carrying power bomb AI
- * 
+ *
  */
 void SpacePirateCarryingPowerBomb(void)
 {
@@ -114,7 +116,7 @@ void SpacePirateCarryingPowerBomb(void)
 
 /**
  * @brief 4b784 | 6c | Fake power bomb AI
- * 
+ *
  */
 void FakePowerBomb(void)
 {
@@ -148,7 +150,7 @@ void FakePowerBomb(void)
 
 /**
  * @brief 4b7f0 | 94 | Fake power bomb event trigger AI
- * 
+ *
  */
 void FakePowerBombEventTrigger(void)
 {
@@ -159,7 +161,7 @@ void FakePowerBombEventTrigger(void)
             gCurrentSprite.status = 0;
             return;
         }
-        
+
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
 
@@ -173,7 +175,7 @@ void FakePowerBombEventTrigger(void)
         gCurrentSprite.hitboxRight = (BLOCK_SIZE + HALF_BLOCK_SIZE);
 
         gCurrentSprite.pose = FAKE_POWER_BOMB_EVENT_TRIGGER_POSE_IDLE;
-        
+
         gCurrentSprite.pOam = sEnemyDropOam_LargeEnergy;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;

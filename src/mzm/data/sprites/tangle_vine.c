@@ -1,7 +1,9 @@
-#include "data/sprites/tangle_vine.h"
-#include "macros.h"
+#include "mzm/data/sprites/tangle_vine.h"
+#include "mzm/macros.h"
 
-#include "sprites_AI/tangle_vine.h"
+#include "mzm/sprites_AI/tangle_vine.h"
+
+#include "mzm_include.h"
 
 static const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame0[TANGLE_VINE_GERUTA_PART_END][MULTI_SPRITE_DATA_ELEMENT_END] = {
     [TANGLE_VINE_GERUTA_PART_GRIP] = {

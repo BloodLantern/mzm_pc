@@ -1,30 +1,32 @@
-#include "menus/game_over.h"
-#include "dma.h"
-#include "macros.h"
-#include "callbacks.h"
-#include "oam_id.h"
-#include "temp_globals.h"
+#include "mzm/menus/game_over.h"
+#include "mzm/dma.h"
+#include "mzm/macros.h"
+#include "mzm/callbacks.h"
+#include "mzm/oam_id.h"
+#include "mzm/temp_globals.h"
 
-#include "data/menus/game_over_data.h"
-#include "data/menus/internal_game_over_data.h"
-#include "data/menus/file_select_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/menus/pause_screen_data.h"
+#include "mzm/data/menus/game_over_data.h"
+#include "mzm/data/menus/internal_game_over_data.h"
+#include "mzm/data/menus/file_select_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/menus/pause_screen_data.h"
 
-#include "constants/audio.h"
-#include "constants/demo.h"
-#include "constants/game_over.h"
-#include "constants/menus/file_select.h"
-#include "constants/menus/boot_debug.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/demo.h"
+#include "mzm/constants/game_over.h"
+#include "mzm/constants/menus/file_select.h"
+#include "mzm/constants/menus/boot_debug.h"
 
-#include "structs/demo.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 778c4 | 214 | Subroutine for the game over
- * 
+ *
  * @return u32 bool, ended
  */
 u32 GameOverSubroutine(void)
@@ -100,7 +102,7 @@ u32 GameOverSubroutine(void)
 
             GameOverUpdateLettersPalette();
             break;
-        
+
         case 4:
             if (GAME_OVER_DATA.oam[0].ended)
             {
@@ -175,7 +177,7 @@ u32 GameOverSubroutine(void)
 
 /**
  * @brief 77ad4 | 78 | Handles the inputs for the game over menu
- * 
+ *
  * @return u32 bool, leaving
  */
 u32 GameOverProcessInput(void)
@@ -222,7 +224,7 @@ u32 GameOverProcessInput(void)
 
 /**
  * @brief 77b4c | 5c | Updates the graphics of the text
- * 
+ *
  */
 void GameOverUpdateTextGfx(void)
 {
@@ -253,7 +255,7 @@ void GameOverUpdateTextGfx(void)
 
 /**
  * @brief 77ba8 | 230 | Initializes the game over menu
- * 
+ *
  */
 void GameOverInit(void)
 {
@@ -319,7 +321,7 @@ void GameOverInit(void)
 
 /**
  * @brief 77dd8 | 134 | Initializes the game over menu for debug
- * 
+ *
  */
 void GameOverInit_Debug(void)
 {
@@ -371,7 +373,7 @@ void GameOverInit_Debug(void)
 
 /**
  * @brief 77f0c | dc | V-blank code for the game over
- * 
+ *
  */
 void GameOverVBlank(void)
 {
@@ -401,7 +403,7 @@ void GameOverVBlank(void)
 
 /**
  * @brief 77fe8 | c | Empty V-blank code
- * 
+ *
  */
 void GameOverVBlank_Empty(void)
 {
@@ -410,7 +412,7 @@ void GameOverVBlank_Empty(void)
 
 /**
  * @brief 77ff4 | 180 | Handles the animation of the GAME OVER letters
- * 
+ *
  */
 void GameOverUpdateLettersPalette(void)
 {
@@ -496,7 +498,7 @@ void GameOverUpdateLettersPalette(void)
 
 /**
  * @brief 78174 | 88 | Updates the head of Samus (cursor)
- * 
+ *
  * @param action Action done
  */
 void GameOverUpdateSamusHead(u8 action)
@@ -516,7 +518,7 @@ void GameOverUpdateSamusHead(u8 action)
 
 /**
  * @brief 781fc | 2c | Processes the OAM for the game over menu
- * 
+ *
  */
 void GameOverProcessOAM(void)
 {

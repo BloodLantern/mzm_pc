@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/time_attack.h"
+#include "mzm/types.h"
+#include "mzm/structs/time_attack.h"
 
 void TimeAttackEORSeed(u8* pSeed, s32 length, u8 value);
 u32 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value);

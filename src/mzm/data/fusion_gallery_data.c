@@ -1,5 +1,7 @@
-#include "data/fusion_gallery_data.h"
-#include "macros.h"
+#include "mzm/data/fusion_gallery_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 static const u16 sFusionGallery_Palette_0[16 * 16] = INCBIN_U16("data/fusion_gallery/image0.pal");
 static const u16 sFusionGallery_Palette_1[16 * 16] = INCBIN_U16("data/fusion_gallery/image1.pal");

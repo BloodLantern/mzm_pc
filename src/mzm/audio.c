@@ -1,16 +1,18 @@
-#include "audio.h"
-#include "macros.h"
-#include "gba.h"
-#include "syscalls.h"
-#include "audio/track_internal.h"
+#include "mzm/audio.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
+#include "mzm/syscalls.h"
+#include "mzm/audio/track_internal.h"
 
-#include "data/audio.h"
+#include "mzm/data/audio.h"
 
-#include "constants/audio_engine.h"
+#include "mzm/constants/audio_engine.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 10c4 | 394 | To document
- * 
+ *
  */
 void UpdateMusic(void)
 {
@@ -170,7 +172,7 @@ void UpdateMusic(void)
             pChannel->unk_0 = 0;
             continue;
         }
-        
+
         if (var_5 == 1)
         {
             if (pChannel->envelope.attack != UCHAR_MAX)
@@ -268,7 +270,7 @@ void UpdateMusic(void)
 
 /**
  * @brief 1458 | 3f8 | To document
- * 
+ *
  */
 void UpdatePsgSounds(void)
 {
@@ -301,7 +303,7 @@ void UpdatePsgSounds(void)
                 pSound->unk_E = pVariables->unk_D;
                 pSound->unk_1D = pVariables->unk_36;
                 pSound->unk_1E = pVariables->unk_37;
-                
+
                 pSound->pSample = pVariables->pSample1;
                 pSound->envelope.attack = pVariables->envelope1.attack;
                 pSound->envelope.decay = pVariables->envelope1.decay;
@@ -470,15 +472,15 @@ void UpdatePsgSounds(void)
                             pSound->unk_12 = 0;
                             var_0 = TRUE;
                         }
-    
+
                         pSound->unk_18 = pSound->envelope.attack;
                         break;
                     }
-                    
+
 
                 case 3:
                     goto lbl_case_3;
-                    
+
                     lbl_2:
                     pSound->unk_19 = pSound->unk_1A;
                     if (i == 2)
@@ -519,13 +521,13 @@ void UpdatePsgSounds(void)
                         pSound->unk_12 = 0;
                         pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
                     }
-                    
+
                     pSound->unk_0 = 4;
                     var_0 = TRUE;
 
                 case 4:
                     pSound->unk_19 = pSound->unk_1B;
-                    
+
                     if ((pSound->unk_0 & 0xF) == 4)
                         pSound->unk_18 = 1;
                     break;
@@ -638,7 +640,7 @@ void UpdatePsgSounds(void)
 
 /**
  * @brief 1850 | 3a0 | Updates a track data
- * 
+ *
  * @param pTrack Track data pointer
  */
 void UpdateTrack(struct TrackData* pTrack)
@@ -760,7 +762,7 @@ void UpdateTrack(struct TrackData* pTrack)
                                 {
                                     pVariables->unk_F = var_0;
                                     pVariables->pRawData++;
-                                
+
                                     var_0 = *pVariables->pRawData;
                                     if ((s8)var_0 >= 0)
                                     {
@@ -850,7 +852,7 @@ void UpdateTrack(struct TrackData* pTrack)
                         pVariables->unk_0 &= ~8;
                     }
                 }
-                
+
                 var_1--;
             }
         }
@@ -888,7 +890,7 @@ void UpdateTrack(struct TrackData* pTrack)
 
 /**
  * @brief 1bf0 | 28 | To document
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void unk_1bf0(struct TrackVariables* pVariables)
@@ -909,7 +911,7 @@ void unk_1bf0(struct TrackVariables* pVariables)
 
 /**
  * @brief 1c18 | 24 | To document
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void unk_1c18(struct TrackVariables* pVariables)
@@ -930,7 +932,7 @@ void unk_1c18(struct TrackVariables* pVariables)
 
 /**
  * @brief 1c3c | 90 | To document
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void unk_1c3c(struct TrackVariables* pVariables)
@@ -949,7 +951,7 @@ void unk_1c3c(struct TrackVariables* pVariables)
             for (; pChannel != NULL; pChannel = pChannel->pChannel2)
                 pChannel->unk_13 |= 0x10;
             break;
-        
+
         case 0:
             unk_4eb4(pVariables);
 
@@ -980,7 +982,7 @@ void unk_1c3c(struct TrackVariables* pVariables)
 
 /**
  * @brief 1ccc | 90 | To document
- * 
+ *
  * @param pVariables Track variables pointer
  * @param param_2 To document
  */
@@ -1020,7 +1022,7 @@ void unk_1ccc(struct TrackVariables* pVariables, s16 param_2)
 
 /**
  * @brief 1d5c | 1c | To document
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void unk_1d5c(struct TrackVariables* pVariables)
@@ -1033,7 +1035,7 @@ void unk_1d5c(struct TrackVariables* pVariables)
 
 /**
  * @brief 1d78 | 64 | To document
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void unk_1d78(struct TrackVariables* pVariables)
@@ -1066,7 +1068,7 @@ void unk_1d78(struct TrackVariables* pVariables)
 
 /**
  * @brief 1ddc | c | To document
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void unk_1ddc(struct TrackVariables* pVariables)
@@ -1076,7 +1078,7 @@ void unk_1ddc(struct TrackVariables* pVariables)
 
 /**
  * @brief 1de8 | 44 | To document
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void unk_1de8(struct TrackVariables* pVariables)
@@ -1096,7 +1098,7 @@ void unk_1de8(struct TrackVariables* pVariables)
 
 /**
  * @brief 1e2c | 110 | To document
- * 
+ *
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
@@ -1130,7 +1132,7 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
             //unk_4f8c(pChannel, pVariables, var_0);
             //return;
         }
-        
+
         if (gMusicInfo.soundChannels[i].unk_0 == 5 || gMusicInfo.soundChannels[i].unk_0 == 6 || gMusicInfo.soundChannels[i].unk_0 == 8)
         {
             if (!var_1)
@@ -1187,7 +1189,7 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
 /**
  * @brief 1f3c | 54 | To document
- * 
+ *
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
@@ -1207,7 +1209,7 @@ void unk_1f3c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
 /**
  * @brief 1f90 | 50 | To document
- * 
+ *
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
@@ -1233,7 +1235,7 @@ void unk_1f90(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
 /**
  * @brief 1fe0 | 50 | To document
- * 
+ *
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
@@ -1259,7 +1261,7 @@ void unk_1fe0(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
 /**
  * @brief 2030 | 74 | To document
- * 
+ *
  * @param pSound PSG sound pointer
  * @param pVariables Track variables pointer
  * @param param_3 To document
@@ -1296,7 +1298,7 @@ void unk_2030(struct PSGSoundData* pSound, struct TrackVariables* pVariables, u3
 
 /**
  * @brief 20a4 | 30 | To document
- * 
+ *
  * @param pChannel Sound channel pointer
  */
 void unk_20a4(struct SoundChannel* pChannel)
@@ -1318,7 +1320,7 @@ void unk_20a4(struct SoundChannel* pChannel)
 
 /**
  * @brief 20d4 | 6c | Gets the delay for a note (probably)
- * 
+ *
  * @param pVariables Track variables pointer
  * @param param_2 Note?
  * @param param_3 To document
@@ -1345,13 +1347,13 @@ u16 GetNoteDelay(struct TrackVariables* pVariables, u8 param_2, u8 param_3)
     {
         delay = sNoiseTable[param_2 - 0x15] | (u8)(u32)pVariables->pSample1;
     }
-    
+
     return delay;
 }
 
 /**
  * @brief 2140 | 70 | Processes the audio command FINE
- * 
+ *
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
@@ -1394,7 +1396,7 @@ void AudioCommand_Fine(struct TrackData* pTrack, struct TrackVariables* pVariabl
 
 /**
  * @brief 21b0 | 7c | To document
- * 
+ *
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
@@ -1438,7 +1440,7 @@ void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
 /**
  * @brief 222c | 38 | Processes the audio command PEND
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_PatternEnd(struct TrackVariables* pVariables)
@@ -1460,7 +1462,7 @@ void AudioCommand_PatternEnd(struct TrackVariables* pVariables)
 
 /**
  * @brief 2264 | 40 | Processes the audio command REPT
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_Repeat(struct TrackVariables* pVariables)
@@ -1493,7 +1495,7 @@ void AudioCommand_Repeat(struct TrackVariables* pVariables)
 
 /**
  * @brief 22a4 | 10 | Processes the audio command PRIO
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_Priority(struct TrackVariables* pVariables)
@@ -1504,7 +1506,7 @@ void AudioCommand_Priority(struct TrackVariables* pVariables)
 
 /**
  * @brief 22b4 | 18 | Processes the audio command KEYSH
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_KeyShift(struct TrackVariables* pVariables)
@@ -1517,7 +1519,7 @@ void AudioCommand_KeyShift(struct TrackVariables* pVariables)
 
 /**
  * @brief 22cc | c0 | Processes the audio command VOICE
- * 
+ *
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
@@ -1571,7 +1573,7 @@ void AudioCommand_Voice(struct TrackData* pTrack, struct TrackVariables* pVariab
         {
             pVariables->pSample1 = (u32*)((u32)pVoice->pSample << 0x1B >> 0x18);
         }
-        
+
         pVariables->envelope1 = pVoice->envelope;
     }
 
@@ -1580,7 +1582,7 @@ void AudioCommand_Voice(struct TrackData* pTrack, struct TrackVariables* pVariab
 
 /**
  * @brief 238c | 14 | Processes the audio command VOL
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_Volume(struct TrackVariables* pVariables)
@@ -1592,7 +1594,7 @@ void AudioCommand_Volume(struct TrackVariables* pVariables)
 
 /**
  * @brief 23a0 | 14 | Processes the audio command PAN
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_PanPot(struct TrackVariables* pVariables)
@@ -1604,7 +1606,7 @@ void AudioCommand_PanPot(struct TrackVariables* pVariables)
 
 /**
  * @brief 23b4 | 18 | Processes the audio command BEND
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_PitchBend(struct TrackVariables* pVariables)
@@ -1616,7 +1618,7 @@ void AudioCommand_PitchBend(struct TrackVariables* pVariables)
 
 /**
  * @brief 23cc | 18 | Processes the audio command BENDR
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_BendRange(struct TrackVariables* pVariables)
@@ -1628,7 +1630,7 @@ void AudioCommand_BendRange(struct TrackVariables* pVariables)
 
 /**
  * @brief 23e0 | 10 | Processes the audio command LFOS
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_LfoSpeed(struct TrackVariables* pVariables)
@@ -1639,7 +1641,7 @@ void AudioCommand_LfoSpeed(struct TrackVariables* pVariables)
 
 /**
  * @brief 23f0 | 10 | Processes the audio command LFODL
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_LfoDelay(struct TrackVariables* pVariables)
@@ -1654,7 +1656,7 @@ void AudioCommand_LfoDelay(struct TrackVariables* pVariables)
 
 /**
  * @brief 2400 | c | Processes the audio command MOD
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_ModulationDepth(struct TrackVariables* pVariables)
@@ -1665,7 +1667,7 @@ void AudioCommand_ModulationDepth(struct TrackVariables* pVariables)
 
 /**
  * @brief 240c | c | Processes the audio command MODT
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_ModulationType(struct TrackVariables* pVariables)
@@ -1676,7 +1678,7 @@ void AudioCommand_ModulationType(struct TrackVariables* pVariables)
 
 /**
  * @brief 2418 | 18 | Processes the audio command TUNE
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_Tune(struct TrackVariables* pVariables)
@@ -1688,7 +1690,7 @@ void AudioCommand_Tune(struct TrackVariables* pVariables)
 
 /**
  * @brief 2430 | 30 | Processes the audio command XCMD
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_ExtendCommand(struct TrackVariables* pVariables)
@@ -1710,7 +1712,7 @@ void AudioCommand_ExtendCommand(struct TrackVariables* pVariables)
 
 /**
  * @brief 2460 | 5c | Processes the audio command EOT
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void AudioCommand_EndOfTie(struct TrackVariables* pVariables)
@@ -1729,7 +1731,7 @@ void AudioCommand_EndOfTie(struct TrackVariables* pVariables)
     {
         param = pVariables->unk_1;
     }
-    
+
     if (pVariables->pChannel)
     {
         for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
@@ -1752,7 +1754,7 @@ void AudioCommand_EndOfTie(struct TrackVariables* pVariables)
 
 /**
  * @brief 24bc | 4 | Empty function
- * 
+ *
  * @param pVariables Track variables pointer
  */
 void Music_EmptyCommand(struct TrackVariables* pVariables)
@@ -1762,7 +1764,7 @@ void Music_EmptyCommand(struct TrackVariables* pVariables)
 
 /**
  * @brief 24c0 | 5c | Clears the registers for a PSG sound
- * 
+ *
  * @param pSound PSG sound pointer
  * @param channel Channel
  */
@@ -1793,7 +1795,7 @@ void ClearRegistersForPsg(struct PSGSoundData* pSound, u8 channel)
 
 /**
  * @brief 251c | 48 | Clears the registers for a PSG sound, unused
- * 
+ *
  * @param pSound PSG sound pointer
  * @param channel Channel
  */

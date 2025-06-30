@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "macros.h"
-#include "types.h"
+#include "mzm/macros.h"
+#include "mzm/types.h"
 
-#include "structs/cutscene.h"
-#include "cutscenes/ridley_in_space.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/cutscenes/ridley_in_space.h"
 
 extern const struct CutsceneScrollingInfo sRidleyInSpaceScrollingInfo[2];
 extern const struct CutscenePageData sRidleyInSpacePageData[6];

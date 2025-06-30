@@ -1,7 +1,9 @@
-#include "data/sprites/mecha_ridley.h"
-#include "macros.h"
+#include "mzm/data/sprites/mecha_ridley.h"
+#include "mzm/macros.h"
 
-#include "sprites_AI/mecha_ridley.h"
+#include "mzm/sprites_AI/mecha_ridley.h"
+
+#include "mzm_include.h"
 
 static const s16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame0[MECHA_RIDLEY_PART_END][MULTI_SPRITE_DATA_ELEMENT_END] = {
     [MECHA_RIDLEY_PART_RIGHT_ARM] = {

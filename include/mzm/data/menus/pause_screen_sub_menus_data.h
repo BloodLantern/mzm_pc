@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menus/pause_screen.h"
-#include "constants/menus/pause_screen.h"
+#include "mzm/types.h"
+#include "mzm/structs/menus/pause_screen.h"
+#include "mzm/constants/menus/pause_screen.h"
 
 extern const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END];
 

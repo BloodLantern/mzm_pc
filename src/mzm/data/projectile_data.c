@@ -1,6 +1,8 @@
-#include "data/projectile_data.h"
-#include "structs/particle.h"
-#include "macros.h"
+#include "mzm/data/projectile_data.h"
+#include "mzm/structs/particle.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sTumblingMissileSpeed[16] = {
     -12, -10, -8, -6,

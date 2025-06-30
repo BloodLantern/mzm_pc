@@ -1,27 +1,29 @@
-#include "menus/pause_screen_map.h"
-#include "menus/pause_screen.h"
-#include "menus/status_screen.h"
-#include "dma.h"
+#include "mzm/menus/pause_screen_map.h"
+#include "mzm/menus/pause_screen.h"
+#include "mzm/menus/status_screen.h"
+#include "mzm/dma.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/block_data.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/menus/pause_screen_map_data.h"
-#include "data/menus/internal_pause_screen_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/block_data.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/menus/pause_screen_map_data.h"
+#include "mzm/data/menus/internal_pause_screen_data.h"
 
-#include "constants/audio.h"
-#include "constants/block.h"
-#include "constants/connection.h"
-#include "constants/minimap.h"
-#include "constants/menus/pause_screen.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/block.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/minimap.h"
+#include "mzm/constants/menus/pause_screen.h"
 
-#include "structs/bg_clip.h"
-#include "structs/minimap.h"
-#include "structs/menus/pause_screen.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/minimap.h"
+#include "mzm/structs/menus/pause_screen.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 6cef8 | 168 | Counts the number of tanks in the crrent area
- * 
+ *
  */
 void PauseScreenCountTanksInArea(void)
 {
@@ -92,8 +94,8 @@ void PauseScreenCountTanksInArea(void)
 
 /**
  * @brief 6d060 | 2d4 | Draws the in game time and tanks info on the map screen
- * 
- * @param param_1 
+ *
+ * @param param_1
  * @param drawTanks Draw tanks or IGT info flag
  */
 void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
@@ -255,7 +257,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
 
 /**
  * @brief 6d334 | 114 | Initializes the map download
- * 
+ *
  */
 void PauseScreenInitMapDownload(void)
 {
@@ -298,7 +300,7 @@ void PauseScreenInitMapDownload(void)
             if ((*ptr_1 & 0x3FF) != 0xA0)
                 *ptr_2 = 0xC0;
         }
-    
+
         // 0x2034000 is gDecompressedMinimapVisitedTiles, direct address is required to match
         DMA_SET(3, 0x2034000, VRAM_BASE + 0xE000,
             C_32_2_16(DMA_ENABLE, ARRAY_SIZE(gDecompressedMinimapVisitedTiles)));
@@ -307,7 +309,7 @@ void PauseScreenInitMapDownload(void)
 
 /**
  * @brief 6d448 | 38 | Subroutine for the map download
- * 
+ *
  * @return u32 bool, ended
  */
 u32 PauseScreenMapDownloadSubroutine(void)
@@ -328,7 +330,7 @@ u32 PauseScreenMapDownloadSubroutine(void)
 
 /**
  * @brief 6d480 | a8 | Unused map download, download the entire map instantly
- * 
+ *
  * @return u32 bool, ended
  */
 u32 PauseScreenMapDownloadInstant_Unused(void)
@@ -342,7 +344,7 @@ u32 PauseScreenMapDownloadInstant_Unused(void)
         return TRUE;
 
     PAUSE_SCREEN_DATA.downloadTimer++;
-    
+
     switch (PAUSE_SCREEN_DATA.downloadStage)
     {
         case 0:
@@ -383,7 +385,7 @@ u32 PauseScreenMapDownloadInstant_Unused(void)
 
 /**
  * @brief 6d528 | 158 | Unused map download, download the entire map instantly and has the line animation
- * 
+ *
  * @return u32 bool, ended
  */
 u32 PauseScreenMapDownloadInstantWithLine_Unused(void)
@@ -454,9 +456,9 @@ u32 PauseScreenMapDownloadInstantWithLine_Unused(void)
 }
 
 /**
- * @brief 6d680 | 4d8 | 
- * 
- * @return u32 
+ * @brief 6d680 | 4d8 |
+ *
+ * @return u32
  */
 u32 PauseScreenMapDownload(void)
 {
@@ -495,7 +497,7 @@ u32 PauseScreenMapDownload(void)
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].objMode = 1;
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].exists = FALSE;
             }
-            
+
             PAUSE_SCREEN_DATA.downloadStage++;
             PAUSE_SCREEN_DATA.downloadTimer = 0;
             PAUSE_SCREEN_DATA.unk_4F = 0;
@@ -530,7 +532,7 @@ u32 PauseScreenMapDownload(void)
                     {
                         // "Draw" current line
                         DMA_SET(3, &gDecompressedMinimapVisitedTiles[PAUSE_SCREEN_DATA.currentDownloadedLine * MINIMAP_SIZE],
-                            VRAM_BASE + 0xE000 + PAUSE_SCREEN_DATA.currentDownloadedLine * MINIMAP_SIZE * 2, DMA_ENABLE << 16 | MINIMAP_SIZE);   
+                            VRAM_BASE + 0xE000 + PAUSE_SCREEN_DATA.currentDownloadedLine * MINIMAP_SIZE * 2, DMA_ENABLE << 16 | MINIMAP_SIZE);
                     }
 
                     PAUSE_SCREEN_DATA.unk_4F++;
@@ -591,7 +593,7 @@ u32 PauseScreenMapDownload(void)
                 gUpdateMinimapFlag = i;
                 MinimapDraw();
             }
-            
+
             PAUSE_SCREEN_DATA.downloadStage++;
             PAUSE_SCREEN_DATA.downloadTimer = 0;
             break;
@@ -612,7 +614,7 @@ u32 PauseScreenMapDownload(void)
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].currentAnimationFrame = 0;
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].exists = FALSE;
             }
-            
+
             PAUSE_SCREEN_DATA.downloadTimer = 0;
             PAUSE_SCREEN_DATA.downloadStage++;
             break;
@@ -631,7 +633,7 @@ u32 PauseScreenMapDownload(void)
 
 /**
  * @brief 6db58 | 238 | Sets the positions and boundaries of the map
- * 
+ *
  * @param spawnOption Where to spawn, 0 is close to chozo hint, 1 is normal, 2 is center
  */
 void PauseScreenMapSetSpawnPosition(u8 spawnOption)
@@ -748,7 +750,7 @@ void PauseScreenMapSetSpawnPosition(u8 spawnOption)
 
 /**
  * @brief 6ddc0 | 110 | Gets the borders of the current area map
- * 
+ *
  */
 void PauseScreenMapGetAbsoluteMapBordersPositions(void)
 {
@@ -796,7 +798,7 @@ void PauseScreenMapGetAbsoluteMapBordersPositions(void)
             }
         }
     }
-    
+
     found = FALSE;
     // Same thing, but from top left (iteration direction changed)
     for (i = 0; i < MINIMAP_SIZE && !found; i++)
@@ -831,7 +833,7 @@ void PauseScreenMapGetAbsoluteMapBordersPositions(void)
 
 /**
  * @brief 6ded0 | b0 | Updates the absolute borders positions to allow scrolling to targets
- * 
+ *
  */
 void PauseScreenMapUpdateMapBordersForTargets(void)
 {
@@ -865,13 +867,13 @@ void PauseScreenMapUpdateMapBordersForTargets(void)
         // Check should update any border
         if (yPosition < PAUSE_SCREEN_DATA.mapTopBorder)
             PAUSE_SCREEN_DATA.mapTopBorder = yPosition;
-        
+
         if (yPosition > PAUSE_SCREEN_DATA.mapBottomBorder)
             PAUSE_SCREEN_DATA.mapBottomBorder = yPosition;
 
         if (xPosition < PAUSE_SCREEN_DATA.mapLeftBorder)
             PAUSE_SCREEN_DATA.mapLeftBorder = xPosition;
-        
+
         if (xPosition > PAUSE_SCREEN_DATA.mapRightBorder)
             PAUSE_SCREEN_DATA.mapRightBorder = xPosition;
     }
@@ -879,7 +881,7 @@ void PauseScreenMapUpdateMapBordersForTargets(void)
 
 /**
  * @brief 6df80 | 7c | Gets all the minimap data
- * 
+ *
  * @param start Start minimap
  */
 void PauseScreenGetAllMinimapData(u8 start)
@@ -917,7 +919,7 @@ void PauseScreenGetAllMinimapData(u8 start)
 
 /**
  * @brief 6dffc | 50 | Checks which areas have at least one visited tile
- * 
+ *
  */
 void PauseScreenMapCheckExploredAreas(void)
 {
@@ -945,7 +947,7 @@ void PauseScreenMapCheckExploredAreas(void)
 
 /**
  * @brief 6e04c | 1a8 | Map screen subroutine
- * 
+ *
  */
 void MapScreenSubroutine(void)
 {
@@ -1024,7 +1026,7 @@ void MapScreenSubroutine(void)
                 PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP_INIT;
                 action = 2;
             }
-    
+
             if (action != 0)
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
@@ -1056,7 +1058,7 @@ void MapScreenSubroutine(void)
 
 /**
  * @brief 6e1f4 | dc | Switches the world map on/off
- * 
+ *
  * @param forceOff bool, force closing
  */
 void MapScreenToggleWorldMap(u8 forceOff)
@@ -1106,7 +1108,7 @@ void MapScreenToggleWorldMap(u8 forceOff)
 
 /**
  * @brief 6e2d0 | 190 | Handles changing the currently viewed minimap
- * 
+ *
  */
 void MapScreenChangeMap(void)
 {
@@ -1125,7 +1127,7 @@ void MapScreenChangeMap(void)
                 if (PAUSE_SCREEN_DATA.currentArea == sMapScreenAreasViewOrder[i])
                     break;
             }
-            
+
             // Leftover debug code?
             while (i >= AREA_TEST);
 
@@ -1175,14 +1177,14 @@ void MapScreenChangeMap(void)
             PauseScreenMapSetSpawnPosition(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);
 
             PAUSE_SCREEN_DATA.samusIconOam[0].exists = OAM_ID_CHANGED_FLAG;
-            
+
             // Update highlight
             PauseScreenUpdateWorldMapHighlight(PAUSE_SCREEN_DATA.currentArea);
 
             // Update world map
             if (PAUSE_SCREEN_DATA.onWorldMap)
                 PauseScreenUpdateWorldMap(TRUE);
-            
+
             PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6C;
 
             // Update palette and boss icons

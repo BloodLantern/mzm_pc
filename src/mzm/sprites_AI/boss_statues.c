@@ -1,25 +1,27 @@
-#include "sprites_AI/boss_statues.h"
-#include "gba/display.h"
+#include "mzm/sprites_AI/boss_statues.h"
+#include "mzm/gba/display.h"
 
-#include "data/sprites/boss_statues.h"
+#include "mzm/data/sprites/boss_statues.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/projectile.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/projectile.h"
 
-#include "structs/bg_clip.h"
-#include "structs/connection.h"
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/scroll.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/projectile.h"
-#include "structs/game_state.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/scroll.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/projectile.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 #define BOSS_STATUE_POSE_CHECK_START_OPEN 0x9
 #define BOSS_STATUE_POSE_OPENING 0xB
@@ -27,7 +29,7 @@
 
 /**
  * @brief 49184 | 80 | Sets the collision of the wall behind Samus to lock here in the screen
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void BossStatusSetWallBehindSamusCollision(u8 caa)
@@ -37,7 +39,7 @@ static void BossStatusSetWallBehindSamusCollision(u8 caa)
 
     yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
     xPosition = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
-    
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 0, xPosition + BLOCK_SIZE * 8);
 
@@ -59,8 +61,8 @@ static void BossStatusSetWallBehindSamusCollision(u8 caa)
 
 /**
  * @brief 49204 | 58 | Updates the clipdata of a 3 blocks horizontal lign for the Kraid statue
- * 
- * @param caa Clipdata Affecting Action 
+ *
+ * @param caa Clipdata Affecting Action
  */
 static void KraidStatueHorizontalLignThreeChangeCcaa(u8 caa)
 {
@@ -82,7 +84,7 @@ static void KraidStatueHorizontalLignThreeChangeCcaa(u8 caa)
 
 /**
  * @brief 4925c | b8 | Updates the clipdata of the Kraid statue insides
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void KraidStatueInsideChangeCcaa(u8 caa)
@@ -120,7 +122,7 @@ static void KraidStatueInsideChangeCcaa(u8 caa)
 
 /**
  * @brief 49314 | 28 | Initializes the kraid statue to be opened
- * 
+ *
  */
 static void KraidStatueOpenedInit(void)
 {
@@ -134,7 +136,7 @@ static void KraidStatueOpenedInit(void)
 
 /**
  * @brief 4933c | c8 | Initializes a kraid statue sprite
- * 
+ *
  */
 static void KraidStatueInit(void)
 {
@@ -171,7 +173,7 @@ static void KraidStatueInit(void)
         // Set ready to open
         gCurrentSprite.pOam = sKraidStatueOam_Activated;
         gCurrentSprite.pose = BOSS_STATUE_POSE_CHECK_START_OPEN;
-        
+
         LOCK_DOORS();
     }
     else
@@ -189,7 +191,7 @@ static void KraidStatueInit(void)
 
 /**
  * @brief 49404 | 70 | Checks if the background is locked
- * 
+ *
  */
 static void KraidStatueCheckBackgroundLocked(void)
 {
@@ -208,7 +210,7 @@ static void KraidStatueCheckBackgroundLocked(void)
     distance = spriteX - bgX;
 
     // Check if the sprite reached the middle of the screen with the scrolling
-    if (distance == SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2)) 
+    if (distance == SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2))
     {
         // Set opening behavior
         gCurrentSprite.pose = BOSS_STATUE_POSE_OPENING;
@@ -227,7 +229,7 @@ static void KraidStatueCheckBackgroundLocked(void)
 
 /**
  * @brief 49474 | 1b8 | Handles the Kraid statue opening
- * 
+ *
  */
 static void KraidStatueOpening(void)
 {
@@ -308,7 +310,7 @@ static void KraidStatueOpening(void)
 
 /**
  * @brief 4962c | 6c | Updates the clipdata of a 3 blocks horizontal lign for the Ridley statue
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void RidleyStatueChangeThreeCcaa(u8 caa)
@@ -329,7 +331,7 @@ static void RidleyStatueChangeThreeCcaa(u8 caa)
 
 /**
  * @brief 49698 | 7c | Updates the clipdata of the Ridley statue insides
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void RidleyStatueInsideChangeCcaa(u8 caa)
@@ -353,7 +355,7 @@ static void RidleyStatueInsideChangeCcaa(u8 caa)
 
 /**
  * @brief 49714 | 28 | Initializes the ridley statue to be opened
- * 
+ *
  */
 static void RidleyStatueOpenedInit(void)
 {
@@ -367,7 +369,7 @@ static void RidleyStatueOpenedInit(void)
 
 /**
  * @brief 4973c | b4 | Initializes a ridley statue sprite
- * 
+ *
  */
 static void RidleyStatueInit(void)
 {
@@ -416,7 +418,7 @@ static void RidleyStatueInit(void)
 
 /**
  * @brief 497f0 | 54 | Checks if the background is locked
- * 
+ *
  */
 static void RidleyStatueCheckBackgroundLocked(void)
 {
@@ -435,7 +437,7 @@ static void RidleyStatueCheckBackgroundLocked(void)
     distance = spriteX - bgX;
 
     // Check if the sprite reached the middle of the screen with the scrolling
-    if (distance == SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2)) 
+    if (distance == SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2))
     {
         // Set opening behavior
         gCurrentSprite.pose = BOSS_STATUE_POSE_OPENING;
@@ -446,7 +448,7 @@ static void RidleyStatueCheckBackgroundLocked(void)
 
 /**
  * @brief 49844 | 1f4 | Handles the Ridley statue opening
- * 
+ *
  */
 static void RidleyStatueOpening(void)
 {
@@ -458,7 +460,7 @@ static void RidleyStatueOpening(void)
 
     if (gSamusData.xPosition > gCurrentSprite.xPosition + BLOCK_SIZE * 8 + HALF_BLOCK_SIZE)
         BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
-    
+
     if (gCurrentSprite.work0 != 0)
     {
         if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
@@ -542,7 +544,7 @@ static void RidleyStatueOpening(void)
 
 /**
  * @brief 49a38 | 118 | Kraid statue AI
- * 
+ *
  */
 void KraidStatue(void)
 {
@@ -609,7 +611,7 @@ void KraidStatue(void)
 
 /**
  * @brief 49b50 | 80 | Ridley statue AI
- * 
+ *
  */
 void RidleyStatue(void)
 {

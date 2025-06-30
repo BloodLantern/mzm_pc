@@ -1,5 +1,7 @@
-#include "data/sprites/geron_norfair.h"
-#include "macros.h"
+#include "mzm/data/sprites/geron_norfair.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sGeronNorfairGfx[270] = INCBIN_U32("data/sprites/GeronNorfair.gfx.lz");
 const u16 sGeronNorfairPal[16] = INCBIN_U16("data/sprites/GeronNorfair.pal");

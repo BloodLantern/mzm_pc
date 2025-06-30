@@ -1,5 +1,7 @@
-#include "data/time_attack_data.h"
-#include "time_attack.h"
+#include "mzm/data/time_attack_data.h"
+#include "mzm/time_attack.h"
+
+#include "mzm_include.h"
 
 const TimeAttackFunc_T sTimeAttackSeedShuffleFunctionPointers[16] = {
     [0]  = TimeAttackSeedShuffleFunc1,

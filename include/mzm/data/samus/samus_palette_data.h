@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 extern const u16 sSamusPal_PowerSuit_Default[3 * 16];
 extern const u16 sSamusPal_PowerSuit_BeamRelease[5 * 16];

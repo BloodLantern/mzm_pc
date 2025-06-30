@@ -1,31 +1,33 @@
-#include "animated_graphics.h"
-#include "dma.h"
-#include "gba.h"
-#include "macros.h"
-#include "sprite.h"
-#include "color_effects.h"
+#include "mzm/animated_graphics.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/sprite.h"
+#include "mzm/color_effects.h"
 
-#include "data/engine_pointers.h"
-#include "data/shortcut_pointers.h"
-#include "data/animated_graphics_data.h"
-#include "data/animated_tiles_data.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/animated_graphics_data.h"
+#include "mzm/data/animated_tiles_data.h"
 
-#include "constants/animated_graphics.h"
-#include "constants/color_fading.h"
-#include "constants/connection.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/room.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/animated_graphics.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/room.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/animated_graphics.h"
-#include "structs/color_effects.h"
-#include "structs/power_bomb_explosion.h"
-#include "structs/room.h"
+#include "mzm/structs/animated_graphics.h"
+#include "mzm/structs/color_effects.h"
+#include "mzm/structs/power_bomb_explosion.h"
+#include "mzm/structs/room.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 5dd5c | 270 | Transfers the animated graphics to VRAM
- * 
+ *
  */
 void AnimatedGraphicsTransfer(void)
 {
@@ -97,7 +99,7 @@ void AnimatedGraphicsTransfer(void)
 
 /**
  * @brief 5dfcc | 164 | Updates the animated graphics
- * 
+ *
  */
 void AnimatedGraphicsUpdate(void)
 {
@@ -224,7 +226,7 @@ void AnimatedGraphicsUpdate(void)
 
 /**
  * @brief 5e130 | f4 | Loads the animated graphics
- * 
+ *
  */
 void AnimatedGraphicsLoad(void)
 {
@@ -281,7 +283,7 @@ void AnimatedGraphicsLoad(void)
 
 /**
  * @brief 5e224 | 24 | Resets the tank animations
- * 
+ *
  */
 void AnimatedGraphicsTanksAnimationReset(void)
 {
@@ -300,7 +302,7 @@ void AnimatedGraphicsTanksAnimationReset(void)
 
 /**
  * @brief 5e248 | 6c | Updates the animation of the collectable tanks
- * 
+ *
  */
 void AnimatedGraphicsTanksAnimationUpdate(void)
 {
@@ -330,7 +332,7 @@ void AnimatedGraphicsTanksAnimationUpdate(void)
 
 /**
  * @brief 5e2b4 | 170 | Updates the animated palette
- * 
+ *
  */
 void AnimatedPaletteUpdate(void)
 {
@@ -389,7 +391,7 @@ void AnimatedPaletteUpdate(void)
                     newRow = sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].numbersOfStates - 1;
                     gAnimatedPaletteTiming.row = -newRow;
                 }
-            
+
                 if (gDisableAnimatedPalette < 0 && gAnimatedPaletteTiming.row == 0)
                     gDisableAnimatedPalette = TRUE;
 
@@ -406,7 +408,7 @@ void AnimatedPaletteUpdate(void)
 
                 if (0 > gAnimatedPaletteTiming.row)
                     gAnimatedPaletteTiming.row = sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].numbersOfStates - 1;
-                
+
                 update++;
             }
             break;
@@ -431,19 +433,19 @@ void AnimatedPaletteUpdate(void)
     {
         // To backup if not in game
         DMA_SET(3, &sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * 16],
-            ANIMATED_PALETTE_EWRAM, C_32_2_16(DMA_ENABLE, 16));    
+            ANIMATED_PALETTE_EWRAM, C_32_2_16(DMA_ENABLE, 16));
     }
 }
 
 /**
  * @brief 5e424 | dc | Checks if the animated palette should be disabled when loading a room
- * 
+ *
  */
 void AnimatedPaletteCheckDisableOnTransition(void)
 {
     gAnimatedPaletteTiming = sAnimatedPaletteTiming_Empty;
 
-    // FIXME merge struct HatchFlashingAnimation and struct AnimatedPaletteTiming 
+    // FIXME merge struct HatchFlashingAnimation and struct AnimatedPaletteTiming
     gHatchFlashingAnimation = *(struct HatchFlashingAnimation*)&sAnimatedPaletteTiming_Empty;
 
     gDisableAnimatedPalette = FALSE;
@@ -478,7 +480,7 @@ void AnimatedPaletteCheckDisableOnTransition(void)
 
 /**
  * @brief 5e500 | 48 | Checks if the lightning effect should play
- * 
+ *
  */
 void AnimatedGraphicsCheckPlayLightningEffect(void)
 {
@@ -501,7 +503,7 @@ void AnimatedGraphicsCheckPlayLightningEffect(void)
 
 /**
  * @brief 5e548 | 84 | Updates the current background effect
- * 
+ *
  */
 void BackgroundEffectUpdate(void)
 {
@@ -535,7 +537,7 @@ void BackgroundEffectUpdate(void)
 
 /**
  * @brief 5e5cc | 12c | Processes the current background effect
- * 
+ *
  * @return u16 Color id to update
  */
 u16 BackgroundEffectProcess(void)
@@ -650,7 +652,7 @@ u16 BackgroundEffectProcess(void)
 
 /**
  * @brief 5e6f8 | 68 | Starts a background effect
- * 
+ *
  * @param effect Effect type
  * @return u32 bool, could start
  */

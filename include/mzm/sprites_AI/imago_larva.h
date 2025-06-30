@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/sprite.h"
+#include "mzm/types.h"
+#include "mzm/structs/sprite.h"
 
 enum ImagoLarvaPart {
     IMAGO_LARVA_PART_CLAWS,

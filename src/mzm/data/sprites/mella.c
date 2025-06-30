@@ -1,5 +1,7 @@
-#include "data/sprites/mella.h"
-#include "macros.h"
+#include "mzm/data/sprites/mella.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sMellaIdleYMovement[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1,
@@ -25,7 +27,7 @@ const u16 sMellaGoingUpYMovement[7] = {
 };
 
 const u16 sMellaMovingXMovement[7] = {
-    0, 1, 2, 3, 4, 5, 6 
+    0, 1, 2, 3, 4, 5, 6
 };
 
 const u32 sMellaGfx[162] = INCBIN_U32("data/sprites/Mella.gfx.lz");

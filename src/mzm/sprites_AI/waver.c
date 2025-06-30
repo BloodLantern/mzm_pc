@@ -1,22 +1,24 @@
-#include "sprites_AI/waver.h"
-#include "macros.h"
+#include "mzm/sprites_AI/waver.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/waver.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/waver.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define WAVER_POSE_MOVING 0x9
 
 /**
  * @brief 2483c | 68 | Initializes a waver sprite
- * 
+ *
  */
 static void WaverInit(void)
 {
@@ -43,7 +45,7 @@ static void WaverInit(void)
 
 /**
  * @brief 248a4 | e0 | Handles a waver moving
- * 
+ *
  */
 static void WaverMove(void)
 {
@@ -92,7 +94,7 @@ static void WaverMove(void)
 
 /**
  * @brief 2498c | 84 | Waver AI
- * 
+ *
  */
 void Waver(void)
 {

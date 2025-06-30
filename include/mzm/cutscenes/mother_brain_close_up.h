@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
 
 enum MotherBrainCloseUpOamId {
     MOTHER_BRAIN_CLOSE_UP_OAM_ID_BUBBLE = 1,

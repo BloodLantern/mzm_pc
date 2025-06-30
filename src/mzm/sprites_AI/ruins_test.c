@@ -1,30 +1,32 @@
-#include "sprites_AI/ruins_test.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/sprites_AI/ruins_test.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/ruins_test.h"
-#include "data/sprite_data.h"
-#include "data/generic_data.h"
+#include "mzm/data/sprites/ruins_test.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/generic_data.h"
 
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/in_game_cutscene.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/projectile.h"
-#include "constants/sprite_util.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/in_game_cutscene.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/projectile.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/text.h"
 
-#include "structs/clipdata.h"
-#include "structs/game_state.h"
-#include "structs/in_game_timer.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
-#include "structs/projectile.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/in_game_timer.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/projectile.h"
+
+#include "mzm_include.h"
 
 #define RUINS_TEST_POSE_SPAWNING 0x1
 #define RUINS_TEST_POSE_TURNING_INTO_REFLECTION 0x2
@@ -120,7 +122,7 @@ enum RuinsTestLightningPart {
 
 /**
  * @brief 38988 | 24 | Calculates the new delay for the symbol
- * 
+ *
  * @param delay Initial delay
  */
 static void RuinsTestCalculateDelay(u8 delay)
@@ -130,7 +132,7 @@ static void RuinsTestCalculateDelay(u8 delay)
 
 /**
  * @brief 389ac | d8 | Updates the clipdata of the ceiling hitbox
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void RuinsTestChangeCcaa(u8 caa)
@@ -185,7 +187,7 @@ static void RuinsTestChangeCcaa(u8 caa)
 
 /**
  * @brief 38a84 | 1d0 | Handles slowly moving an object from current position to target position
- * 
+ *
  * @param yStart Y Position current
  * @param xStart X Position current
  * @param yTarget Y Position target
@@ -272,8 +274,8 @@ static void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTa
 
 /**
  * @brief 38c54 | 1d0 | Checks if a projectile is colliding with the shootable symbol
- * 
- * @return u8 
+ *
+ * @return u8
  */
 static u8 RuinsTestProjectileCollision(void)
 {
@@ -337,9 +339,9 @@ static u8 RuinsTestProjectileCollision(void)
 }
 
 /**
- * @brief 38d28 | 48 | Checks if a charged pistol is colliding with the shootable symbol 
- * 
- * @return u8 
+ * @brief 38d28 | 48 | Checks if a charged pistol is colliding with the shootable symbol
+ *
+ * @return u8
  */
 static u8 RuinsTestCheckHitByChargedPistol(void)
 {
@@ -365,7 +367,7 @@ static u8 RuinsTestCheckHitByChargedPistol(void)
 
 /**
  * @brief 38d70 | 84 | Checks if a symbol is getting shot
- * 
+ *
  * @return u8 bool, is last symbol
  */
 static u8 RuinsTestCheckSymbolShot(void)
@@ -401,7 +403,7 @@ static u8 RuinsTestCheckSymbolShot(void)
 
 /**
  * @brief 38df4 | 34 | Checks if samus is getting hurt
- * 
+ *
  * @return u8 bool, samus getting hurt
  */
 static u8 RuinsTestCheckSamusHurting(void)
@@ -419,7 +421,7 @@ static u8 RuinsTestCheckSamusHurting(void)
 
 /**
  * @brief 38e28 | 11c | Updates the symbol
- * 
+ *
  * @return u8 1 if should start new movement pattern, 0 otherwise
  */
 static u8 RuinsTestUpdateSymbol(void)
@@ -495,7 +497,7 @@ static u8 RuinsTestUpdateSymbol(void)
 
 /**
  * @brief 38f44 | 9c | Handles the ghost using the sine/cos values
- * 
+ *
  * @param dAngle Delta angle
  */
 static void RuinsTestGhostMove(u8 dAngle)
@@ -544,7 +546,7 @@ static void RuinsTestGhostMove(u8 dAngle)
 
 /**
  * @brief 38fe0 | ec | Initializes the Ruins test sprite
- * 
+ *
  */
 static void RuinsTestInit(void)
 {
@@ -614,7 +616,7 @@ static void RuinsTestInit(void)
 
 /**
  * @brief 390cc | 40 | Handles the Ruins test spawning
- * 
+ *
  */
 static void RuinsTestSpawning(void)
 {
@@ -637,7 +639,7 @@ static void RuinsTestSpawning(void)
 
 /**
  * @brief 3910c | 88 | Handles the Ruins test turning into the reflection
- * 
+ *
  */
 static void RuinsTestTurningIntoReflection(void)
 {
@@ -668,7 +670,7 @@ static void RuinsTestTurningIntoReflection(void)
 
 /**
  * @brief 39194 | 30 | Allows samus to move again
- * 
+ *
  */
 static void RuinsTestFreeSamus(void)
 {
@@ -686,7 +688,7 @@ static void RuinsTestFreeSamus(void)
 
 /**
  * @brief 391c4 | 2c | Checks if samus is still facing the background
- * 
+ *
  */
 static void RuinsTestCheckSamusNotFacingBackground(void)
 {
@@ -701,7 +703,7 @@ static void RuinsTestCheckSamusNotFacingBackground(void)
 
 /**
  * @brief 391f0 | 44 | Handles the ruins test being motionless at the beginning of the fight
- * 
+ *
  */
 static void RuinsTestMotionless(void)
 {
@@ -720,7 +722,7 @@ static void RuinsTestMotionless(void)
 
 /**
  * @brief 39234 | 94 | Spawns the Ruins test ghost
- * 
+ *
  */
 static void RuinsTestSpawnGhost(void)
 {
@@ -747,7 +749,7 @@ static void RuinsTestSpawnGhost(void)
 
 /**
  * @brief 392c8 | 28 | Initializes the Ruins test to be moving
- * 
+ *
  */
 static void RuinsTestMovingInit(void)
 {
@@ -759,7 +761,7 @@ static void RuinsTestMovingInit(void)
 
 /**
  * @brief 392f0 | fc | Handles the Ruins test moving in a circle pattern
- * 
+ *
  */
 static void RuinsTestMoveCirclePattern(void)
 {
@@ -795,7 +797,7 @@ static void RuinsTestMoveCirclePattern(void)
         gCurrentSprite.scaling = PI + PI / 2;
     }
 
-    // Move 
+    // Move
     if (!gBossWork.work4)
         RuinsTestGhostMove(speed);
 
@@ -834,7 +836,7 @@ static void RuinsTestMoveCirclePattern(void)
 
 /**
  * @brief 393ec | 224 | Handles the Ruins test moving in an atom pattern
- * 
+ *
  */
 static void RuinsTestMoveAtomPattern(void)
 {
@@ -852,7 +854,7 @@ static void RuinsTestMoveAtomPattern(void)
     bouncing = FALSE;
     if (RuinsTestCheckSamusHurting())
         return;
-        
+
     if (RuinsTestCheckSymbolShot())
         return;
 
@@ -1031,7 +1033,7 @@ static void RuinsTestMoveAtomPattern(void)
 
 /**
  * @brief 39610 | 94 | Moves the Ruins test back to the center
- * 
+ *
  */
 static void RuinsTestMoveToCenter(void)
 {
@@ -1078,7 +1080,7 @@ static void RuinsTestMoveToCenter(void)
 
 /**
  * @brief 396a4 | 2c | Checks if the ghost started disappearing
- * 
+ *
  */
 static void RuinsTestCheckIsGhostDisappearing(void)
 {
@@ -1094,7 +1096,7 @@ static void RuinsTestCheckIsGhostDisappearing(void)
 
 /**
  * @brief 396d0 | a4 | Handles the Ruins test despawning
- * 
+ *
  */
 static void RuinsTestDespawn(void)
 {
@@ -1138,7 +1140,7 @@ static void RuinsTestDespawn(void)
 
 /**
  * @brief 39774 | 118 | Initializes a Ruins test ghost sprite
- * 
+ *
  */
 static void RuinsTestGhostInit(void)
 {
@@ -1210,10 +1212,10 @@ static void RuinsTestGhostInit(void)
 
 /**
  * @brief 3988c | 74 | Handles the Ruins test ghost spawning
- * 
+ *
  */
 static void RuinsTestGhostSpawn(void)
-{    
+{
     if (MOD_AND(++gCurrentSprite.work2, 4) == 0)
     {
         if (gCurrentSprite.work0 < BLDALPHA_MAX_VALUE / 2)
@@ -1240,7 +1242,7 @@ static void RuinsTestGhostSpawn(void)
 
 /**
  * @brief 39900 | fc | Handles the Ruins test ghost being idle
- * 
+ *
  */
 static void RuinsTestGhostIdle(void)
 {
@@ -1295,7 +1297,7 @@ static void RuinsTestGhostIdle(void)
 
 /**
  * @brief 399fc | 44 | Handles the Ruins test ghost despawning
- * 
+ *
  */
 static void RuinsTestGhostDespawn(void)
 {
@@ -1312,7 +1314,7 @@ static void RuinsTestGhostDespawn(void)
 
 /**
  * @brief 39a40 | 234 | Handles moving a symbol that was shot to its place
- * 
+ *
  */
 static void RuinsTestGhostMoveSymbolToPlace(void)
 {
@@ -1436,7 +1438,7 @@ static void RuinsTestGhostMoveSymbolToPlace(void)
 
 /**
  * @brief 39c74 | 17c | Handles a symbol being placed
- * 
+ *
  */
 static void RuinsTestGhostSymbolPlacing(void)
 {
@@ -1488,7 +1490,7 @@ static void RuinsTestGhostSymbolPlacing(void)
             case 11:
                 RUINS_TEST_TRANSFER_DYNAMIC_PAL(sRuinsTestPal_SymbolShot_Frame1, ARRAY_SIZE(sRuinsTestPal_SymbolShot_Frame1));
                 break;
-            
+
             case 0:
             case 12:
                 DMA_SET(3, (&sRuinsTestPal[16 * 6]), RUINS_TEST_DYNAMIC_PAL_ADDR, C_32_2_16(DMA_ENABLE, 8));
@@ -1518,7 +1520,7 @@ static void RuinsTestGhostSymbolPlacing(void)
 
 /**
  * @brief 39df0 | 24 | Sets the ghost disappearing state
- * 
+ *
  */
 static void RuinsTestGhostSymbolSetGhostDisappearing(void)
 {
@@ -1531,7 +1533,7 @@ static void RuinsTestGhostSymbolSetGhostDisappearing(void)
 
 /**
  * @brief 39e14 | 28 | Handles a symbol waiting for the fight to end
- * 
+ *
  */
 static void RuinsTestGhostSymbolWaitForEndOfFight(void)
 {
@@ -1544,7 +1546,7 @@ static void RuinsTestGhostSymbolWaitForEndOfFight(void)
 
 /**
  * @brief 39e3c | 3c | Delay before a symbol replays the placing animation at the end of the fight
- * 
+ *
  */
 static void RuinsTestGhostSymbolDelayBeforePlacingAtEndOfFight(void)
 {
@@ -1561,7 +1563,7 @@ static void RuinsTestGhostSymbolDelayBeforePlacingAtEndOfFight(void)
 
 /**
  * @brief 39e78 | 2f4 | Ruins test AI
- * 
+ *
  */
 void RuinsTest(void)
 {
@@ -1670,7 +1672,7 @@ void RuinsTest(void)
 
 /**
  * @brief 3a16c | 394 | Ruins test symbol AI
- * 
+ *
  */
 void RuinsTestSymbol(void)
 {
@@ -1822,12 +1824,12 @@ void RuinsTestSymbol(void)
 
 /**
  * @brief 3a500 | 1b8 | Ruins test samus reflection start AI
- * 
+ *
  */
 void RuinsTestSamusReflectionStart(void)
 {
     s32 timer;
-    
+
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:
@@ -1903,7 +1905,7 @@ void RuinsTestSamusReflectionStart(void)
 
 /**
  * @brief 3a6b8 | c8 | Ruins test reflection cover AI
- * 
+ *
  */
 void RuinsTestReflectionCover(void)
 {
@@ -1956,7 +1958,7 @@ void RuinsTestReflectionCover(void)
 
 /**
  * @brief 3a780 | 134 | Ruins test ghost outline AI
- * 
+ *
  */
 void RuinsTestGhostOutline(void)
 {
@@ -1981,7 +1983,7 @@ void RuinsTestGhostOutline(void)
             if (gCurrentSprite.roomSlot != RUINS_TEST_GHOST_OUTLINE_PART_OUTLINE)
             {
                 gCurrentSprite.drawOrder = 14;
-                
+
                 if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_OUTLINE_PART_SHOOTING_GROUND_LIGHTNING)
                     gCurrentSprite.pOam = sRuinsTestGhostOutlineOam_ShootingGroundLightning;
                 else
@@ -2019,7 +2021,7 @@ void RuinsTestGhostOutline(void)
                         gBossWork.work1, gSamusData.xPosition, 0);
                 }
             }
-            
+
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.status = 0;
@@ -2031,7 +2033,7 @@ void RuinsTestGhostOutline(void)
 
 /**
  * @brief 3a8b4 | 24c | Ruins test shootable symbol AI
- * 
+ *
  */
 void RuinsTestShootableSymbol(void)
 {
@@ -2135,7 +2137,7 @@ void RuinsTestShootableSymbol(void)
 
 /**
  * @brief 3ab00 | 168 | Ruins test ghost AI
- * 
+ *
  */
 void RuinsTestGhost(void)
 {
@@ -2182,13 +2184,13 @@ void RuinsTestGhost(void)
 
 /**
  * @brief 3ac68 | 3d4 | Ruins test samus reflection end AI
- * 
+ *
  */
 void RuinsTestSamusReflectionEnd(void)
 {
     s32 offset;
     u8 stage;
-    
+
     if (gSubSpriteData1.workVariable3 > RUINS_TEST_FIGHT_STAGE_GHOST_STARTING_TO_DISAPPEAR)
     {
         switch (gSubSpriteData1.workVariable3)
@@ -2203,7 +2205,7 @@ void RuinsTestSamusReflectionEnd(void)
                 SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_FULLY_POWERED_SUIT, 6,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         }
-        
+
         return;
     }
 
@@ -2215,7 +2217,7 @@ void RuinsTestSamusReflectionEnd(void)
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            
+
             gCurrentSprite.hitboxTop = 0;
             gCurrentSprite.hitboxBottom = 0;
             gCurrentSprite.hitboxLeft = 0;
@@ -2332,7 +2334,7 @@ void RuinsTestSamusReflectionEnd(void)
 
 /**
  * @brief 3b03c | 30 | Initializes a Ruins test lightning sprite to be on the ground (horizontal)
- * 
+ *
  */
 static void RuinsTestLightningOnGroundInit(void)
 {
@@ -2350,7 +2352,7 @@ static void RuinsTestLightningOnGroundInit(void)
 
 /**
  * @brief 3b06c | 300 | Ruins test lightning AI
- * 
+ *
  */
 void RuinsTestLightning(void)
 {

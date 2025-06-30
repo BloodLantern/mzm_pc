@@ -1,8 +1,10 @@
-#include "types.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
 
-#include "audio.h"
-#include "audio/track_internal.h"
+#include "mzm/audio.h"
+#include "mzm/audio/track_internal.h"
+
+#include "mzm_include.h"
 
 const struct TrackGroupROMData sMusicTrackDataRom[9] = {
     [0] = {

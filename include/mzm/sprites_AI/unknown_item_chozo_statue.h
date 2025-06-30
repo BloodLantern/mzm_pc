@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 enum UnknownItemChozoStatuePart {
     UNKNOWN_ITEM_CHOZO_STATUE_PART_ARM,

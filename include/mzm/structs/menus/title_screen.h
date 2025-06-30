@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menu.h"
+#include "mzm/types.h"
+#include "mzm/structs/menu.h"
 
 #define TITLE_SCREEN_DATA sNonGameplayRamPointer->titleScreen
 
@@ -29,7 +29,7 @@ struct TitleScreenPageData {
     u8 priority;
     u16 screenSize;
     u16 bg;
-    const u32* const tiletablePointer; 
+    const u32* const tiletablePointer;
 };
 
 struct TitleScreenData {

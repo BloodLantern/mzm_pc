@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
-#include "structs/menus/title_screen.h"
-#include "structs/menu.h"
-#include "constants/menus/title_screen.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/menus/title_screen.h"
+#include "mzm/structs/menu.h"
+#include "mzm/constants/menus/title_screen.h"
 
 extern const u16 sTitleScreenPal[15 * 16];
 extern const u16 sTitleScreenPromptPal[5 * 16];

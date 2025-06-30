@@ -1,27 +1,29 @@
-#include "sprites_AI/imago_cocoon.h"
-#include "macros.h"
+#include "mzm/sprites_AI/imago_cocoon.h"
+#include "mzm/macros.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/imago_cocoon.h"
-#include "data/sprites/enemy_drop.h"
-#include "data/sprite_data.h"
-#include "data/generic_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/imago_cocoon.h"
+#include "mzm/data/sprites/enemy_drop.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/generic_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/bg_clip.h"
-#include "structs/connection.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/clipdata.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/clipdata.h"
+
+#include "mzm_include.h"
 
 #define IMAGO_COCOON_POSE_IDLE 0x8
 #define IMAGO_COCOON_POSE_FALLING_BEFORE_BLOCKS 0x9
@@ -29,7 +31,7 @@
 #define IMAGO_COCOON_POSE_UNLOCK_PASSAGE 0x25
 #define IMAGO_COCOON_POSE_IN_GROUND 0x27
 
-#define IMAGO_COCOON_MUSIC_STAGE_STARTED_MUSIC 0x0 
+#define IMAGO_COCOON_MUSIC_STAGE_STARTED_MUSIC 0x0
 #define IMAGO_COCOON_MUSIC_STAGE_STARTED_FADING 0x1
 #define IMAGO_COCOON_MUSIC_STAGE_WAITING_TO_FADE 0x2
 
@@ -76,7 +78,7 @@
 
 /**
  * @brief 26c38 | 68 | Sync the sub sprites of Imago cocoon
- * 
+ *
  */
 static void ImagoCocoonSyncSprites(void)
 {
@@ -85,7 +87,7 @@ static void ImagoCocoonSyncSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sImagoCocoonFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sImagoCocoonFrameDataPointers[oamIdx];
@@ -99,7 +101,7 @@ static void ImagoCocoonSyncSprites(void)
 
 /**
  * 26ca0 | 40 | Updates the clipdata of the middle block of the ground when falling
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void ImagoCocoonChangeOneCcaa(u8 caa)
@@ -109,7 +111,7 @@ static void ImagoCocoonChangeOneCcaa(u8 caa)
 
     yPosition = gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 11;
     xPosition = gSubSpriteData1.xPosition;
-    
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - HALF_BLOCK_SIZE, xPosition);
     ParticleSet(yPosition - HALF_BLOCK_SIZE, xPosition, PE_SPRITE_EXPLOSION_HUGE);
@@ -117,7 +119,7 @@ static void ImagoCocoonChangeOneCcaa(u8 caa)
 
 /**
  * 26ce0 | 70 | Updates the clipdata of the 2 blocks around the middle of the ground when falling
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void ImagoCocoonChangeTwoMiddleCcaa(u8 caa)
@@ -127,11 +129,11 @@ static void ImagoCocoonChangeTwoMiddleCcaa(u8 caa)
 
     yPosition = gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 11;
     xPosition = gSubSpriteData1.xPosition;
-    
+
     // Right block
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - (HALF_BLOCK_SIZE), xPosition + BLOCK_SIZE);
-    
+
     // Left block
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - (HALF_BLOCK_SIZE), xPosition - BLOCK_SIZE);
@@ -142,7 +144,7 @@ static void ImagoCocoonChangeTwoMiddleCcaa(u8 caa)
 
 /**
  * @brief 26d50 | 7c | Updates the clipdata of the 2 blocks at the edge of the ground when falling
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void ImagoCocoonChangeTwoAroundCcaa(u8 caa)
@@ -167,7 +169,7 @@ static void ImagoCocoonChangeTwoAroundCcaa(u8 caa)
 
 /**
  * 26dcc | 5c | Updates the current clipdata affecting action and applies it, removes the 2 blocks that block the passage
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void ImagoCocoonChangeTwoBlockingCcaa(u8 caa)
@@ -181,7 +183,7 @@ static void ImagoCocoonChangeTwoBlockingCcaa(u8 caa)
     // Top block
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE * 9);
-    
+
     // Bottom block
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + BLOCK_SIZE + HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE * 9);
@@ -189,7 +191,7 @@ static void ImagoCocoonChangeTwoBlockingCcaa(u8 caa)
 
 /**
  * 26e28 | 54 | Changes the oam scaling of the imago cocoon (growing or shrinking)
- * 
+ *
  * @param limit The limit of the scaling
  * @param value The value to increment/decrement the scaling
  */
@@ -213,7 +215,7 @@ static void ImagoCocoonChangeOAMScaling(u16 limit, u16 value)
 
 /**
  * @brief 26e7c | 2ac | Initializes an Imago cocoon sprite
- * 
+ *
  */
 static void ImagoCocoonInit(void)
 {
@@ -295,7 +297,7 @@ static void ImagoCocoonInit(void)
         gSubSpriteData1.pMultiOam = sImagoCocoonMultiSpriteData_Idle;
         gSubSpriteData1.animationDurationCounter = 0;
         gSubSpriteData1.currentAnimationFrame = 0;
-        
+
         gSubSpriteData1.workVariable2 = 0;
         gSubSpriteData1.workVariable1 = 0;
         // Number of vines alive
@@ -323,7 +325,7 @@ static void ImagoCocoonInit(void)
         SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_VINE_LEFT_LEFT, gfxSlot, ramSlot, yPosition, xPosition, 0);
         SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_VINE_RIGHT_LEFT, gfxSlot, ramSlot, yPosition, xPosition, 0);
         SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_VINE_LEFT_RIGHT, gfxSlot, ramSlot, yPosition, xPosition, 0);
-        
+
         // Spawn winged ripper
         newRamSlot = SpriteSpawnSecondary(SSPRITE_WINGED_RIPPER, 0, gfxSlot, ramSlot, yPosition + BLOCK_SIZE * 4, xPosition, SPRITE_STATUS_X_FLIP);
         // Set destination of winged ripper
@@ -336,7 +338,7 @@ static void ImagoCocoonInit(void)
 
 /**
  * 27128 | 2c | Handles the movement of the Imago cocoon falling
- * 
+ *
  */
 static void ImagoCocoonFallingMovement(void)
 {
@@ -353,12 +355,12 @@ static void ImagoCocoonFallingMovement(void)
 
 /**
  * @brief 27154 | 130 | Handles the Imago cocoon being idle
- * 
+ *
  */
 static void ImagoCocoonIdle(void)
 {
     u16 caf;
-    
+
     // Update music
     if (gBossWork.work1 != IMAGO_COCOON_MUSIC_STAGE_STARTED_MUSIC)
     {
@@ -429,7 +431,7 @@ static void ImagoCocoonIdle(void)
 
 /**
  * 27284 | 174 | Handles imago cocoon falling before the blocks are destroyed
- * 
+ *
  */
 static void ImagoCocoonFallingBeforeBlocks(void)
 {
@@ -472,7 +474,7 @@ static void ImagoCocoonFallingBeforeBlocks(void)
         yPosition = gBg1YPosition - BLOCK_SIZE;
         xPosition = gSubSpriteData1.xPosition;
         rng = gSpriteRng;
-        
+
         timer = APPLY_DELTA_TIME_INC(gCurrentSprite.work0);
         // CONVERT_SECONDS(.5f) + 2 * DELTA_TIME
         if (MOD_AND(timer, 32) == 0)
@@ -502,7 +504,7 @@ static void ImagoCocoonFallingBeforeBlocks(void)
 
 /**
  * @brief 273f8 | fc | Handles imago cocoon falling after the blocks are destroyed
- * 
+ *
  */
 static void ImagoCocoonFallingAfterBlocks(void)
 {
@@ -539,7 +541,7 @@ static void ImagoCocoonFallingAfterBlocks(void)
         gCurrentSprite.pOam = sImagoCocoonOam_Static;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
-        
+
         gCurrentSprite.paletteRow = 0;
         gCurrentSprite.absolutePaletteRow = 0;
 
@@ -559,7 +561,7 @@ static void ImagoCocoonFallingAfterBlocks(void)
 
 /**
  * 274f4 | 48 | Checks if the passage should be unlocked, and unlocks it if yes
- * 
+ *
  */
 static void ImagoCocoonUnlockPassage(void)
 {
@@ -579,7 +581,7 @@ static void ImagoCocoonUnlockPassage(void)
 
 /**
  * @brief 2753c | 70 | Handles Imago cocoon being in the ground
- * 
+ *
  */
 static void ImagoCocoonInGround(void)
 {
@@ -618,7 +620,7 @@ static void ImagoCocoonInGround(void)
 
 /**
  * @brief 275ac | 320 | Initializes an Imago cocoon vine sprite
- * 
+ *
  */
 static void ImagoCocoonVineInit(void)
 {
@@ -781,7 +783,7 @@ static void ImagoCocoonVineInit(void)
 
 /**
  * @brief 278cc | 38 | Checks if the damaged sound should play
- * 
+ *
  */
 static void ImagoCocoonVineCheckPlayDamagedSound(void)
 {
@@ -794,8 +796,8 @@ static void ImagoCocoonVineCheckPlayDamagedSound(void)
 }
 
 /**
- * 27904 | 88 | Called when a vine dies, plays a particle effect and decrements the health of the boss 
- * 
+ * 27904 | 88 | Called when a vine dies, plays a particle effect and decrements the health of the boss
+ *
  */
 static void ImagoCocoonVineDeath(void)
 {
@@ -809,13 +811,13 @@ static void ImagoCocoonVineDeath(void)
     {
         case IMAGO_COCOON_PART_VINE_LEFT_MIDDLE:
             break;
-        
+
         case IMAGO_COCOON_PART_VINE_RIGHT_MIDDLE:
         case IMAGO_COCOON_PART_VINE_RIGHT_RIGHT:
         case IMAGO_COCOON_PART_VINE_LEFT_LEFT:
             yPosition += HALF_BLOCK_SIZE;
             break;
-            
+
         case IMAGO_COCOON_PART_VINE_RIGHT_LEFT:
         case IMAGO_COCOON_PART_VINE_LEFT_RIGHT:
             yPosition += QUARTER_BLOCK_SIZE;
@@ -837,7 +839,7 @@ static void ImagoCocoonVineDeath(void)
 
 /**
  * 2798c | 160 | Handles the vines spawning the spores
- * 
+ *
  */
 static void ImagoCocoonVineSpawnSpore(void)
 {
@@ -907,7 +909,7 @@ static void ImagoCocoonVineSpawnSpore(void)
 
 /**
  * 27aec | 44 | Handles the Imago cocoon ceilig vine being idle
- * 
+ *
  */
 static void ImagoCocoonCeilingVineIdle(void)
 {
@@ -922,7 +924,7 @@ static void ImagoCocoonCeilingVineIdle(void)
 
 /**
  * 27b30 | 44 | Handles the animation of the removal of the hanging vine when imago cocoon dies
- * 
+ *
  */
 static void ImagoCocoonCeilingVineDeath(void)
 {
@@ -940,7 +942,7 @@ static void ImagoCocoonCeilingVineDeath(void)
 
 /**
  * 27b74 | 54 | Synchronizes the spore position with the imago cocoon position
- * 
+ *
  */
 static void ImagoCocoonSporeSyncPosition(void)
 {
@@ -961,7 +963,7 @@ static void ImagoCocoonSporeSyncPosition(void)
 
 /**
  * 27bc8 | a8 | Initialize an imago cocoon spore sprite
- * 
+ *
  */
 static void ImagoCocoonSporeInit(void)
 {
@@ -995,7 +997,7 @@ static void ImagoCocoonSporeInit(void)
 
 /**
  * 27c70 | 74 | Handles an imago cocoon spore spawning
- * 
+ *
  */
 static void ImagoCocoonSporeSpawning(void)
 {
@@ -1025,8 +1027,8 @@ static void ImagoCocoonSporeSpawning(void)
 }
 
 /**
- * 27ce4 | 8c | Handles an Imago cocoon spore being a nest 
- * 
+ * 27ce4 | 8c | Handles an Imago cocoon spore being a nest
+ *
  */
 static void ImagoCocoonSporeNest(void)
 {
@@ -1058,7 +1060,7 @@ static void ImagoCocoonSporeNest(void)
 
 /**
  * @brief 27d70 | 114 | Handles the movement of an Imago cocoon spore
- * 
+ *
  */
 static void ImagoCocoonSporeMove(void)
 {
@@ -1072,33 +1074,33 @@ static void ImagoCocoonSporeMove(void)
             gCurrentSprite.yPosition -= movement;
             gCurrentSprite.xPosition += movement;
             break;
-        
+
         case IMAGO_COCOON_SPORE_PART_DIAG_RIGHT_DOWN:
             movement *= 0.8;
             gCurrentSprite.yPosition += movement;
             gCurrentSprite.xPosition += movement;
             break;
-        
+
         case IMAGO_COCOON_SPORE_PART_RIGHT:
             gCurrentSprite.xPosition += movement;
             break;
-        
+
         case IMAGO_COCOON_SPORE_PART_UP:
             gCurrentSprite.yPosition -= movement;
             break;
-        
+
         case IMAGO_COCOON_SPORE_PART_DIAG_LEFT_DOWN:
             movement *= 0.8;
             gCurrentSprite.yPosition += movement;
             gCurrentSprite.xPosition -= movement;
             break;
-        
+
         case IMAGO_COCOON_SPORE_PART_DIAG_LEFT_UP:
             movement *= 0.8;
             gCurrentSprite.yPosition -= movement;
             gCurrentSprite.xPosition -= movement;
             break;
-        
+
         case IMAGO_COCOON_SPORE_PART_LEFT:
             gCurrentSprite.xPosition -= movement;
             break;
@@ -1114,12 +1116,12 @@ static void ImagoCocoonSporeMove(void)
 
 /**
  * 27e84 | 34 | Initializes an Imago cocoon spore to b exploding
- * 
+ *
  */
 static void ImagoCocoonSporeExplodingInit(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-    
+
     gCurrentSprite.pOam = sImagoCocoonSporeOam_Exploding;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
@@ -1130,7 +1132,7 @@ static void ImagoCocoonSporeExplodingInit(void)
 
 /**
  * 27eb8 | 24 | Checks if the explosion animation has ended, if yes kills the sprite
- * 
+ *
  */
 static void ImagoCocoonSporeCheckExplodingAnimEnded(void)
 {
@@ -1140,8 +1142,8 @@ static void ImagoCocoonSporeCheckExplodingAnimEnded(void)
 }
 
 /**
- * @brief 27edc | c4 | Checks if the winged ripper and the falling Imago cocoon are colliding 
- * 
+ * @brief 27edc | c4 | Checks if the winged ripper and the falling Imago cocoon are colliding
+ *
  * @return u8 1 if colliding, 0 otherwise
  */
 static u8 WingedRipperImagoCollision(void)
@@ -1171,7 +1173,7 @@ static u8 WingedRipperImagoCollision(void)
         spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
         spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
         spriteRight = spriteX + gCurrentSprite.hitboxRight;
-        
+
         imagoY = gSpriteData[ramSlot].yPosition;
         imagoX = gSpriteData[ramSlot].xPosition;
         imagoTop = imagoY + gSpriteData[ramSlot].hitboxTop;
@@ -1191,8 +1193,8 @@ static u8 WingedRipperImagoCollision(void)
 
 /**
  * @brief 27fa0 | a0 | Initializes a winged ripper sprite
- * 
- * @return * void 
+ *
+ * @return * void
  */
 static void WingedRipperInit(void)
 {
@@ -1226,7 +1228,7 @@ static void WingedRipperInit(void)
 
 /**
  * @brief 28040 | 20 | Initializes a winged ripper to be moving
- * 
+ *
  */
 static void WingedRipperMovingInit(void)
 {
@@ -1238,7 +1240,7 @@ static void WingedRipperMovingInit(void)
 
 /**
  * @brief 28060 | 224 | Handles the movement of a winged ripper
- * 
+ *
  */
 static void WingedRipperMove(void)
 {
@@ -1387,7 +1389,7 @@ static void WingedRipperMove(void)
 
 /**
  * @brief 28284 | 44 | Handles the winged ripper death
- * 
+ *
  */
 static void WingedRipperDeath(void)
 {
@@ -1403,7 +1405,7 @@ static void WingedRipperDeath(void)
 
 /**
  * @brief 282c8 | 104 | Imago cocoon AI
- * 
+ *
  */
 void ImagoCocoon(void)
 {
@@ -1442,7 +1444,7 @@ void ImagoCocoon(void)
 
 /**
  * @brief 283cc | 70 | Imago cocoon vine AI
- * 
+ *
  */
 void ImagoCocoonVine(void)
 {
@@ -1462,7 +1464,7 @@ void ImagoCocoonVine(void)
         case IMAGO_COCOON_VINE_POSE_SPAWN_SPORES:
             ImagoCocoonVineSpawnSpore();
             break;
-            
+
         case IMAGO_COCOON_VINE_POSE_CEILING_VINE_IDLE:
             ImagoCocoonCeilingVineIdle();
             break;
@@ -1479,7 +1481,7 @@ void ImagoCocoonVine(void)
 
 /**
  * @brief 2843c | 8c | Imago cocoon spore AI
- * 
+ *
  */
 void ImagoCocoonSpore(void)
 {
@@ -1519,7 +1521,7 @@ void ImagoCocoonSpore(void)
 
 /**
  * @brief 284c8 | 6c | Winged ripper AI
- * 
+ *
  */
 void WingedRipper(void)
 {
@@ -1556,7 +1558,7 @@ void WingedRipper(void)
 
 /**
  * @brief 28534 | 78 | Defeated Imago cocoon AI
- * 
+ *
  */
 void DefeatedImagoCocoon(void)
 {
@@ -1587,7 +1589,7 @@ void DefeatedImagoCocoon(void)
 
 /**
  * @brief 285ac | 7c | Imago cocoon ceiling vine AI
- * 
+ *
  */
 void ImagoCocoonCeilingVine(void)
 {
@@ -1619,7 +1621,7 @@ void ImagoCocoonCeilingVine(void)
 
 /**
  * @brief 28628 | 90 | Event trigger (discovered Imago passage) AI
- * 
+ *
  */
 void EventTriggerDiscoveredImagoPassage(void)
 {
@@ -1658,7 +1660,7 @@ void EventTriggerDiscoveredImagoPassage(void)
 
 /**
  * @brief 286b8 | 74 | Imago cocoon after fight AI
- * 
+ *
  */
 void ImagoCocoonAfterFight(void)
 {

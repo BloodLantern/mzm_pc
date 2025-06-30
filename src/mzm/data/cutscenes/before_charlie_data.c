@@ -1,6 +1,8 @@
-#include "data/cutscenes/before_charlie_data.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/data/cutscenes/before_charlie_data.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const struct CutscenePageData sBeforeCharliePageData[9] = {
     [0] = {

@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "macros.h"
-#include "types.h"
+#include "mzm/macros.h"
+#include "mzm/types.h"
 
-#include "cutscenes/kraid_rising.h"
-#include "structs/cutscene.h"
+#include "mzm/cutscenes/kraid_rising.h"
+#include "mzm/structs/cutscene.h"
 
 extern const struct CutscenePageData sKraidRisingPagesData[4];
 

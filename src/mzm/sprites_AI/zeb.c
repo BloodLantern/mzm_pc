@@ -1,16 +1,18 @@
-#include "sprites_AI/zeb.h"
-#include "macros.h"
+#include "mzm/sprites_AI/zeb.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/zeb.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/zeb.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define ZEB_POSE_IDLE_INIT 0x8
 #define ZEB_POSE_IDLE 0x9
@@ -19,7 +21,7 @@
 
 /**
  * @brief 1c238 | 60 | Initializes a zeb sprite
- * 
+ *
  */
 static void ZebInit(void)
 {
@@ -44,7 +46,7 @@ static void ZebInit(void)
 
 /**
  * @brief 1c298 | 3c | Initializes a zeb to be idle
- * 
+ *
  */
 static void ZebIdleInit(void)
 {
@@ -61,7 +63,7 @@ static void ZebIdleInit(void)
 
 /**
  * @brief 1c2d4 | 98 | Handles a zeb being idle
- * 
+ *
  */
 static void ZebIdle(void)
 {
@@ -92,7 +94,7 @@ static void ZebIdle(void)
 
         if (SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 5, BLOCK_SIZE * 5) != NSAB_ABOVE)
             return;
-    
+
         // Samus in range
         gCurrentSprite.scaling = gSamusData.yPosition;
         gCurrentSprite.pose = ZEB_POSE_GOING_UP;
@@ -108,7 +110,7 @@ static void ZebIdle(void)
 
 /**
  * @brief 1c36c | 80 | Handles a zeb going up
- * 
+ *
  */
 static void ZebGoingUp(void)
 {
@@ -145,7 +147,7 @@ static void ZebGoingUp(void)
 
 /**
  * @brief 1c3ec | 58 | Handles a zeb respawning
- * 
+ *
  */
 static void ZebRespawn(void)
 {
@@ -167,7 +169,7 @@ static void ZebRespawn(void)
 
 /**
  * @brief 1c444 | c8 | Handles a zeb moving
- * 
+ *
  */
 static void ZebMove(void)
 {
@@ -214,7 +216,7 @@ static void ZebMove(void)
 
 /**
  * @brief 1c50c | 138 | Zeb AI
- * 
+ *
  */
 void Zeb(void)
 {
@@ -233,7 +235,7 @@ void Zeb(void)
 
     if (SpriteUtilIsSpriteStunned())
         return;
-    
+
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:

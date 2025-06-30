@@ -1,21 +1,23 @@
-#include "escape.h"
-#include "gba.h"
+#include "mzm/escape.h"
+#include "mzm/gba.h"
 
-#include "data/visual_effects_data.h"
+#include "mzm/data/visual_effects_data.h"
 
-#include "constants/event.h"
-#include "constants/escape.h"
-#include "constants/game_state.h"
-#include "constants/particle.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/escape.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/escape.h"
-#include "structs/game_state.h"
-#include "structs/particle.h"
-#include "structs/samus.h"
+#include "mzm/structs/escape.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/particle.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 53968 | 40 | Determines the current escape timer (if any) based on the events
- * 
+ *
  * @return u8 Escape ID
  */
 u8 EscapeDetermineTimer(void)
@@ -42,7 +44,7 @@ u8 EscapeDetermineTimer(void)
 
 /**
  * @brief 539a8 | 38 | Checks if Samus has escaped
- * 
+ *
  * @return u8 TRUE if escaped, FALSE otherwise
  */
 u8 EscapeCheckHasEscaped(void)
@@ -66,7 +68,7 @@ u8 EscapeCheckHasEscaped(void)
 
 /**
  * @brief 539e0 | 38 | Updates the OAM of the escape timer
- * 
+ *
  */
 void EscapeUpdateOam(void)
 {
@@ -85,7 +87,7 @@ void EscapeUpdateOam(void)
 
 /**
  * @brief 53a18 | 30 | Checks if the escape timer graphics should reload
- * 
+ *
  */
 void EscapeCheckReloadGraphics(void)
 {
@@ -97,7 +99,7 @@ void EscapeCheckReloadGraphics(void)
 
 /**
  * @brief 53a48 | 60 | Starts an escape
- * 
+ *
  */
 void EscapeStart(void)
 {
@@ -115,7 +117,7 @@ void EscapeStart(void)
 
 /**
  * @brief 53aa8 | bc | Sets the timer for the current escape
- * 
+ *
  */
 void EscapeSetTimer(void)
 {
@@ -159,7 +161,7 @@ void EscapeSetTimer(void)
 
 /**
  * @brief 53b64 | 104 | Updates the escape timer
- * 
+ *
  */
 void EscapeUpdateTimer(void)
 {

@@ -1,22 +1,24 @@
-#include "cutscenes/ridley_landing.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "temp_globals.h"
+#include "mzm/cutscenes/ridley_landing.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/temp_globals.h"
 
-#include "data/cutscenes/cutscenes_data.h"
-#include "data/cutscenes/ridley_landing_data.h"
-#include "data/cutscenes/internal_ridley_landing_data.h"
-#include "data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
+#include "mzm/data/cutscenes/ridley_landing_data.h"
+#include "mzm/data/cutscenes/internal_ridley_landing_data.h"
+#include "mzm/data/shortcut_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
 
-#include "structs/display.h"
-#include "structs/game_state.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 647d0 | 178 | Handles the ridley flying part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyLandingRidleyFlying(void)
@@ -26,25 +28,25 @@ u8 RidleyLandingRidleyFlying(void)
         case 0:
             DmaTransfer(3, sRidleyLandingSkyBackgroundPal, PALRAM_BASE, 5 * PAL_ROW_SIZE, 16);
 			DmaTransfer(3, sRidleyLandingRidleyAndRocksPal, PALRAM_OBJ, 2 * PAL_ROW_SIZE, 16);
-			
+
             SET_BACKDROP_COLOR(COLOR_BLACK);
-			
+
             CallLZ77UncompVram(sRidleyLandingRidleyFlyingBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[4].graphicsPage * 0x4000);
 			CallLZ77UncompVram(sRidleyLandingRidleyAndRockShadowGfx, VRAM_BASE + 4 * 0x4000);
 			CallLZ77UncompVram(sRidleyLandingRidleyFlyingBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[4].tiletablePage * 0x800);
-			
+
             CutsceneSetBgcntPageData(sRidleyLandingPageData[4]);
 			CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[4].bg, 0x800);
 			CutsceneReset();
-            
+
             CUTSCENE_DATA.oam[1].xPosition = 18 * BLOCK_SIZE;
 			CUTSCENE_DATA.oam[1].yPosition = 6 * BLOCK_SIZE;
 			UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], RIDLEY_LANDING_OAM_ID_RIDLEY);
-            
+
 			CUTSCENE_DATA.oam[0].xPosition = 11 * BLOCK_SIZE;
 			CUTSCENE_DATA.oam[0].yPosition = 8 * BLOCK_SIZE;
 			UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_ROCKS);
-            
+
             CUTSCENE_DATA.dispcnt = sRidleyLandingPageData[4].bg | DCNT_OBJ;
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
@@ -114,7 +116,7 @@ void RidleyLandingUpdateRidley(struct CutsceneOamData* pOam)
 
 /**
  * @brief 649b4 | 5a8 | Handles the ship landing part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyLandingShipLanding(void)
@@ -161,7 +163,7 @@ u8 RidleyLandingShipLanding(void)
 
             CUTSCENE_DATA.oam[7].boundBackground = 3;
             CUTSCENE_DATA.oam[7].priority = 1;
-            
+
             CUTSCENE_DATA.oam[8].boundBackground = 3;
             CUTSCENE_DATA.oam[8].priority = 1;
 
@@ -303,7 +305,7 @@ u8 RidleyLandingShipLanding(void)
 
 /**
  * @brief 64f5c | 84 | Updates the ship landing
- * 
+ *
  * @param pOam Cutscene OAM Data Pointer
  * @return struct CutsceneOamData* First param
  */
@@ -314,7 +316,7 @@ struct CutsceneOamData* RidleyLandingUpdateShipLanding(struct CutsceneOamData* p
     if (pOam->actions != 0)
     {
         yPosition = (BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) - pOam->yPosition;
-        
+
         if (yPosition > QUARTER_BLOCK_SIZE)
             pOam->yPosition++;
         else if (yPosition != 0)
@@ -339,7 +341,7 @@ struct CutsceneOamData* RidleyLandingUpdateShipLanding(struct CutsceneOamData* p
 
 /**
  * @brief 64fe0 | 108 | Handles the ship in space part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyLandingShipInSpace(void)
@@ -413,7 +415,7 @@ u8 RidleyLandingShipInSpace(void)
 
 /**
  * @brief 650e8 | 19c | Initializes the ridley landing cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyLandingInit(void)
@@ -464,7 +466,7 @@ u8 RidleyLandingInit(void)
 
 /**
  * @brief 65284 | 34 | Subroutine for the ridley landing cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 RidleyLandingSubroutine(void)
@@ -480,7 +482,7 @@ u8 RidleyLandingSubroutine(void)
 
 /**
  * @brief 652b8 | 4c | Processes the OAM
- * 
+ *
  */
 void RidleyLandingProcessOAM(void)
 {

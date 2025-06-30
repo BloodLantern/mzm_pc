@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/haze.h"
+#include "mzm/types.h"
+#include "mzm/structs/haze.h"
 
 extern const u8 sHaze_345ff8[132];
 

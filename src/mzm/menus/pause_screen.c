@@ -1,43 +1,45 @@
-#include "menus/pause_screen.h"
-#include "dma.h"
-#include "temp_globals.h"
-#include "gba.h"
-#include "macros.h"
-#include "minimap.h"
-#include "oam_id.h"
-#include "event.h"
-#include "text.h"
-#include "color_effects.h"
-#include "callbacks.h"
-#include "menus/status_screen.h"
-#include "menus/pause_screen_map.h"
-#include "menus/pause_screen_sub_menus.h"
+#include "mzm/menus/pause_screen.h"
+#include "mzm/dma.h"
+#include "mzm/temp_globals.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/minimap.h"
+#include "mzm/oam_id.h"
+#include "mzm/event.h"
+#include "mzm/text.h"
+#include "mzm/color_effects.h"
+#include "mzm/callbacks.h"
+#include "mzm/menus/status_screen.h"
+#include "mzm/menus/pause_screen_map.h"
+#include "mzm/menus/pause_screen_sub_menus.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/menus/status_screen_data.h"
-#include "data/menus/internal_pause_screen_data.h"
-#include "data/menus/pause_screen_map_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/menus/status_screen_data.h"
+#include "mzm/data/menus/internal_pause_screen_data.h"
+#include "mzm/data/menus/pause_screen_map_data.h"
 
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/connection.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/samus.h"
-#include "constants/menus/pause_screen.h"
-#include "constants/menus/status_screen.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/menus/pause_screen.h"
+#include "mzm/constants/menus/status_screen.h"
 
-#include "structs/menus/pause_screen.h"
-#include "structs/demo.h"
-#include "structs/display.h"
-#include "structs/minimap.h"
-#include "structs/game_state.h"
-#include "structs/text.h"
+#include "mzm/structs/menus/pause_screen.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/minimap.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/text.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 68168 | 60 | Initialize the pause screen for fading
- * 
+ *
  * @param targetBldAlpha The target alpha blend level
  * @param bldAlphaStepLevel The amount to change alpha blend by
  * @param bldAlphaStepDelayThreshold Amount of time between each fade step
@@ -68,7 +70,7 @@ u32 PauseScreenInitFading(u16 targetBldAlpha, u8 bldAlphaStepLevel, s8 bldAlphaS
 
 /**
  * @brief 681c8 | 124 | Fade the screen to the desired alpha blend level
- * 
+ *
  * @return u8 bool, ended
  */
 u8 PauseScreenApplyFading(void)
@@ -133,7 +135,7 @@ u8 PauseScreenApplyFading(void)
 
 /**
  * @brief 682ec | 2cc | Starts and updates the pause screen fading
- * 
+ *
  * @param stage Stage to start
  * @return u32 bool, ended
  */
@@ -214,7 +216,7 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
         case PAUSE_SCREEN_FADING_OUT:
             if (PAUSE_SCREEN_DATA.mapScreenFading.paletteUpdated)
                 break;
-            
+
             if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply < 32)
             {
                 src = &PAUSE_SCREEN_EWRAM.originalBackgroundPalette[0];
@@ -256,7 +258,7 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
 
 /**
  * @brief 685b8 | 98 | Copies palram to ewram, unused
- * 
+ *
  * @param param_1 To document
  */
 void PauseScreenCopyPalramToEwram_Unused(u8 param_1)
@@ -277,7 +279,7 @@ void PauseScreenCopyPalramToEwram_Unused(u8 param_1)
 
 /**
  * @brief 68650 | 44 | Copies the palram backup in ewram to palram
- * 
+ *
  */
 void PauseScreenCopyBackgroundPalette_Unused(void)
 {
@@ -290,7 +292,7 @@ void PauseScreenCopyBackgroundPalette_Unused(void)
 
 /**
  * @brief 68694 | 208 | Updates the map screen scroll arrows
- * 
+ *
  */
 void PauseScreenUpdateMapArrows(void)
 {
@@ -342,7 +344,7 @@ void PauseScreenUpdateMapArrows(void)
 
 /**
  * @brief 6889c | c0 | Updates the boss icons
- * 
+ *
  */
 void PauseScreenUpdateBossIcons(void)
 {
@@ -394,7 +396,7 @@ void PauseScreenUpdateBossIcons(void)
 
 /**
  * @brief 6895c | fc | Draws the completion info (tanks, IGT)
- * 
+ *
  * @param dontDraw Don't draw flag
  */
 void PauseScreenDrawCompletionInfo(u8 dontDraw)
@@ -445,7 +447,7 @@ void PauseScreenDrawCompletionInfo(u8 dontDraw)
         // Set positions
         PAUSE_SCREEN_DATA.miscOam[sPauseScreenCompletionInfoOamData[i][0]].xPosition = sPauseScreenCompletionInfoOamData[i][2];
         PAUSE_SCREEN_DATA.miscOam[sPauseScreenCompletionInfoOamData[i][0]].yPosition = sPauseScreenCompletionInfoOamData[i][3];
-        
+
         // Mark as existing
         PAUSE_SCREEN_DATA.miscOam[sPauseScreenCompletionInfoOamData[i][0]].exists = TRUE;
     }
@@ -453,7 +455,7 @@ void PauseScreenDrawCompletionInfo(u8 dontDraw)
 
 /**
  * @brief 68a58 | a8 | Determine if the category header should be drawn
- * 
+ *
  * @param samusWireframeDataIndex The current wireframe data index
  * @return u8 2 if the header is to be drawn, 0 otherwise
  */
@@ -514,7 +516,7 @@ u8 PauseScreenStatusScreenShouldDrawHeader(u8 samusWireframeDataIndex)
 
 /**
  * @brief 68af8 | 2c4 | Draws samus on the status screen
- * 
+ *
  * @param param_1 To document
  * @return u8 bool, wireframe part was not in position
  */
@@ -565,7 +567,7 @@ u32 PauseScreenUpdateStatusScreenOam(u8 param_1)
         // // Flag as status screen + 1
         case 2:
             result = TRUE;
-            
+
             for (i = 0; i < size - 1; i++, pOam++)
             {
                 if (!pOam->exists)
@@ -638,7 +640,7 @@ u32 PauseScreenUpdateStatusScreenOam(u8 param_1)
 
 /**
  * @brief 68dbc | 104 | Updates the samus wireframe object
- * 
+ *
  * @param updateWireframeOption 0 if getting new suit, 1 if no suit change, 2 if changing suits
  */
 void PauseScreenUpdateWireframeSamus(u8 updateWireframeOption)
@@ -686,7 +688,7 @@ void PauseScreenUpdateWireframeSamus(u8 updateWireframeOption)
 
 /**
  * @brief 68ec0 | 110 | Handle suit transition fade
- * 
+ *
  */
 void PauseScreenFadeWireframeSamus(void)
 {
@@ -755,7 +757,7 @@ void PauseScreenFadeWireframeSamus(void)
 
 /**
  * @brief 68fd0 | 54 | Updates the area name icon
- * 
+ *
  * @param area Area
  */
 void PauseScreenUpdateWorldMapHighlight(u8 area)
@@ -766,7 +768,7 @@ void PauseScreenUpdateWorldMapHighlight(u8 area)
 
     // Update area name at the top
     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[area].nameSpawningOamId);
-    
+
     // Update hightlight border oam
     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[2], sPauseScreenAreaIconsData[area].outlineOamId);
 
@@ -777,7 +779,7 @@ void PauseScreenUpdateWorldMapHighlight(u8 area)
 
 /**
  * @brief 69024 | 1e8 | Updates the world map oam
- * 
+ *
  * @param onWorldMap On world map
  */
 void PauseScreenUpdateWorldMap(u8 onWorldMap)
@@ -837,7 +839,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
         status = TRUE;
     else
         status = OAM_ID_CHANGED_FLAG;
- 
+
     pOam = &PAUSE_SCREEN_DATA.worldMapOam[1];
     for (i = 0; i < AREA_NORMAL_COUNT; i++, pOam++)
     {
@@ -856,7 +858,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
 
 /**
  * @brief 6920c | 3b0 | Loads the area name and icons oam
- * 
+ *
  */
 void PauseScreenLoadAreaNamesAndIcons(void)
 {
@@ -876,7 +878,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     pOam = PAUSE_SCREEN_DATA.borderArrowsOam;
     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.borderArrowsOam); i++, pOam++)
         *pOam = sMenuOamData_Empty;
-    
+
     pOam = PAUSE_SCREEN_DATA.worldMapOam;
     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.worldMapOam); i++, pOam++)
         *pOam = sMenuOamData_Empty;
@@ -886,7 +888,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         PauseScreenUpdateStatusScreenOam(0);
         return;
     }
-    
+
     PAUSE_SCREEN_DATA.samusIconOam[0].oamID = gEquipment.suitType != SUIT_SUITLESS ? SAMUS_ICON_OAM_ID_SUIT : SAMUS_ICON_OAM_ID_SUITLESS;
     PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE;
     PAUSE_SCREEN_DATA.samusIconOam[0].xPosition = gMinimapX * HALF_BLOCK_SIZE;
@@ -920,7 +922,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         PAUSE_SCREEN_DATA.miscOam[0].yPosition = 0;
         PAUSE_SCREEN_DATA.miscOam[0].xPosition = 0;
     }
-    
+
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
         PAUSE_SCREEN_DATA.overlayOam[0].oamID = sChozoHintAreaNamesOamIds[PAUSE_SCREEN_DATA.currentArea];
@@ -967,7 +969,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     for (i = ARRAY_SIZE(sMapScreenArrowsData); i > 0; )
     {
         i--;
-        
+
         if (gPauseScreenFlag == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
         {
             PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].exists = TRUE;
@@ -986,7 +988,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 
 /**
  * @brief 695bc | f0 | Processes the pause screen oam
- * 
+ *
  */
 void PauseScreenProcessOam(void)
 {
@@ -1038,7 +1040,7 @@ void PauseScreenProcessOam(void)
 
 /**
  * @brief 696ac | 364 | Processes a set of menu oam
- * 
+ *
  * @param length Length of Oam buffer (number of objects)
  * @param pOam Oam buffer pointer
  * @param pOamData Oam array pointer
@@ -1298,7 +1300,7 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
             *dst++ = part;
 
             gOamData[currSlot].split.y = part + yPosition;
-            
+
             part = *src++;
             *dst++ = part;
 
@@ -1308,7 +1310,7 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
             // Write special parameters
             gOamData[currSlot].split.priority = pOam->priority;
             gOamData[currSlot].split.objMode = pOam->objMode;
-            
+
             dst++;
         }
     }
@@ -1319,7 +1321,7 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
 
 /**
  * @brief 69a10 | 3b8 | Processes a set of menu oam (accounts for scaling/rotation)
- * 
+ *
  * @param length Length of Oam buffer (number of objects)
  * @param pOam Oam buffer pointer
  * @param pOamData Oam array pointer
@@ -1579,10 +1581,10 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                 // Parameters will be processed by a function, so simply copy the raw contents
                 part = *src++;
                 *dst++ = part;
-                
+
                 part = *src++;
                 *dst++ = part;
-                
+
                 *dst++ = *src++;
                 dst++;
 
@@ -1596,7 +1598,7 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
                 *dst++ = part;
 
                 gOamData[currSlot].split.y = part + yPosition;
-                
+
                 part = *src++;
                 *dst++ = part;
 
@@ -1617,7 +1619,7 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
 
 /**
  * @brief 69dc8 | 3b8 | Processes a set of cutscene oam
- * 
+ *
  * @param length Length of Oam buffer (number of objects)
  * @param pOam Oam buffer pointer
  * @param pOamData Oam array pointer
@@ -1877,10 +1879,10 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                 // Parameters will be processed by a function, so simply copy the raw contents
                 part = *src++;
                 *dst++ = part;
-                
+
                 part = *src++;
                 *dst++ = part;
-                
+
                 *dst++ = *src++;
                 dst++;
 
@@ -1894,7 +1896,7 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
                 *dst++ = part;
 
                 gOamData[currSlot].split.y = part + yPosition;
-                
+
                 part = *src++;
                 *dst++ = part;
 
@@ -1915,7 +1917,7 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
 
 /**
  * @brief 6a180 | 178 | Main subroutine for the pause screen
- * 
+ *
  * @return u32 bool, leaving
  */
 u32 PauseScreenSubroutine(void)
@@ -2014,7 +2016,7 @@ u32 PauseScreenSubroutine(void)
 
 /**
  * @brief 6a2f8 | 130 | Pause screen V-blank
- * 
+ *
  */
 void PauseScreenVBlank(void)
 {
@@ -2032,7 +2034,7 @@ void PauseScreenVBlank(void)
     write16(REG_BG2VOFS, SUB_PIXEL_TO_PIXEL(gBg2VOFS_NonGameplay) & 0x1FF);
     write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBg3HOFS_NonGameplay) & 0x1FF);
     write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBg3VOFS_NonGameplay) & 0x1FF);
-    
+
     write16(REG_BG0CNT, PAUSE_SCREEN_DATA.bg0cnt);
     write16(REG_BG1CNT, PAUSE_SCREEN_DATA.bg1cnt);
     write16(REG_BG2CNT, PAUSE_SCREEN_DATA.bg2cnt);
@@ -2044,7 +2046,7 @@ void PauseScreenVBlank(void)
 
 /**
  * @brief 6a428 | c | Pause screen empty V-blank
- * 
+ *
  */
 void PauseScreenVBlank_Empty(void)
 {
@@ -2053,21 +2055,21 @@ void PauseScreenVBlank_Empty(void)
 
 /**
  * @brief 6a434 | aa0 | Initializes the pause screen
- * 
+ *
  */
 void PauseScreenInit(void)
 {
     CallbackSetVBlank(PauseScreenVBlank_Empty);
-    
+
     write16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT);
-    
+
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
     write16(REG_DISPCNT, 0);
 
     gNextOamSlot = 0;
     BitFill(3, 0, &gNonGameplayRam, sizeof(union NonGameplayRAM), 32);
     ResetFreeOam();
-    
+
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
     PAUSE_SCREEN_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
@@ -2201,7 +2203,7 @@ void PauseScreenInit(void)
 
             CallLZ77UncompWram(sStatusScreenTilemap, PAUSE_SCREEN_EWRAM.unk_7800);
             CallLZ77UncompWram(sStatusScreenBackgroundTilemap, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap);
-            
+
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
                 DmaTransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, VRAM_BASE + 0xC000, 0x500, 16);
@@ -2324,7 +2326,7 @@ void PauseScreenInit(void)
 
         PAUSE_SCREEN_DATA.targetBldAlpha = C_16_2_8(6, 10);
         gWrittenToBLDALPHA_H = 6;
-        gWrittenToBLDALPHA_L = 10; 
+        gWrittenToBLDALPHA_L = 10;
     }
 
     write8(REG_WINOUT, WIN0_BG0 | WIN0_BG1 | WIN0_BG2 | WIN0_BG3 | WIN0_OBJ | WIN0_COLOR_EFFECT);
@@ -2437,14 +2439,14 @@ void PauseScreenInit(void)
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
     PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_IN_INIT);
-    
+
     CallbackSetVBlank(PauseScreenVBlank);
     write16(REG_DISPCNT, PAUSE_SCREEN_DATA.dispcnt);
 }
 
 /**
  * @brief 6aed4 | 138 | Determines which maps are viewables
- * 
+ *
  */
 void PauseScreenDetermineMapsViewable(void)
 {
@@ -2482,7 +2484,7 @@ void PauseScreenDetermineMapsViewable(void)
 void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
 {
     // https://decomp.me/scratch/kHRx8
-    
+
     s32 var_0;
     s16 var_1;
     u16* dst;
@@ -2660,7 +2662,7 @@ lbl_0806b0ee: \n\
 
 /**
  * @brief 6b0f8 | 148 | Gets the minimap for the provided area
- * 
+ *
  * @param area Area
  * @param dst Destination pointer
  */
@@ -2697,7 +2699,7 @@ void PauseScreenGetMinimapData(u8 area, u16* dst)
             {
                 for (i = 0; i < 2; i++)
                     dst[position + i] += MINIMAP_SIZE;
-                    
+
                 for (i = MINIMAP_SIZE; i < MINIMAP_SIZE + 2; i++)
                     dst[position + i] += MINIMAP_SIZE;
             }
@@ -2709,7 +2711,7 @@ void PauseScreenGetMinimapData(u8 area, u16* dst)
             {
                 for (i = 0; i < 2; i++)
                     dst[position + i] += MINIMAP_SIZE;
-                    
+
                 for (i = MINIMAP_SIZE; i < MINIMAP_SIZE + 2; i++)
                     dst[position + i] += MINIMAP_SIZE;
             }
@@ -2723,7 +2725,7 @@ void PauseScreenGetMinimapData(u8 area, u16* dst)
 
 /**
  * @brief 6b240 | 2c4 | Calls the current pause screen subroutine
- * 
+ *
  * @return u32 bool, ended
  */
 u32 PauseScreenCallCurrentSubroutine(void)
@@ -2743,7 +2745,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
                 MapScreenSubroutine();
                 break;
             }
-            
+
             if (PAUSE_SCREEN_DATA.onWorldMap)
             {
                 MapScreenSubroutine();
@@ -2782,7 +2784,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
                 leaving = TRUE;
                 break;
             }
-            
+
             break;
 
         case PAUSE_SCREEN_SUBROUTINE_SUITLESS_ITEMS:
@@ -2944,7 +2946,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
 
 /**
  * @brief 6b504 | 168 | Movement hanhdler for the debug cursor
- * 
+ *
  * @param allowOverflow Allow screen overflow
  */
 void PauseScreenMoveDebugCursor(u8 allowOverflow)
@@ -2952,7 +2954,7 @@ void PauseScreenMoveDebugCursor(u8 allowOverflow)
     // Stick to block position
     PAUSE_SCREEN_DATA.miscOam[0].yPosition &= HALF_BLOCK_POSITION_FLAG;
     PAUSE_SCREEN_DATA.miscOam[0].xPosition &= HALF_BLOCK_POSITION_FLAG;
-    
+
     if (gButtonInput & KEY_A)
         return;
 
@@ -3023,7 +3025,7 @@ void PauseScreenMoveDebugCursor(u8 allowOverflow)
 
 /**
  * @brief 6b66c | 58 | [Unused] To document
- * 
+ *
  * @param param_1 To document
  * @param param_2 To document
  * @return u32 To document
@@ -3069,7 +3071,7 @@ u32 unk_6b66c_Unused(u16* param_1, u16 param_2)
 
 /**
  * @brief 6b6c4 | 54 | [Unused] To document
- * 
+ *
  * @param param_1 To document
  * @param param_2 To document
  * @return u32 To document
@@ -3116,7 +3118,7 @@ u32 unk_6b6c4_Unused(u16* param_1, u16 param_2)
 
 /**
  * @brief 6b718 | 60 | Updates the top visor overlay
- * 
+ *
  * @param oamId Oam id
  */
 void PauseScreenUpdateTopVisorOverlay(u8 oamId)
@@ -3142,7 +3144,7 @@ void PauseScreenUpdateTopVisorOverlay(u8 oamId)
 
 /**
  * @brief 6b778 | c0 | Initializes the status screen for a suit change (suitless or fully powered)
- * 
+ *
  * @return s32 bool, ended (-1 and 0)
  */
 s32 PauseScreenSuitChangingStart(void)
@@ -3175,7 +3177,7 @@ s32 PauseScreenSuitChangingStart(void)
             // Setup cursor for the new item
             PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = StatusScreenGetSlotForNewItem(2, gCurrentItemBeingAcquired);
             StatusScreenInitCursorAndItems();
-            
+
             // Display text background
             PAUSE_SCREEN_DATA.dispcnt |= DCNT_BG0;
 
@@ -3204,13 +3206,13 @@ s32 PauseScreenSuitChangingStart(void)
 
 /**
  * @brief 6b838 | 1fc | Initializes the status screen
- * 
+ *
  * @return s32 bool, ended (-1 and 0)
  */
 s32 PauseScreenStatusScreenInit(void)
 {
     s32 stage;
-    
+
     stage = 0;
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
     {
@@ -3224,7 +3226,7 @@ s32 PauseScreenStatusScreenInit(void)
             {
                 DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, VRAM_BASE + 0xC000, 0x500, 32);
             }
-            
+
             // Set stage 1
             stage = 1;
             break;
@@ -3275,7 +3277,7 @@ s32 PauseScreenStatusScreenInit(void)
             // Flag as status screen
             PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_ON_STATUS_SCREEN;
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_74;
-            
+
             PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                 BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL |
                 BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
@@ -3309,7 +3311,7 @@ s32 PauseScreenStatusScreenInit(void)
         case 8:
             // Setup cursor
             StatusScreenInitCursorAndItems();
-            
+
             // Display text background
             PAUSE_SCREEN_DATA.dispcnt |= DCNT_BG0;
 
@@ -3351,13 +3353,13 @@ s32 PauseScreenStatusScreenInit(void)
 
 /**
  * @brief 6ba34 | 200 | Un-initializes the status screen
- * 
+ *
  * @return s32 bool, ended (-1 and 0)
  */
 s32 PauseScreenQuitStatusScreen(void)
 {
     s32 stage;
-    
+
     stage = 0;
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
     {
@@ -3461,7 +3463,7 @@ s32 PauseScreenQuitStatusScreen(void)
 
 /**
  * @brief 6bc34 | 2d4 | Initializes the easy sleep screen
- * 
+ *
  * @return s32 bool, ended
  */
 s32 PauseScreenEasySleepInit(void)
@@ -3477,7 +3479,7 @@ s32 PauseScreenEasySleepInit(void)
                 PAUSE_SCREEN_DATA.subroutineInfo.stage--;
             break;
 
-        case 1: 
+        case 1:
             PauseScreenUpdateBottomVisorOverlay(2, 2);
             PauseScreenUpdateTopVisorOverlay(OVERLAY_OAM_ID_L_PROMPT_PRESSED);
             PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_BG2;
@@ -3577,7 +3579,7 @@ s32 PauseScreenEasySleepInit(void)
 
 /**
  * @brief 6bf08 | 1d8 | Un-initializes the status screen
- * 
+ *
  * @return s32 bool, ended
  */
 s32 PauseScreenQuitEasySleep(void)
@@ -3643,7 +3645,7 @@ s32 PauseScreenQuitEasySleep(void)
 
 /**
  * @brief 6c0e0 | 74 | Updates the maintained input
- * 
+ *
  */
 void CheckForMaintainedInput(void)
 {

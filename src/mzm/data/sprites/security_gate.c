@@ -1,5 +1,7 @@
-#include "data/sprites/security_gate.h"
-#include "macros.h"
+#include "mzm/data/sprites/security_gate.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sSecurityGateGfx[122] = INCBIN_U32("data/sprites/SecurityGate.gfx.lz");
 const u16 sSecurityGatePal[16] = INCBIN_U16("data/sprites/SecurityGate.pal");

@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define INTRO_DATA sNonGameplayRamPointer->intro
 
@@ -15,7 +15,7 @@ struct IntroData {
     u8 currentCharacter; // 1
     u8 characterPalette; // 2
     u8 finalCharacter; // 3
-    
+
     s16 charDrawerX; // 4
     u16 charDrawerY; // 6
     u8 charDrawerPalette; // 8

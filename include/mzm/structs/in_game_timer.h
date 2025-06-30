@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define MAX_AMOUNT_OF_IGT_AT_BOSSES 5
 

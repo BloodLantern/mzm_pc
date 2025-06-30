@@ -1,7 +1,9 @@
-#include "data/cutscenes/ridley_landing_data.h"
-#include "cutscenes/ridley_landing.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/data/cutscenes/ridley_landing_data.h"
+#include "mzm/cutscenes/ridley_landing.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const struct CutscenePageData sRidleyLandingPageData[5] = {
     [0] = {
@@ -103,7 +105,7 @@ const struct OamArray sRidleyLandingCutsceneOAM[RIDLEY_LANDING_OAM_ID_END] = {
     [RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_IN_SPACE] = {
         .pOam = sRidleyLandingOAM_ShipInSpace,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
-    }, 
+    },
     [RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_BOTTOM_PART] = {
         .pOam = sRidleyLandingOAM_ShipBottomPart,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME

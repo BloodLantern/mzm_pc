@@ -1,18 +1,20 @@
-#include "sprites_AI/imago_larva_right_side.h"
-#include "macros.h"
+#include "mzm/sprites_AI/imago_larva_right_side.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/imago_larva_right_side.h"
+#include "mzm/data/sprites/imago_larva_right_side.h"
 
-#include "constants/audio.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define IMAGO_LARVA_RIGHT_SIDE_POSE_IDLE 0x9
 
 /**
  * @brief 412a8 | 11c | Imago larva (right side) AI
- * 
+ *
  */
 void ImagoLarvaRightSide(void)
 {

@@ -1,6 +1,8 @@
-#include "data/cutscenes/internal_mother_brain_close_up_data.h"
-#include "cutscenes/mother_brain_close_up.h"
-#include "cutscenes/cutscene_utils.h"
+#include "mzm/data/cutscenes/internal_mother_brain_close_up_data.h"
+#include "mzm/cutscenes/mother_brain_close_up.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+
+#include "mzm_include.h"
 
 const u16 sMotherBrainCloseUpLookingAtSamusTimers[2] = {
     CONVERT_SECONDS(3.f) + CONVERT_SECONDS(1.f / 6), CONVERT_SECONDS(2.f)

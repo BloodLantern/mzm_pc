@@ -6,10 +6,10 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
 
 enum ImagoLarvaOam {
     IMAGO_LARVA_OAM_SHELL_ATTACKING,

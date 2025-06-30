@@ -1,23 +1,25 @@
-#include "gba.h"
-#include "hud_generic.h"
-#include "escape.h" // Required
+#include "mzm/gba.h"
+#include "mzm/hud_generic.h"
+#include "mzm/escape.h" // Required
 
-#include "data/hud_data.h"
+#include "mzm/data/hud_data.h"
 
-#include "constants/escape.h"
-#include "constants/game_state.h"
-#include "constants/minimap.h"
-#include "constants/particle.h"
+#include "mzm/constants/escape.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/minimap.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/escape.h"
-#include "structs/game_state.h"
-#include "structs/minimap.h"
-#include "structs/hud.h"
-#include "structs/particle.h"
+#include "mzm/structs/escape.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/minimap.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/particle.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 53c68 | 24 | Loads the common sprites graphics
- * 
+ *
  */
 void HudGenericLoadCommonSpriteGfx(void)
 {
@@ -26,7 +28,7 @@ void HudGenericLoadCommonSpriteGfx(void)
 
 /**
  * @brief 53c8c | 24 | Resets the refill animations
- * 
+ *
  */
 void HudGenericResetRefillAnimations(void)
 {
@@ -38,7 +40,7 @@ void HudGenericResetRefillAnimations(void)
 
 /**
  * @brief 53cb0 | 120 | Resets the HUD data and the particles
- * 
+ *
  */
 void HudGenericResetHUDData(void)
 {

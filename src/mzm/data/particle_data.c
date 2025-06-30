@@ -1,5 +1,7 @@
-#include "data/particle_data.h"
-#include "macros.h"
+#include "mzm/data/particle_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u16 sParticleShootingBeamHorizontalOam_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,

@@ -1,19 +1,21 @@
-#include "cutscenes/mecha_sees_samus.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "syscall_wrappers.h"
+#include "mzm/cutscenes/mecha_sees_samus.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/syscall_wrappers.h"
 
-#include "data/cutscenes/cutscenes_data.h"
-#include "data/cutscenes/internal_mecha_sees_samus_data.h"
-#include "data/cutscenes/mecha_sees_samus_data.h"
-#include "data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
+#include "mzm/data/cutscenes/internal_mecha_sees_samus_data.h"
+#include "mzm/data/cutscenes/mecha_sees_samus_data.h"
+#include "mzm/data/shortcut_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 65924 | 100 | Handles the eye part of the mecha sees samus cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 MechaRidleySeesSamusEyeOpen(void)
@@ -89,7 +91,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
 
 /**
  * @brief 65a24 | 148 | Initializes the mecha ridley sees Samus cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 MechaRidleySeesSamusInit(void)
@@ -136,7 +138,7 @@ u8 MechaRidleySeesSamusInit(void)
 
 /**
  * @brief 65b6c | 34 | Mecha ridley sees Samus cutscene subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 MechaRidleySeesSamusSubroutine(void)
@@ -152,7 +154,7 @@ u8 MechaRidleySeesSamusSubroutine(void)
 
 /**
  * @brief 65ba0 | 38 | Processes the OAM for the cutscene
- * 
+ *
  */
 void MechaRidleySeesSamusProcessOAM(void)
 {

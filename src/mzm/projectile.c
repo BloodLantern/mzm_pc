@@ -1,29 +1,31 @@
-#include "gba.h"
-#include "projectile.h"
+#include "mzm/gba.h"
+#include "mzm/projectile.h"
 
-#include "data/projectile_data.h"
-#include "data/sprite_data.h"
-#include "data/engine_pointers.h"
+#include "mzm/data/projectile_data.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/engine_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/projectile.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
-#include "structs/power_bomb_explosion.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/power_bomb_explosion.h"
+
+#include "mzm_include.h"
 
 /**
  * 50b64 | f8 | Subroutine for a normal beam projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
@@ -98,7 +100,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
 
 /**
  * 50c5c | ec | Subroutine for a long beam projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessLongBeam(struct ProjectileData* pProj)
@@ -176,7 +178,7 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
 
 /**
  * 50d48 | 124 | Subroutine for a ice beam projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessIceBeam(struct ProjectileData* pProj)
@@ -255,7 +257,7 @@ void ProjectileProcessIceBeam(struct ProjectileData* pProj)
 
 /**
  * @brief Handles the collision of the wave beam (bigger hitbox because of the wavy pattern)
- * 
+ *
  * @param pProj Projectile data pointer
  * @return u32 Numbers of block getting touched
  */
@@ -373,7 +375,7 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
 
 /**
  * 51068 | 130 | Subroutine for a wave beam projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
@@ -447,7 +449,7 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
 
 /**
  * 51198 | 1bc | Subroutine for a plasma beam projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
@@ -604,7 +606,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
     {
         // Set animation and flip depending on direction
         switch (pProj->direction)
-        {           
+        {
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_Y_FLIP;
             case ACD_DIAGONALLY_UP:
@@ -641,8 +643,8 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
 
 /**
  * @brief 51440 | f8 | Subroutine for a charged normal beam
- * 
- * @param pProj 
+ *
+ * @param pProj
  */
 void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 {
@@ -714,7 +716,7 @@ void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 
 /**
  * @brief 51538 | f8 | Subroutine for a charged long beam
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
@@ -786,7 +788,7 @@ void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
 
 /**
  * @brief 51630 | 134 | Subroutine for a charged ice beam
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessChargedIceBeam(struct ProjectileData* pProj)
@@ -865,13 +867,13 @@ void ProjectileProcessChargedIceBeam(struct ProjectileData* pProj)
 
 /**
  * @brief 51764 | 13c | Subroutine for a charged wave beam
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
 {
     ProjectileCheckWaveBeamHittingBlocks(pProj);
-    
+
     if (pProj->movementStage == PROJECTILE_STAGE_MOVING)
     {
         ProjectileMove(pProj, HALF_BLOCK_SIZE - PIXEL_SIZE);
@@ -944,7 +946,7 @@ void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
 
 /**
  * @brief 518a0 | 1dc | Subroutine for a charged plasma beam
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
@@ -1080,7 +1082,7 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
 
 /**
  * 51a7c | f8 | Subroutine for a charged pistol projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
@@ -1117,7 +1119,7 @@ void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
     {
         // Set animation and flip depending on direction
         switch (pProj->direction)
-        {           
+        {
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_Y_FLIP;
             case ACD_DIAGONALLY_UP:
@@ -1154,7 +1156,7 @@ void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
 
 /**
  * @brief 51b74 | 38 | Decrements the missile counter
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileDecrementMissileCounter(struct ProjectileData* pProj)
@@ -1256,7 +1258,7 @@ void ProjectileProcessMissile(struct ProjectileData* pProj)
 
 /**
  * @brief 51cc4 | 38 | Decrements the super missile counter
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileDecrementSuperMissileCounter(struct ProjectileData* pProj)
@@ -1274,7 +1276,7 @@ void ProjectileDecrementSuperMissileCounter(struct ProjectileData* pProj)
 
 /**
  * @brief 51cfc | 118 | Subroutine for a super missile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
@@ -1329,7 +1331,7 @@ void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
             case ACD_UP:
                 pProj->pOam = sSuperMissileOam_Vertical;
                 break;
-    
+
             default:
             case ACD_FORWARD:
                 pProj->pOam = sSuperMissileOam_Horizontal;
@@ -1357,8 +1359,8 @@ void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
 }
 
 /**
- * 51e14 | b8 | Checks if samus is in place to be launched by the morph ball launcher, if yes sets pose to Delay before ballsparking 
- * 
+ * 51e14 | b8 | Checks if samus is in place to be launched by the morph ball launcher, if yes sets pose to Delay before ballsparking
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
@@ -1407,7 +1409,7 @@ void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
 
 /**
  * @brief 51ecc | 12c | Checks if Samus should bounce on a bomb
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
@@ -1440,14 +1442,14 @@ void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
         samusBottom = samusY + gSamusPhysics.drawDistanceBottom;
         samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
         samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
-    
+
         projY = pProj->yPosition;
         projX = pProj->xPosition;
         projTop = projY + pProj->hitboxTop;
         projBottom = projY + pProj->hitboxBottom;
         projLeft = projX + pProj->hitboxLeft;
         projRight = projX + pProj->hitboxRight;
-    
+
         if (SpriteUtilCheckObjectsTouching(samusTop, samusBottom, samusLeft, samusRight, projTop, projBottom, projLeft, projRight))
         {
             bombMiddleX = projLeft + (projRight - projLeft) / 2;
@@ -1457,7 +1459,7 @@ void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
                     direction = FORCED_MOVEMENT_BOMB_JUMP_ABOVE;
                 else
                     direction = FORCED_MOVEMENT_BOMB_JUMP;
-    
+
                 if (samusX < projX + (PIXEL_SIZE + ONE_SUB_PIXEL) && samusX > projX - (PIXEL_SIZE + ONE_SUB_PIXEL))
                     SamusBombBounce(direction + FORCED_MOVEMENT_BOMB_JUMP_UP);
                 else if (bombMiddleX >= previousX)
@@ -1614,7 +1616,7 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
 
 /**
  * 521f0 | 4 | Empty function, purpose unknown (most likely a cancelled projectile)
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileProcess_Empty(struct ProjectileData* pProj)

@@ -1,18 +1,20 @@
-#include "sprites_AI/glass_tube.h"
+#include "mzm/sprites_AI/glass_tube.h"
 
-#include "data/sprites/glass_tube.h"
+#include "mzm/data/sprites/glass_tube.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/clipdata.h"
-#include "structs/power_bomb_explosion.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/power_bomb_explosion.h"
+
+#include "mzm_include.h"
 
 #define GLASS_TUBE_POSE_POWER_BOMB_COLLISION 0x9
 #define GLASS_TUBE_POSE_IDLE 0xF
@@ -24,7 +26,7 @@
 
 /**
  * @brief 4627c | 160 | Removes the clipdata for the glass tube
- * 
+ *
  */
 static void GlassTubeChangeCcaa(void)
 {
@@ -62,7 +64,7 @@ static void GlassTubeChangeCcaa(void)
     ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + (BLOCK_SIZE * 4));
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + (BLOCK_SIZE * 5));
-    
+
     // Bottom row
     // Left part
     gCurrentClipdataAffectingAction = caa;
@@ -93,7 +95,7 @@ static void GlassTubeChangeCcaa(void)
 
 /**
  * 463dc | 90 | Initialize a glass tube sprite
- * 
+ *
  */
 static void GlassTubeInit(void)
 {
@@ -109,7 +111,7 @@ static void GlassTubeInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
-    
+
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_GLASS_TUBE_BROKEN))
     {
         // Set broken behavior
@@ -130,7 +132,7 @@ static void GlassTubeInit(void)
 
 /**
  * 4646c | c0 | Checks for collision between a power bomb and the glass tube
- * 
+ *
  */
 static void GlassTubeCheckPowerBombCollision(void)
 {
@@ -139,7 +141,7 @@ static void GlassTubeCheckPowerBombCollision(void)
     u16 bombTop;
     u16 bombBottom;
     u16 bombLeft;
-    u16 bombRight;   
+    u16 bombRight;
     u16 spriteY;
     u16 spriteX;
     u16 spriteTop;
@@ -158,7 +160,7 @@ static void GlassTubeCheckPowerBombCollision(void)
         bombBottom = gCurrentPowerBomb.hitboxBottom + bombY;
         bombLeft = gCurrentPowerBomb.hitboxLeft + bombX;
         bombRight = gCurrentPowerBomb.hitboxRight + bombX;
-        
+
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
         spriteTop = gCurrentSprite.hitboxTop + spriteY;
@@ -197,7 +199,7 @@ static void GlassTubeDelayBeforeBreaking(void)
 
 /**
  * 46568 | 8c | Checks if the cracking animation ended, spawn dust particles and starts a global screen shake
- * 
+ *
  */
 static void GlassTubeCheckCrackingAnimEnded(void)
 {
@@ -226,7 +228,7 @@ static void GlassTubeCheckCrackingAnimEnded(void)
 
 /**
  * 46568 | 8c | Checks if the breaking animation ended
- * 
+ *
  */
 static void GlassTubeCheckBreakingAnimEnded(void)
 {
@@ -242,7 +244,7 @@ static void GlassTubeCheckBreakingAnimEnded(void)
 
 /**
  * 46620 | e8 | Glass Tube AI
- * 
+ *
  */
 void GlassTube(void)
 {

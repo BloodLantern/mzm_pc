@@ -1,10 +1,12 @@
-#include "data/rooms/brinstar_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/brinstar_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sBrinstar_3_Scrolls[SCROLL_DATA_SIZE(2)] = {
 	8, // Room
 	2, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 16, // X bounds
 	2, 11, // Y bounds
@@ -42,4 +44,3 @@ const u8 sBrinstar_8_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)] = {
 };
 
 const u8 sBrinstar_8_Bg0[205] = INCBIN_U8("data/rooms/brinstar/Brinstar_8_Bg0.gfx");
-

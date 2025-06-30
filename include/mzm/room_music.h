@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 void CheckPlayRoomMusicTrack(u8 area, u8 room);
 void CheckPlayLoadingJingle(void);

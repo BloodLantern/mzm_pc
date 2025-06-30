@@ -1,22 +1,24 @@
-#include "sprites_AI/imago.h"
-#include "macros.h"
+#include "mzm/sprites_AI/imago.h"
+#include "mzm/macros.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/imago.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/imago.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/event.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/clipdata.h"
-#include "structs/connection.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 enum ImagoMovementStage {
     IMAGO_MOVEMENT_STAGE_MOVING_HORIZONTALLY,
@@ -79,7 +81,7 @@ enum ImagoMovementStage {
 
 /**
  * @brief 41e4c | 88 | Sync the sub sprites of Imago
- * 
+ *
  */
 static void ImagoSyncSubSprites(void)
 {
@@ -88,7 +90,7 @@ static void ImagoSyncSubSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamidx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sImagoFrameDataPointers[oamidx])
     {
         gCurrentSprite.pOam = sImagoFrameDataPointers[oamidx];
@@ -106,7 +108,7 @@ static void ImagoSyncSubSprites(void)
 
 /**
  * @brief 41ed4 | 17c | Handles Imago shooting the needles
- * 
+ *
  */
 static void ImagoShootNeedles(void)
 {
@@ -163,7 +165,7 @@ static void ImagoShootNeedles(void)
                     gCurrentSprite.xPosition - HALF_BLOCK_SIZE, 0);
             }
         }
-        
+
         // Check speed up animation
         if (gCurrentSprite.health < gSubSpriteData1.health / 3)
         {
@@ -200,7 +202,7 @@ static void ImagoShootNeedles(void)
 
 /**
  * @brief 42050 | 68 | Updates the dynamic palette of the Imago core
- * 
+ *
  */
 static void ImagoCoreFlashingAnim(void)
 {
@@ -244,7 +246,7 @@ static void ImagoCoreFlashingAnim(void)
 
 /**
  * @brief 420b8 | 34 | Updates the sde hitbox of Imago
- * 
+ *
  */
 static void ImagoSetSidesHitbox(void)
 {
@@ -262,7 +264,7 @@ static void ImagoSetSidesHitbox(void)
 
 /**
  * @brief 420ec | 23c | Initializes an Imago sprite
- * 
+ *
  */
 static void ImagoInit(void)
 {
@@ -353,7 +355,7 @@ static void ImagoInit(void)
 
 /**
  * @brief 42328 | 24 | Checks if the last egg has been destroyed
- * 
+ *
  */
 static void ImagoWaitForLastEgg(void)
 {
@@ -367,7 +369,7 @@ static void ImagoWaitForLastEgg(void)
 
 /**
  * @brief 4234c | 38 | Handles Imago spawning
- * 
+ *
  */
 static void ImagoSpawn(void)
 {
@@ -383,7 +385,7 @@ static void ImagoSpawn(void)
 
 /**
  * @brief 42384 | b0 | Initializes Imago coming down
- * 
+ *
  */
 static void ImagoComingDownInit(void)
 {
@@ -427,7 +429,7 @@ static void ImagoComingDownInit(void)
 
 /**
  * @brief 42434 | c4 | Handles Imago coming down
- * 
+ *
  */
 static void ImagoComingDown(void)
 {
@@ -446,7 +448,7 @@ static void ImagoComingDown(void)
     // Check should check ground
     if (gSubSpriteData1.yPosition + IMAGO_SIZE > gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 14)
         checkGround++;
-    
+
     if (checkGround)
     {
         // Check for ground
@@ -459,7 +461,7 @@ static void ImagoComingDown(void)
             return;
         }
     }
-    
+
     // Move Y
     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gSubSpriteData1.yPosition += QUARTER_BLOCK_SIZE - PIXEL_SIZE;
@@ -469,7 +471,7 @@ static void ImagoComingDown(void)
 
 /**
  * @brief 424f8 | 2b8 | Handles Imago moving horizontally through the room
- * 
+ *
  */
 static void ImagoMoveHorizontally(void)
 {
@@ -581,7 +583,7 @@ static void ImagoMoveHorizontally(void)
         gSubSpriteData1.yPosition = blockTop - IMAGO_SIZE;
         return;
     }
-    
+
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
     if ((gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F) >= COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
     {
@@ -618,7 +620,7 @@ static void ImagoMoveHorizontally(void)
 
 /**
  * @brief 427b0 | c4 | Handles Imago going up
- * 
+ *
  */
 static void ImagoGoingUp(void)
 {
@@ -676,7 +678,7 @@ static void ImagoGoingUp(void)
 
 /**
  * @brief 42874 | 24 | Initializes Imago to be attacking
- * 
+ *
  */
 static void ImagoAttackingInit(void)
 {
@@ -688,7 +690,7 @@ static void ImagoAttackingInit(void)
 
 /**
  * @brief 42898 | a8 | Handles Imago going down when attacking
- * 
+ *
  */
 static void ImagoAttackingGoingDown(void)
 {
@@ -740,7 +742,7 @@ static void ImagoAttackingGoingDown(void)
 
 /**
  * @brief 42940 | bc | Handles Imago going up when attacking
- * 
+ *
  */
 static void ImagoAttackingGoingUp(void)
 {
@@ -805,7 +807,7 @@ static void ImagoAttackingGoingUp(void)
 
 /**
  * @brief 429fc | 94 | Initializes Imago to be dying
- * 
+ *
  */
 static void ImagoDyingInit(void)
 {
@@ -836,7 +838,7 @@ static void ImagoDyingInit(void)
 
 /**
  * @brief 42a90 | 68 | Checks if Samus is at the super missile when Imago is dying
- * 
+ *
  */
 static void ImagoCheckSamusAtSuperMissile(void)
 {
@@ -869,7 +871,7 @@ static void ImagoCheckSamusAtSuperMissile(void)
 
 /**
  * @brief 42af8 | 100 | Handles Imago charging through the wall
- * 
+ *
  */
 static void ImagoChargeThroughWall(void)
 {
@@ -898,11 +900,11 @@ static void ImagoChargeThroughWall(void)
         ClipdataProcess(yPosition + BLOCK_SIZE * 8, xPosition + BLOCK_SIZE * 2);
 
         ParticleSet(yPosition + BLOCK_SIZE * 8, xPosition + BLOCK_SIZE * 2, PE_SPRITE_EXPLOSION_HUGE);
-        
+
         // Left part
         gCurrentClipdataAffectingAction = caa;
         ClipdataProcess(yPosition + BLOCK_SIZE * 5, xPosition + BLOCK_SIZE * 1);
-        
+
         gCurrentClipdataAffectingAction = caa;
         ClipdataProcess(yPosition + BLOCK_SIZE * 6, xPosition + BLOCK_SIZE * 1);
 
@@ -923,14 +925,14 @@ static void ImagoChargeThroughWall(void)
 
 /**
  * @brief 42bf8 | 378 | Handles Imago destryoing the wall
- * 
+ *
  */
 static void ImagoDestroyWall(void)
 {
     u8 caa;
     u16 yPosition;
     u16 xPosition;
-    
+
     caa = CAA_REMOVE_SOLID;
     yPosition = gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
     xPosition = gCurrentSprite.xPositionSpawn;
@@ -946,7 +948,7 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 7, xPosition);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 7, xPosition, PE_SPRITE_EXPLOSION_HUGE);
 
             gCurrentClipdataAffectingAction = caa;
@@ -960,7 +962,7 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 7, xPosition - BLOCK_SIZE);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 6, xPosition - BLOCK_SIZE, PE_SPRITE_EXPLOSION_HUGE);
             ParticleSet(yPosition + BLOCK_SIZE * 4 + QUARTER_BLOCK_SIZE, xPosition - (BLOCK_SIZE + 8), PE_SPRITE_EXPLOSION_HUGE);
             break;
@@ -971,13 +973,13 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 5, xPosition - BLOCK_SIZE * 2);
-            
+
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 6, xPosition - BLOCK_SIZE * 2);
-            
+
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 7, xPosition - BLOCK_SIZE * 2);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 7, xPosition - BLOCK_SIZE * 2, PE_SPRITE_EXPLOSION_HUGE);
 
             gCurrentClipdataAffectingAction = caa;
@@ -994,7 +996,7 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 8, xPosition - BLOCK_SIZE * 3);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 6, xPosition - BLOCK_SIZE * 3, PE_SPRITE_EXPLOSION_HUGE);
             break;
 
@@ -1004,7 +1006,7 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 6, xPosition - BLOCK_SIZE * 4);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 8, xPosition - BLOCK_SIZE * 4, PE_SPRITE_EXPLOSION_HUGE);
 
             gCurrentClipdataAffectingAction = caa;
@@ -1018,7 +1020,7 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 8, xPosition - BLOCK_SIZE * 5);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 6, xPosition - BLOCK_SIZE * 5, PE_SPRITE_EXPLOSION_HUGE);
             break;
 
@@ -1034,7 +1036,7 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 8, xPosition - BLOCK_SIZE * 6);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 6, xPosition - BLOCK_SIZE * 6, PE_SPRITE_EXPLOSION_HUGE);
 
             gCurrentClipdataAffectingAction = caa;
@@ -1045,7 +1047,7 @@ static void ImagoDestroyWall(void)
 
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 8, xPosition - BLOCK_SIZE * 7);
-            
+
             ParticleSet(yPosition + BLOCK_SIZE * 8, xPosition - BLOCK_SIZE * 8, PE_SPRITE_EXPLOSION_HUGE);
             break;
 
@@ -1066,7 +1068,7 @@ static void ImagoDestroyWall(void)
 
 /**
  * @brief 42f70 | 204 | Handles Imago dying
- * 
+ *
  */
 static void ImagoDying(void)
 {
@@ -1093,11 +1095,11 @@ static void ImagoDying(void)
         case CONVERT_SECONDS(.15f):
             ParticleSet(gSubSpriteData1.yPosition + HALF_BLOCK_SIZE, gSubSpriteData1.xPosition - BLOCK_SIZE * 2, PE_SPRITE_EXPLOSION_HUGE);
             break;
-        
+
         case CONVERT_SECONDS(.3f):
             ParticleSet(gSubSpriteData1.yPosition - HALF_BLOCK_SIZE, gSubSpriteData1.xPosition + HALF_BLOCK_SIZE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
             break;
-        
+
         case CONVERT_SECONDS(.45f):
             ParticleSet(gSubSpriteData1.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE), gSubSpriteData1.xPosition - BLOCK_SIZE, PE_SPRITE_EXPLOSION_BIG);
             break;
@@ -1121,7 +1123,7 @@ static void ImagoDying(void)
 
 /**
  * @brief 43174 | 44 | Checks if the Imago event should be set
- * 
+ *
  */
 static void ImagoSetEvent(void)
 {
@@ -1139,7 +1141,7 @@ static void ImagoSetEvent(void)
 
 /**
  * @brief 431b8 | 30 | Sets the sides hitboxes of body Imago part
- * 
+ *
  */
 static void ImagoPartSetBodySidesHitbox(void)
 {
@@ -1157,7 +1159,7 @@ static void ImagoPartSetBodySidesHitbox(void)
 
 /**
  * @brief 431e8 | 13c | Initializes an Imago part sprite
- * 
+ *
  */
 static void ImagoPartInit(void)
 {
@@ -1203,7 +1205,7 @@ static void ImagoPartInit(void)
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
-            
+
             gCurrentSprite.hitboxTop = 0;
             gCurrentSprite.hitboxBottom = 0;
             gCurrentSprite.hitboxLeft = 0;
@@ -1216,7 +1218,7 @@ static void ImagoPartInit(void)
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
-            
+
             gCurrentSprite.hitboxTop = 0;
             gCurrentSprite.hitboxBottom = 0;
             gCurrentSprite.hitboxLeft = 0;
@@ -1234,7 +1236,7 @@ static void ImagoPartInit(void)
 
 /**
  * @brief 43324 | 3c | Handles the spawn of the Imago body
- * 
+ *
  */
 static void ImagoPartBodySpawn(void)
 {
@@ -1251,7 +1253,7 @@ static void ImagoPartBodySpawn(void)
 
 /**
  * @brief 43360 | 64 | Handles updating the palette row of the body based on health
- * 
+ *
  */
 static void ImagoPartUpdateBodyPalette(void)
 {
@@ -1277,7 +1279,7 @@ static void ImagoPartUpdateBodyPalette(void)
 
 /**
  * @brief 433c4 | 34 | Synchronizes the palette of the part with the palette of Imago
- * 
+ *
  */
 static void ImagoPartSyncPalette(void)
 {
@@ -1290,7 +1292,7 @@ static void ImagoPartSyncPalette(void)
 
 /**
  * @brief 433f8 | 420 | Imago AI
- * 
+ *
  */
 void Imago(void)
 {
@@ -1317,7 +1319,7 @@ void Imago(void)
                 yDistance = gSubSpriteData1.yPosition - gSamusData.yPosition;
             else
                 yDistance = gSamusData.yPosition - gSubSpriteData1.yPosition;
-    
+
             if (gSubSpriteData1.xPosition > gSamusData.xPosition)
             {
                 xDistance = gSubSpriteData1.xPosition - gSamusData.xPosition;
@@ -1398,7 +1400,7 @@ void Imago(void)
 
         case IMAGO_POSE_ATTACKING_INIT:
             ImagoAttackingInit();
-        
+
         case IMAGO_POSE_ATTACKING_GOING_DOWN:
             ImagoAttackingGoingDown();
             break;
@@ -1467,7 +1469,7 @@ void Imago(void)
 
 /**
  * @brief 43818 | 1b0 | Imago part AI
- * 
+ *
  */
 void ImagoPart(void)
 {
@@ -1484,7 +1486,7 @@ void ImagoPart(void)
     {
         gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-        
+
         if (gSpriteData[ramSlot].pose >= IMAGO_POSE_CHARGING_THROUGH_WALL)
         {
             switch (gCurrentSprite.roomSlot)
@@ -1571,7 +1573,7 @@ void ImagoPart(void)
 
 /**
  * @brief 439c8 | ec | Imago needle AI
- * 
+ *
  */
 void ImagoNeedle(void)
 {
@@ -1624,7 +1626,7 @@ void ImagoNeedle(void)
 
 /**
  * @brief 43ab4 | 1a4 | Imago damaged stinger AI
- * 
+ *
  */
 void ImagoDamagedStinger(void)
 {
@@ -1713,7 +1715,7 @@ void ImagoDamagedStinger(void)
 
 /**
  * @brief 43c58 | 130 | Imago egg AI
- * 
+ *
  */
 void ImagoEgg(void)
 {
@@ -1721,7 +1723,7 @@ void ImagoEgg(void)
     {
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            
+
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
@@ -1781,7 +1783,7 @@ void ImagoEgg(void)
             // Set last egg broken flag
             if (gCurrentSprite.roomSlot == IMAGO_EGG_PART_LAST)
                 gSubSpriteData1.workVariable3 = TRUE;
-            
+
             SpriteUtilSpriteDeath(DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP,
                 gCurrentSprite.yPosition - (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);

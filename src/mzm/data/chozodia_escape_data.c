@@ -1,5 +1,7 @@
-#include "data/chozodia_escape_data.h"
-#include "data/tourian_escape_data.h"
+#include "mzm/data/chozodia_escape_data.h"
+#include "mzm/data/tourian_escape_data.h"
+
+#include "mzm_include.h"
 
 const u16 sChozodiaEscapeShipHeatingUpPal[8 * 16] = INCBIN_U16("data/chozodia_escape/ShipHeatingUp.pal");
 const u16 sChozodiaEscapeGroundHeatingUpPal[8 * 16] = INCBIN_U16("data/chozodia_escape/GroundHeatingUp.pal");

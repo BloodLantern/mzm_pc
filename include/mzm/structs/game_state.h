@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "input.h"
+#include "mzm/types.h"
+#include "mzm/input.h"
 
 struct GameCompletion {
     s8 completedGame;

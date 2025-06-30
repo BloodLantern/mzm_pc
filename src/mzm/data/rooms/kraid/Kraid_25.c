@@ -1,10 +1,12 @@
-#include "data/rooms/kraid_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/kraid_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sKraid_6_Scrolls[SCROLL_DATA_SIZE(2)] = {
 	25, // Room
 	2, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 16, // X bounds
 	2, 15, // Y bounds
@@ -51,4 +53,3 @@ const u8 sKraid_25_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(10)] = {
 	21, 20, SPRITESET_IDX(5),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

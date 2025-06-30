@@ -1,5 +1,7 @@
-#include "data/sprites/ripper.h"
-#include "macros.h"
+#include "mzm/data/sprites/ripper.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sRipperBrownGfx[141] = INCBIN_U32("data/sprites/RipperBrown.gfx.lz");
 const u16 sRipperBrownPal[16] = INCBIN_U16("data/sprites/RipperBrown.pal");

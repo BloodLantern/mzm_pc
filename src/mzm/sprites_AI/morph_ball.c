@@ -1,14 +1,16 @@
-#include "sprites_AI/morph_ball.h"
-#include "macros.h"
+#include "mzm/sprites_AI/morph_ball.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/morph_ball.h"
+#include "mzm/data/sprites/morph_ball.h"
 
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define MORPH_BALL_POSE_IDLE 0x9
 #define MORPH_BALL_POSE_BEING_ACQUIRED 0x23
@@ -17,7 +19,7 @@
 
 /**
  * @brief 13080 | ac | Initializes a morph ball sprite
- * 
+ *
  */
 static void MorphBallInit(void)
 {
@@ -54,7 +56,7 @@ static void MorphBallInit(void)
 
 /**
  * @brief 1312c | 74 | Handles a morph ball sprite being idle
- * 
+ *
  */
 static void MorphBallGet(void)
 {
@@ -77,7 +79,7 @@ static void MorphBallGet(void)
 
 /**
  * @brief 131a0 | 3c | Handles a morph ball being acquired
- * 
+ *
  */
 static void MorphBallFlashAnim(void)
 {
@@ -94,7 +96,7 @@ static void MorphBallFlashAnim(void)
 
 /**
  * @brief 131dc | 58 | Initializes a morph ball outside sprite
- * 
+ *
  */
 static void MorphBallOutsideInit(void)
 {
@@ -117,8 +119,8 @@ static void MorphBallOutsideInit(void)
 }
 
 /**
- * @brief 13234 | 3c | Handles a morph ball outside being acquired 
- * 
+ * @brief 13234 | 3c | Handles a morph ball outside being acquired
+ *
  */
 static void MorphBallOutsideFlashAnim(void)
 {
@@ -134,7 +136,7 @@ static void MorphBallOutsideFlashAnim(void)
 
 /**
  * @brief 13270 | 38 | Morph ball AI
- * 
+ *
  */
 void MorphBall(void)
 {
@@ -155,12 +157,12 @@ void MorphBall(void)
 
 /**
  * @brief 132a8 | 2c | Morph ball outside AI
- * 
+ *
  */
 void MorphBallOutside(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-    
+
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:

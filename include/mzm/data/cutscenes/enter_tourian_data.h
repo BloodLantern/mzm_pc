@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "structs/cutscene.h"
+#include "mzm/structs/cutscene.h"
 
 extern const struct CutscenePageData sEnterTourianPageData[2];
 extern const struct OamArray sEnterTourianOam[7];

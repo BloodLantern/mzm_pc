@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menu.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/structs/menu.h"
+#include "mzm/structs/cutscene.h"
 
 u32 PauseScreenInitFading(u16 targetBldAlpha, u8 bldAlphaStepLevel, s8 bldAlphaStepDelayThreshold);
 u8 PauseScreenApplyFading(void);

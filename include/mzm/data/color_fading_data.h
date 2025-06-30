@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "structs/color_effects.h"
-#include "constants/color_fading.h"
+#include "mzm/structs/color_effects.h"
+#include "mzm/constants/color_fading.h"
 
 // Temp
 extern const u8 sDoorTransitionTilemap[184];

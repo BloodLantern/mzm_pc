@@ -1,20 +1,22 @@
-#include "sprites_AI/zebetite_and_cannon.h"
-#include "macros.h"
+#include "mzm/sprites_AI/zebetite_and_cannon.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/zebetite_and_cannon.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/zebetite_and_cannon.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/event.h"
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/display.h"
-#include "structs/samus.h"
-#include "structs/game_state.h"
-#include "structs/sprite.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define ZEBETITE_POSE_IDLE 0x9
 
@@ -47,7 +49,7 @@ enum CannonView {
 
 /**
  * @brief 406c8 | 30c | Zebetite AI
- * 
+ *
  */
 void Zebetite(void)
 {
@@ -152,7 +154,7 @@ void Zebetite(void)
             if (gCurrentSprite.pOam != sZebetiteOam_Phase1)
             {
                 SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_2);
-                
+
                 gCurrentSprite.pOam = sZebetiteOam_Phase1;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
@@ -167,7 +169,7 @@ void Zebetite(void)
                     SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_1);
                 else if (gCurrentSprite.pOam == sZebetiteOam_Phase4)
                     SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_2);
-                
+
                 gCurrentSprite.pOam = sZebetiteOam_Phase2;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
@@ -182,7 +184,7 @@ void Zebetite(void)
                     SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_1);
                 else if (gCurrentSprite.pOam == sZebetiteOam_Phase6)
                     SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_2);
-                
+
                 gCurrentSprite.pOam = sZebetiteOam_Phase4;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
@@ -194,7 +196,7 @@ void Zebetite(void)
             if (gCurrentSprite.pOam != sZebetiteOam_Phase6)
             {
                 SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_1);
-                
+
                 gCurrentSprite.pOam = sZebetiteOam_Phase6;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
@@ -245,7 +247,7 @@ void Zebetite(void)
 
 /**
  * @brief 409d4 | 4c | Makes a cannon fire a bullet if possible
- * 
+ *
  */
 void CannonFireBullet(void)
 {
@@ -307,7 +309,7 @@ void CannonCheckSurroundings(void)
 
 /**
  * @brief 40b08 | 61c | Cannon AI
- * 
+ *
  */
 void Cannon(void)
 {
@@ -323,7 +325,7 @@ void Cannon(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
-        
+
         gCurrentSprite.status = 0;
         return;
     }
@@ -735,7 +737,7 @@ void Cannon(void)
 
 /**
  * @brief 41124 | 184 | Cannon bullet AI
- * 
+ *
  */
 void CannonBullet(void)
 {

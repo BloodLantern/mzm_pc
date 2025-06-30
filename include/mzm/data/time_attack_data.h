@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/time_attack.h"
+#include "mzm/types.h"
+#include "mzm/structs/time_attack.h"
 
 extern const TimeAttackFunc_T sTimeAttackSeedShuffleFunctionPointers[16];
 

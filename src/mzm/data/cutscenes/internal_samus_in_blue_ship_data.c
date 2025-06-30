@@ -1,7 +1,9 @@
-#include "data/cutscenes/internal_samus_in_blue_ship_data.h"
-#include "cutscenes/samus_in_blue_ship.h"
-#include "cutscenes/cutscene_utils.h"
-#include "macros.h"
+#include "mzm/data/cutscenes/internal_samus_in_blue_ship_data.h"
+#include "mzm/cutscenes/samus_in_blue_ship.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sSamusInBlueShipPanelTransparency[4] = {
     16, 15, 14, 15

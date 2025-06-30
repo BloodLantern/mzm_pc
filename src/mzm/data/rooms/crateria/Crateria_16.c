@@ -1,10 +1,12 @@
-#include "data/rooms/crateria_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/crateria_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sCrateria_7_Scrolls[SCROLL_DATA_SIZE(1)] = {
 	16, // Room
 	1, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 31, // X bounds
 	2, 41, // Y bounds
@@ -25,4 +27,3 @@ const u8 sCrateria_16_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
 };
 
 const u8 sCrateria_16_Bg0[247] = INCBIN_U8("data/rooms/crateria/Crateria_16_Bg0.gfx");
-

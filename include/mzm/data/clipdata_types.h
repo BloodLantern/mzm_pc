@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/clipdata.h"
+#include "mzm/types.h"
+#include "mzm/constants/clipdata.h"
 
 extern const u8 sClipdataCollisionTypes[CLIPDATA_END];
 extern const u16 sClipdataBehaviorTypes[CLIPDATA_END];

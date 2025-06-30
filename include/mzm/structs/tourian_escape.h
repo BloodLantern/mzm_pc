@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define TOURIAN_ESCAPE_DATA sNonGameplayRamPointer->tourianEscape
 

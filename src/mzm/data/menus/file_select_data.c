@@ -1,7 +1,9 @@
-#include "data/menus/file_select_data.h"
-#include "constants/text.h"
-#include "macros.h"
-#include "gba.h"
+#include "mzm/data/menus/file_select_data.h"
+#include "mzm/constants/text.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
+
+#include "mzm_include.h"
 
 const u16 sFileSelectPal[7 * 16] = INCBIN_U16("data/menus/FileSelect/Palette.pal");
 const u16 sFileSelect_4548f8[2 * 16] = INCBIN_U16("data/menus/FileSelect/4548f8.pal");

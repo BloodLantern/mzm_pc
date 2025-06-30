@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "transparency.h"
+#include "mzm/types.h"
+#include "mzm/transparency.h"
 
 void PrimarySpriteB3(void);
 

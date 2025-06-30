@@ -1,14 +1,16 @@
-#include "syscalls.h"
-#include "data/generic_data.h"
+#include "mzm/syscalls.h"
+#include "mzm/data/generic_data.h"
 
-#include "gba.h"
-#include "audio/track_internal.h"
-#include "constants/game_state.h"
+#include "mzm/gba.h"
+#include "mzm/audio/track_internal.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/cutscene.h"
-#include "structs/demo.h"
-#include "structs/game_state.h"
-#include "structs/display.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/display.h"
+
+#include "mzm_include.h"
 
 void agbmain(void)
 {
@@ -112,7 +114,7 @@ void agbmain(void)
                 break;
 
             case GM_INGAME:
-                if (InGameMainLoop()) 
+                if (InGameMainLoop())
                 {
                     if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
                     {
@@ -343,7 +345,7 @@ void agbmain(void)
                 #endif // DEBUG
                 break;
         }
-        
+
 
         gVBlankRequestFlag &= ~TRUE;
         gVblankActive = TRUE;

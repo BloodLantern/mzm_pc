@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "macros.h"
-#include "types.h"
+#include "mzm/macros.h"
+#include "mzm/types.h"
 
-#include "structs/cutscene.h"
-#include "cutscenes/ridley_spawn.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/cutscenes/ridley_spawn.h"
 
 extern const u16 sRidleySpawnOAM_RidleyFlying_Frame0[13];
 extern const u16 sRidleySpawnOAM_RidleyScreaming_Frame0[13];

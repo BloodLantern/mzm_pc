@@ -1,16 +1,18 @@
-#include "sprites_AI/viola.h"
-#include "macros.h"
+#include "mzm/sprites_AI/viola.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/viola.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/viola.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define VIOLA_POSE_MOVE_RIGHT 0x9
 #define VIOLA_POSE_FALLING_INIT 0x1E
@@ -25,7 +27,7 @@
 
 /**
  * @brief 3743c | 120 | Initializes a viola sprite
- * 
+ *
  */
 static void ViolaInit(void)
 {
@@ -98,7 +100,7 @@ static void ViolaInit(void)
 
 /**
  * @brief 3755c | 1a8 | Handles the viola moving to the right
- * 
+ *
  */
 static void ViolaMoveRight(void)
 {
@@ -220,7 +222,7 @@ static void ViolaMoveRight(void)
 
 /**
  * @brief 37704 | 148 | Handles the viola moving left
- * 
+ *
  */
 static void ViolaMoveLeft(void)
 {
@@ -305,7 +307,7 @@ static void ViolaMoveLeft(void)
 
 /**
  * @brief 3784c | 148 | Handles a viola moving down
- * 
+ *
  */
 static void ViolaMoveDown(void)
 {
@@ -398,7 +400,7 @@ static void ViolaMoveDown(void)
 
 /**
  * @brief 37994 | 14c | Handles the viola moving up
- * 
+ *
  */
 static void ViolaMoveUp(void)
 {
@@ -491,7 +493,7 @@ static void ViolaMoveUp(void)
 
 /**
  * @brief 37ae0 | 18 | Initializes a viola to be falling
- * 
+ *
  */
 static void ViolaFallingInit(void)
 {
@@ -501,7 +503,7 @@ static void ViolaFallingInit(void)
 
 /**
  * @brief 37af8 | 78 | Handles a viola falling
- * 
+ *
  */
 static void ViolaFalling(void)
 {
@@ -535,7 +537,7 @@ static void ViolaFalling(void)
 
 /**
  * @brief 37b70 | 14c | Viola AI
- * 
+ *
  */
 void Viola(void)
 {

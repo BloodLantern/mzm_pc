@@ -1,7 +1,9 @@
-#include "data/menus/internal_title_screen_data.h"
-#include "data/menus/title_screen_data.h"
-#include "macros.h"
-#include "constants/menus/title_screen.h"
+#include "mzm/data/menus/internal_title_screen_data.h"
+#include "mzm/data/menus/title_screen_data.h"
+#include "mzm/macros.h"
+#include "mzm/constants/menus/title_screen.h"
+
+#include "mzm_include.h"
 
 const struct TitleScreenAnimatedPalette sTitleScreenAnimatedPaletteTemplates[4] = {
     [0] = {

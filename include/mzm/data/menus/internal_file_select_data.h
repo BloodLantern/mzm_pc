@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
-#include "constants/menus/file_select.h"
-#include "constants/game_state.h"
-#include "structs/menus/file_select.h"
+#include "mzm/constants/menus/file_select.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/structs/menus/file_select.h"
 
 extern const s8 sSaveFileAreasId[12];
 extern const u32* const sFileSelectTextGfxPointers[LANGUAGE_END - 2];

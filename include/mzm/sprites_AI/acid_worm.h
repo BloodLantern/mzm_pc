@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE 0x1
 #define ACID_WORM_POSE_IDLE_INIT 0x8

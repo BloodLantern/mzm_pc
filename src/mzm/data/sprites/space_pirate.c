@@ -1,5 +1,7 @@
-#include "data/sprites/space_pirate.h"
-#include "macros.h"
+#include "mzm/data/sprites/space_pirate.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sSpacePirateWallJumpingVelocity[8] = {
     -2, -1, 0, 4, 8, 12, 16, 20

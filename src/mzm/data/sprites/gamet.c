@@ -1,5 +1,7 @@
-#include "data/sprites/gamet.h"
-#include "macros.h"
+#include "mzm/data/sprites/gamet.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sGametBlueGfx[168] = INCBIN_U32("data/sprites/GametBlue.gfx.lz");
 const u16 sGametBluePal[16] = INCBIN_U16("data/sprites/GametBlue.pal");

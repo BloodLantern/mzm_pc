@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "macros.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
+#include "mzm/oam.h"
 
 extern const struct FrameData sEnvEffectOam_RunningOnDustyGround[6];
 extern const struct FrameData sEnvEffectOam_LandingOnDustyGround[8];

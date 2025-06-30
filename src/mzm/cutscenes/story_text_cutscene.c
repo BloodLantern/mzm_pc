@@ -1,24 +1,26 @@
-#include "cutscenes/story_text_cutscene.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "text.h" // Required
+#include "mzm/cutscenes/story_text_cutscene.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/text.h" // Required
 
-#include "data/shortcut_pointers.h"
-#include "data/cutscenes/cutscenes_data.h"
-#include "data/cutscenes/story_text_cutscene_data.h"
-#include "data/cutscenes/internal_story_text_cutscene_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
+#include "mzm/data/cutscenes/story_text_cutscene_data.h"
+#include "mzm/data/cutscenes/internal_story_text_cutscene_data.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/text.h"
 
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/text.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/text.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 62b90 | fc | Initializes a story text cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 StoryTextCutsceneInit(void)
@@ -39,7 +41,7 @@ u8 StoryTextCutsceneInit(void)
     BitFill(3, 0, VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000, 0x5000, 32);
 
     CutsceneSetBgcntPageData(sStoryTextCutscenePagesData[0]);
-    
+
     gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
     gWrittenToBLDALPHA_L = BLDALPHA_MAX_VALUE;
     gWrittenToBLDALPHA_H = 0;
@@ -69,7 +71,7 @@ u8 StoryTextCutsceneInit(void)
 
 /**
  * @brief 62c8c | 122 | Processes the text for the story text cutscenes
- * 
+ *
  * @return u8 FALSE
  */
 u8 StoryTextCutsceneProcessText(void)
@@ -105,7 +107,7 @@ u8 StoryTextCutsceneProcessText(void)
             {
                 result = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID],
                     dst + gCurrentMessage.line * 0x200);
-                
+
                 switch (result)
                 {
                     case TEXT_STATE_ENDED:
@@ -147,7 +149,7 @@ u8 StoryTextCutsceneProcessText(void)
 
 /**
  * @brief 62dac | 58 | Updates the vertical position of the background that has the text
- * 
+ *
  * @return u8 FALSE
  */
 u8 StoryTextCutsceneSetVerticalOffset(void)
@@ -172,7 +174,7 @@ u8 StoryTextCutsceneSetVerticalOffset(void)
 
 /**
  * @brief 62e04 | 84 | Handles the fade in of the text
- * 
+ *
  * @return u8 FALSE
  */
 u8 StoryTextCutsceneFadeIn(void)
@@ -209,7 +211,7 @@ u8 StoryTextCutsceneFadeIn(void)
 
 /**
  * @brief 62e88 | 80 | Handles the fade in of the text
- * 
+ *
  * @return u8 FALSE
  */
 u8 StoryTextCutsceneFadeOut(void)
@@ -238,7 +240,7 @@ u8 StoryTextCutsceneFadeOut(void)
                 }
                 else
                 {
-                    CUTSCENE_DATA.dispcnt &= ~sStoryTextCutscenePagesData[0].bg; // Message hasn't ended yet, clear the text background   
+                    CUTSCENE_DATA.dispcnt &= ~sStoryTextCutscenePagesData[0].bg; // Message hasn't ended yet, clear the text background
                 }
 
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -253,7 +255,7 @@ u8 StoryTextCutsceneFadeOut(void)
 
 /**
  * @brief 62f08 | 64 | Handles checking for input to dismiss the text
- * 
+ *
  * @return u8 FALSE
  */
 u8 StoryTextCutsceneCheckInput(void)
@@ -281,7 +283,7 @@ u8 StoryTextCutsceneCheckInput(void)
                 CUTSCENE_DATA.timeInfo.stage++;
             }
             break;
-        
+
         case 2:
             if (gChangedInput & (KEY_A | KEY_B))
             {
@@ -297,7 +299,7 @@ u8 StoryTextCutsceneCheckInput(void)
 
 /**
  * @brief 62f6c | 6c | Checks if a story text cutscene should end
- * 
+ *
  * @return u8 bool, ended
  */
 u8 StoryTextCutsceneEnd(void)
@@ -324,7 +326,7 @@ u8 StoryTextCutsceneEnd(void)
 
 /**
  * @brief 62fd8 | 30 | Subroutine for the story text cutscenes
- * 
+ *
  * @return u8 bool, ended
  */
 u8 StoryTextCutsceneSubroutine(void)

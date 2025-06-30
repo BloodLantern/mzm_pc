@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "gba/memory.h"
+#include "mzm/gba/memory.h"
 
 #define REG_DISPCNT (REG_BASE + 0x000)
 

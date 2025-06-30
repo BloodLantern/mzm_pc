@@ -6,12 +6,12 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
-#include "constants/samus.h"
-#include "constants/menus/file_select.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/menus/file_select.h"
 
-#include "structs/menu.h"
+#include "mzm/structs/menu.h"
 
 #define FILE_SELECT_DATA sNonGameplayRamPointer->fileSelect
 #define FILE_SELECT_EWRAM sEwramPointer->fileSelect

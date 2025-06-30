@@ -1,32 +1,34 @@
-#include "gba.h"
-#include "projectile_util.h"
-#include "clipdata.h"
+#include "mzm/gba.h"
+#include "mzm/projectile_util.h"
+#include "mzm/clipdata.h"
 
-#include "data/projectile_data.h"
-#include "data/sprite_data.h"
-#include "data/engine_pointers.h"
+#include "mzm/data/projectile_data.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/engine_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/projectile.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
-#include "structs/power_bomb_explosion.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/power_bomb_explosion.h"
+
+#include "mzm_include.h"
 
 
 /**
  * @brief 4ed08 | 8c | Sets a particle effect when shooting
- * 
+ *
  */
 void ProjectileSetBeamParticleEffect(void)
 {
@@ -61,7 +63,7 @@ void ProjectileSetBeamParticleEffect(void)
             else
                 effect = PE_SHOOTING_BEAM_DOWN_LEFT;
             break;
-        
+
         case ACD_UP:
             if (direction)
                 effect = PE_SHOOTING_BEAM_UP_RIGHT;
@@ -83,7 +85,7 @@ void ProjectileSetBeamParticleEffect(void)
 
 /**
  * @brief 4ed94 | 50 | Checks if the number of projectiles currently existing is above/under the specified limit
- * 
+ *
  * @param type Projectile type
  * @param limit Limit
  * @return u8 bool (under limit)
@@ -110,7 +112,7 @@ u8 ProjectileCheckNumberOfProjectiles(u8 type, u8 limit)
 
 /**
  * @brief 4ede4 | a4 | Tries to initialize a projectile with the given parameters
- * 
+ *
  * @param type Proectile Type
  * @param yPosition Y Position
  * @param xPosition X Position
@@ -155,13 +157,13 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
             return TRUE;
         }
     }
-    
+
     return FALSE;
 }
 
 /**
  * @brief 4ee88 | 47c | Updates the projectiles
- * 
+ *
  */
 void ProjectileUpdate(void)
 {
@@ -498,7 +500,7 @@ void ProjectileUpdate(void)
 
 /**
  * @brief 4f304 | Updates the animation of a projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileUpdateAnimation(struct ProjectileData* pProj)
@@ -517,7 +519,7 @@ void ProjectileUpdateAnimation(struct ProjectileData* pProj)
 
 /**
  * @brief 4f33c | 44 | Draws every projectile if the status flag 80 isn't set
- * 
+ *
  */
 void ProjectileDrawAllStatusFalse(void)
 {
@@ -538,7 +540,7 @@ void ProjectileDrawAllStatusFalse(void)
 
 /**
  * @brief 4f380 | 44 | Draws every projectile if the status flag 80 is set
- * 
+ *
  */
 void ProjectileDrawAllStatusTrue(void)
 {
@@ -559,7 +561,7 @@ void ProjectileDrawAllStatusTrue(void)
 
 /**
  * @brief 4f3c4 | 1b4 | Draws a projectile
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileDraw(struct ProjectileData* pProj)
@@ -580,7 +582,7 @@ void ProjectileDraw(struct ProjectileData* pProj)
     u32 size;
     s32 partCount;
     u32 offset;
-    
+
     prevSlot = gNextOamSlot;
     src = pProj->pOam[pProj->currentAnimationFrame].pFrame;
 
@@ -618,25 +620,25 @@ void ProjectileDraw(struct ProjectileData* pProj)
             if (xFlip)
             {
                 gOamData[prevSlot + i].split.xFlip ^= TRUE;
-                
+
                 shape = gOamData[prevSlot + i].split.shape;
                 size = gOamData[prevSlot + i].split.size;
                 offset = sOamXFlipOffsets[shape][size];
-                
+
                 gOamData[prevSlot + i].split.x = xPosition - (part2 + offset * 8);
             }
 
             if (yFlip)
             {
                 gOamData[prevSlot + i].split.yFlip ^= TRUE;
-                
+
                 shape = gOamData[prevSlot + i].split.shape;
                 size = gOamData[prevSlot + i].split.size;
                 offset = sOamYFlipOffsets[shape][size];
-                
+
                 gOamData[prevSlot + i].split.y = yPosition - (part1 + offset * 8);
             }
-            
+
             dst++;
         }
 
@@ -646,7 +648,7 @@ void ProjectileDraw(struct ProjectileData* pProj)
 
 /**
  * @brief 4f578 | f8 | Checks if a projectile should despawn
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileCheckDespawn(struct ProjectileData* pProj)
@@ -722,13 +724,13 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj)
 
 /**
  * @brief 4f670 | 2b0 | Loads the graphics for the beam projectiles
- * 
+ *
  */
 void ProjectileLoadGraphics(void)
 {
     u8 palOffset;
     u16 bba;
-    
+
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
         // Only transfer beam section (ignore CHARGE GAUGE)
@@ -795,13 +797,13 @@ void ProjectileLoadGraphics(void)
             palOffset = 0 * PAL_ROW;
         }
     }
-    
+
     DMA_SET(3, (sBeamPal + palOffset), PALRAM_OBJ + 2 * PAL_ROW_SIZE, DMA_ENABLE << 16 | 6);
 }
 
 /**
  * @brief 4f920 | 34 | Clears all the projectiles and loads the projectiles graphics
- * 
+ *
  */
 void ProjectileCallLoadGraphicsAndClearProjectiles(void)
 {
@@ -818,7 +820,7 @@ void ProjectileCallLoadGraphicsAndClearProjectiles(void)
 
 /**
  * @brief 4f954 | c4 | Moves a projectile
- * 
+ *
  * @param pProj Projectile data pointer
  * @param distance Distance to move
  */
@@ -886,7 +888,7 @@ void ProjectileMove(struct ProjectileData* pProj, u8 distance)
 
 /**
  * @brief 4fa18 | 24 | Check if a projectile is hitting a solid block
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @return u32 bool, hitting solid block
@@ -894,7 +896,7 @@ void ProjectileMove(struct ProjectileData* pProj, u8 distance)
 u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
 {
     u32 collision;
-    
+
     collision = ClipdataProcess(yPosition, xPosition);
 
     if (collision & CLIPDATA_TYPE_SOLID_FLAG)
@@ -905,7 +907,7 @@ u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
 
 /**
  * @brief 4fa3c | 1fc | Checks the vertical collision for a projectile
- * 
+ *
  * @param pProj Projectile data pointer
  * @return u32 Collision result
  */
@@ -917,7 +919,7 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
     u32 result;
     u16 collisionY;
     u16 collisionX;
-    
+
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
     collisionY = yPosition;
@@ -1035,8 +1037,8 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 }
 
 /**
- * 4fc38 | a8 | Sets a trail for the projectile using the effect in parameter 
- * 
+ * 4fc38 | a8 | Sets a trail for the projectile using the effect in parameter
+ *
  * @param pProj Projectile data pointer
  * @param effect Particle effect
  * @param delay Delay between each particle
@@ -1076,7 +1078,7 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 
         case ACD_DIAGONALLY_DOWN:
             yPosition -= FRACT_MUL(movement, 3, 4);
-            
+
             if (pProj->status & PROJ_STATUS_X_FLIP)
                 xPosition -= FRACT_MUL(movement, 3, 4);
             else
@@ -1096,7 +1098,7 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 
 /**
  * 4fce0 | 68 | Handles a projectile moving when tumbling
- * 
+ *
  * @param pProj Projectile data pointer
  */
 void ProjectileMoveTumbling(struct ProjectileData* pProj)
@@ -1132,7 +1134,7 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
 
 /**
  * @brief 4fd48 | 54 | Checks if a projectile is hitting a block
- * 
+ *
  * @param pProj Projectile data pointer
  * @param caa Clipdata Affecting Action
  * @param effect Particle effect
@@ -1162,7 +1164,7 @@ void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 caa, u8 effect)
 
 /**
  * @brief 4fd9c | 5d4 | Checks if projectiles are colliding with sprites
- * 
+ *
  */
 void ProjectileCheckHittingSprite(void)
 {
@@ -1251,7 +1253,7 @@ void ProjectileCheckHittingSprite(void)
                 {
                     if ((pProj->status & statusCheck) != statusCheck)
                         continue;
-                    
+
                     o2y = pProj->yPosition;
                     o2x = pProj->xPosition;
                     o2Top = o2y + pProj->hitboxTop;
@@ -1380,7 +1382,7 @@ void ProjectileCheckHittingSprite(void)
                                 }
                             }
                             break;
-                        
+
                         case PROJ_TYPE_PISTOL:
                             ProjectileHitSpriteImmuneToProjectiles(pSprite);
                             ParticleSet(o2y, o2x, PE_HITTING_SOMETHING_INVINCIBLE);
@@ -1516,7 +1518,7 @@ void ProjectileCheckHittingSprite(void)
                                 ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                     CHARGED_PISTOL_DAMAGE, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                             }
-                            
+
                             pProj->status = 0;
                             break;
 
@@ -1527,7 +1529,7 @@ void ProjectileCheckHittingSprite(void)
                         case PROJ_TYPE_SUPER_MISSILE:
                             ProjectileSuperMissileHitSprite(pSprite, pProj, o2y, o2x);
                             break;
-                        
+
                         case PROJ_TYPE_BOMB:
                             ProjectileBombHitSprite(pSprite, o2y, o2x);
                             break;
@@ -1542,7 +1544,7 @@ void ProjectileCheckHittingSprite(void)
 
 /**
  * 50370 | 30 | Gets the weakness for the sprite given in parameter
- * 
+ *
  * @param pSprite Sprite data pointer
  * @return The weakness of the sprite
  */
@@ -1557,7 +1559,7 @@ u16 ProjectileGetSpriteWeakness(struct SpriteData* pSprite)
 
 /**
  * 503a0 | 84 | Handles the ice beam dealing damage to a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param damage Damage to inflict
  * @return The freeze timer
@@ -1597,9 +1599,9 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
 
 /**
  * 50424 | 88 | Handles a projectile dealing damage to a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
- * @param damage Damage to inflict 
+ * @param damage Damage to inflict
  * @return bool, dead
  */
 u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
@@ -1638,8 +1640,8 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
 
 /**
  * 504ac | 20 | Handles a projectile hitting a sprite immune to projectiles
- * 
- * @param pSprite Sprite data pointer 
+ *
+ * @param pSprite Sprite data pointer
  * @return The parameter
  */
 struct SpriteData* ProjectileHitSpriteImmuneToProjectiles(struct SpriteData* pSprite)
@@ -1655,7 +1657,7 @@ struct SpriteData* ProjectileHitSpriteImmuneToProjectiles(struct SpriteData* pSp
 
 /**
  * 504cc | 20 | Handles a projectile hitting a solid sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @return The parameter
  */
@@ -1672,8 +1674,8 @@ struct SpriteData* ProjectileHitSolidSprite(struct SpriteData* pSprite)
 
 /**
  * 504ec | c0 | Handles a power bomb dealing damage to a sprite
- * 
- * @param pSprite Sprite data pointer 
+ *
+ * @param pSprite Sprite data pointer
  */
 void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
 {
@@ -1730,7 +1732,7 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
 
 /**
  * 505ac | a8 | Handles a projectile dealing damage to a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param yPosition Y Position of the projectile
  * @param xPosition X Position of the projectile
@@ -1770,7 +1772,7 @@ void ProjectileHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPositio
 
 /**
  * 50654 | a8 | Handles a charged beam (without ice) dealing damage to a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param yPosition Y Position of the projectile
  * @param xPosition X Position of the projectile
@@ -1787,7 +1789,7 @@ void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 yPosition,
         ParticleSet(yPosition, xPosition, effect);
         return;
     }
-    
+
     if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
     {
         ProjectileHitSpriteImmuneToProjectiles(pSprite);
@@ -1810,7 +1812,7 @@ void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 yPosition,
 
 /**
  * 506fc | 28 | Freezes the sprite with the parameters
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param freezeTimer Freeze timer to apply
  */
@@ -1823,7 +1825,7 @@ void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freezeTimer)
 
 /**
  * @brief 50724 | 104 | Handles an ice beam (non charged) hitting a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param yPosition Collision Y Position
  * @param xPosition Collision X Position
@@ -1891,7 +1893,7 @@ void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u
 
 /**
  * @brief 50828 | ec | Handles an ice beam (charged) hitting a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param yPosition Collision Y Position
  * @param xPosition Collision X Position
@@ -1952,7 +1954,7 @@ void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosi
 
 /**
  * 50914 | 60 | Sets the projectile to a tumbling state (reserved for missile and super missile)
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param pProj Projectile data pointer
  * @param type The type of the projectile
@@ -1987,12 +1989,12 @@ void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct Projectil
 
 /**
  * 50974 | 68 | Sets the projectile to a tumbling state (reserved for missile and super missile, uses the current sprite)
- * 
+ *
  * @param pProj Projectile data pointer
  * @param type Projectile type
  */
 void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u8 type)
-{    
+{
     pProj->movementStage = PROJECTILE_STAGE_TUMBLING;
     pProj->timer = 0;
 
@@ -2021,7 +2023,7 @@ void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u
 
 /**
  * @brief 509dc | a0 | Handles a missile hitting a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param pProj Projectile data pointer
  * @param yPosition Collision Y Position
@@ -2062,7 +2064,7 @@ void ProjectileMissileHitSprite(struct SpriteData* pSprite, struct ProjectileDat
 
 /**
  * @brief 50a7c | 9c | Handles a super missile hitting a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param pProj Projectile data pointer
  * @param yPosition Collision Y Position
@@ -2094,7 +2096,7 @@ void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct Projecti
         ProjectileStartTumblingMissile(pSprite, pProj, PROJ_TYPE_SUPER_MISSILE);
         return;
     }
-    
+
     if (pProj->movementStage == 0)
         ProjectileDecrementSuperMissileCounter(pProj);
 
@@ -2103,7 +2105,7 @@ void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct Projecti
 
 /**
  * @brief 50b18 | 4c | Handles a bomb hitting a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param yPosition Collision Y Position
  * @param xPosition Collision X Position

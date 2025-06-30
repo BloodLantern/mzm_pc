@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "gba/memory.h"
+#include "mzm/gba/memory.h"
 
 #define REG_KEY_INPUT (REG_BASE + 0x130)
 #define REG_KEY_CONTROL (REG_BASE + 0x132)

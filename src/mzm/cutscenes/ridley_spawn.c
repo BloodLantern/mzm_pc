@@ -1,22 +1,24 @@
-#include "cutscenes/ridley_spawn.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
+#include "mzm/cutscenes/ridley_spawn.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/cutscenes/ridley_spawn_data.h"
-#include "data/cutscenes/internal_ridley_spawn_data.h"
-#include "data/cutscenes/cutscenes_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/ridley_spawn_data.h"
+#include "mzm/data/cutscenes/internal_ridley_spawn_data.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/display.h"
-#include "structs/samus.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 65304 | 19c | Handles the ridley flying in part of the cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleySpawnRidleyFlyingIn(void)
@@ -26,7 +28,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
         case 0:
             DmaTransfer(3, sRidleySpawnRidleyScreamingPal, PALRAM_OBJ, sizeof(sRidleySpawnRidleyScreamingPal), 16);
             CallLZ77UncompVram(sRidleySpawnScreamingGfx, VRAM_OBJ);
-            
+
             CallLZ77UncompVram(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
             CallLZ77UncompVram(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[3].tiletablePage * 0x800);
             DmaTransfer(3, sRidleySpawnBackgroundPal, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPal), 16);
@@ -35,7 +37,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
 
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[3].bg, 0x800);
             CutsceneReset();
-            
+
             CUTSCENE_DATA.oam[0].xPosition = sRidleySpawnRidleyPositions[1].x;
             CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[1].y;
 
@@ -47,7 +49,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
             gCurrentOamScaling = Q_8_8(1.125f);
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING);
             CUTSCENE_DATA.dispcnt = sRidleySpawnPageData[3].bg | DCNT_OBJ;
-            
+
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
@@ -84,13 +86,13 @@ u8 RidleySpawnRidleyFlyingIn(void)
 
 /**
  * @brief 654a0 | a0 | Updates the ridley object
- * 
+ *
  * @param pOam Cutscene OAM Pointer
  */
 void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
 {
     u16 velocity;
-    
+
     if (pOam->actions & 1)
     {
         pOam->unk_16 += 2;
@@ -126,11 +128,11 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
 
 /**
  * @brief 65540 | 12c | Handles the helmet reflection part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleySpawnHelmetReflection(void)
-{    
+{
     s32 velocity;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
@@ -188,7 +190,7 @@ u8 RidleySpawnHelmetReflection(void)
 
 /**
  * @brief 6566c | 7c | Handles the samus looking up part of the cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleySpawnSamusLookingUp(void)
@@ -202,7 +204,7 @@ u8 RidleySpawnSamusLookingUp(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-    
+
         case 1:
             gCurrentOamScaling += Q_8_8(0.25f / 2);
             if (gCurrentOamScaling >= Q_8_8(2.f))
@@ -212,7 +214,7 @@ u8 RidleySpawnSamusLookingUp(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-        
+
         case 2:
             if (CUTSCENE_DATA.timeInfo.timer > TWO_THIRD_SECOND)
             {
@@ -236,7 +238,7 @@ u8 RidleySpawnSamusLookingUp(void)
 
 /**
  * @brief 656e8 | 1bc | Initializes the ridley spawn cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleySpawnInit(void)
@@ -267,7 +269,7 @@ u8 RidleySpawnInit(void)
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[1].bg, 0x800);
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[2].bg, 0x800);
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[0].bg, 0x800);
-    
+
     CutsceneReset();
 
     CUTSCENE_DATA.oam[0].xPosition = sRidleySpawnRidleyPositions[2].x;
@@ -285,13 +287,13 @@ u8 RidleySpawnInit(void)
     CUTSCENE_DATA.timeInfo.stage++;
     CUTSCENE_DATA.timeInfo.timer = 0;
     CUTSCENE_DATA.timeInfo.subStage = 0;
-    
+
     return FALSE;
 }
 
 /**
  * @brief 658a4 | 34 | Subroutine for the ridley spawn cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 RidleySpawnSubroutine(void)
@@ -301,13 +303,13 @@ u8 RidleySpawnSubroutine(void)
     ended = sRidleySpawnSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
     CutsceneUpdateBackgroundsPosition(TRUE);
     RidleySpawnProcessOAM();
-    
+
     return ended;
 }
 
 /**
  * @brief 658d8 | 4c | Processes the OAM for the cutscene
- * 
+ *
  */
 void RidleySpawnProcessOAM(void)
 {

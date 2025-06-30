@@ -1,13 +1,15 @@
-#include "screen_shake.h"
-#include "macros.h"
+#include "mzm/screen_shake.h"
+#include "mzm/macros.h"
 
-#include "structs/screen_shake.h"
+#include "mzm/structs/screen_shake.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 55344 | 34 | Starts a vertical screen shake
- * 
+ *
  * @param duration Duration
- * @param intensity 
+ * @param intensity
  * @return u8 Screen shake Y timer
  */
 u8 ScreenShakeStartVertical(u8 duration, u8 intensity)
@@ -27,7 +29,7 @@ u8 ScreenShakeStartVertical(u8 duration, u8 intensity)
 
 /**
  * @brief 55378 | 34 | Starts an horizontal screen shake
- * 
+ *
  * @param duration Duration
  * @param intensity To document
  * @return u8 Screen shake X timer
@@ -49,7 +51,7 @@ u8 ScreenShakeStartHorizontal(u8 duration, u8 intensity)
 
 /**
  * @brief 553ac | 30 | Starts an horizontal screen shake, unused
- * 
+ *
  * @param duration Duration
  * @return u8 Screen shake X timer
  */
@@ -70,14 +72,14 @@ u8 ScreenShakeStartHorizontal_Unused(u8 duration)
 
 /**
  * @brief 553dc | 68 | Updates the vertical screen shake
- * 
+ *
  * @return s32 Screen offset
  */
 s32 ScreenShakeUpdateVertical(void)
 {
     s32 offset;
     u32 intensity;
-    
+
     offset = 0;
     gScreenShakeYOffset = 0;
 
@@ -116,14 +118,14 @@ s32 ScreenShakeUpdateVertical(void)
 
 /**
  * @brief 55444 | 68 | Updates the horizontal screen shake
- * 
+ *
  * @return s32 Screen offset
  */
 s32 ScreenShakeUpdateHorizontal(void)
 {
     s32 offset;
     u32 intensity;
-    
+
     offset = 0;
     gScreenShakeXOffset = 0;
 

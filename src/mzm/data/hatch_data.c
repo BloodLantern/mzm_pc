@@ -1,9 +1,11 @@
-#include "data/hatch_data.h"
+#include "mzm/data/hatch_data.h"
 
-#include "macros.h"
+#include "mzm/macros.h"
 
-#include "constants/event.h"
-#include "constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/clipdata.h"
+
+#include "mzm_include.h"
 
 // 360130
 

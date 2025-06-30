@@ -1,5 +1,7 @@
-#include "data/rooms/crateria_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/crateria_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sCrateria_7_Clipdata[538] = INCBIN_U8("data/rooms/crateria/Crateria_7_Clipdata.gfx");
 
@@ -29,4 +31,3 @@ const u8 sCrateria_7_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(20)] = {
 	27, 5, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

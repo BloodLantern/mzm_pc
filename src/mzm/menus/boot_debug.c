@@ -1,25 +1,27 @@
-#include "menus/boot_debug.h"
-#include "dma.h"
+#include "mzm/menus/boot_debug.h"
+#include "mzm/dma.h"
 
-#include "data/menus/boot_debug_data.h"
-#include "data/menus/internal_boot_debug_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/menus/pause_screen_map_data.h"
-#include "data/menus/internal_pause_screen_data.h"
-#include "data/menus/status_screen_data.h"
-#include "data/engine_pointers.h"
-#include "data/io_transfer_data.h"
-#include "data/clipdata_data.h"
+#include "mzm/data/menus/boot_debug_data.h"
+#include "mzm/data/menus/internal_boot_debug_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/menus/pause_screen_map_data.h"
+#include "mzm/data/menus/internal_pause_screen_data.h"
+#include "mzm/data/menus/status_screen_data.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/io_transfer_data.h"
+#include "mzm/data/clipdata_data.h"
 
-#include "constants/menus/boot_debug.h"
-#include "constants/event.h"
+#include "mzm/constants/menus/boot_debug.h"
+#include "mzm/constants/event.h"
 
-#include "structs/menus/boot_debug.h"
-#include "structs/room.h"
-#include "structs/display.h"
-#include "structs/cable_link.h"
-#include "structs/audio.h"
+#include "mzm/structs/menus/boot_debug.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/cable_link.h"
+#include "mzm/structs/audio.h"
+
+#include "mzm_include.h"
 
 #ifdef DEBUG
 
@@ -45,7 +47,7 @@ void BootDebugUpdateMenuOam(void)
 void BootDebugSetupMenuOam(void)
 {
     s32 i;
-    
+
     for (i = 0; i < ARRAY_SIZE(BOOT_DEBUG_DATA.menuOam); i++)
         BOOT_DEBUG_DATA.menuOam[i] = sMenuOamData_Empty;
 
@@ -65,7 +67,7 @@ void BootDebugSetupMenuOam(void)
     BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].oamID = 5;
     BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].exists = FALSE;
     BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].priority = 1;
-    BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].boundBackground = 0;   
+    BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].boundBackground = 0;
 }
 
 /**
@@ -76,7 +78,7 @@ void BootDebugUpdateCursorOam(void)
     u8 oamId;
     s32 xPos;
     s32 yPos;
-    
+
     if (BOOT_DEBUG_DATA.menuDepth == BOOT_DEBUG_MENU_MAIN)
     {
         oamId = 1;
@@ -282,10 +284,10 @@ void BootDebugUpdateMapScreenPosition(void)
     s32 yOffset;
     u16 mapX;
     u16 mapY;
-    
+
     xOffset = 2;
     yOffset = 2;
-    
+
     if (gSectionInfo.sectionIndex >= BOOT_DEBUG_SECTION_TEST_1)
     {
         xOffset = sAreaDoorsPointers[gSectionInfo.sectionIndex][gLastDoorUsed].xExit;
@@ -326,7 +328,7 @@ void BootDebugUpdateMapScreenPosition(void)
         }
 
         if (yOffset)
-            gBg0VOFS_NonGameplay = BOOT_DEBUG_DATA.bg0vofs;        
+            gBg0VOFS_NonGameplay = BOOT_DEBUG_DATA.bg0vofs;
     }
 
     if (gBg0HOFS_NonGameplay != BOOT_DEBUG_DATA.bg0hofs)
@@ -346,7 +348,7 @@ void BootDebugUpdateMapScreenPosition(void)
         }
 
         if (yOffset)
-            gBg0HOFS_NonGameplay = BOOT_DEBUG_DATA.bg0hofs;        
+            gBg0HOFS_NonGameplay = BOOT_DEBUG_DATA.bg0hofs;
     }
 }
 
@@ -375,7 +377,7 @@ void BootDebugReadSram(void)
     {
         for (i = 0; i < ARRAY_SIZE(sZeroSaveText); i++)
             pSave->zeroSaveText[i] = sZeroSaveText[i];
-    
+
         gDebugMode = 2;
         gCurrentArea = 8;
         pSave->debugMode = gDebugMode;
@@ -390,7 +392,7 @@ void BootDebugReadSram(void)
 
 /**
  * @brief Writes SRAM specific to the boot debug menu
- * 
+ *
  * @param selectSaveFile Whether to select most recent save file or current area
  */
 void BootDebugWriteSram(u8 selectSaveFile)
@@ -416,13 +418,13 @@ void BootDebugWriteSram(u8 selectSaveFile)
     {
         gSram.bootDebugSave.sectionIndex = gCurrentArea;
     }
-    
+
     DoSramOperation(SRAM_OPERATION_SAVE_BOOT_DEBUG_RAM);
 }
 
 /**
  * @brief Main routine for the boot debug menu
- * 
+ *
  * @return s32 bool, changing game mode
  */
 s32 BootDebugSubroutine(void)
@@ -488,7 +490,7 @@ s32 BootDebugSubroutine(void)
                         case 8:
                             break;
                     }
-                    
+
                     BootDebugWriteSram(FALSE);
 
                     if (gGameModeSub2 == 1)
@@ -505,7 +507,7 @@ s32 BootDebugSubroutine(void)
                             gGameCompletion.language = gLanguage;
                         }
                     }
-                    
+
                     gGameModeSub1++;
                 }
             }
@@ -605,7 +607,7 @@ void BootDebugSetupMenu(void)
     ResetFreeOam();
     BitFill(3, 0, &gNonGameplayRam, sizeof(gNonGameplayRam), 32);
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
-    
+
     SramWrite_FileInfo();
     BootDebugReadSram();
     gBootDebugActive = 0;
@@ -616,7 +618,7 @@ void BootDebugSetupMenu(void)
     gBg3VOFS_NonGameplay = BLOCK_TO_SUB_PIXEL(BOOT_DEBUG_DATA.bg3vofs);
     gBg2VOFS_NonGameplay = BLOCK_TO_SUB_PIXEL(BOOT_DEBUG_DATA.bg2vofs) - QUARTER_BLOCK_SIZE;
     gBg2HOFS_NonGameplay = -(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
-    
+
     LZ77UncompVRAM(sBootDebugObjGfx, VRAM_OBJ);
     LZ77UncompVRAM(sBootDebugBgGfx, VRAM_BASE);
     DMA_SET(3, sMinimapTilesGfx, BGCNT_TO_VRAM_CHAR_BASE(1), C_32_2_16(DMA_ENABLE, 0x1800));
@@ -680,7 +682,7 @@ void BootDebugSetupMenu(void)
 
 /**
  * @brief Handles button input for the boot debug menu
- * 
+ *
  * @return s32 Result (1 if leaving menu, 2 if erasing SRAM, 0 otherwise)
  */
 s32 BootDebugHandleInput(void)
@@ -717,7 +719,7 @@ s32 BootDebugHandleInput(void)
                 gMostRecentSaveFile = 1;
             else
                 gMostRecentSaveFile = 0;
-    
+
             if (gSaveFilesInfo[gMostRecentSaveFile].exists == 1)
             {
                 gCurrentArea = gSectionInfo.sectionIndex;
@@ -731,13 +733,13 @@ s32 BootDebugHandleInput(void)
             result = 1;
             gGameModeSub2 = 1;
             gIsLoadingFile = FALSE;
-        
+
             if (gCurrentArea != gSectionInfo.sectionIndex && !gSectionInfo.onMapScreen)
             {
                 gCurrentRoom = 0;
                 gLastDoorUsed = gSectionInfo.sectionIndex <= BOOT_DEBUG_SECTION_TEST_1;
             }
-        
+
             gCurrentArea = gSectionInfo.sectionIndex;
         }
     }
@@ -755,7 +757,7 @@ s32 BootDebugHandleInput(void)
             }
 
             BOOT_DEBUG_DATA.subMenu = BOOT_DEBUG_DATA.menuCursor;
-            
+
             if (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SAVE)
             {
                 BOOT_DEBUG_DATA.fileScreenOptions = gFileScreenOptionsUnlocked;
@@ -798,7 +800,7 @@ s32 BootDebugHandleInput(void)
             BOOT_DEBUG_DATA.bg3vofs = BOOT_DEBUG_DATA.menuCursor - 8;
         else if (BOOT_DEBUG_DATA.bg3vofs > BOOT_DEBUG_DATA.menuCursor - 1)
             BOOT_DEBUG_DATA.bg3vofs = BOOT_DEBUG_DATA.menuCursor - 1;
-        
+
         gBg3VOFS_NonGameplay = BOOT_DEBUG_DATA.bg3vofs * 0x40;
 
         if (tempResult != 0)
@@ -826,7 +828,7 @@ s32 BootDebugHandleInput(void)
                 BootDebugSamusSubroutine();
 
                 if (BOOT_DEBUG_DATA.subMenuOption - BOOT_DEBUG_DATA.bg2vofs > 7)
-                    BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption - 7;   
+                    BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption - 7;
                 else if (BOOT_DEBUG_DATA.bg2vofs > BOOT_DEBUG_DATA.subMenuOption)
                     BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption;
 
@@ -874,7 +876,7 @@ s32 BootDebugHandleInput(void)
             case BOOT_DEBUG_SUB_MENU_BOOT:
                 subMenuResult = FALSE;
                 gBootDebugActive = 1;
-                
+
                 if (gIoTransferInfo.active == 0)
                 {
                     if (gChangedInput & KEY_A)
@@ -890,12 +892,12 @@ s32 BootDebugHandleInput(void)
                 {
                     tempResult = FusionGalleryLinkProcess();
                 }
-    
+
                 if (tempResult == 4 || tempResult == 2)
                 {
                     if (!(gChangedInput & KEY_B))
                         return result;
-    
+
                     BOOT_DEBUG_DATA.menuDepth = BOOT_DEBUG_MENU_MAIN;
                     gIoTransferInfo = sIoTransferInfo_Empty;
                     gIoTransferInfo.pFunction = BootDebugUpdateMenuOam;
@@ -905,7 +907,7 @@ s32 BootDebugHandleInput(void)
                 {
                     if (!(gChangedInput & KEY_B))
                         return result;
-    
+
                     BOOT_DEBUG_DATA.menuDepth = BOOT_DEBUG_MENU_MAIN;
                     gIoTransferInfo = sIoTransferInfo_Empty;
                     gIoTransferInfo.pFunction = BootDebugUpdateMenuOam;
@@ -929,12 +931,12 @@ s32 BootDebugHandleInput(void)
                 {
                     BOOT_DEBUG_DATA.menuDepth = BOOT_DEBUG_MENU_MAIN;
                 }
-    
+
                 if (gChangedInput & KEY_B || BOOT_DEBUG_DATA.menuDepth == BOOT_DEBUG_MENU_MAIN)
                     BOOT_DEBUG_DATA.subMenuOption = 0;
                 break;
         }
-    
+
         if (gChangedInput & KEY_B && subMenuResult && BOOT_DEBUG_DATA.menuDepth > BOOT_DEBUG_MENU_MAIN)
             BOOT_DEBUG_DATA.menuDepth--;
     }
@@ -944,14 +946,14 @@ s32 BootDebugHandleInput(void)
 
 /**
  * @brief Handles button input for the "Section" sub-menu in the boot debug menu
- * 
+ *
  * @return s32 bool, cursor has moved
  */
 s32 BootDebugSectionSubroutine(void)
 {
     s32 index;
     u8 prevStarIndex;
-    
+
     if (BOOT_DEBUG_DATA.subMenuOption == 0)
     {
         if (gChangedInput & KEY_SELECT && gSectionInfo.sectionIndex < BOOT_DEBUG_SECTION_TITLE)
@@ -964,7 +966,7 @@ s32 BootDebugSectionSubroutine(void)
         }
         index = 0;
         prevStarIndex = gSectionInfo.starIndex;
-        
+
         if (gChangedInput & KEY_RIGHT)
             index = 1;
         else if (gChangedInput & KEY_LEFT)
@@ -1008,7 +1010,7 @@ s32 BootDebugSectionSubroutine(void)
             gSectionInfo.onMapScreen = FALSE;
             return FALSE;
         }
-        
+
         if (gChangedInput & KEY_RIGHT)
             BOOT_DEBUG_DATA.subMenuOption = 2;
         else if (gChangedInput & KEY_LEFT)
@@ -1054,7 +1056,7 @@ s32 BootDebugSectionSubroutine(void)
 
 /**
  * @brief Updates the room and door ID on the interactive area map when one of them has changed
- * 
+ *
  * @param roomOrDoor Value updated (-1 = loading, 0 = room, 1 = door)
  */
 #ifdef NON_MATCHING
@@ -1307,7 +1309,7 @@ lbl_080796e0: \n\
 
 /**
  * @brief Draws the room and door IDs for the interactive area map
- * 
+ *
  * @param initialized True if the map has been initialized
  */
 void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
@@ -1326,7 +1328,7 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
         BootDebugUpdateMapScreenPosition();
         gBg0VOFS_NonGameplay = BOOT_DEBUG_DATA.bg0vofs;
         gBg0HOFS_NonGameplay = BOOT_DEBUG_DATA.bg0hofs;
-        
+
         write16(REG_WIN0H, C_16_2_8(SCREEN_SIZE_X * .65, SCREEN_SIZE_X - 4));
         write16(REG_WIN0V, C_16_2_8(SCREEN_SIZE_Y * .1, SCREEN_SIZE_Y * .2));
         BOOT_DEBUG_DATA.dispcnt |= DCNT_BG0 | DCNT_BG1 | DCNT_WIN0;
@@ -1337,7 +1339,7 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
     tile = 0xE0C8;
     dst[0] = tile;
     dst[0x20] = tile + 0x20;
-    
+
     tile = 0xE0C7;
     dst[4] = tile;
     dst[0x24] = tile + 0x20;
@@ -1361,10 +1363,10 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
 
         dst = VRAM_BASE + 0xD000;
         drawDigit = FALSE;
-        
+
         if (divisor <= 0)
             continue;
-        
+
         while (divisor > 0)
         {
             tile = (number / divisor) % 10;
@@ -1378,7 +1380,7 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
 
             if (tile < 10)
                 tile += 0xE050;
-            
+
             dst[offset] = tile;
             dst[offset + 0x20] = tile + 0x20;
             divisor /= 10;
@@ -1467,7 +1469,7 @@ void BootDebugModeSubroutine(void)
         }
     }
 
-    // BUG: updateTextAndEvents is only initialized when menuDepth == 2 
+    // BUG: updateTextAndEvents is only initialized when menuDepth == 2
     if (updateTextAndEvents)
     {
         BootDebugDrawSubMenuOptionText(BOOT_DEBUG_SUB_MENU_MODE, BOOT_DEBUG_DATA.subMenuOption);
@@ -1484,7 +1486,7 @@ void BootDebugModeSubroutine(void)
 void BootDebugSaveSubroutine(void)
 {
     s32 value;
-    
+
     if (BOOT_DEBUG_DATA.menuDepth == BOOT_DEBUG_MENU_SUB)
     {
         if (gChangedInput & KEY_A)
@@ -1505,7 +1507,7 @@ void BootDebugSaveSubroutine(void)
         {
             for (value = 0; value < BOOT_DEBUG_SAVE_COUNT; value++)
                 BootDebugSaveUpdateText(value, &gFileScreenOptionsUnlocked);
-            
+
             BOOT_DEBUG_DATA.menuDepth--;
         }
         else if (gChangedInput & KEY_UP)
@@ -1599,7 +1601,7 @@ void BootDebugSaveSubroutine(void)
 
 /**
  * @brief Updates text in the "Save" sub-menu in the boot debug menu
- * 
+ *
  * @param subMenuOption Sub-menu option index
  * @param pOptions File screen options unlocked pointer
  */
@@ -1688,7 +1690,7 @@ void BootDebugSamusSubroutine(void)
 {
     s32 option;
     u16 flagOrButton;
-    
+
     if (BOOT_DEBUG_DATA.menuDepth == BOOT_DEBUG_MENU_SUB)
     {
         if (gChangedInput & (KEY_A | KEY_RIGHT))
@@ -1825,7 +1827,7 @@ void BootDebugSoundSubroutine(void)
 {
     s32 updateText;
     s32 value;
-    
+
     if (BOOT_DEBUG_DATA.menuDepth == BOOT_DEBUG_MENU_SUB)
     {
         if (gChangedInput & (KEY_RIGHT | KEY_A))
@@ -1940,7 +1942,7 @@ void BootDebugSetSoundTestIdColor(void)
 
 /**
  * @brief Handles button input for the "Demo" sub-menu in the boot debug menu
- * 
+ *
  * @return s32 Result (1 if starting cutscene A, 2 if starting cutscene B, 3 if starting demo, 0 otherwise)
  */
 s32 BootDebugDemoSubroutine(void)
@@ -1950,7 +1952,7 @@ s32 BootDebugDemoSubroutine(void)
 
     result = 0;
     updateText = FALSE;
-    
+
     if (BOOT_DEBUG_DATA.menuDepth == BOOT_DEBUG_MENU_SUB)
     {
         if (gChangedInput & (KEY_A | KEY_RIGHT))
@@ -2081,14 +2083,14 @@ s32 BootDebugDemoSubroutine(void)
 
 /**
  * @brief Handles button input for the "Etc" sub-menu in the boot debug menu
- * 
+ *
  * @return s32 Result (1 if playing ending, 2 if playing credits, 0 otherwise)
  */
 s32 BootDebugEtcSubroutine(void)
 {
     s32 result;
     u8 updateText;
-    
+
     result = 0;
     updateText = FALSE;
 
@@ -2146,7 +2148,7 @@ s32 BootDebugEtcSubroutine(void)
         BootDebugDrawSubMenuOptionText(BOOT_DEBUG_SUB_MENU_ETC,
             BOOT_DEBUG_DATA.subMenuOption);
     }
-    
+
     return result;
 }
 
@@ -2288,7 +2290,7 @@ void BootDebugDrawSubMenuText(void)
 
 /**
  * @brief Draws a single string at the provided position in the boot debug menu
- * 
+ *
  * @param background Text background
  * @param xPosition Text X position
  * @param yPosition Text Y position
@@ -2314,7 +2316,7 @@ void BootDebugDrawTextAtPosition(u8 background, u8 xPosition, u8 yPosition,
         dst = VRAM_BASE + 0xF000;
     else
         return;
-    
+
     dst += xPosition + (yPosition * 0x20);
 
     for (i = 0, j = 0; i < size; i++, j++)
@@ -2329,7 +2331,7 @@ void BootDebugDrawTextAtPosition(u8 background, u8 xPosition, u8 yPosition,
 
 /**
  * @brief Draws the star for the "Section" sub-menu in the boot debug menu
- * 
+ *
  * @param prevIndex Previous index of the star
  */
 void BootDebugSectionDrawStar(u8 prevIndex)
@@ -2338,7 +2340,7 @@ void BootDebugSectionDrawStar(u8 prevIndex)
     u8 index;
     u16* dst;
     s32 offset;
-        
+
     for (i = 0; i < 2; i++)
     {
         if (i == 0)
@@ -2351,7 +2353,7 @@ void BootDebugSectionDrawStar(u8 prevIndex)
             dst = VRAM_BASE + 0xE000;
             offset = sBootDebugSectionMenuText[index].yPosition * 0x20 +
                 sBootDebugSectionMenuText[index].xPosition - 1;
-            
+
             if (i != 0)
             {
                 // Draw star
@@ -2379,7 +2381,7 @@ void BootDebugSectionSetFilesColor(void)
     s32 i;
 
     dst = VRAM_BASE + 0xE000;
-    
+
     // File A
     offset = sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_A].xPosition +
         sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_A].yPosition * 0x20;
@@ -2422,7 +2424,7 @@ void BootDebugSectionSetFilesColor(void)
 
 /**
  * @brief Draws the text for a single option within a boot debug sub-menu
- * 
+ *
  * @param subMenu Sub-menu index
  * @param subMenuOption Sub-menu option index
  */
@@ -2622,13 +2624,13 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                     sBootDebugDoorTransitionOnOffText[index].size,
                     sBootDebugDoorTransitionOnOffText[index].text);
             }
-            break;        
+            break;
     }
 }
 
 /**
  * @brief Draws a number in the boot debug menu
- * 
+ *
  * @param dst VRAM address to draw at
  * @param number The number to draw
  * @param numDigits Number of digits in the number
@@ -2672,7 +2674,7 @@ void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 palette)
 
 /**
  * @brief Draws a single string at the provided address in the boot debug menu
- * 
+ *
  * @param dst VRAM address to draw at
  * @param pText Pointer to text data
  * @param palette Text palette
@@ -2680,7 +2682,7 @@ void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 palette)
 void BootDebugDrawTextAtAddress(u16* dst, const u8* pText, u8 palette)
 {
     u32 tile;
-    
+
     while (*pText != '\0')
     {
         if (*pText == ' ')

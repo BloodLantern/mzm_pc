@@ -1,14 +1,16 @@
-#include "complex_oam.h"
-#include "oam.h"
-#include "macros.h"
-#include "fixed_point.h"
+#include "mzm/complex_oam.h"
+#include "mzm/oam.h"
+#include "mzm/macros.h"
+#include "mzm/fixed_point.h"
 
-#include "data/generic_data.h"
-#include "data/intro_data.h"
+#include "mzm/data/generic_data.h"
+#include "mzm/data/intro_data.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 7fd64 | 1f4 | Processes complex OAM with rotation/scaling and other params
- * 
+ *
  * @param oamSlot OAM Slot
  * @param xPosition X Position
  * @param yPosition Y Position
@@ -23,8 +25,8 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     s32 _scaling;
     u8 _doubleSize;
     u8 _matrixNum;
-    
-    s32 y;    
+
+    s32 y;
     s32 x;
     s32 xOrigin;
     s32 yOrigin;
@@ -116,13 +118,13 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
 
     gOamData[oamSlot].split.xFlip = FALSE;
     gOamData[oamSlot].split.yFlip = FALSE;
-    
+
     return FALSE;
 }
 
 /**
  * @brief 7ff58 | 19c | Calculates the part 4 of the OAM (used for special cases such as cutscenes and menus)
- * 
+ *
  * @param rotation Rotation
  * @param scaling Scaling
  * @param oamSlot OAM Slot

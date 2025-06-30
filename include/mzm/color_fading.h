@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 u8 ColorFadingUpdate(void);
 u8 unk_5bd58(u8 stage, u8 color);

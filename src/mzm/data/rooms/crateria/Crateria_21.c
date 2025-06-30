@@ -1,10 +1,12 @@
-#include "data/rooms/crateria_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/crateria_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sCrateria_10_Scrolls[SCROLL_DATA_SIZE(3)] = {
 	21, // Room
 	3, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 61, // X bounds
 	2, 13, // Y bounds
@@ -36,4 +38,3 @@ const u8 sCrateria_21_Bg1[1614] = INCBIN_U8("data/rooms/crateria/Crateria_21_Bg1
 const u8 sCrateria_21_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(1)] = {
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

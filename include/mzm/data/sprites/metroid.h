@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
+#include "mzm/macros.h"
 
 extern const s16 sMetroidSpawningYMovement[65];
 

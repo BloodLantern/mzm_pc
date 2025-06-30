@@ -1,10 +1,12 @@
-#include "data/rooms/tourian_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/tourian_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sTourian_3_Scrolls[SCROLL_DATA_SIZE(2)] = {
 	8, // Room
 	2, // Number of scrolls
-	
+
 	// Scroll 0
 	17, 31, // X bounds
 	12, 111, // Y bounds
@@ -30,4 +32,3 @@ const u8 sTourian_8_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
 	15, 24, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

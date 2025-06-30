@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
-#include "constants/connection.h"
+#include "mzm/constants/connection.h"
 
-#include "structs/connection.h"
+#include "mzm/structs/connection.h"
 
 // 360130
 

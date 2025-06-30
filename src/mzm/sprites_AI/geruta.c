@@ -1,17 +1,19 @@
-#include "sprites_AI/geruta.h"
-#include "macros.h"
+#include "mzm/sprites_AI/geruta.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/geruta.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/geruta.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define GERUTA_POSE_IDLE_INIT 0x8
 #define GERUTA_POSE_IDLE 0x9
@@ -25,7 +27,7 @@
 
 /**
  * @brief 1ea68 | b0 | Handles the Y movement of a geruta
- * 
+ *
  * @param movement Y movement
  * @return u8 bool, hitting solid
  */
@@ -58,7 +60,7 @@ static u8 GerutaYMovement(u16 movement)
 
 /**
  * @brief 1eb18 | 74 | Handles the X movement of a geruta
- * 
+ *
  * @param movement X movement
  * @return u8 bool, hitting solid
  */
@@ -84,13 +86,13 @@ static u8 GerutaXMovement(u16 movement)
 
         gCurrentSprite.xPosition -= negMovement;
     }
-    
+
     return FALSE;
 }
 
 /**
  * @brief 1eb8c | 80 | Initializes a geruta sprite
- * 
+ *
  */
 static void GerutaInit(void)
 {
@@ -118,7 +120,7 @@ static void GerutaInit(void)
 
 /**
  * @brief 1ec0c | 20 | Initializes a geruta sprite to be idle
- * 
+ *
  */
 static void GerutaIdleInit(void)
 {
@@ -131,7 +133,7 @@ static void GerutaIdleInit(void)
 
 /**
  * @brief 1ec2c | 6c | Handles a geruta detecting samus
- * 
+ *
  */
 static void GerutaDetectSamus(void)
 {
@@ -155,7 +157,7 @@ static void GerutaDetectSamus(void)
 
 /**
  * @brief 1ec98 | 34 | Initializes a geruta to do the warning
- * 
+ *
  */
 static void GerutaWarningInit(void)
 {
@@ -170,7 +172,7 @@ static void GerutaWarningInit(void)
 
 /**
  * @brief 1eccc | 2c | Checks if the warning has ended
- * 
+ *
  */
 static void GerutaCheckWarningEnded(void)
 {
@@ -185,7 +187,7 @@ static void GerutaCheckWarningEnded(void)
 
 /**
  * @brief 1ecf8 | 50 | Checks if the launching animation has ended
- * 
+ *
  */
 static void GerutaCheckLaunchingAnimEnded(void)
 {
@@ -205,7 +207,7 @@ static void GerutaCheckLaunchingAnimEnded(void)
 
 /**
  * @brief 1ed48 | 44 | Handles a geruta going down
- * 
+ *
  */
 static void GerutaGoingDown(void)
 {
@@ -227,7 +229,7 @@ static void GerutaGoingDown(void)
 
 /**
  * @brief 1ed8c | 48 | Checks if the bouning animation has ended
- * 
+ *
  */
 static void GerutaCheckBouncingAnimEnded(void)
 {
@@ -247,7 +249,7 @@ static void GerutaCheckBouncingAnimEnded(void)
 
 /**
  * @brief 1edd4 | 48 | Handles a geruta going up
- * 
+ *
  */
 static void GerutaGoingUp(void)
 {
@@ -266,7 +268,7 @@ static void GerutaGoingUp(void)
 
 /**
  * @brief 1ee1c | 1c | Checks if the bouncing on ceiling animation ended
- * 
+ *
  */
 static void GerutaCheckBouncingOnCeilingAnimEnded(void)
 {
@@ -276,7 +278,7 @@ static void GerutaCheckBouncingOnCeilingAnimEnded(void)
 
 /**
  * @brief 1ee38 | 1bc | Geruta AI
- * 
+ *
  */
 void Geruta(void)
 {

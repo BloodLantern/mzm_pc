@@ -1,5 +1,7 @@
-#include "data/rooms/brinstar_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/brinstar_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sBrinstar_3_Clipdata[775] = INCBIN_U8("data/rooms/brinstar/Brinstar_3_Clipdata.gfx");
 
@@ -38,4 +40,3 @@ const u8 sBrinstar_3_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(13)] = {
 	115, 8, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

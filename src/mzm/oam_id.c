@@ -1,8 +1,10 @@
-#include "oam_id.h"
+#include "mzm/oam_id.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 68128 | 20 | Updates the OAM ID of a menu oam data
- * 
+ *
  * @param pOam Menu OAM data pointer
  * @param oamId OAM ID
  */
@@ -14,7 +16,7 @@ void UpdateMenuOamDataID(struct MenuOamData* pOam, u8 oamId)
 
 /**
  * @brief 68148 | 20 | Updates the OAM ID of a cutscene oam data
- * 
+ *
  * @param pOam Cutscene OAM data pointer
  * @param oamId OAM ID
  */

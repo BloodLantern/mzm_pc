@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
 
 enum StatueOpeningOamId {
     STATUE_OPENING_OAM_ID_KRAID_IDLE = 1,

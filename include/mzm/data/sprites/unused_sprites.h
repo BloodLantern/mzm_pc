@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
 
 extern const struct FrameData sUnusedSpritesOam_Idle[3];
 extern const struct FrameData sUnusedSpritesOam_Unused[2];

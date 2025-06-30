@@ -1,8 +1,10 @@
-#include "data/menus/pause_screen_sub_menus_data.h"
+#include "mzm/data/menus/pause_screen_sub_menus_data.h"
 
-#include "constants/event.h"
-#include "constants/connection.h"
-#include "constants/samus.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/samus.h"
+
+#include "mzm_include.h"
 
 const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
     [TARGET_LONG_BEAM] = {

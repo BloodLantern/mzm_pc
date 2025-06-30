@@ -1,20 +1,22 @@
-#include "sprites_AI/worker_robot.h"
-#include "macros.h"
+#include "mzm/sprites_AI/worker_robot.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/worker_robot.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/worker_robot.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/samus.h"
-#include "constants/projectile.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/projectile.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/projectile.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/projectile.h"
+
+#include "mzm_include.h"
 
 #define WORKER_ROBOT_POSE_WALKING_INIT 0x8
 #define WORKER_ROBOT_POSE_WALKING 0x9
@@ -35,7 +37,7 @@
 
 /**
  * @brief 2f534 | c4 | Checks if samus is in front of the worker robot
- * 
+ *
  * @return u8 bool, in front
  */
 static u8 WorkerRobotCheckSamusInFront(void)
@@ -84,13 +86,13 @@ static u8 WorkerRobotCheckSamusInFront(void)
             }
         }
     }
-    
+
     return FALSE;
 }
 
 /**
  * @brief 2f5f8 | 90 | Initializes a worker robot
- * 
+ *
  */
 static void WorkerRobotInit(void)
 {
@@ -122,7 +124,7 @@ static void WorkerRobotInit(void)
 
 /**
  * @brief 2f688 | 20 | Initializes a worker robot to be sleeping
- * 
+ *
  */
 static void WorkerRobotSleepingInit(void)
 {
@@ -134,7 +136,7 @@ static void WorkerRobotSleepingInit(void)
 
 /**
  * @brief 2f6a8 | 38 | handles a worker robot sleeping
- * 
+ *
  */
 static void WorkerRobotSleeping(void)
 {
@@ -146,7 +148,7 @@ static void WorkerRobotSleeping(void)
 
 /**
  * @brief 2f6e0 | 38 | Initializes a worker robot to be waking up
- * 
+ *
  */
 static void WorkerRobotWakingUpInit(void)
 {
@@ -162,7 +164,7 @@ static void WorkerRobotWakingUpInit(void)
 
 /**
  * @brief 2f718 | 1c | Handles a worker robot waking up
- * 
+ *
  */
 static void WorkerRobotWakingUp(void)
 {
@@ -171,8 +173,8 @@ static void WorkerRobotWakingUp(void)
 }
 
 /**
- * @brief 2f734 | 19c | Checks for a projectile collision when a worker robot is walking 
- * 
+ * @brief 2f734 | 19c | Checks for a projectile collision when a worker robot is walking
+ *
  */
 static void WorkerRobotWalkingDetectProjectile(void)
 {
@@ -181,14 +183,14 @@ static void WorkerRobotWalkingDetectProjectile(void)
     u8 onSide;
     u8 status;
     u32 statusCheck;
-    
+
     u16 projY;
     u16 projX;
     u16 projTop;
     u16 projBottom;
     u16 projLeft;
     u16 projRight;
-    
+
     u16 spriteY;
     u16 spriteX;
     u16 spriteTop;
@@ -221,7 +223,7 @@ static void WorkerRobotWalkingDetectProjectile(void)
         projBottom = projY + pProj->hitboxBottom;
         projLeft = projX + pProj->hitboxLeft;
         projRight = projX + pProj->hitboxRight;
-            
+
         if (!SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
             continue;
 
@@ -234,7 +236,7 @@ static void WorkerRobotWalkingDetectProjectile(void)
             if (projY > spriteTop && projY < spriteBottom)
                 onSide++;
         }
-        
+
         if (onSide)
         {
             if (pProj->status & PROJ_STATUS_X_FLIP)
@@ -269,7 +271,7 @@ static void WorkerRobotWalkingDetectProjectile(void)
                         gCurrentSprite.pOam = sWorkerRobotOam_Walking;
                 }
             }
-            
+
             gCurrentSprite.animationDurationCounter = 0;
         }
 
@@ -293,7 +295,7 @@ static void WorkerRobotWalkingDetectProjectile(void)
 
 /**
  * @brief 2f8d0 | 3c | Initializes a worker robot to be standing
- * 
+ *
  */
 static void WorkerRobotStandingInit(void)
 {
@@ -310,7 +312,7 @@ static void WorkerRobotStandingInit(void)
 
 /**
  * @brief 2f90c | 3c | handles a worker robot standing
- * 
+ *
  */
 static void WorkerRobotStanding(void)
 {
@@ -329,7 +331,7 @@ static void WorkerRobotStanding(void)
 
 /**
  * @brief 2f948 | 20 | Initializes a worker robot to be walking
- * 
+ *
  */
 static void WorkerRobotWalkingInit(void)
 {
@@ -340,8 +342,8 @@ static void WorkerRobotWalkingInit(void)
 }
 
 /**
- * @brief 2f968 | 25c | Handles a worker robot walking 
- * 
+ * @brief 2f968 | 25c | Handles a worker robot walking
+ *
  */
 static void WorkerRobotWalking(void)
 {
@@ -354,7 +356,7 @@ static void WorkerRobotWalking(void)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
         {
-            collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);   
+            collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
 
             if (collision == COLLISION_AIR)
             {
@@ -374,7 +376,7 @@ static void WorkerRobotWalking(void)
                     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                 }
-                
+
                 return;
             }
         }
@@ -411,14 +413,14 @@ static void WorkerRobotWalking(void)
             {
                 if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-                
+
                 gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING_INIT;
             }
             else
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
-                
+
                 gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING_INIT;
             }
             return;
@@ -449,7 +451,7 @@ static void WorkerRobotWalking(void)
                 gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
                 return;
             }
-            
+
             if ((u8)SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 gCurrentSprite.xPosition + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) == COLLISION_SOLID)
             {
@@ -473,7 +475,7 @@ static void WorkerRobotWalking(void)
                 gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
                 return;
             }
-            
+
             if ((u8)SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE)) == COLLISION_SOLID)
             {
@@ -491,7 +493,7 @@ static void WorkerRobotWalking(void)
 
 /**
  * @brief 2fbc4 | 38 | Initializes a worker robot to be going back to sleep
- * 
+ *
  */
 static void WorkerRobotBackToSleepInit(void)
 {
@@ -507,7 +509,7 @@ static void WorkerRobotBackToSleepInit(void)
 
 /**
  * @brief 2fbfc | 34 | Handles a worker robot going back to sleep
- * 
+ *
  */
 static void WorkerRobotBackToSleep(void)
 {
@@ -525,7 +527,7 @@ static void WorkerRobotBackToSleep(void)
 
 /**
  * @brief 2fc30 | 4c | Initializes a worker robot to be turning around
- * 
+ *
  */
 static void WorkerRobotTurningAroundInit(void)
 {
@@ -546,7 +548,7 @@ static void WorkerRobotTurningAroundInit(void)
 
 /**
  * @brief 2fc7c | 1c | Handles a worker robot turning around
- * 
+ *
  */
 static void WorkerRobotCheckTurningAroundAnimEnded(void)
 {
@@ -556,7 +558,7 @@ static void WorkerRobotCheckTurningAroundAnimEnded(void)
 
 /**
  * @brief 2fc98 | 28 | Initializes a worker robot to be falling
- * 
+ *
  */
 static void WorkerRobotFallingInit(void)
 {
@@ -571,7 +573,7 @@ static void WorkerRobotFallingInit(void)
 
 /**
  * @brief 2fcc0 | 80 | Handles a worker robot falling
- * 
+ *
  */
 static void WorkerRobotFalling(void)
 {
@@ -609,7 +611,7 @@ static void WorkerRobotFalling(void)
 
 /**
  * @brief 2fd40 | 1c | Intiializes a worker robot to be falling while sleeping
- * 
+ *
  */
 static void WorkerRobotFallingSleepInit(void)
 {
@@ -620,7 +622,7 @@ static void WorkerRobotFallingSleepInit(void)
 
 /**
  * @brief 2fd5c | 78 | Handles a worker robot falling while sleeping
- * 
+ *
  */
 static void WorkerRobotFallingSleep(void)
 {
@@ -655,7 +657,7 @@ static void WorkerRobotFallingSleep(void)
 
 /**
  * @brief 2fdd4 | 11c c| Worker robot AI
- * 
+ *
  */
 void WorkerRobot(void)
 {

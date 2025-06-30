@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #ifdef DEBUG
 void MinimapDrawRoomInfo(void);

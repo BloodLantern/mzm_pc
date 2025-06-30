@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define DEOREM_POSE_SPAWN_GOING_DOWN 0x8
 #define DEOREM_POSE_SPAWN_GOING_UP 0x22

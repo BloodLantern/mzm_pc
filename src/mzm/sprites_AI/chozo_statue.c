@@ -1,24 +1,26 @@
-#include "sprites_AI/chozo_statue.h"
-#include "sprites_AI/unknown_item_chozo_statue.h"
+#include "mzm/sprites_AI/chozo_statue.h"
+#include "mzm/sprites_AI/unknown_item_chozo_statue.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/chozo_statue.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/chozo_statue.h"
 
-#include "constants/audio.h"
-#include "constants/in_game_cutscene.h"
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/sprite.h"
-#include "constants/event.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/in_game_cutscene.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/audio.h"
-#include "structs/game_state.h"
-#include "structs/hud.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/scroll.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/scroll.h"
+
+#include "mzm_include.h"
 
 #define CHOZO_STATUE_REFILL_POSE_IDLE 0x9
 
@@ -32,7 +34,7 @@
 
 /**
  * @brief 13850 | 88 | Synchronize the sub sprites of a chozo statue
- * 
+ *
  */
 static void ChozoStatueSyncSubSprites(void)
 {
@@ -41,7 +43,7 @@ static void ChozoStatueSyncSubSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sChozoStatueFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sChozoStatueFrameDataPointers[oamIdx];
@@ -59,7 +61,7 @@ static void ChozoStatueSyncSubSprites(void)
 
 /**
  * @brief 138d8 | 30c | Registers a chozo statue item/hint
- * 
+ *
  * @param spriteId Chozo statue sprite ID
  */
 void ChozoStatueRegisterItem(u8 spriteId)
@@ -144,7 +146,7 @@ void ChozoStatueRegisterItem(u8 spriteId)
 
 /**
  * @brief 13be4 | 1fc | Sets the direction of a chozo statue
- * 
+ *
  */
 void ChozoStatueSetDirection(void)
 {
@@ -178,7 +180,7 @@ void ChozoStatueSetDirection(void)
 
 /**
  * @brief 13de0 | 2bc | Gets the behavior of the chozo statue with the ID in parameter
- * 
+ *
  * @param spriteId Chozo statue sprite ID
  * @return u8 Behavior
  */
@@ -250,7 +252,7 @@ u8 ChozoStatueGetBehavior(u8 spriteId)
             if (gEquipment.beamBombs & BBF_LONG_BEAM)
                 behavior++;
             break;
-        
+
         case PSPRITE_CHOZO_STATUE_ICE:
             if (gEquipment.beamBombs & BBF_ICE_BEAM)
                 behavior++;
@@ -307,7 +309,7 @@ u8 ChozoStatueGetBehavior(u8 spriteId)
 
 /**
  * @brief 1409c | 1f8 | Initializes a Chozo statue sprite
- * 
+ *
  */
 static void ChozoStatueInit(void)
 {
@@ -426,7 +428,7 @@ static void ChozoStatueInit(void)
 
 /**
  * @brief 14294 | 4 | Empty function
- * 
+ *
  */
 static void ChozoStatue_Empty(void)
 {
@@ -435,7 +437,7 @@ static void ChozoStatue_Empty(void)
 
 /**
  * @brief 14298 | 64 | Registers the hint
- * 
+ *
  */
 static void ChozoStatueRegisterHint(void)
 {
@@ -466,7 +468,7 @@ static void ChozoStatueRegisterHint(void)
 
 /**
  * @brief 142fc | bc | Handles the flashing before a chozo statue hint
- * 
+ *
  */
 static void ChozoStatueHintFlashing(void)
 {
@@ -509,7 +511,7 @@ static void ChozoStatueHintFlashing(void)
 
                 // Change row
                 gCurrentSprite.paletteRow = sChozoStatueFlashingPaletteRows[gCurrentSprite.work3];
-                
+
                 // Update offset
                 if (gCurrentSprite.work3 >= ARRAY_SIZE(sChozoStatueFlashingPaletteRows) - 1)
                     gCurrentSprite.work3 = 0;
@@ -522,7 +524,7 @@ static void ChozoStatueHintFlashing(void)
 
 /**
  * @brief 143b8 | 40 | Initializes a Chozo statue to be sitting
- * 
+ *
  */
 static void ChozoStatueSittingInit(void)
 {
@@ -540,7 +542,7 @@ static void ChozoStatueSittingInit(void)
 
 /**
  * @brief 143f8 | 4c | Handles a chozo statue sitting
- * 
+ *
  */
 static void ChozoStatueSitting(void)
 {
@@ -563,18 +565,18 @@ static void ChozoStatueSitting(void)
 
 /**
  * @brief 14444 | 24 | Handles the delay before the refill after the statue sat down
- * 
+ *
  */
 static void ChozoStatueDelayBeforeRefillAfterHint(void)
 {
     APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
-        gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;   
+        gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;
 }
 
 /**
  * @brief 14468 | 2c | Waits for the item to be grabbed
- * 
+ *
  */
 static void ChozoStatueWaitForItemToBeCollected(void)
 {
@@ -589,7 +591,7 @@ static void ChozoStatueWaitForItemToBeCollected(void)
 
 /**
  * @brief 14494 | 24 | Timer after the item is grabbed, unknown purpose
- * 
+ *
  */
 static void ChozoStatueTimerAfterItemGrabbed(void)
 {
@@ -600,7 +602,7 @@ static void ChozoStatueTimerAfterItemGrabbed(void)
 
 /**
  * @brief 144b8 | 48 | Initializes a chozo statue for a refill
- * 
+ *
  */
 static void ChozoStatueRefillInit(void)
 {
@@ -614,7 +616,7 @@ static void ChozoStatueRefillInit(void)
 
 /**
  * @brief 14500 | 4c | Handles a chozo statue refilling Samus
- * 
+ *
  */
 static void ChozoStatueRefillSamus(void)
 {
@@ -627,7 +629,7 @@ static void ChozoStatueRefillSamus(void)
 
         // Change row
         gCurrentSprite.paletteRow = sChozoStatueFlashingPaletteRows[gCurrentSprite.work3];
-        
+
         // Update offset
         if (gCurrentSprite.work3 >= ARRAY_SIZE(sChozoStatueFlashingPaletteRows) - 1)
             gCurrentSprite.work3 = 0;
@@ -638,7 +640,7 @@ static void ChozoStatueRefillSamus(void)
 
 /**
  * @brief 1454c | 20 | Initializes a chozos statue to be sleeping
- * 
+ *
  */
 static void ChozoStatueSleepingInit(void)
 {
@@ -649,7 +651,7 @@ static void ChozoStatueSleepingInit(void)
 
 /**
  * @brief 1456c | 58 | Handles a chozo statue going to sleep
- * 
+ *
  */
 static void ChozoStatueSleeping(void)
 {
@@ -672,7 +674,7 @@ static void ChozoStatueSleeping(void)
 
 /**
  * @brief 145c4 | 174 | Initializes a chozo statue part sprite
- * 
+ *
  */
 static void ChozoStatuePartInit(void)
 {
@@ -687,7 +689,7 @@ static void ChozoStatuePartInit(void)
 
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 2;
-    
+
     gCurrentSprite.hitboxTop = PIXEL_SIZE;
     gCurrentSprite.hitboxBottom = PIXEL_SIZE;
     gCurrentSprite.hitboxLeft = PIXEL_SIZE;
@@ -715,7 +717,7 @@ static void ChozoStatuePartInit(void)
             else
                 gCurrentSprite.pOam = sChozoStatuePartOam_ArmGlow;
             break;
-    
+
         case CHOZO_STATUE_PART_LEG:
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
@@ -762,7 +764,7 @@ static void ChozoStatuePartInit(void)
 
 /**
  * @brief 14738 | 5c | Handles the glow being idle
- * 
+ *
  */
 static void ChozoStatuePartGlowIdle(void)
 {
@@ -790,7 +792,7 @@ static void ChozoStatuePartGlowIdle(void)
 
 /**
  * @brief 14794 | a0 | Detects if Samus in in the hand (for a hint)
- * 
+ *
  */
 static void ChozoStatuePartArmCheckGrabSamusHint(void)
 {
@@ -818,10 +820,10 @@ static void ChozoStatuePartArmCheckGrabSamusHint(void)
     {
         // Set pose
         SamusSetPose(SPOSE_GRABBED_BY_CHOZO_STATUE);
-        
+
         // Update statue
         gSpriteData[ramSlot].pose = CHOZO_STATUE_POSE_REGISTER_HINT;
-        
+
         gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_SITTING;
 
         // Set samus grabbed
@@ -835,7 +837,7 @@ static void ChozoStatuePartArmCheckGrabSamusHint(void)
 
 /**
  * @brief 14834 | 30 | Synchronizes Samus' position with the hand position
- * 
+ *
  */
 static void ChozoStatuePartSyncSamusPosition(void)
 {
@@ -849,7 +851,7 @@ static void ChozoStatuePartSyncSamusPosition(void)
 
 /**
  * @brief 14864 | 44 | Handles the arm part sitting
- * 
+ *
  */
 static void ChozoStatuePartArmSitting(void)
 {
@@ -870,7 +872,7 @@ static void ChozoStatuePartArmSitting(void)
 
 /**
  * @brief 148a8 | 40 | Handles the arm part being seated
- * 
+ *
  */
 static void ChozoStatuePartArmSeated(void)
 {
@@ -889,7 +891,7 @@ static void ChozoStatuePartArmSeated(void)
 
 /**
  * @brief 148e8 | fc | Detects if Samus in in the hand (for a refill)
- * 
+ *
  */
 static void ChozoStatuePartArmCheckGrabSamusRefill(void)
 {
@@ -947,7 +949,7 @@ static void ChozoStatuePartArmCheckGrabSamusRefill(void)
 
 /**
  * @brief 149e4 | 140 | Refills Samus
- * 
+ *
  */
 static void ChozoStatuePartArmRefill(void)
 {
@@ -1042,7 +1044,7 @@ static void ChozoStatuePartArmRefill(void)
 
 /**
  * @brief 14b24 | 4 | Empty function
- * 
+ *
  */
 static void ChozoStatuePart_Empty(void)
 {
@@ -1051,7 +1053,7 @@ static void ChozoStatuePart_Empty(void)
 
 /**
  * @brief 14b28 | 30 | Initializes the arm part to be sleeping
- * 
+ *
  */
 static void ChozoStatuePartSleepingInit(void)
 {
@@ -1065,7 +1067,7 @@ static void ChozoStatuePartSleepingInit(void)
 
 /**
  * @brief 14b58 | 38 | Handles the arm part sleeping
- * 
+ *
  */
 static void ChozoStatuePartArmSleeping(void)
 {
@@ -1083,7 +1085,7 @@ static void ChozoStatuePartArmSleeping(void)
 
 /**
  * @brief 14b90 | 20 | Initializes the eye part to be opening
- * 
+ *
  */
 static void ChozoStatuePartEyeOpeningInit(void)
 {
@@ -1096,7 +1098,7 @@ static void ChozoStatuePartEyeOpeningInit(void)
 
 /**
  * @brief 14bb0 | 2c | Handles the eye part opening
- * 
+ *
  */
 static void ChozoStatuePartEyeOpening(void)
 {
@@ -1113,7 +1115,7 @@ static void ChozoStatuePartEyeOpening(void)
 
 /**
  * @brief 14bdc | 20 | Initializes the eye part to be closing
- * 
+ *
  */
 static void ChozoStatuePartEyeClosingInit(void)
 {
@@ -1126,7 +1128,7 @@ static void ChozoStatuePartEyeClosingInit(void)
 
 /**
  * @brief 14bfc | 2c | Handles the eye part closing
- * 
+ *
  */
 static void ChozoStatuePartEyeClosing(void)
 {
@@ -1143,7 +1145,7 @@ static void ChozoStatuePartEyeClosing(void)
 
 /**
  * @brief 14c28 | 48 | Handles the leg part being idle
- * 
+ *
  */
 static void ChozoStatuePartLegIdle(void)
 {
@@ -1165,7 +1167,7 @@ static void ChozoStatuePartLegIdle(void)
 
 /**
  * @brief 14c70 | 148 | Chozo statue AI
- * 
+ *
  */
 void ChozoStatue(void)
 {
@@ -1231,7 +1233,7 @@ void ChozoStatue(void)
 
 /**
  * @brief 14db8 | 248 | Chozo statue part AI
- * 
+ *
  */
 void ChozoStatuePart(void)
 {
@@ -1312,7 +1314,7 @@ void ChozoStatuePart(void)
 
 /**
  * @brief 15000 | a8 | Chozo statue refill AI
- * 
+ *
  */
 void ChozoStatueRefill(void)
 {
@@ -1332,7 +1334,7 @@ void ChozoStatueRefill(void)
         gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        
+
         gCurrentSprite.hitboxTop = PIXEL_SIZE;
         gCurrentSprite.hitboxBottom = PIXEL_SIZE;
         gCurrentSprite.hitboxLeft = PIXEL_SIZE;

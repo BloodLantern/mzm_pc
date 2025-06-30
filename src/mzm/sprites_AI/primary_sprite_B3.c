@@ -1,18 +1,20 @@
-#include "sprites_AI/primary_sprite_B3.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/sprites_AI/primary_sprite_B3.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/enemy_drop.h"
+#include "mzm/data/sprites/enemy_drop.h"
 
-#include "constants/sprite.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define PRIMARY_SPRITE_B3_POSE_IDLE 0x9
 
 /**
  * @brief 49dcc | ec | Primary Sprite B3 AI, the purpose of this sprite is unknown but it's related to the searchlights in Chozodia
- * 
+ *
  */
 void PrimarySpriteB3(void)
 {

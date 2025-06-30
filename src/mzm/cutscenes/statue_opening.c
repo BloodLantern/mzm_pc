@@ -1,26 +1,28 @@
-#include "cutscenes/statue_opening.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
+#include "mzm/cutscenes/statue_opening.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/cutscenes/statue_opening_data.h"
-#include "data/cutscenes/internal_statue_opening_data.h"
-#include "data/sprites/boss_statues.h"
-#include "data/tilesets/tilesets_set1.h"
-#include "data/rooms/brinstar_rooms_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/statue_opening_data.h"
+#include "mzm/data/cutscenes/internal_statue_opening_data.h"
+#include "mzm/data/sprites/boss_statues.h"
+#include "mzm/data/tilesets/tilesets_set1.h"
+#include "mzm/data/rooms/brinstar_rooms_data.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/cutscene.h"
-#include "constants/event.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/event.h"
 
-#include "structs/connection.h"
-#include "structs/display.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/display.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 66c00 | 164 | Handles the statue opening animation
- * 
- * @return u8 
+ *
+ * @return u8
  */
 u8 StatueOpeningOpening(void)
 {
@@ -89,7 +91,7 @@ u8 StatueOpeningOpening(void)
                         UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
                     else if (gCurrentArea == AREA_RIDLEY)
                         UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
-    
+
                     SoundPlay(SOUND_STATUE_OPENING_STATUE_ACTIVATING);
                     CUTSCENE_DATA.timeInfo.subStage++;
                     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -124,14 +126,14 @@ u8 StatueOpeningOpening(void)
 
 /**
  * @brief 66d64 | 2b0 | Initializes the statue opening cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 StatueOpeningInit(void)
 {
     u8 oamId;
     const u8* ptr;
-    
+
     CutsceneFadeScreenToBlack();
     DmaTransfer(3, sBossStatuesPal, PALRAM_OBJ + 8 * PAL_ROW_SIZE, sizeof(sBossStatuesPal), 16);
     DmaTransfer(3, sStatueOpeningPal, PALRAM_BASE, sizeof(sStatueOpeningPal), 16);
@@ -140,7 +142,7 @@ u8 StatueOpeningInit(void)
     CallLZ77UncompVram(sStatueOpeningRoomGfx, VRAM_BASE + 0x1800 + sStatueOpeningPageData[0].graphicsPage * 0x4000);
 
     ptr = (const u8*)sTileset_65_Bg_Gfx;
-    CallLZ77UncompVram(ptr, VRAM_BASE + 0xFDE0 - C_16_2_8(ptr[2], ptr[1])); 
+    CallLZ77UncompVram(ptr, VRAM_BASE + 0xFDE0 - C_16_2_8(ptr[2], ptr[1]));
     CallLZ77UncompVram(sStatueOpeningRoomTileTable, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[0].tiletablePage));
     CallLZ77UncompVram(sStatueOpening_3effc8, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[1].tiletablePage));
     CallLZ77UncompVram(&sBrinstar_Bg3_9[4], BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[2].tiletablePage));
@@ -217,7 +219,7 @@ u8 StatueOpeningInit(void)
 
 /**
  * @brief 67014 | 34 | Subroutine for the statue opening cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 StatueOpeningSubroutine(void)
@@ -234,7 +236,7 @@ u8 StatueOpeningSubroutine(void)
 
 /**
  * @brief 67048 | 38 | Processes the OAM for the cutscene
- * 
+ *
  */
 void StatueOpeningProcessOAM(void)
 {

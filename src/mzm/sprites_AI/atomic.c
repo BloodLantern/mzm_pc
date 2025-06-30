@@ -1,22 +1,24 @@
-#include "sprites_AI/atomic.h"
+#include "mzm/sprites_AI/atomic.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/atomic.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/atomic.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/projectile.h"
 
-#include "structs/game_state.h"
-#include "structs/display.h"
-#include "structs/projectile.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/projectile.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define ATOMIC_POSE_IDLE_INIT 0x8
 #define ATOMIC_POSE_IDLE 0x9
@@ -58,7 +60,7 @@ enum AtomicElectricityDirection {
 
 /**
  * @brief 3b944 | 254 | Handles the atomic smooth movement
- * 
+ *
  */
 static void AtomicSmoothMovement(void)
 {
@@ -193,7 +195,7 @@ static void AtomicSmoothMovement(void)
         gCurrentSprite.ATOMIC_HORIZONTAL_CHASE_SPEED = 1;
     }
 
-    
+
     flip = FALSE;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
@@ -271,7 +273,7 @@ static void AtomicSmoothMovement(void)
 
 /**
  * @brief 3bb98 | 9c | Updates the direction of an atomic to flee samus if in range
- * 
+ *
  */
 static void AtomicUpdateDirectionToFleeSamus(void)
 {
@@ -312,7 +314,7 @@ static void AtomicUpdateDirectionToFleeSamus(void)
 
 /**
  * @brief 3bc34 | b8 | Checks if an atomic should shoot electricity, also updates the palette
- * 
+ *
  */
 static void AtomicCheckShootElectricity(void)
 {
@@ -360,7 +362,7 @@ static void AtomicCheckShootElectricity(void)
 
 /**
  * @brief 3bcec | 90 | Initializes an atomic sprite
- * 
+ *
  */
 static void AtomicInit(void)
 {
@@ -394,7 +396,7 @@ static void AtomicInit(void)
 
 /**
  * @brief 3bd7c | 2c | Initializes an atomic to be idle
- * 
+ *
  */
 static void AtomicIdleInit(void)
 {
@@ -408,7 +410,7 @@ static void AtomicIdleInit(void)
 
 /**
  * @brief 3bda8 | 90 | Handles an atomic being idle
- * 
+ *
  */
 static void AtomicIdle(void)
 {
@@ -450,7 +452,7 @@ static void AtomicIdle(void)
 
 /**
  * @brief 3be38 | 144 | Handles the atomic moving (fleeing samus)
- * 
+ *
  */
 static void AtomicMove(void)
 {
@@ -528,7 +530,7 @@ static void AtomicMove(void)
 
 /**
  * @brief 3bf7c | 16c | Handles an atomic moving back to an idle position
- * 
+ *
  */
 static void AtomicMaybeMoveBackToIdle(void)
 {
@@ -605,7 +607,7 @@ static void AtomicMaybeMoveBackToIdle(void)
 
 /**
  * @brief 3c0e8 | 30 | Initializes an atomic to be chasing samus
- * 
+ *
  */
 static void AtomicChasingSamusInit(void)
 {
@@ -620,7 +622,7 @@ static void AtomicChasingSamusInit(void)
 
 /**
  * @brief 3c118 | 38 | Handles the atomic moving (chasing samus) while charging a beam
- * 
+ *
  */
 static void AtomicChaseSamus(void)
 {
@@ -641,7 +643,7 @@ static void AtomicChaseSamus(void)
 
 /**
  * @brief 3c150 | 30 | Checks if the sprite in the provided RAM slot is an atomic and is alive
- * 
+ *
  * @param ramSlot RAM slot
  * @return u8 bool dead or not an atomic
  */
@@ -655,7 +657,7 @@ static u8 AtomicElectricityCheckAtomicDead(u8 ramSlot)
 
 /**
  * @brief 3c180 | 7c | Initializes an atomic electricity sprite
- * 
+ *
  */
 static void AtomicElectricityInit(void)
 {
@@ -691,7 +693,7 @@ static void AtomicElectricityInit(void)
 
 /**
  * @brief 3c1fc | 1ac | Handles an atomic electricity spawning
- * 
+ *
  */
 static void AtomicElectricitySpawn(void)
 {
@@ -709,11 +711,11 @@ static void AtomicElectricitySpawn(void)
         gCurrentSprite.status = 0; // Kill if atomic is dead
         return;
     }
-    
+
     // Sync position
     gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition;
     gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition;
-    
+
     // Wait for end of charge cycle
     if (gSpriteData[ramSlot].ATOMIC_CHARGE_DELAY_TIMER != ATOMIC_CHARGE_DELAY)
         return;
@@ -812,7 +814,7 @@ static void AtomicElectricitySpawn(void)
 
 /**
  * @brief 3c3a8 | c8 | Handles an atomic electricity moving
- * 
+ *
  */
 static void AtomicElectricityMove(void)
 {
@@ -864,7 +866,7 @@ static void AtomicElectricityMove(void)
 
 /**
  * @brief 3c470 | 54 | Handles an atomic discharge exploding
- * 
+ *
  */
 static void AtomicElectricityExploding(void)
 {
@@ -887,7 +889,7 @@ static void AtomicElectricityExploding(void)
 
 /**
  * @brief 3c4c4 | 18 | Checks if the on ground animation ended
- * 
+ *
  */
 static void AtomicElectricityCheckOnGroundAnimEnded(void)
 {
@@ -897,7 +899,7 @@ static void AtomicElectricityCheckOnGroundAnimEnded(void)
 
 /**
  * @brief 3c4dc | 150 | Atomic AI
- * 
+ *
  */
 void Atomic(void)
 {
@@ -954,7 +956,7 @@ void Atomic(void)
 
 /**
  * @brief 3c62c | d8 | Atomic electricity AI
- * 
+ *
  */
 void AtomicElectricity(void)
 {
@@ -979,7 +981,7 @@ void AtomicElectricity(void)
         case ATOMIC_ELECTRICITY_POSE_ON_GROUND:
             AtomicElectricityCheckOnGroundAnimEnded();
             break;
-        
+
         default:
             break;
     }

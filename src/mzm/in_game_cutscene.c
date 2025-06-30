@@ -1,36 +1,38 @@
-#include "in_game_cutscene.h"
-#include "sprites_AI/ruins_test.h"
-#include "dma.h"
-#include "gba.h"
+#include "mzm/in_game_cutscene.h"
+#include "mzm/sprites_AI/ruins_test.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
 
-#include "data/in_game_cutscene_data.h"
-#include "data/samus_close_up_data.h"
+#include "mzm/data/in_game_cutscene_data.h"
+#include "mzm/data/samus_close_up_data.h"
 
-#include "constants/audio.h"
-#include "constants/animated_graphics.h"
-#include "constants/room.h"
-#include "constants/color_fading.h"
-#include "constants/menus/pause_screen.h"
-#include "constants/samus.h"
-#include "constants/in_game_cutscene.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/animated_graphics.h"
+#include "mzm/constants/room.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/menus/pause_screen.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/in_game_cutscene.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/display.h"
-#include "structs/hud.h"
-#include "structs/save_file.h"
-#include "structs/game_state.h"
-#include "structs/power_bomb_explosion.h"
-#include "structs/in_game_cutscene.h"
-#include "structs/sprite.h"
-#include "structs/transparency.h"
-#include "structs/samus.h"
-#include "structs/room.h"
-#include "structs/bg_clip.h"
-#include "structs/text.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/save_file.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/power_bomb_explosion.h"
+#include "mzm/structs/in_game_cutscene.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/transparency.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/text.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 5f8f4 | 464 | Handles the samus close up cutscene
- * 
+ *
  * @param cutsceneNumber [Unused] Cutscene number
  * @param cutsceneNumberNoFlag [Unused] Cutscene number (no start flag)
  * @return u8 bool, ended
@@ -89,7 +91,7 @@ u32 InGameCutsceneSamusCloseUp(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             DmaTransfer(3, &sSamusCloseUpEyesGfx_1[1024], VRAM_BASE + 0xC940, 0x140, 16);
             DmaTransfer(3, EWRAM_BASE + 0x2B100, VRAM_BASE + 0x394, 0x14, 16);
 
-          
+
             DmaTransfer(3, &sSamusCloseUpEyesGfx_1[1280], VRAM_BASE + 0xCD40, 0x140, 16);
             DmaTransfer(3, EWRAM_BASE + 0x2B140, VRAM_BASE + 0x3D4, 0x14, 16);
             result = 1;
@@ -132,7 +134,7 @@ u32 InGameCutsceneSamusCloseUp(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 
             DmaTransfer(3, &sSamusCloseUpEyesGfx_3[1024], VRAM_BASE + 0xC940, 0x140, 16);
             DmaTransfer(3, EWRAM_BASE + 0x2B128, VRAM_BASE + 0x394, 0x14, 16);
-            
+
             DmaTransfer(3, &sSamusCloseUpEyesGfx_3[1280], VRAM_BASE + 0xCD40, 0x140, 16);
             DmaTransfer(3, EWRAM_BASE + 0x2B168, VRAM_BASE + 0x3D4, 0x14, 16);
             result = 1;
@@ -181,7 +183,7 @@ u32 InGameCutsceneSamusCloseUp(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 
 /**
  * @brief 5fd58 | 74 | Constructs the Samus Close Up Eyes graphics?
- * 
+ *
  */
 void unk_5fd58(void)
 {
@@ -210,7 +212,7 @@ void unk_5fd58(void)
 
 /**
  * @brief 5fdcc | 5a8 | Handles the samus upgrading suit cutscene
- * 
+ *
  * @param cutsceneNumber [Unused] Cutscene number
  * @param cutsceneNumberNoFlag [Unused] Cutscene number (no start flag)
  * @return u8 bool, ended
@@ -230,7 +232,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
     s32 temp;
     u32 result;
     u32 flag;
-    
+
     u32 newStart;
     u32 newEnd;
 
@@ -272,10 +274,10 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
         case 0:
             // Check if the cutscene should start
             // Item is varia, or item is gravity and the starting flag in sub sprite data is set
-            if (gCurrentItemBeingAcquired == ITEM_ACQUISITION_VARIA || (gCurrentItemBeingAcquired == ITEM_ACQUISITION_GRAVITY && 
+            if (gCurrentItemBeingAcquired == ITEM_ACQUISITION_VARIA || (gCurrentItemBeingAcquired == ITEM_ACQUISITION_GRAVITY &&
                 gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_STARTING_SUIT_ANIM))
             {
-                changeStage = TRUE;   
+                changeStage = TRUE;
             }
             break;
 
@@ -309,7 +311,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             }
             else
                 changeStage++;
-           
+
             gWrittenToBLDALPHA = gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L;
             changeStage = DIV_SHIFT(changeStage, 2);
             break;
@@ -323,7 +325,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             break;
 
         case 4:
-            // Fill BG0 tilemap with tile 0xC0, palette 9 
+            // Fill BG0 tilemap with tile 0xC0, palette 9
             BitFill(3, (9 << 12) | 0xC0, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), 0x800, 16);
             write16(REG_BG0CNT, CREATE_BGCNT(1, 1, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
 
@@ -374,8 +376,8 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 
             if (gSuitFlashEffect.bottom < SCREEN_SIZE_Y)
             {
-                gSuitFlashEffect.bottom += increment; 
-                
+                gSuitFlashEffect.bottom += increment;
+
                 if (gSuitFlashEffect.bottom > SCREEN_SIZE_Y)
                     gSuitFlashEffect.bottom = SCREEN_SIZE_Y;
             }
@@ -400,8 +402,8 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 
             if (gSuitFlashEffect.right < SCREEN_SIZE_X)
             {
-                gSuitFlashEffect.right += increment; 
-                
+                gSuitFlashEffect.right += increment;
+
                 if (gSuitFlashEffect.right > SCREEN_SIZE_X)
                     gSuitFlashEffect.right = SCREEN_SIZE_X;
             }
@@ -436,7 +438,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             result = InGameCutsceneCalculateSuitFlashOffset(3, top - gSuitFlashEffect.top, gSuitFlashEffect.bottom - bottom);
             newStart = LOW_BYTE(result);
             newEnd = HIGH_BYTE(result);
-                
+
             if (gSuitFlashEffect.top < top)
             {
                 gSuitFlashEffect.top += newEnd;
@@ -572,7 +574,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 
 /**
  * @brief 60374 | 50 | Calculates the position offsets for the suit flash effect
- * 
+ *
  * @param intensity Intensity
  * @param start Start
  * @param end End
@@ -611,7 +613,7 @@ u16 InGameCutsceneCalculateSuitFlashOffset(u8 intensity, u8 start, u8 end)
 
 /**
  * @brief 603c4 | 58 | Start a background flash effect
- * 
+ *
  * @param type Type
  */
 void MakeBackgroundFlash(u8 type)
@@ -641,7 +643,7 @@ void MakeBackgroundFlash(u8 type)
 
 /**
  * @brief 6041c | 18 | Starts an in game cutscene
- * 
+ *
  * @param number Cutscene number
  */
 void InGameCutsceneStart(u8 number)
@@ -652,7 +654,7 @@ void InGameCutsceneStart(u8 number)
 
 /**
  * @brief 60434 | ac | Processes the current in game cutscene
- * 
+ *
  */
 void InGameCutsceneProcess(void)
 {
@@ -710,7 +712,7 @@ void InGameCutsceneProcess(void)
 
 /**
  * @brief 604e0 | 128 | Initializes and sets up the in game cutscene
- * 
+ *
  */
 void InGameCutsceneInit(void)
 {
@@ -749,7 +751,7 @@ void InGameCutsceneInit(void)
 
 /**
  * @brief 6055c | 204 | Checks if an in game cutscene should play during a transition
- * 
+ *
  */
 void InGameCutsceneCheckPlayOnTransition(void)
 {
@@ -794,7 +796,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
 
             // Backup BG0 map
             DmaTransfer(3, VRAM_BASE + 0x9000, EWRAM_BASE + 0x1E000, 0x2000, 16);
-            
+
             // Load graphics, tile table and palette
             CallLZ77UncompVram(sSamusCloseUpGfx, VRAM_BASE + 0x9000);
             CallLZ77UncompWram(sSamusCloseUpBackgroundMap, gDecompBg0Map);
@@ -846,7 +848,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
 
 /**
  * @brief 60760 | a0 | Try to queue an in game cutscene
- * 
+ *
  * @param cutscene Cutscene
  * @return u8 bool, was queued
  */
@@ -882,7 +884,7 @@ u32 InGameCutsceneTryQueue(u8 cutscene)
 
 /**
  * @brief 60800 | 28 | Checks if the queued in game cutscene should play
- * 
+ *
  */
 void InGameCutsceneCheckStartQueued(void)
 {
@@ -898,7 +900,7 @@ void InGameCutsceneCheckStartQueued(void)
 
 /**
  * @brief 60828 | 54 | Transfers the previously animated palette row
- * 
+ *
  */
 void UpdateAnimatedPaletteAfterTransitionOrReload(void)
 {
@@ -917,7 +919,7 @@ void UpdateAnimatedPaletteAfterTransitionOrReload(void)
 
 /**
  * @brief 6087c | 40 | Checks if an in game cutscene was triggered, can also set it
- * 
+ *
  * @param setting Setting flag
  * @param cutscene In game cutscene number
  * @return u8 bool, not set

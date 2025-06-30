@@ -1,24 +1,26 @@
-#include "menus/erase_sram.h"
-#include "macros.h"
-#include "callbacks.h"
+#include "mzm/menus/erase_sram.h"
+#include "mzm/macros.h"
+#include "mzm/callbacks.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/menus/erase_sram_data.h"
-#include "data/menus/internal_erase_sram_data.h"
-#include "data/menus/title_screen_data.h"
-#include "data/menus/pause_screen_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/menus/erase_sram_data.h"
+#include "mzm/data/menus/internal_erase_sram_data.h"
+#include "mzm/data/menus/title_screen_data.h"
+#include "mzm/data/menus/pause_screen_data.h"
 
-#include "constants/audio.h"
-#include "constants/game_state.h"
-#include "constants/menus/erase_sram.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/menus/erase_sram.h"
 
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/menus/erase_sram.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/menus/erase_sram.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 75c30 | 14c | Subroutine for the erase sram menu
- * 
+ *
  * @return u32 bool, leaving
  */
 u32 EraseSramSubroutine(void)
@@ -117,7 +119,7 @@ u32 EraseSramSubroutine(void)
 
 /**
  * @brief 75d7c | 54 | Processes the input for the erase sram menu
- * 
+ *
  * @return u32 action
  */
 u32 EraseSramProcessInput(void)
@@ -139,7 +141,7 @@ u32 EraseSramProcessInput(void)
         else
             gWrittenToBLDY_NonGameplay--;
     }
-    
+
     EraseSramUpdateCursorPosition();
 
     return result;
@@ -147,7 +149,7 @@ u32 EraseSramProcessInput(void)
 
 /**
  * @brief 75dd0 | ac | Applies the input
- * 
+ *
  */
 void EraseSramApplyInput(void)
 {
@@ -187,7 +189,7 @@ void EraseSramApplyInput(void)
 
 /**
  * @brief 75e7c | 10c | Checks for input
- * 
+ *
  * @return u32 action
  */
 u32 EraseSramCheckForInput(void)
@@ -288,7 +290,7 @@ u32 EraseSramCheckForInput(void)
 
 /**
  * @brief 75f88 | 24c | Initializes the erase sram menu
- * 
+ *
  */
 void EraseSramInit(void)
 {
@@ -299,7 +301,7 @@ void EraseSramInit(void)
     write16(REG_IE, read16(REG_IE) & ~IF_HBLANK);
     write16(REG_IF, IF_HBLANK);
     write16(REG_IME, TRUE);
-    
+
     CallbackSetVBlank(EraseSramVBlank_Empty);
 
     write16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
@@ -347,7 +349,7 @@ void EraseSramInit(void)
 
     write16(REG_BG0CNT, 0);
     write16(REG_BG2CNT, 0);
-    
+
     write16(REG_BG1CNT, CREATE_BGCNT(0, 26, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
     write16(REG_BG3CNT, CREATE_BGCNT(0, 30, BGCNT_LOW_PRIORITY, BGCNT_SIZE_256x256));
 
@@ -375,12 +377,12 @@ void EraseSramInit(void)
 
 /**
  * @brief 761d4 | c4 | Initializes the OAM for the erase sram menu
- * 
+ *
  */
 void EraseSramResetOam(void)
 {
     s32 i;
-    
+
     gOamXOffset_NonGameplay = 0;
     gOamYOffset_NonGameplay = 0;
 
@@ -406,7 +408,7 @@ void EraseSramResetOam(void)
 
 /**
  * @brief 76298 | 48 | Updates the cursor position based on the current option
- * 
+ *
  */
 void EraseSramUpdateCursorPosition(void)
 {
@@ -420,7 +422,7 @@ void EraseSramUpdateCursorPosition(void)
 
 /**
  * @brief 762e0 | 78 | Erase sram menu V-blank code
- * 
+ *
  */
 void EraseSramVBlank(void)
 {
@@ -440,7 +442,7 @@ void EraseSramVBlank(void)
 
 /**
  * @brief 76358 | c | Empty v-blank for the erase sram menu
- * 
+ *
  */
 void EraseSramVBlank_Empty(void)
 {
@@ -449,7 +451,7 @@ void EraseSramVBlank_Empty(void)
 
 /**
  * @brief 76364 | 2c | Processes the OAM for the erase sram menu
- * 
+ *
  */
 void EraseSramProcessOAM(void)
 {
@@ -457,4 +459,3 @@ void EraseSramProcessOAM(void)
     ProcessMenuOam(ARRAY_SIZE(ERASE_SRAM_DATA.oam), ERASE_SRAM_DATA.oam, sEraseSramMenuOam);
     ResetFreeOam();
 }
-

@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 enum ImagoPart {
     IMAGO_PART_LEFT_WING_INTERNAL,

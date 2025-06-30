@@ -1,13 +1,15 @@
-#include "data/sprites/dessgeega.h"
+#include "mzm/data/sprites/dessgeega.h"
 
-#include "macros.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sDessgeegaHighJumpYVelocity[10] = {
     -8, -16, -16, -8, -4, 0, 4, 8, 16, 16
 };
 
 const s16 sDessgeegaLowJumpYVelocity[10] = {
-    -4, -8, -4, -2, 0, 4, 8, 16, 16, 16 
+    -4, -8, -4, -2, 0, 4, 8, 16, 16, 16
 };
 
 const u32 sDessgeegaGfx[270] = INCBIN_U32("data/sprites/Dessgeega.gfx.lz");

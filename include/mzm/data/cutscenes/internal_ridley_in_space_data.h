@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
-#include "cutscenes/ridley_in_space.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/cutscenes/ridley_in_space.h"
 
 extern const struct Coordinates sRidleyInSpaceShipLeavingPosition;
 extern const struct Coordinates sRidleyInSpaceShipsStartPosition[RIDLEY_INSPACE_SHIP_SLOT_END];

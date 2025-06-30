@@ -1,37 +1,39 @@
-#include "menus/file_select.h"
-#include "dma.h"
-#include "oam_id.h"
-#include "macros.h"
-#include "callbacks.h"
-#include "text.h"
-#include "save_file.h"
-#include "color_effects.h"
-#include "time_attack.h"
+#include "mzm/menus/file_select.h"
+#include "mzm/dma.h"
+#include "mzm/oam_id.h"
+#include "mzm/macros.h"
+#include "mzm/callbacks.h"
+#include "mzm/text.h"
+#include "mzm/save_file.h"
+#include "mzm/color_effects.h"
+#include "mzm/time_attack.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/text_data.h"
-#include "data/nes_metroid.h"
-#include "data/text_pointers.h"
-#include "data/io_transfer_data.h"
-#include "data/menus/file_select_data.h"
-#include "data/menus/internal_file_select_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/text_data.h"
+#include "mzm/data/nes_metroid.h"
+#include "mzm/data/text_pointers.h"
+#include "mzm/data/io_transfer_data.h"
+#include "mzm/data/menus/file_select_data.h"
+#include "mzm/data/menus/internal_file_select_data.h"
 
-#include "constants/audio.h"
-#include "constants/cable_link.h"
-#include "constants/color_fading.h"
-#include "constants/text.h"
-#include "constants/game_state.h"
-#include "constants/menus/file_select.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cable_link.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/text.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/menus/file_select.h"
 
-#include "structs/audio.h"
-#include "structs/cable_link.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/menus/file_select.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/cable_link.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/menus/file_select.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 78228 | 24 | Applies the stereo settings
- * 
+ *
  */
 void FileSelectApplyStereo(void)
 {
@@ -50,7 +52,7 @@ void FileSelectApplyStereo(void)
 
 /**
  * @brief 7824c | 60 | Processes the OAM for the file select and options screens
- * 
+ *
  */
 void FileSelectProcessOAM(void)
 {
@@ -82,7 +84,7 @@ void FileSelectProcessOAM(void)
 
 /**
  * @brief 782ac | 258 | Initializes the OAM for the file and options screens
- * 
+ *
  */
 void FileSelectResetOAM(void)
 {
@@ -112,7 +114,7 @@ void FileSelectResetOAM(void)
 
     FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].boundBackground = 0;
     FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].priority = BGCNT_HIGH_MID_PRIORITY;
-    
+
     FILE_SELECT_DATA.fileScreenOam[0].boundBackground = 0;
     FILE_SELECT_DATA.fileScreenOam[1].boundBackground = 0;
     FILE_SELECT_DATA.fileScreenOam[2].boundBackground = 0;
@@ -167,7 +169,7 @@ void FileSelectResetOAM(void)
 
 /**
  * @brief 78504 | 24c | Updates the cursor and file marker OAM
- * 
+ *
  * @param cursorPose Cursor pose
  * @param position Cursor position
  */
@@ -270,7 +272,7 @@ void FileSelectUpdateCursor(u8 cursorPose, u8 position)
 
 /**
  * @brief 78750 | 184 | Updates the copy cursor and file marker OAM
- * 
+ *
  * @param cursorPose Cursor pose
  * @param fileNumber File number
  */
@@ -327,7 +329,7 @@ void FileSelectUpdateCopyCursor(u8 cursorPose, u8 fileNumber)
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].exists = FALSE;
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].oamID = 0;
 
-            // Reset every file marker to non-selected 
+            // Reset every file marker to non-selected
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER],
                 sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].oamFileMarkerId);
 
@@ -346,7 +348,7 @@ void FileSelectUpdateCopyCursor(u8 cursorPose, u8 fileNumber)
 
 /**
  * @brief 788d4 | 140 | Updates the copy arraow and file marker OAM
- * 
+ *
  * @param arrowPose Arrow pose
  * @param dstFileNumber Destination file number
  */
@@ -409,20 +411,20 @@ void FileSelectUpdateCopyArrow(u8 arrowPose, u8 dstFileNumber)
         case ARROW_COPY_POSE_KILL:
             // Kill arrow OAM
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW].exists = FALSE;
-            
+
             // Reset every file marker
             if (dstFileNumber == FILE_SELECT_CURSOR_POSITION_FILE_A)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER],
                     sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].oamFileMarkerId);
             }
-            
+
             if (dstFileNumber == FILE_SELECT_CURSOR_POSITION_FILE_B)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER],
                     sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_B].oamFileMarkerId);
             }
-            
+
             if (dstFileNumber == FILE_SELECT_CURSOR_POSITION_FILE_C)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER],
@@ -438,7 +440,7 @@ void FileSelectUpdateCopyArrow(u8 arrowPose, u8 dstFileNumber)
 
 /**
  * @brief 78a14 | 184 | Updates the erase cursor and file marker OAM
- * 
+ *
  * @param cursorPose Cursor pose
  * @param fileNumber File number
  */
@@ -495,7 +497,7 @@ void FileSelectUpdateEraseCursor(u8 cursorPose, u8 fileNumber)
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].exists = FALSE;
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].oamID = 0;
 
-            // Reset every file marker to non-selected 
+            // Reset every file marker to non-selected
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER],
                 sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].oamFileMarkerId);
 
@@ -514,7 +516,7 @@ void FileSelectUpdateEraseCursor(u8 cursorPose, u8 fileNumber)
 
 /**
  * @brief 78b98 | 108 | Updates the options cursor OAM
- * 
+ *
  * @param cursorPose Cursor pose
  */
 void OptionsUpdateCursor(u8 cursorPose)
@@ -551,7 +553,7 @@ void OptionsUpdateCursor(u8 cursorPose)
 
 /**
  * @brief 78ca0 | 100 | Updates the stereo symbols OAM
- * 
+ *
  * @param flags Update flags
  */
 void OptionsUpdateStereoOam(u16 flags)
@@ -591,7 +593,7 @@ void OptionsUpdateStereoOam(u16 flags)
 
 /**
  * @brief 78da0 | 32c | Processes the current file screen text
- * 
+ *
  */
 void FileScreenProcessText(void)
 {
@@ -668,7 +670,7 @@ void FileScreenProcessText(void)
             if (var_0 & 1)
             {
                 dst += 0x80;
-            
+
                 if (sFileScreenMessagesInfo[FILE_SELECT_DATA.messageInfoIdQueue[0]][1] == 2)
                     dst += 0x100;
             }
@@ -684,7 +686,7 @@ void FileScreenProcessText(void)
                     FILE_SELECT_DATA.processTextStage = FILE_SCREEN_PROCESS_TEXT_STAGE_UPDATE_QUEUE;
                     break;
                 }
-                
+
                 if (var_0 == TEXT_STATE_NEW_LINE)
                 {
                     FILE_SELECT_DATA.processTextStage++;
@@ -722,7 +724,7 @@ void FileScreenProcessText(void)
 
 /**
  * @brief 790cc | ac | Update the message info ID queue
- * 
+ *
  * @param updateOption Option for update, 0: add to queue, 1: check if not in queue, 2: reset queue
  * @param newMessageInfoId ID for new message info
  * @return u32 Bool, result of update, option 0: added to queue, option 1: not in queue, option 2: always true
@@ -772,13 +774,13 @@ u32 FileScreenUpdateMessageInfoIdQueue(u8 updateOption, u8 newMessageInfoId)
         FILE_SELECT_DATA.processTextStage = FILE_SCREEN_PROCESS_TEXT_STAGE_NONE;
         result = TRUE;
     }
-    
+
     return result;
 }
 
 /**
  * @brief 79178 | 98 | Selects a file to be used as a copy destination
- * 
+ *
  */
 void FileSelectFileCopyChooseBaseDestinationFile(void)
 {
@@ -819,7 +821,7 @@ u32 FileSelectCopyFileSubroutine(void)
 
     u32 ended;
     s32 action;
-    
+
     ended = FALSE;
 
     FILE_SELECT_DATA.subroutineTimer++;
@@ -881,7 +883,7 @@ u32 FileSelectCopyFileSubroutine(void)
             else if (action == 2)
             {
                 FileSelectUpdateCopyCursor(ARROW_COPY_POSE_COPYING, FILE_SELECT_DATA.copySourceFile);
-                
+
                 if (gSaveFilesInfo[FILE_SELECT_DATA.copySourceFile].timeAttack)
                 {
                     SoundPlay(SOUND_REFUSE_MENU);
@@ -922,7 +924,7 @@ u32 FileSelectCopyFileSubroutine(void)
                         SoundPlay(SOUND_REFUSE_MENU);
                         FileSelectUpdateCopyCursor(CURSOR_COPY_POSE_DEFAULT, FILE_SELECT_DATA.copySourceFile);
                         FileSelectUpdateCopyArrow(ARROW_COPY_POSE_KILL, FILE_SELECT_DATA.currentFile);
-    
+
                         FileSelectUpdateTilemap(TILEMAP_REQUEST_COPY_DESTINATION_DESPAWN);
                         FILE_SELECT_DATA.subroutineStage = 3;
                         break;
@@ -1004,7 +1006,7 @@ u32 FileSelectCopyFileSubroutine(void)
                     }
                 }
             }
-            
+
             if (action + 1 != 0)
                 unk_7e3fc(4, action);
             break;
@@ -1072,14 +1074,14 @@ u32 FileSelectCopyFileSubroutine(void)
 
                 FILE_SELECT_DATA.fileScreenOam[sFileSelectFileOamOffsets[FILE_SELECT_DATA.currentFile][1]].exists =
                     gSaveFilesInfo[FILE_SELECT_DATA.currentFile].completedGame ? OAM_ID_CHANGED_FLAG : FALSE;
-            
+
                 FileScreenSetEnabledMenuFlags();
                 DmaTransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
             }
 
             FileSelectUpdateCopyCursor(CURSOR_COPY_POSE_COPIED, FILE_SELECT_DATA.copySourceFile);
             FileSelectUpdateCopyArrow(ARROW_COPY_POSE_KILL, FILE_SELECT_DATA.currentFile);
-            
+
             FileSelectUpdateTilemap(TILEMAP_REQUEST_COPY_DESPAWN_INIT);
             FILE_SELECT_DATA.subroutineStage++;
             break;
@@ -1771,7 +1773,7 @@ lbl_08079794: \n\
 
 /**
  * @brief 797a0 | 3b0 | File erasure subroutine
- * 
+ *
  * @return u32 bool, ended
  */
 u32 FileSelectEraseFileSubroutine(void)
@@ -1926,7 +1928,7 @@ u32 FileSelectEraseFileSubroutine(void)
             FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_DESPAWN_INIT);
             FILE_SELECT_DATA.subroutineStage++;
             break;
-        
+
         case FILE_SELECT_ERASE_FILE_SUBROUTINE_STAGE_WAIT_FOR_EXIT:
             if (FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_DESPAWN))
             {
@@ -1944,7 +1946,7 @@ u32 FileSelectEraseFileSubroutine(void)
 
                 if (!gSaveFilesInfo[FILE_SELECT_DATA.eraseFile].completedGame)
                     FILE_SELECT_DATA.fileScreenOam[sFileSelectFileOamOffsets[FILE_SELECT_DATA.eraseFile][1]].exists = FALSE;
-            
+
                 FileScreenSetEnabledMenuFlags();
                 DmaTransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
             }
@@ -1969,7 +1971,7 @@ u32 FileSelectEraseFileSubroutine(void)
 
 /**
  * @brief 79b50 | 37c | Corrupted file subroutine
- * 
+ *
  * @return u32 bool, ended
  */
 u32 FileSelectCorruptedFileSubroutine(void)
@@ -2147,7 +2149,7 @@ u32 FileSelectCorruptedFileSubroutine(void)
 
 /**
  * @brief 79ecc | ec | To document
- * 
+ *
  */
 void unk_79ecc(void)
 {
@@ -2173,7 +2175,7 @@ void unk_79ecc(void)
 
 /**
  * @brief 79fb8 | 1ec | Sets up the options tile table and determines which options are unlocked
- * 
+ *
  */
 void OptionsSetupTiletable(void)
 {
@@ -2286,7 +2288,7 @@ void OptionsSetupTiletable(void)
 
 /**
  * @brief 7a1a4 | 118 | Copies the time attack best times to RAM
- * 
+ *
  */
 void FileSelectCopyTimeAttackTime(void)
 {
@@ -2342,7 +2344,7 @@ void FileSelectCopyTimeAttackTime(void)
 
 /**
  * @brief 7a2bc | 528 | Handles the transition between the file select screen and the options screen
- * 
+ *
  * @param leavingOptions Leaving options flag
  * @return u8 bool, ended
  */
@@ -2366,7 +2368,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
         case 1:
             if (FILE_SELECT_DATA.subroutineTimer < CONVERT_SECONDS(1.f / 6))
                 break;
-            
+
             gWrittenToBLDALPHA_H = 0;
             gWrittenToBLDALPHA_L = BLDALPHA_MAX_VALUE;
 
@@ -2386,7 +2388,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
 
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
-            
+
             gBg0HOFS_NonGameplay = BLOCK_SIZE * 32;
             gBg0VOFS_NonGameplay = BLOCK_SIZE * 24;
 
@@ -2449,7 +2451,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
 
         case 4:
             unk_79ecc();
-            FILE_SELECT_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET; 
+            FILE_SELECT_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
@@ -2498,7 +2500,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
 
             gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
 
-            FILE_SELECT_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET; 
+            FILE_SELECT_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
 
             gWrittenToBLDALPHA_H = 0;
             gWrittenToBLDALPHA_L = 16;
@@ -2626,7 +2628,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
 
 /**
  * @brief 7a7e4 | 248 | Subroutine for the options
- * 
+ *
  * @return u8 bool, leaving
  */
 u8 OptionsSubroutine(void)
@@ -2642,7 +2644,7 @@ u8 OptionsSubroutine(void)
 
             // Update cursor
             OptionsUpdateCursor(CURSOR_OPTIONS_POSE_MOVING);
-            
+
             // Check for sound test
             OptionsSoundTestCheckNotAlreadyPlaying();
             FILE_SELECT_DATA.dispcnt |= (DCNT_BG2 | DCNT_OBJ);
@@ -2665,7 +2667,7 @@ u8 OptionsSubroutine(void)
 
             if (gChangedInput & KEY_B)
             {
-                // Set exiting 
+                // Set exiting
                 SoundPlay(SOUND_REFUSE_MENU);
                 FILE_SELECT_DATA.currentSubMenu = 4;
             }
@@ -2676,7 +2678,7 @@ u8 OptionsSubroutine(void)
                 {
                     // Update cursor
                     OptionsUpdateCursor(CURSOR_OPTIONS_POSE_SELECTING);
-                    
+
                     // Setup subroutine info
                     FILE_SELECT_DATA.subroutineStage = 0;
                     FILE_SELECT_DATA.subroutineTimer = 0;
@@ -2733,7 +2735,7 @@ u8 OptionsSubroutine(void)
             break;
 
         case 4:
-            FILE_SELECT_DATA.soundTestId = 0;        
+            FILE_SELECT_DATA.soundTestId = 0;
             CheckReplayFileSelectMusic(CONVERT_SECONDS(1.f / 6));
             gGameModeSub2 = 0;
             return TRUE;
@@ -2749,7 +2751,7 @@ u8 OptionsSubroutine(void)
 
 /**
  * @brief 7aa2c | 48 | Resets the IO transfer info
- * 
+ *
  */
 void FileSelectResetIOTransferInfo(void)
 {
@@ -2764,7 +2766,7 @@ void FileSelectResetIOTransferInfo(void)
 
 /**
  * @brief 7aa74 | 150 | Subroutine for the NES metroid
- * 
+ *
  * @return u8 bool, leaving
  */
 u8 OptionsNesMetroidSubroutine(void)
@@ -2849,8 +2851,8 @@ u8 OptionsNesMetroidSubroutine(void)
 }
 
 /**
- * @brief 7abc4 | 34 | Subroutine for 
- * 
+ * @brief 7abc4 | 34 | Subroutine for
+ *
  * @return u8 bool, leaving
  */
 u8 OptionsSubMenu_Empty(void)
@@ -2865,7 +2867,7 @@ u8 OptionsSubMenu_Empty(void)
 
 /**
  * @brief 7abf8 | 5c | Subroutine for the gallery
- * 
+ *
  * @return u8 bool, leaving
  */
 u8 OptionsGallerySubroutine(void)
@@ -2878,7 +2880,7 @@ u8 OptionsGallerySubroutine(void)
         FILE_SELECT_DATA.subroutineStage = 0;
         return TRUE;
     }
-    
+
     if (gChangedInput & KEY_A || FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(1.f / 6))
     {
         FILE_SELECT_DATA.subroutineTimer = 0;
@@ -2891,7 +2893,7 @@ u8 OptionsGallerySubroutine(void)
 
 /**
  * @brief 7ac54 | bc | Subroutine for the stereo selection
- * 
+ *
  * @return u8 bool, leaving
  */
 u8 OptionsStereoSubroutine(void)
@@ -2965,7 +2967,7 @@ u8 OptionsStereoSubroutine(void)
 
 /**
  * @brief 7ad10 | 2f8 | Subroutine for the sound test
- * 
+ *
  * @return u8 bool, leaving
  */
 u8 OptionsSoundTestSubroutine(void)
@@ -2979,11 +2981,11 @@ u8 OptionsSoundTestSubroutine(void)
         case 0:
             if (OptionsSoundTestCheckNotAlreadyPlaying())
                 PlaySoundTest(sSoundTestSoundIds[FILE_SELECT_DATA.soundTestId]);
-            
+
             // Draw number
             OptionsSoundTestUpdateIdGfx();
             SoundPlay(SOUND_OPEN_SUB_MENU);
-            
+
             // Spawn panel
             UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_PANEL], OPTIONS_OAM_ID_SMALL_PANEL);
 
@@ -3131,7 +3133,7 @@ u8 OptionsSoundTestSubroutine(void)
 
 /**
  * @brief 7b008 | 8c | Checks if the current music isn't a sound test playing
- * 
+ *
  * @return u32 bool, not currently playing
  */
 u32 OptionsSoundTestCheckNotAlreadyPlaying(void)
@@ -3161,7 +3163,7 @@ u32 OptionsSoundTestCheckNotAlreadyPlaying(void)
 
 /**
  * @brief 7b094 | b0 | Updates the number graphics of the sound test id
- * 
+ *
  */
 void OptionsSoundTestUpdateIdGfx(void)
 {
@@ -3182,7 +3184,7 @@ void OptionsSoundTestUpdateIdGfx(void)
 
 /**
  * @brief 7b144 | 5d8 | Subroutine for the time attack records
- * 
+ *
  * @return u8 bool, ended
  */
 u8 OptionsTimeAttackRecordsSubroutine(void)
@@ -3196,7 +3198,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
         case OPTIONS_TIME_ATTACK_STAGE_0:
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 1)
                 FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_ID_PASSWORD);
-            
+
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 2)
                 FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_ID_PASSWORD2);
 
@@ -3252,7 +3254,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
         case OPTIONS_TIME_ATTACK_STAGE_1:
             if (!FileScreenUpdateMessageInfoIdQueue(1, FILE_SCREEN_MESSAGE_INFO_ID_ID_PASSWORD))
                 break;
-            
+
             if (!FileScreenUpdateMessageInfoIdQueue(1, FILE_SCREEN_MESSAGE_INFO_ID_ID_PASSWORD2))
                 break;
 
@@ -3300,7 +3302,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_7;
             #endif // REGION_US_BETA
             break;
-        
+
         #ifdef REGION_US_BETA
         case OPTIONS_TIME_ATTACK_STAGE_6B:
             if (FILE_SELECT_DATA.timeAttack100Only)
@@ -3378,7 +3380,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
                 FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_10;
                 break;
             }
-            
+
             if (FILE_SELECT_DATA.timeAttackRecordFlags != (1 | 2))
                 break;
 
@@ -3465,7 +3467,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
 #ifndef REGION_US_BETA
 /**
  * @brief 7b71c | 28 | Adds best time or best time 100 message to queue
- * 
+ *
  */
 void OptionsTimeAttackLoadBestTimeMessage(void)
 {
@@ -3478,7 +3480,7 @@ void OptionsTimeAttackLoadBestTimeMessage(void)
 
 /**
  * @brief 7b744 | 110 | Loads a time attack record into VRAM
- * 
+ *
  * @param id Id to load : 0 = Any%, 1 = 100%
  */
 void OptionsTimeAttackLoadRecord(u8 id)
@@ -3528,7 +3530,7 @@ void OptionsTimeAttackLoadRecord(u8 id)
 
 /**
  * @brief 7b854 | d8 | To document
- * 
+ *
  */
 void unk_7b854(void)
 {
@@ -3568,7 +3570,7 @@ void unk_7b854(void)
 
 /**
  * @brief 7b92c | bc | Loads a part of the time attack password to VRAM
- * 
+ *
  * @param part 2 bits : XY, where X is id and Y which half
  */
 void OptionsTimeAttackLoadPassword(u8 part)
@@ -3604,7 +3606,7 @@ void OptionsTimeAttackLoadPassword(u8 part)
         password += 10;
         i += 0x200;
     }
-    
+
     dst = VRAM_BASE + i;
     for (i = 0; i < 10; i++)
     {
@@ -3622,7 +3624,7 @@ void OptionsTimeAttackLoadPassword(u8 part)
 
 /**
  * @brief 7b9e8 | 73c | Subroutine for the metroid fusion link
- * 
+ *
  * @return u8 bool, ended
  */
 u8 OptionsMetroidFusionLinkSubroutine(void)
@@ -3946,7 +3948,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
 
 /**
  * @brief 7c124 | 1dc | Subroutine for the file select menu
- * 
+ *
  * @return u32 bool, leaving
  */
 u32 FileSelectMenuSubroutine(void)
@@ -4055,7 +4057,7 @@ u32 FileSelectMenuSubroutine(void)
 
 /**
  * @brief 7c300 | 1b0 | Handles the fadings (in and out) of the file select menu
- * 
+ *
  * @return u32 bool, ended
  */
 u32 FileSelectUpdateFading(void)
@@ -4169,7 +4171,7 @@ u32 FileSelectUpdateFading(void)
 
 /**
  * @brief 7c4b0 | b8 | To document
- * 
+ *
  * @param fadingOut Bool, file select fading out
  */
 void FileSelectInitFading(u8 fadingOut)
@@ -4200,7 +4202,7 @@ void FileSelectInitFading(u8 fadingOut)
 
 /**
  * @brief 7c568 | 3c | Transfers the fading palette to palette RAM
- * 
+ *
  */
 void FileSelectApplyFading(void)
 {
@@ -4213,7 +4215,7 @@ void FileSelectApplyFading(void)
 
 /**
  * @brief 7c5a4 | 3c | Sets the language to the default for the game's region
- * 
+ *
  */
 void FileSelectSetLanguage(void)
 {
@@ -4246,8 +4248,8 @@ void FileSelectSetLanguage(void)
 }
 
 /**
- * @brief 7c5e0 | 448 | Initializes the file select menu 
- * 
+ * @brief 7c5e0 | 448 | Initializes the file select menu
+ *
  */
 void FileSelectInit(void)
 {
@@ -4399,7 +4401,7 @@ void FileSelectInit(void)
 
 /**
  * @brief 7ca28 | f8 | File select menu V-blank code
- * 
+ *
  */
 void FileSelectVBlank(void)
 {
@@ -4428,7 +4430,7 @@ void FileSelectVBlank(void)
 
 /**
  * @brief 7cb20 | c | Empty v-blank for file select
- * 
+ *
  */
 void FileSelectVBlank_Empty(void)
 {
@@ -4437,7 +4439,7 @@ void FileSelectVBlank_Empty(void)
 
 /**
  * @brief 7cb2c | 224 | Displays the info of every save file
- * 
+ *
  */
 void FileSelectDisplaySaveFileInfo(void)
 {
@@ -4486,7 +4488,7 @@ void FileSelectDisplaySaveFileInfo(void)
 
 /**
  * @brief 7cd50 | 74 | Draws the energy on a file
- * 
+ *
  * @param file File number
  */
 void FileSelectDisplaySaveFileHealth(u8 file)
@@ -4507,7 +4509,7 @@ void FileSelectDisplaySaveFileHealth(u8 file)
         // Transfer energy for the hud draw function
         gEquipment.currentEnergy = gSaveFilesInfo[file].currentEnergy;
         gEquipment.maxEnergy = gSaveFilesInfo[file].maxEnergy;
-        
+
         // Draw energy
         HudDrawEnergy(offset);
     }
@@ -4520,7 +4522,7 @@ void FileSelectDisplaySaveFileHealth(u8 file)
 
 /**
  * @brief 7cdc4 | 1d4 | Displays the timer on a save file
- * 
+ *
  * @param file File number
  */
 void FileSelectDisplaySaveFileTimer(u8 file)
@@ -4552,7 +4554,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
         number = gSaveFilesInfo[file].igtHours / 10; // Tenths
         dst[0] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
         dst[0 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
-        
+
         number = gSaveFilesInfo[file].igtHours % 10; // Seconds
         dst[1] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
         dst[1 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
@@ -4565,7 +4567,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
         number = gSaveFilesInfo[file].igtMinutes / 10; // Tenths
         dst[3] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
         dst[3 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
-        
+
         number = gSaveFilesInfo[file].igtMinutes % 10; // Seconds
         dst[4] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
         dst[4 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
@@ -4578,7 +4580,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
         number = gSaveFilesInfo[file].igtSeconds / 10; // Tenths
         dst[6] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
         dst[6 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
-        
+
         number = gSaveFilesInfo[file].igtSeconds % 10; // Seconds
         dst[7] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
         dst[7 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
@@ -4617,7 +4619,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
 
 /**
  * @brief 7cf98 | 118 | Displays the misc. info of a file (difficulty, area, time attack)
- * 
+ *
  * @param pFile Save file info pointer
  * @param file Save file number
  */
@@ -4720,7 +4722,7 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 
 /**
  * @brief 7d0b0 | ec | Sets the enabled menus flags
- * 
+ *
  */
 void FileScreenSetEnabledMenuFlags(void)
 {
@@ -4769,7 +4771,7 @@ void FileScreenSetEnabledMenuFlags(void)
 
 /**
  * @brief 7d19c | 94 | Applies the up/down movement
- * 
+ *
  * @param set Set allowed
  * @param pFileNumber File number pointer
  * @return u8 Could move
@@ -4847,7 +4849,7 @@ u8 FileSelectApplyMenuSelectInput(u8 set, u8* pFileNumber)
 
 /**
  * @brief 7d230 | 4c | Selects the first non empty file
- * 
+ *
  * @param pFileNumber File number pointer
  */
 void FileSelectFindFirstNonEmptyFile(u8* pFileNumber)
@@ -4872,7 +4874,7 @@ void FileSelectFindFirstNonEmptyFile(u8* pFileNumber)
 
 /**
  * @brief 7d27c | 30c | Updates the current sub menu of the file select screen
- * 
+ *
  * @return u8 bool, leaving
  */
 u8 FileSelectUpdateSubMenu(void)
@@ -4931,7 +4933,7 @@ u8 FileSelectUpdateSubMenu(void)
                             {
                                 // Mark file as completed
                                 gMostRecentSaveFile = FILE_SELECT_DATA.fileSelectCursorPosition;
-                                gLanguage = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].language; 
+                                gLanguage = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].language;
                                 gGameCompletion.completedGame = FALSE;
 
                                 if (FILE_SELECT_DATA.fileSelectCursorPosition == 0)
@@ -4948,7 +4950,7 @@ u8 FileSelectUpdateSubMenu(void)
                                 SoundPlay(SOUND_GAME_BOY_BOOT);
                             }
                         }
-                        
+
                         result = 0;
                     }
                     #endif // DEBUG
@@ -5066,7 +5068,7 @@ u8 FileSelectUpdateSubMenu(void)
                         }
                     }
                 }
-                
+
                 gGameModeSub2 = gSaveFilesInfo[gMostRecentSaveFile].exists ? 1 : 2;
                 FadeMusic(ONE_THIRD_SECOND);
                 return TRUE;
@@ -5121,7 +5123,7 @@ u8 FileSelectUpdateSubMenu(void)
 
 /**
  * @brief 7d588 | a4 | Handles checking for time attack code input
- * 
+ *
  * @return u32 bool, fully entered
  */
 u32 FileSelectCheckInputtingTimeAttackCode(void)
@@ -5154,7 +5156,7 @@ u32 FileSelectCheckInputtingTimeAttackCode(void)
         {
             // Increment input counter
             FILE_SELECT_DATA.numberOfTimeAttackInputs++;
-            
+
             // Check reached the end
             if (sTimeAttackButtonCode[FILE_SELECT_DATA.numberOfTimeAttackInputs] == USHORT_MAX)
                 return TRUE;
@@ -5172,9 +5174,9 @@ u32 FileSelectCheckInputtingTimeAttackCode(void)
 }
 
 /**
- * @brief 7d62c | dd0 | 
- * 
- * @return u8 Leaving, 
+ * @brief 7d62c | dd0 |
+ *
+ * @return u8 Leaving,
  */
 u8 FileSelectProcessFileSelection(void)
 {
@@ -5217,7 +5219,7 @@ u8 FileSelectProcessFileSelection(void)
 
             if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_A)
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].notDrawn = TRUE;
-            
+
             if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_B)
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].notDrawn = TRUE;
 
@@ -5253,7 +5255,7 @@ u8 FileSelectProcessFileSelection(void)
 
             if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_A)
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].notDrawn = TRUE;
-            
+
             if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_B)
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].notDrawn = TRUE;
 
@@ -5283,7 +5285,7 @@ u8 FileSelectProcessFileSelection(void)
 
             FileSelectUpdateTilemap(TILEMAP_REQUEST_START_GAME_INIT);
             FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_START_GAME);
-            
+
             FILE_SELECT_DATA.subroutineStage = 4;
             break;
 
@@ -5940,7 +5942,7 @@ u8 FileSelectProcessFileSelection(void)
 
 /**
  * @brief 7e3fc | 2dc | To document
- * 
+ *
  * @param param_1 To document
  * @param param_2 To document
  */
@@ -5954,7 +5956,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR], FILE_SELECT_OAM_ID_CURSOR_SELECTED);
                 break;
             }
-            
+
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].oamID = 0;
@@ -5980,7 +5982,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[3], FILE_SELECT_OAM_ID_CURSOR_SELECTED);
                 break;
             }
-            
+
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
@@ -6009,7 +6011,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[3], FILE_SELECT_OAM_ID_CURSOR_SELECTED);
             }
-            
+
             else if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
@@ -6040,7 +6042,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[3], FILE_SELECT_OAM_ID_CURSOR_SELECTED);
             }
-            
+
             else if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
@@ -6068,7 +6070,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[3], FILE_SELECT_OAM_ID_CURSOR_SELECTED);
             }
-            
+
             else if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
@@ -6098,7 +6100,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[3], FILE_SELECT_OAM_ID_CURSOR_SELECTED);
             }
-            
+
             else if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
@@ -6161,7 +6163,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             }
             ended = FALSE;
             break;
-        
+
         case 2:
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].xPosition = BLOCK_SIZE * 5;
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
@@ -6310,7 +6312,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             {
                 FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_18;
                 FILE_SELECT_DATA.bg2cnt = FILE_SELECT_DATA.unk_16;
-            
+
                 FILE_SELECT_DATA.dispcnt &= ~DCNT_BG2;
                 FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
 
@@ -7421,7 +7423,7 @@ lbl_0807eed8: .4byte sNonGameplayRamPointer \n\
 
 /**
  * @brief 7eedc | a0 | To document
- * 
+ *
  * @param pTilemap Tilemap pointer
  */
 void unk_7eedc(u16* pTilemap)
@@ -7455,7 +7457,7 @@ void unk_7eedc(u16* pTilemap)
 
 /**
  * @brief 7ef7c | 20 | Plays a menu sound
- * 
+ *
  * @param request Sound request
  */
 void FileSelectPlayMenuSound(u8 request)

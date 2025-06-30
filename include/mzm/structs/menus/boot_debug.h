@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menu.h"
-#include "structs/game_state.h"
+#include "mzm/types.h"
+#include "mzm/structs/menu.h"
+#include "mzm/structs/game_state.h"
 
 #define BOOT_DEBUG_DATA sNonGameplayRamPointer->bootDebug
 

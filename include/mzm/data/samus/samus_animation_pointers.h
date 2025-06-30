@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
-#include "constants/samus.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/samus.h"
+#include "mzm/structs/samus.h"
 
 extern const struct EnvironmentalEffect sEnvironmentalEffect_Empty;
 

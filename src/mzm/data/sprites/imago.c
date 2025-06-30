@@ -1,7 +1,9 @@
-#include "data/sprites/imago.h"
-#include "macros.h"
+#include "mzm/data/sprites/imago.h"
+#include "mzm/macros.h"
 
-#include "sprites_AI/imago.h"
+#include "mzm/sprites_AI/imago.h"
+
+#include "mzm_include.h"
 
 static const s16 sImagoMultiSpriteData_Idle_Frame0[IMAGO_PART_END][MULTI_SPRITE_DATA_ELEMENT_END] = {
     [IMAGO_PART_LEFT_WING_INTERNAL] = {

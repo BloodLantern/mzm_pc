@@ -1,6 +1,8 @@
-#include "data/menus/erase_sram_data.h"
-#include "macros.h"
-#include "constants/audio.h"
+#include "mzm/data/menus/erase_sram_data.h"
+#include "mzm/macros.h"
+#include "mzm/constants/audio.h"
+
+#include "mzm_include.h"
 
 const u16 sEraseSramMenuObjectsPal[7 * 16] = INCBIN_U16("data/menus/EraseSram/Objects.pal");
 const u16 sEraseSramMenuBackgroundPal[15 * 16 - 1] = INCBIN_U16("data/menus/EraseSram/Background.pal");

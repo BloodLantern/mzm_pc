@@ -6,10 +6,10 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/menus/status_screen.h"
-#include "structs/menu.h"
-#include "structs/connection.h"
+#include "mzm/types.h"
+#include "mzm/constants/menus/status_screen.h"
+#include "mzm/structs/menu.h"
+#include "mzm/structs/connection.h"
 
 #define PAUSE_SCREEN_DATA sNonGameplayRamPointer->pauseScreen
 #define PAUSE_SCREEN_EWRAM sEwramPointer->pauseScreen
@@ -184,7 +184,7 @@ struct PauseScreenData {
     s8 unk_1E; // index?
 
     struct UnknownItemPalette unknownItemDynamicPalette;
-    
+
     s8 mapViewX;
     s8 mapViewY;
     s8 mapRightBorder;

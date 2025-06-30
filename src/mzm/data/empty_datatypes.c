@@ -1,11 +1,13 @@
-#include "data/empty_datatypes.h"
-#include "types.h"
+#include "mzm/data/empty_datatypes.h"
+#include "mzm/types.h"
 
-#include "constants/block.h"
-#include "constants/connection.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/block.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/screen_shake.h"
+#include "mzm/structs/screen_shake.h"
+
+#include "mzm_include.h"
 
 // 345868
 

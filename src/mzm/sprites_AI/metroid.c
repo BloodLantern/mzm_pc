@@ -1,26 +1,28 @@
-#include "sprites_AI/metroid.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/sprites_AI/metroid.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/metroid.h"
-#include "data/sprites/enemy_drop.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/metroid.h"
+#include "mzm/data/sprites/enemy_drop.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/projectile.h"
-#include "constants/samus.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/projectile.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/connection.h"
-#include "structs/game_state.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/projectile.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/projectile.h"
+
+#include "mzm_include.h"
 
 #define METROID_POSE_CHECK_SPAWN 0x1
 #define METROID_POSE_SPAWNING 0x2
@@ -36,7 +38,7 @@
 
 /**
  * @brief 35360 | 7c | Checks if colliding with air, used when samus is grabbed for the movement
- * 
+ *
  * @param yPosition Y position
  * @param xPosition X position
  * @return u8 bool, colliding
@@ -76,7 +78,7 @@ static u8 MetroidCheckAirCollision(u16 yPosition, u16 xPosition)
 
 /**
  * @brief 353dc | 30c | Handles the movement of a metroid
- * 
+ *
  * @param dstY Destination Y Position
  * @param dstX Destination X Position
  * @param ySpeedCap Y Speed Cap
@@ -337,7 +339,7 @@ static void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speed
 
 /**
  * @brief 356e8 | bc | Checks if the metroid is colliding with a bomb
- * 
+ *
  * @return u8 1 if colliding, 0 otherwise
  */
 static u8 MetroidBombDetection(void)
@@ -388,7 +390,7 @@ static u8 MetroidBombDetection(void)
 
 /**
  * @brief 357a4 | 1b8 | Checks if the current metroid should bounce off of other metroids
- * 
+ *
  * @param movement Movement to apply
  */
 static void MetroidCheckBouncingOnMetroid(u16 movement)
@@ -406,10 +408,10 @@ static void MetroidCheckBouncingOnMetroid(u16 movement)
 
     exists = SPRITE_STATUS_EXISTS;
     ySize = QUARTER_BLOCK_SIZE;
-    
+
     yPosition = gCurrentSprite.yPosition - ySize;
     xPosition = gCurrentSprite.xPosition;
-    
+
     xSize = HALF_BLOCK_SIZE;
     pose = METROID_POSE_MOVING;
 
@@ -424,7 +426,7 @@ static void MetroidCheckBouncingOnMetroid(u16 movement)
     for (; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
     {
         status = gSpriteData[ramSlot].status;
-        
+
         if (!(status & exists))
             continue;
 
@@ -500,7 +502,7 @@ static void MetroidCheckBouncingOnMetroid(u16 movement)
 
 /**
  * @brief 3595c | 48 | Checks if samus is already grabbed by a metroid
- * 
+ *
  * @return u8 1 if already grabbed, 0 otherwise
  */
 static u8 MetroidCheckSamusGrabbed(void)
@@ -521,7 +523,7 @@ static u8 MetroidCheckSamusGrabbed(void)
 
 /**
  * @brief 359a4 | 2c | Plays the metroid moving sound
- * 
+ *
  */
 static void MetroidPlayMovingSound(void)
 {
@@ -534,7 +536,7 @@ static void MetroidPlayMovingSound(void)
 
 /**
  * @brief 359d0 | 184 | Initializes a metroid sprite
- * 
+ *
  */
 static void MetroidInit(void)
 {
@@ -591,7 +593,7 @@ static void MetroidInit(void)
     {
         LOCK_DOORS();
     }
-    
+
     gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
@@ -633,7 +635,7 @@ static void MetroidInit(void)
 
 /**
  * @brief 35b54 | 44 | Checks if the metroid should spawn
- * 
+ *
  */
 static void MetroidCheckSpawn(void)
 {
@@ -652,7 +654,7 @@ static void MetroidCheckSpawn(void)
 
 /**
  * @brief 35b98 | dc | Handles a metroid spawning
- * 
+ *
  */
 static void MetroidSpawning(void)
 {
@@ -718,7 +720,7 @@ static void MetroidSpawning(void)
 
 /**
  * @brief 35c74 | 34 | Initializes a metroid to be moving
- * 
+ *
  */
 static void MetroidMovingInit(void)
 {
@@ -737,7 +739,7 @@ static void MetroidMovingInit(void)
 
 /**
  * @brief 35ca8 | 80 | Handles the general movement of the metroid
- * 
+ *
  */
 static void MetroidMovement(void)
 {
@@ -766,7 +768,7 @@ static void MetroidMovement(void)
 
 /**
  * @brief 35d28 | 44 | Initializes a metroid to be grabbing samus
- * 
+ *
  */
 static void MetroidSamusGrabbedInit(void)
 {
@@ -787,7 +789,7 @@ static void MetroidSamusGrabbedInit(void)
 
 /**
  * @brief 35d6c | 168 | Handles the metroid having grabbed samus
- * 
+ *
  */
 static void MetroidSamusGrabbed(void)
 {
@@ -868,7 +870,7 @@ static void MetroidSamusGrabbed(void)
 
 /**
  * @brief 35ed4 | 13a | Handles the death of a metroid
- * 
+ *
  */
 static void MetroidDeath(void)
 {
@@ -889,7 +891,7 @@ static void MetroidDeath(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         yPosition += rng;
-    else 
+    else
         yPosition -= rng;
 
     // Kill sprite
@@ -901,7 +903,7 @@ static void MetroidDeath(void)
     exists = SPRITE_STATUS_EXISTS;
     secondary = SP_SECONDARY_SPRITE;
     isMetroidAlive = FALSE;
-   
+
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (!(pSprite->status & exists))
@@ -958,7 +960,7 @@ static void MetroidDeath(void)
 
 /**
  * @brief 36010 | 160 | Metroid AI
- * 
+ *
  */
 void Metroid(void)
 {
@@ -1052,7 +1054,7 @@ void Metroid(void)
 
 /**
  * @brief 36170 | 104 | Metroid shell AI
- * 
+ *
  */
 void MetroidShell(void)
 {
@@ -1112,7 +1114,7 @@ void MetroidShell(void)
 
 /**
  * @brief 36274 | 98 | Metroid door lock AI
- * 
+ *
  */
 void MetroidDoorLock(void)
 {

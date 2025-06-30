@@ -1,5 +1,7 @@
-#include "data/rooms/chozodia_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/chozodia_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sCrateria_Bg3_6[1500] = INCBIN_U8("data/rooms/chozodia/Crateria_Bg3_6.gfx");
 
@@ -28,4 +30,3 @@ const u8 sChozodia_Bg3_8[1364] = INCBIN_U8("data/rooms/chozodia/Chozodia_Bg3_8.g
 const u8 sChozodia_Bg3_9[1040] = INCBIN_U8("data/rooms/chozodia/Chozodia_Bg3_9.gfx");
 
 const u8 sChozodia_Bg3_10[676] = INCBIN_U8("data/rooms/chozodia/Chozodia_Bg3_10.gfx");
-

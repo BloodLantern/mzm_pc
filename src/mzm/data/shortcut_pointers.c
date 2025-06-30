@@ -1,8 +1,10 @@
-#include "data/shortcut_pointers.h"
+#include "mzm/data/shortcut_pointers.h"
 
-#include "gba.h"
-#include "macros.h"
-#include "structs/minimap.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/structs/minimap.h"
+
+#include "mzm_include.h"
 
 static const u8 sBuffer_754ab4[256] = {
     UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,

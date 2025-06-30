@@ -1,20 +1,22 @@
-#include "sprites_AI/searchlight_eye.h"
-#include "macros.h"
+#include "mzm/sprites_AI/searchlight_eye.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/searchlight_eye.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/searchlight_eye.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/display.h"
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define SEARCHLIGHT_EYE_POSE_IDLE 0x9
 #define SEARCHLIGHT_EYE_POSE_GETTING_ALERTED 0x23
@@ -30,7 +32,7 @@
 
 /**
  * @brief 44148 | 13c | Initializes a searchlight eye sprite
- * 
+ *
  */
 static void SearchlightEyeInit(void)
 {
@@ -42,7 +44,7 @@ static void SearchlightEyeInit(void)
     // Make invulnerable if during suitless
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-    
+
     gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(THREE_QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
     gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(THREE_QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(THREE_QUARTER_BLOCK_SIZE);
@@ -106,7 +108,7 @@ static void SearchlightEyeInit(void)
 
 /**
  * @brief 44284 | 90 | Handles the movement of a searchlight eye
- * 
+ *
  */
 static void SearchlightEyeMove(void)
 {
@@ -145,7 +147,7 @@ static void SearchlightEyeMove(void)
 
 /**
  * @brief 44314 | 2c | Checks if the alarm has been triggered, also calls the movement code
- * 
+ *
  */
 static void SearchlightEyeCheckAlarm(void)
 {
@@ -163,7 +165,7 @@ static void SearchlightEyeCheckAlarm(void)
 
 /**
  * @brief 44340 | 24 | Checks if the alerted animation has ended
- * 
+ *
  */
 static void SearchlightEyeCheckAlertedAnimEnded(void)
 {
@@ -174,7 +176,7 @@ static void SearchlightEyeCheckAlertedAnimEnded(void)
 
 /**
  * @brief 44364 | 38 | Checks if the shooting interval is done
- * 
+ *
  */
 static void SearchlightEyeCheckShouldShoot(void)
 {
@@ -199,12 +201,12 @@ static void SearchlightEyeCheckShouldShoot(void)
 
 /**
  * @brief 4439c | 8c | Handles a searchlight eye shooting
- * 
+ *
  */
 static void SearchlightEyeShoot(void)
 {
     s32 status;
-    
+
     SearchlightEyeMove();
     if (gCurrentSprite.work0 == 0)
     {
@@ -219,7 +221,7 @@ static void SearchlightEyeShoot(void)
         {
             // Custom and for some reason
             status = gCurrentSprite.status & SPRITE_STATUS_X_FLIP ? SPRITE_STATUS_X_FLIP : 0;
-            
+
             // Spawn beam
             SpriteSpawnSecondary(SSPRITE_SEARCHLIGHT_EYE_PROJECTILE, 0,
                 gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
@@ -238,7 +240,7 @@ static void SearchlightEyeShoot(void)
 
 /**
  * @brief 44428 | 78 | Initializes a searchlight eye beam sprite
- * 
+ *
  */
 static void SearchlightEyeBeamInit(void)
 {
@@ -255,7 +257,7 @@ static void SearchlightEyeBeamInit(void)
 
     gCurrentSprite.bgPriority = 3;
     gCurrentSprite.drawOrder = 12;
-    
+
     gCurrentSprite.pOam = sSearchlightEyeBeamOAM_Idle;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
@@ -266,7 +268,7 @@ static void SearchlightEyeBeamInit(void)
 
 /**
  * @brief 444a0 | 17c | Handles the detection of samus for a searchlight eye beam
- * 
+ *
  */
 static void SearchlightEyeBeamDetectSamus(void)
 {
@@ -362,7 +364,7 @@ static void SearchlightEyeBeamDetectSamus(void)
 
 /**
  * @brief 4461c | 3c | Handles a searchlight eye beam disappearing
- * 
+ *
  */
 static void SearchlightEyeBeamDisappear(void)
 {
@@ -379,7 +381,7 @@ static void SearchlightEyeBeamDisappear(void)
 
 /**
  * @brief 44658 | 104 | Searchlight eye AI
- * 
+ *
  */
 void SearchlightEye(void)
 {
@@ -415,7 +417,7 @@ void SearchlightEye(void)
 
 /**
  * @brief 4475c | 5c | Searchlight eye beam AI
- * 
+ *
  */
 void SearchlightEyeBeam(void)
 {
@@ -445,12 +447,12 @@ void SearchlightEyeBeam(void)
 
 /**
  * @brief 447b8 | 128 | Searchlight eye projectile AI
- * 
+ *
  */
 void SearchlightEyeProjectile(void)
 {
     switch (gCurrentSprite.pose)
-    {        
+    {
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
@@ -495,7 +497,7 @@ void SearchlightEyeProjectile(void)
             if (gPreviousCollisionCheck != COLLISION_AIR)
                 gCurrentSprite.pose = SPRITE_POSE_STOPPED;
             break;
-        
+
         default:
             ParticleSet(gCurrentSprite.yPosition + (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_MEDIUM);

@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 u8 FusionGalleryConnectProcess(void);
 void CableLinkDrawErrorStr(const u8* str, u16* dst, u8 palette);

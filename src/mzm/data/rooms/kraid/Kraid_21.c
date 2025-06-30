@@ -1,5 +1,7 @@
-#include "data/rooms/kraid_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/kraid_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sKraid_21_Clipdata[360] = INCBIN_U8("data/rooms/kraid/Kraid_21_Clipdata.gfx");
 
@@ -25,4 +27,3 @@ const u8 sKraid_21_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(16)] = {
 };
 
 const u8 sKraid_21_Bg0[119] = INCBIN_U8("data/rooms/kraid/Kraid_21_Bg0.gfx");
-

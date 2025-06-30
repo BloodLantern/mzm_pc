@@ -1,13 +1,15 @@
-#include "data/menus/pause_screen_data.h"
-#include "macros.h"
-#include "gba.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
 
-#include "constants/connection.h"
-#include "constants/event.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "constants/menus/status_screen.h"
+#include "mzm/constants/menus/status_screen.h"
+
+#include "mzm_include.h"
 
 const u16 sPauseScreen_3fcef0[11 * 16] = INCBIN_U16("data/menus/PauseScreen/3fcef0.pal");
 const u16 sTankIconsPal[16 * 16] = INCBIN_U16("data/menus/PauseScreen/TankIcons.pal");
@@ -3053,7 +3055,7 @@ const struct PauseScreenWireframeData sSamusWireframeData[SAMUS_WIREFRAME_DATA_E
         .xOffset = BLOCK_SIZE * 15,
         .objMode = 0,
         .xPosition2 = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
-        .yPosition2 = BLOCK_SIZE - QUARTER_BLOCK_SIZE 
+        .yPosition2 = BLOCK_SIZE - QUARTER_BLOCK_SIZE
     },
     [SAMUS_WIREFRAME_DATA_BEAM] = {
         .oamId = MISC_OAM_ID_BEAM_HEADER,
@@ -3859,7 +3861,7 @@ const struct MinimapAreaName sMinimapAreaNames[10] = {
         .mapX2 = 18 + 1,
         .mapY2 = 1 + 1,
         .xOffset2 = -1,
-        .yOffset2 = -1 
+        .yOffset2 = -1
     },
     [1] = {
         .area1 = AREA_CRATERIA,

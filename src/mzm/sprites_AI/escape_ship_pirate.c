@@ -1,17 +1,19 @@
-#include "sprites_AI/escape_ship_pirate.h"
-#include "sprites_AI/space_pirate.h"
-#include "macros.h"
+#include "mzm/sprites_AI/escape_ship_pirate.h"
+#include "mzm/sprites_AI/space_pirate.h"
+#include "mzm/macros.h"
 
-#include "data/sprite_data.h"
-#include "data/sprites/space_pirate.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/sprites/space_pirate.h"
 
-#include "constants/audio.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define ESCAPE_SHIP_SPACE_PIRATE_SPAWN 0x1
 #define ESCAPE_SHIP_SPACE_PIRATE_DELAY_BEFORE_JUMPING 0x2
@@ -20,7 +22,7 @@
 
 /**
  * @brief 2dc78 | 60 | Initializes an escape ship space pirate sprite
- * 
+ *
  */
 static void EscapeShipSpacePirateInit(void)
 {
@@ -47,7 +49,7 @@ static void EscapeShipSpacePirateInit(void)
 
 /**
  * @brief 2dcd8 | 44 | Spawns an escape ship space pirate
- * 
+ *
  */
 void EscapeShipSpacePirateSpawn(void)
 {
@@ -63,7 +65,7 @@ void EscapeShipSpacePirateSpawn(void)
 
 /**
  * @brief 2dd1c | 7c | Handle delay and set an escape ship space pirate to jump
- * 
+ *
  */
 static void EscapeShipSpacePirateDelayBeforeJumping(void)
 {
@@ -95,7 +97,7 @@ static void EscapeShipSpacePirateDelayBeforeJumping(void)
 
 /**
  * @brief 2dd98 | 458 | Escape ship space priate AI
- * 
+ *
  */
 void EscapeShipSpacePirate(void)
 {
@@ -117,7 +119,7 @@ void EscapeShipSpacePirate(void)
                     APPLY_DELTA_TIME_DEC(gCurrentSprite.freezeTimer);
 
                 freezeTimer = gCurrentSprite.freezeTimer;
-                
+
                 if (freezeTimer == 0)
                     APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
 
@@ -139,7 +141,7 @@ void EscapeShipSpacePirate(void)
             }
             else
                 SpriteUtilUpdateFreezeTimer();
-            
+
             SpacePirateCheckCollidingWithLaser();
             return;
         }
@@ -230,7 +232,7 @@ void EscapeShipSpacePirate(void)
         case 0xF:
             unk_2a7c0();
             break;
-        
+
         case 0x1C:
             unk_2ab34();
             unk_2ab58();

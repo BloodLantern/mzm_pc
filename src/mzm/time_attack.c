@@ -1,18 +1,20 @@
-#include "time_attack.h"
-#include "macros.h"
+#include "mzm/time_attack.h"
+#include "mzm/macros.h"
 
-#include "data/intro_data.h"
-#include "data/time_attack_data.h"
+#include "mzm/data/intro_data.h"
+#include "mzm/data/time_attack_data.h"
 
-#include "constants/ending_and_gallery.h"
-#include "constants/game_state.h"
+#include "mzm/constants/ending_and_gallery.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/in_game_timer.h"
-#include "structs/game_state.h"
+#include "mzm/structs/in_game_timer.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 7f120 | 28 | Performs an exclusive or on all the values of the seed with the value param
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Length of seed
  * @param value Value to eor with
@@ -27,7 +29,7 @@ void TimeAttackEORSeed(u8* pSeed, s32 length, u8 value)
 
 /**
  * @brief 7f148 | 24 | Gets a garbled value from the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param value Reference value
  * @return u8 Seed value
@@ -45,7 +47,7 @@ u32 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value)
 
 /**
  * @brief 7f16c | 38 | Garbles a seed value
- * 
+ *
  * @param pSeed Seed pointer
  * @param value1 Random value
  * @param value2 Reference value
@@ -71,7 +73,7 @@ void TimeAttackGarbleSeedValue(u8* pSeed, s32 value1, s32 value2)
 
 /**
  * @brief 7f1a4 | 38 | Garbles 2 seed values
- * 
+ *
  * @param pSeed Seed pointer
  * @param value1 Reference value 1
  * @param value2 Reference value 2
@@ -89,7 +91,7 @@ void TimeAttackGarbleRandomSeedValues(u8* pSeed, s32 value1, s32 value2)
 
 /**
  * @brief 7f1dc | 24 | Function that randomizes the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -105,7 +107,7 @@ void TimeAttackSeedRandomFunc1(u8* pSeed, s32 length)
 
 /**
  * @brief 7f200 | 38 | Function that randomizes the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -127,7 +129,7 @@ void TimeAttackSeedRandomFunc2(u8* pSeed, s32 length)
 
 /**
  * @brief 7f228 | 30 | Function that randomizes the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -149,7 +151,7 @@ void TimeAttackSeedRandomFunc3(u8* pSeed, s32 length)
 
 /**
  * @brief 7f258 | 28 | Function that randomizes the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -169,7 +171,7 @@ void TimeAttackSeedRandomFunc4(u8* pSeed, s32 length)
 
 /**
  * @brief 7f280 | 30 | Function that randomizes the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -191,7 +193,7 @@ void TimeAttackSeedRandomFunc5(u8* pSeed, s32 length)
 
 /**
  * @brief 7f2b0 | c0 | Generates a time attack password from a seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param pPassword Password pointer (destination)
  * @param length Password length
@@ -241,7 +243,7 @@ void TimeAttackGeneratePassword(u8* pSeed, u8* pPassword, s32 length)
 
 /**
  * @brief 7f370 | 210 | Checks the validity of the current save file
- * 
+ *
  * @return u8 bool, valid
  */
 u8 TimeAttackCheckSaveFileValidity(void)
@@ -276,7 +278,7 @@ u8 TimeAttackCheckSaveFileValidity(void)
 
 /**
  * @brief 7f3fc | 210 | Checks if the time attack should unlock
- * 
+ *
  */
 void CheckUnlockTimeAttack(void)
 {
@@ -388,7 +390,7 @@ void CheckUnlockTimeAttack(void)
 
 /**
  * @brief 7f60c | 88 | To document
- * 
+ *
  * @param param_1 To document
  * @return u8 To document
  */
@@ -438,7 +440,7 @@ u8 unk_7f60c(u8* param_1)
 
 /**
  * @brief 7f694 | 44 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -455,7 +457,7 @@ void TimeAttackSeedShuffleFunc1(u8* pSeed, s32 length)
 
 /**
  * @brief 7f6d8 | 44 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -472,7 +474,7 @@ void TimeAttackSeedShuffleFunc2(u8* pSeed, s32 length)
 
 /**
  * @brief 7f71c | 44 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -489,7 +491,7 @@ void TimeAttackSeedShuffleFunc3(u8* pSeed, s32 length)
 
 /**
  * @brief 7f760 | 50 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -507,7 +509,7 @@ void TimeAttackSeedShuffleFunc4(u8* pSeed, s32 length)
 
 /**
  * @brief 7f7b0 | 44 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -524,7 +526,7 @@ void TimeAttackSeedShuffleFunc5(u8* pSeed, s32 length)
 
 /**
  * @brief 7f7f4 | 50 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -542,7 +544,7 @@ void TimeAttackSeedShuffleFunc6(u8* pSeed, s32 length)
 
 /**
  * @brief 7f844 | 58 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -561,7 +563,7 @@ void TimeAttackSeedShuffleFunc7(u8* pSeed, s32 length)
 
 /**
  * @brief 7f89c | 60 | Function that shuffles the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param length Seed length
  */
@@ -581,7 +583,7 @@ void TimeAttackSeedShuffleFunc8(u8* pSeed, s32 length)
 
 /**
  * @brief 7f8fc | 84 | Randomizes some values of the seed
- * 
+ *
  * @param pSeed Seed pointer
  * @param rng Rng
  */
@@ -610,7 +612,7 @@ void TimeAttackRandomizeSeed(u8* pSeed, u32 rng)
 
 /**
  * @brief 7f980 | 1c8 | Generates the time attack seed and password
- * 
+ *
  * @param pTimeAttack Time attack data pointer
  * @return u8 bool, failed
  */
@@ -633,7 +635,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
         mask <<= 1;
         j++;
     }
-    
+
     mask = 1;
     for (i = 0; i < 7; i++)
     {
@@ -641,7 +643,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
         mask <<= 1;
         j++;
     }
-    
+
     mask = 1;
     for (i = 0; i < 6; i++)
     {
@@ -649,7 +651,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
         mask <<= 1;
         j++;
     }
-    
+
     mask = 1;
     for (i = 0; i < 6; i++)
     {
@@ -657,7 +659,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
         mask <<= 1;
         j++;
     }
-    
+
     mask = 1;
     for (i = 0; i < 6; i++)
     {
@@ -742,7 +744,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
 
 /**
  * @brief 7fb48 | 21c | Checks if new time attack records should be set
- * 
+ *
  * @return u8 bool, new record set
  */
 u8 TimeAttackCheckSetNewRecord(void)

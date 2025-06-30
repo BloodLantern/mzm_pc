@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/save_file.h"
+#include "mzm/types.h"
+#include "mzm/structs/save_file.h"
 
 void FileSelectApplyStereo(void);
 void FileSelectProcessOAM(void);

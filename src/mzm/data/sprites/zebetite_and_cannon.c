@@ -1,5 +1,7 @@
-#include "data/sprites/zebetite_and_cannon.h"
-#include "macros.h"
+#include "mzm/data/sprites/zebetite_and_cannon.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sRinkaZebetiteAndCannonGfx[476] = INCBIN_U32("data/sprites/ZebetiteRinkaCannon.gfx.lz");
 const u16 sRinkaZebetiteAndCannonPal[32] = INCBIN_U16("data/sprites/ZebetiteRinkaCannon.pal");
@@ -946,4 +948,3 @@ const struct FrameData sMotherBrainBlockOam[5] = {
     },
     [4] = FRAME_DATA_TERMINATOR
 };
-

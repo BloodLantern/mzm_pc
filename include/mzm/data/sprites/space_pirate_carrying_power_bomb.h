@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "macros.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
+#include "mzm/oam.h"
 
 extern const u32 sFakePowerBombGfx[115];
 extern const u16 sFakePowerBombPal[16];

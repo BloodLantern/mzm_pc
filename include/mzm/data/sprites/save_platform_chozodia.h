@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
 
 extern const u32 sSavePlatformChozodiaGfx[552];
 extern const u16 sSavePlatformChozodiaPal[64];

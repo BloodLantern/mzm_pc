@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 typedef u32 (*InGameCutsceneFunc_T)(u8, u8);
 

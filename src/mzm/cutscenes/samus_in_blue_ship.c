@@ -1,19 +1,21 @@
-#include "cutscenes/samus_in_blue_ship.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
+#include "mzm/cutscenes/samus_in_blue_ship.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/cutscenes/samus_in_blue_ship_data.h"
-#include "data/cutscenes/internal_samus_in_blue_ship_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/samus_in_blue_ship_data.h"
+#include "mzm/data/cutscenes/internal_samus_in_blue_ship_data.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
 
-#include "structs/display.h"
+#include "mzm/structs/display.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 67d8c | f8 | Handles the sip powering up part (entire cutscene)
- * 
+ *
  * @return u8 FALSE
  */
 u8 SamusInBlueShipPoweringUp(void)
@@ -83,7 +85,7 @@ u8 SamusInBlueShipPoweringUp(void)
 
 /**
  * @brief 67e84 | 4c | Handles the screen shake movement
- * 
+ *
  * @param pGraphics Cutscene graphics data pointer
  */
 void SamusInBlueShipShakeScreen(struct CutsceneGraphicsData* pGraphics)
@@ -103,7 +105,7 @@ void SamusInBlueShipShakeScreen(struct CutsceneGraphicsData* pGraphics)
 
 /**
  * @brief 67ed0 | c0 | Updates the control panel object
- * 
+ *
  * @param pOam Cutscene OAM data pointer
  */
 void SamusInBlueShipUpdateControlPanel(struct CutsceneOamData* pOam)
@@ -155,7 +157,7 @@ void SamusInBlueShipUpdateControlPanel(struct CutsceneOamData* pOam)
 
 /**
  * @brief 67f90 | 12c | Initializes the samus in blue ship cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 SamusInBlueShipInit(void)
@@ -199,7 +201,7 @@ u8 SamusInBlueShipInit(void)
 
 /**
  * @brief 680bc | 34 | Subroutine for the samus in blue ship cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 SamusInBlueShipSubroutine(void)
@@ -215,7 +217,7 @@ u8 SamusInBlueShipSubroutine(void)
 
 /**
  * @brief 680f0 | 38 | Processes the OAM
- * 
+ *
  */
 void SamusInBlueShipProcessOAM(void)
 {

@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "gba/memory.h"
+#include "mzm/gba/memory.h"
 
 #define REG_IME (REG_BASE + 0x208)
 #define REG_IE (REG_BASE + 0x200)

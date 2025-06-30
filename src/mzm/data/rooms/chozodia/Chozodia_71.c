@@ -1,10 +1,12 @@
-#include "data/rooms/chozodia_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/chozodia_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sChozodia_42_Scrolls[SCROLL_DATA_SIZE(2)] = {
 	71, // Room
 	2, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 46, // X bounds
 	2, 11, // Y bounds
@@ -49,4 +51,3 @@ const u8 sChozodia_71_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(19)] = {
 };
 
 const u8 sChozodia_71_Bg0[17] = INCBIN_U8("data/rooms/chozodia/Chozodia_71_Bg0.gfx");
-

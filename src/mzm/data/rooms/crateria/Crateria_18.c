@@ -1,10 +1,12 @@
-#include "data/rooms/crateria_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/crateria_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sCrateria_9_Scrolls[SCROLL_DATA_SIZE(1)] = {
 	18, // Room
 	1, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 16, // X bounds
 	2, 11, // Y bounds
@@ -23,4 +25,3 @@ const u8 sCrateria_18_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
 	9, 9, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

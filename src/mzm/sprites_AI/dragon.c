@@ -1,18 +1,20 @@
-#include "sprites_AI/dragon.h"
-#include "macros.h"
+#include "mzm/sprites_AI/dragon.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/dragon.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/dragon.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/display.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define DRAGON_POSE_IDLE_INIT 0x8
 #define DRAGON_POSE_IDLE 0x9
@@ -38,7 +40,7 @@
 
 /**
  * @brief 20564 | 50 | Handles the Y movement of a dragon
- * 
+ *
  */
 static void DragonYMovement(void)
 {
@@ -68,7 +70,7 @@ static void DragonYMovement(void)
 
 /**
  * @brief 205b4 | 60 | Initializes a dragon sprite
- * 
+ *
  */
 static void DragonInit(void)
 {
@@ -96,7 +98,7 @@ static void DragonInit(void)
 
 /**
  * @brief 20628 | 28 | Initializes a dragon to be idle
- * 
+ *
  */
 static void DragonIdleInit(void)
 {
@@ -112,7 +114,7 @@ static void DragonIdleInit(void)
 
 /**
  * @brief 20650 | d0 | Handles the dragon going up
- * 
+ *
  */
 static void DragonIdle(void)
 {
@@ -170,7 +172,7 @@ static void DragonIdle(void)
     {
         // Check if there's nothing 2 blocks above and 1 in front
         // If the intent was to check for a block where the fireball would spawn, that doesn't work
-        // In fact, the fireball never colldes with the block that's checked here 
+        // In fact, the fireball never colldes with the block that's checked here
         yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE);
 
         if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
@@ -187,7 +189,7 @@ static void DragonIdle(void)
 
 /**
  * @brief 20720 | 20 | Initializes a dragon to be turning around
- * 
+ *
  */
 static void DragonTurningAroundInit(void)
 {
@@ -200,7 +202,7 @@ static void DragonTurningAroundInit(void)
 
 /**
  * @brief 20740 | 30 | Checks if the first part of the turning around animation ended
- * 
+ *
  */
 static void DragonTurningAroundFirstHalf(void)
 {
@@ -220,7 +222,7 @@ static void DragonTurningAroundFirstHalf(void)
 
 /**
  * @brief 20778 | 20 | Checks if the second part of the turning around animation ended
- * 
+ *
  */
 static void DragonTurningAroundSecondHalf(void)
 {
@@ -235,7 +237,7 @@ static void DragonTurningAroundSecondHalf(void)
 
 /**
  * @brief 20798 | 28 | Initializes a dragon to do the warning before spitting
- * 
+ *
  */
 static void DragonWarningInit(void)
 {
@@ -250,7 +252,7 @@ static void DragonWarningInit(void)
 
 /**
  * @brief 207c0 | 40 | Handles the warning (delay before spitting)
- * 
+ *
  */
 static void DragonWarning(void)
 {
@@ -272,7 +274,7 @@ static void DragonWarning(void)
 
 /**
  * @brief 20800 | 70 | Handles the dragon spitting
- * 
+ *
  */
 static void DragonSpit(void)
 {
@@ -298,7 +300,7 @@ static void DragonSpit(void)
 
 /**
  * @brief 20870 | e4 | Initializes a dragon fireball sprite
- * 
+ *
  */
 static void DragonFireballInit(void)
 {
@@ -323,7 +325,7 @@ static void DragonFireballInit(void)
     gCurrentSprite.drawOrder = 3;
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
     gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
-    
+
     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -344,7 +346,7 @@ static void DragonFireballInit(void)
 
 /**
  * @brief 20954 | d8 | Handles the movement of a dragon fireball
- * 
+ *
  */
 static void DragonFireballMove(void)
 {
@@ -398,7 +400,7 @@ static void DragonFireballMove(void)
 
 /**
  * @brief 20a28 | 3c | Initializes a dragon fireball to be exploding
- * 
+ *
  */
 static void DragonFireballExplodingInit(void)
 {
@@ -415,7 +417,7 @@ static void DragonFireballExplodingInit(void)
 
 /**
  * @brief 20a64 | 24 | Checks if the exploding animation ended
- * 
+ *
  */
 static void DragonFireballCheckExplodingAnimEnded(void)
 {
@@ -427,7 +429,7 @@ static void DragonFireballCheckExplodingAnimEnded(void)
 
 /**
  * @brief 20a88 | 19c | Dragon AI
- * 
+ *
  */
 void Dragon(void)
 {
@@ -490,7 +492,7 @@ void Dragon(void)
 
 /**
  * @brief 20c24 | 58 | Dragon fireball AI
- * 
+ *
  */
 void DragonFireball(void)
 {

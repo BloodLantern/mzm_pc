@@ -1,13 +1,15 @@
-#include "types.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
 
-#include "constants/connection.h"
+#include "mzm/constants/connection.h"
 
-#include "structs/connection.h"
+#include "mzm/structs/connection.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 5790c | ac | Activates/deactivates the hatch for a gadora
- * 
+ *
  * @param xPosition X position
  * @param yPosition Y position
  * @param action Action (0 = Close, 1 = Open)
@@ -35,7 +37,7 @@ u32 GadoraHatchUpdate(u16 xPosition, u16 yPosition, u8 action)
     {
         if (gHatchData[i].state != HATCH_STATE_CLOSED)
             continue;
-        
+
         // Try find door at position
         if (gHatchData[i].xPosition + xOffset >= SUB_PIXEL_TO_BLOCK(xPosition) &&
             gHatchData[i].xPosition - xOffset <= SUB_PIXEL_TO_BLOCK(xPosition) &&

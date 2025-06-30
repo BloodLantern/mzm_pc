@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/save_file.h"
+#include "mzm/types.h"
+#include "mzm/structs/save_file.h"
 
 extern const struct SaveFileInfo sSaveFileInfo_Empty;
 

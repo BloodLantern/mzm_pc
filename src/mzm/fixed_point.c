@@ -1,9 +1,11 @@
-#include "fixed_point.h"
-#include "macros.h"
+#include "mzm/fixed_point.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief a4c | 1c | Fixed point multiplication
- * 
+ *
  * @param a A
  * @param b B
  * @return s16 Result
@@ -24,7 +26,7 @@ s16 FixedMultiplication(s16 a, s16 b)
 
 /**
  * @brief a68 | 18 | Fixed point division
- * 
+ *
  * @param a A
  * @param b B
  * @return s16 Result
@@ -39,7 +41,7 @@ s16 FixedDivision(s16 a, s16 b)
 
 /**
  * @brief a80 | 18 | Fixed point inversion
- * 
+ *
  * @param a A
  * @return s16 Result
  */

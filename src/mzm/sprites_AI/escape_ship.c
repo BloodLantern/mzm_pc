@@ -1,17 +1,19 @@
-#include "sprites_AI/escape_ship.h"
-#include "gba.h"
+#include "mzm/sprites_AI/escape_ship.h"
+#include "mzm/gba.h"
 
-#include "data/sprites/escape_ship.h"
+#include "mzm/data/sprites/escape_ship.h"
 
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define ESCAPE_SHIP_POSE_CHECK_OPEN 0x8
 #define ESCAPE_SHIP_POSE_OPENING 0x9
@@ -39,7 +41,7 @@ enum EscapeShipPart {
 
 /**
  * @brief 4ac00 | 94 | Updates the palette of the escape ship
- * 
+ *
  * @param delay Delay before next update
  */
 static void EscapeShipPartUpdatePalette(u8 delay)
@@ -48,7 +50,7 @@ static void EscapeShipPartUpdatePalette(u8 delay)
     u8 flag;
     u8 row;
     u32 offset;
-    
+
     timer = APPLY_DELTA_TIME_DEC(gCurrentSprite.work2);
     if (timer == 0)
     {
@@ -79,7 +81,7 @@ static void EscapeShipPartUpdatePalette(u8 delay)
 
 /**
  * @brief 4ac94 | 34 | Sets the ignore samus collision timer of every currently alive sprite to 0xF
- * 
+ *
  */
 static void EscapeShipSetIgnoreSamus(void)
 {
@@ -94,7 +96,7 @@ static void EscapeShipSetIgnoreSamus(void)
 
 /**
  * @brief 4acc8 | 40 | Sets the draw order of all the space pirates to 2
- * 
+ *
  */
 static void EscapeShipSetPirateDrawOrder(void)
 {
@@ -112,7 +114,7 @@ static void EscapeShipSetPirateDrawOrder(void)
 
 /**
  * @brief 4ad08 | c4 | Checks if the escape ship is colliding with a space pirate
- * 
+ *
  */
 static void EscapeShipPirateCollision(void)
 {
@@ -161,7 +163,7 @@ static void EscapeShipPirateCollision(void)
 
 /**
  * @brief 4adcc | c4 | Checks if the escape ship is colliding with a space pirate laser
- * 
+ *
  */
 static void EscapeShipCheckCollidingWithLaser(void)
 {
@@ -339,7 +341,7 @@ void EscapeShip(void)
                     gCurrentSprite.xPosition += PIXEL_SIZE / 2;
                     break;
                 }
-                
+
                 if (movement == CONVERT_SECONDS(1.f / 6) + 1 * DELTA_TIME)
                 {
                     SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_FLAMES,
@@ -347,7 +349,7 @@ void EscapeShip(void)
                     SoundPlay(SOUND_ESCAPE_SHIP_FLYING);
                     break;
                 }
-                
+
                 if (movement == CONVERT_SECONDS(1.f / 6) + 2 * DELTA_TIME)
                     StartEffectForCutscene(EFFECT_CUTSCENE_SAMUS_IN_BLUE_SHIP);
             }
@@ -395,7 +397,7 @@ void EscapeShip(void)
                 xPosition = gCurrentSprite.xPosition;
             }
             break;
-        
+
         case ESCAPE_SHIP_POSE_HOVERING:
             if (gCurrentSprite.work0 != 0)
             {
@@ -478,7 +480,7 @@ void EscapeShip(void)
 
 /**
  * @brief 4b38c | 278 | Escape ship part AI
- * 
+ *
  */
 void EscapeShipPart(void)
 {
@@ -494,7 +496,7 @@ void EscapeShipPart(void)
     {
         case 0:
             roomSlot = gCurrentSprite.roomSlot;
-            
+
             gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 

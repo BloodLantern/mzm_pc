@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "temp_globals.h"
-#include "structs/save_file.h"
+#include "mzm/types.h"
+#include "mzm/temp_globals.h"
+#include "mzm/structs/save_file.h"
 
 extern union EwramData* sEwramPointer;
 extern u16* sBgPalramPointer;

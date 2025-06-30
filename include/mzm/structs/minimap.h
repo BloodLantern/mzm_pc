@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/connection.h"
+#include "mzm/types.h"
+#include "mzm/structs/connection.h"
 
 #define MINIMAP_SIZE 32
 #define MINIMAP_CENTER ((MINIMAP_SIZE * HALF_BLOCK_SIZE) / 2 + PIXEL_SIZE)

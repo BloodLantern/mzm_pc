@@ -1,18 +1,20 @@
-#include "sprites_AI/polyp.h"
-#include "macros.h"
-#include "gba/display.h"
+#include "mzm/sprites_AI/polyp.h"
+#include "mzm/macros.h"
+#include "mzm/gba/display.h"
 
-#include "data/sprites/polyp.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/polyp.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/display.h"
-#include "structs/sprite.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define POLYP_POSE_IDLE_INIT 0x8
 #define POLYP_POSE_IDLE 0x9
@@ -30,7 +32,7 @@
 
 /**
  * @brief 36ec4 | 4c | Initializes a polyp sprite
- * 
+ *
  */
 static void PolypInit(void)
 {
@@ -49,7 +51,7 @@ static void PolypInit(void)
 
 /**
  * @brief 36f10 | 24 | Initializes a polyp to be idle
- * 
+ *
  */
 static void PolypIdleInit(void)
 {
@@ -65,7 +67,7 @@ static void PolypIdleInit(void)
 
 /**
  * @brief 36f34 | 74 | Checks if the polyp should be shooting a projectile
- * 
+ *
  */
 static void PolypCheckSpawnProjectile(void)
 {
@@ -97,7 +99,7 @@ static void PolypCheckSpawnProjectile(void)
 
 /**
  * @brief 36fa8 | 30 | Checks if the warning animation has ended
- * 
+ *
  */
 static void PolypCheckWarningEnded(void)
 {
@@ -116,7 +118,7 @@ static void PolypCheckWarningEnded(void)
 
 /**
  * @brief 36fd8 | 64 | Handles the polyp spitting
- * 
+ *
  */
 static void PolypSpawnProjectile(void)
 {
@@ -140,7 +142,7 @@ static void PolypSpawnProjectile(void)
 
 /**
  * @brief 3703c | 2c | Checks if the after spitting animation ended
- * 
+ *
  */
 static void PolypCheckAfterSpittingAnimEnded(void)
 {
@@ -157,7 +159,7 @@ static void PolypCheckAfterSpittingAnimEnded(void)
 
 /**
  * @brief 37068 | 1c | Checks if the retracting animation ended
- * 
+ *
  */
 static void PolypCheckRetractingAnimEnded(void)
 {
@@ -167,7 +169,7 @@ static void PolypCheckRetractingAnimEnded(void)
 
 /**
  * @brief 37084 | e0 | Initializes a polyp projectile
- * 
+ *
  */
 static void PolypProjectileInit(void)
 {
@@ -212,7 +214,7 @@ static void PolypProjectileInit(void)
 
 /**
  * @brief 37164 | 48 | Handles the spawning of a polyp projectile
- * 
+ *
  */
 static void PolypProjectileSpawn(void)
 {
@@ -222,7 +224,7 @@ static void PolypProjectileSpawn(void)
         gCurrentSprite.pose = POLYP_PROJECTILE_POSE_MOVING;
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
-        
+
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(SOUND_POLYP_SPITTING);
     }
@@ -230,7 +232,7 @@ static void PolypProjectileSpawn(void)
 
 /**
  * @brief 371ac | 88 | Handles the movement of a polyp projectile
- * 
+ *
  */
 static void PolypProjectileMove(void)
 {
@@ -268,7 +270,7 @@ static void PolypProjectileMove(void)
 
 /**
  * @brief 37234 | 50 | Initializes a polyp projectile to be exploding
- * 
+ *
  */
 static void PolypProjectileExplodingInit(void)
 {
@@ -286,7 +288,7 @@ static void PolypProjectileExplodingInit(void)
 
 /**
  * @brief 37284 | 24 | Checks if the exploding animation ended
- * 
+ *
  */
 static void PolypProjectileCheckExplodingAnimEnded(void)
 {
@@ -298,7 +300,7 @@ static void PolypProjectileCheckExplodingAnimEnded(void)
 
 /**
  * @brief 372a8 | 11c | Polyp AI
- * 
+ *
  */
 void Polyp(void)
 {
@@ -344,7 +346,7 @@ void Polyp(void)
 
 /**
  * @brief 373c4 | 78 | Polyp projectile AI
- * 
+ *
  */
 void PolypProjectile(void)
 {

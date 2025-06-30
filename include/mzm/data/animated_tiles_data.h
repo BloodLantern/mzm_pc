@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 extern const u8 sAnimatedTilesGfx[100 * 128];
 extern const u8 sAnimatedTankGfx[4 * 512];

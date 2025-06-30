@@ -1,25 +1,27 @@
-#include "block.h"
-#include "macros.h"
-#include "dma.h"
-#include "gba.h"
+#include "mzm/block.h"
+#include "mzm/macros.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
 
-#include "data/block_data.h"
-#include "data/engine_pointers.h"
+#include "mzm/data/block_data.h"
+#include "mzm/data/engine_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/block.h"
-#include "constants/clipdata.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/block.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/power_bomb_explosion.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/power_bomb_explosion.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 590b0 | 214 | Checks if soemthing should happen to a block depending on the Ccaa
- * 
+ *
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u32 1 if detroyed, 0 otherwise
  */
@@ -47,7 +49,7 @@ u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock)
         {
             if (!sBlockBehaviors[pClipBlock->blockBehavior].isSpeedboost)
                 return result;
-            
+
             gCurrentClipdataAffectingAction = CAA_SPEEDBOOSTER;
         }
         else if (gCurrentClipdataAffectingAction == CAA_BOMB_CHAIN)
@@ -66,7 +68,7 @@ u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock)
             case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NO_REFORM):
                 pClipBlock->xPosition--;
                 break;
-    
+
             case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NEVER_REFORM):
             case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NO_REFORM):
                 pClipBlock->xPosition--;
@@ -75,7 +77,7 @@ u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock)
             case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NO_REFORM):
                 pClipBlock->yPosition--;
                 break;
-            
+
             case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_NEVER_REFORM):
             case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_REFORM):
                 destroy = BlockCheckRevealOrDestroyBombBlock(pClipBlock);
@@ -97,7 +99,7 @@ u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock)
                 BlockCheckRevealOrDestroyNonBombBlock(pClipBlock);
                 destroy = FALSE;
                 break;
-            
+
             case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1):
                 bombChainType = BOMB_CHAIN_TYPE_VERTICAL1;
                 break;
@@ -445,7 +447,7 @@ u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock)
 
 /**
  * @brief 592c4 | 6c | Handles the destruction of non reform blocks
- * 
+ *
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u32 bool, could destroy
  */
@@ -485,7 +487,7 @@ u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock)
 
 /**
  * @brief 59330 | 3c | Destroys a single bomb chain block
- * 
+ *
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u8 TRUE
  */
@@ -498,7 +500,7 @@ u32 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock)
 
 /**
  * @brief 5936c | 3c | Destroys a single block
- * 
+ *
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u8 TRUE
  */
@@ -511,7 +513,7 @@ u32 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock)
 
 /**
  * @brief 593a8 | d8 | Destroys a square block
- * 
+ *
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u8 TRUE
  */
@@ -530,12 +532,12 @@ u32 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
     pClipBlock->yPosition++;
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, blockType);
     gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0;
-    
+
     // Destroy top right
     pClipBlock->yPosition--;
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, blockType);
     gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0;
-    
+
     // Destroy bottom left
     pClipBlock->xPosition--;
     pClipBlock->yPosition++;
@@ -551,7 +553,7 @@ u32 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
 
 /**
  * @brief 59480 | 80 | Stores a single never reform block in the save array
- * 
+ *
  * @param xPosition X position
  * @param yPosition Y position
  * @return u32 bool, couldn't store
@@ -593,7 +595,7 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 
 /**
  * @brief 59500 | 80 | Removes the broken never reform blocks of a room
- * 
+ *
  */
 void BlockRemoveNeverReformBlocks(void)
 {
@@ -637,7 +639,7 @@ void BlockRemoveNeverReformBlocks(void)
 
 /**
  * @brief 59580 | 64 | Removes a never reform block from the BG1 and clipdata
- * 
+ *
  * @param xPosition X position
  * @param yPosition Y position
  */
@@ -674,7 +676,7 @@ void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition)
 
 /**
  * @brief 595e4 | 18c | Shifts and re-organizes the never reform blocks when transitionning
- * 
+ *
  */
 void BlockShiftNeverReformBlocks(void)
 {
@@ -747,7 +749,7 @@ void BlockShiftNeverReformBlocks(void)
 
 /**
  * @brief 59770 | 84 | Checks if a non bomb block should be destroyed
- * 
+ *
  * @param pClipBlock Clipdata block data pointer
  * @return u32 bool, destroy
  */
@@ -764,7 +766,7 @@ u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
         // Block is weak to current action, hence it that be destroyed
         return TRUE;
     }
-    
+
     // Check weaknesses to reveal
     if ((gCurrentClipdataAffectingAction != CAA_BOMB_PISTOL && (gCurrentClipdataAffectingAction != CAA_POWER_BOMB ||
         gCurrentPowerBomb.owner)))
@@ -783,7 +785,7 @@ u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
 
 /**
  * @brief 597f4 | 88 | Checks if a bomb block should be destroyed
- * 
+ *
  * @param pClipBlock Clipdata block data pointer
  * @return u32 bool, destroy
  */
@@ -830,7 +832,7 @@ u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
 
 /**
  * @brief 5987c | 164 | Applies the Ccaa (Current Clipdata Affecting Action)
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param trueClip True clipdata block value
@@ -922,7 +924,7 @@ u32 BlockApplyCcaa(u16 yPosition, u16 xPosition, u16 trueClip)
 
 /**
  * @brief 599e0 | b8 | Updates the "make solid blocks" array
- * 
+ *
  * @param makeSolid Make solid flag
  * @param xPosition X Position
  * @param yPosition Y Position
@@ -984,7 +986,7 @@ u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition)
 
 /**
  * @brief 59a9c | b8 | Applies the speedbooster/screw attack destructing action
- * 
+ *
  * @param xPosition X Position
  * @param yPosition Y Position
  * @param action Destructing action
@@ -1037,13 +1039,13 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
 
     // Clear Ccaa
     gCurrentClipdataAffectingAction = CAA_NONE;
-    
+
     return result;
 }
 
 /**
  * @brief 59b54 | 120 | Updates the broken blocks
- * 
+ *
  */
 void BlockUpdateBrokenBlocks(void)
 {
@@ -1127,7 +1129,7 @@ void BlockUpdateBrokenBlocks(void)
 
 /**
  * @brief 59c74 | 134 | Updates the animation of a breaking block
- * 
+ *
  * @param pBlock Broken block pointer
  */
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
@@ -1212,7 +1214,7 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 
 /**
  * @brief 59da8 | ac | Stores a new broken block (that reforms)
- * 
+ *
  * @param type Block type
  * @param xPosition X Position
  * @param yPosition Y Position
@@ -1286,7 +1288,7 @@ u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanc
 
 /**
  * @brief 59e54 | a4 | Stores a new broken block (that doesn't reform)
- * 
+ *
  * @param xPosition X Position
  * @param yPosition Y Position
  * @param type Block type
@@ -1345,7 +1347,7 @@ void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
 
 /**
  * @brief 59ef8 | 78 | Reveals a bomb chain block
- * 
+ *
  * @param type Block type
  * @param xPosition X Position
  * @param yPosition Y Position
@@ -1389,7 +1391,7 @@ u32 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition)
 
 /**
  * @brief 59f70 | 70 | Checks if Samus is in a reforming block
- * 
+ *
  * @param xPosition X Position
  * @param yPosition Y Position
  * @return u32 1 if in block, 0 otherwise
@@ -1415,13 +1417,13 @@ u32 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition)
     inBlock = FALSE;
     if (inX)
         inBlock = inY;
-        
+
     return inBlock;
 }
 
 /**
  * @brief 59fe0 | b8 | Starts a new bomb chain
- * 
+ *
  * @param type Bomb chain type
  * @param xPosition X Position
  * @param yPosition Y Position
@@ -1431,9 +1433,9 @@ u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition)
 {
     u32 couldSpawn;
     s32 i;
-    
+
     couldSpawn = FALSE;
-    
+
     for (i = MAX_AMOUNT_OF_BOMB_CHAINS - 1 ; i >= 0; i--)
     {
         if (gBombChains[i].currentOffset == 0)
@@ -1446,7 +1448,7 @@ u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition)
             gBombChains[i].flipped = TRUE;
             gBombChains[i].unk = TRUE;
             gBombChains[i].type = type;
-            
+
             // Add type
             gActiveBombChainTypes |= sBombChainReverseData[type].typeFlag;
             couldSpawn = TRUE;
@@ -1463,7 +1465,7 @@ u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition)
 
 /**
  * @brief 5a098 | 298 | Processes the bomb chains
- * 
+ *
  */
 void BlockProcessBombChains(void)
 {
@@ -1514,7 +1516,7 @@ void BlockProcessBombChains(void)
                 }
             }
         }
-        
+
         if (pChain->unk)
         {
             // Going down
@@ -1604,7 +1606,7 @@ void BlockProcessBombChains(void)
 
 /**
  * @brief 5a330 | b0 | Checks if a new sub bomb chain should start
- * 
+ *
  * @param type Sub bomb chain type
  * @param xPosition X position
  * @param yPosition Y position
@@ -1633,7 +1635,7 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
         // Get Y offset
         yOffset = yPosition + sSubBombChainPositionOffset[type][i * 2 + 1];
         offset = yOffset * gBgPointersAndDimensions.clipdataWidth;
-        
+
         // Get X offset
         xOffset = xPosition + sSubBombChainPositionOffset[type][i * 2 + 0];
         offset += xOffset;
@@ -1651,8 +1653,8 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
 }
 
 /**
- * @brief 5a3e0 | a4 | Removes the collision and graphics of a broken block 
- * 
+ * @brief 5a3e0 | a4 | Removes the collision and graphics of a broken block
+ *
  * @param yPosition Y position
  * @param xPosition X position
  */
@@ -1667,13 +1669,13 @@ void BlockBrokenBlockRemoveCollision(u16 yPosition, u16 xPosition)
 
     if (gBg1YPosition / BLOCK_SIZE - 4 > yPosition)
         return;
-    
+
     if (yPosition > gBg1YPosition / BLOCK_SIZE + 13)
         return;
 
     if (gBg1XPosition / BLOCK_SIZE - 4 > xPosition)
         return;
-        
+
     if (xPosition > gBg1XPosition / BLOCK_SIZE + 18)
         return;
 

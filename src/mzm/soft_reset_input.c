@@ -1,17 +1,19 @@
-#include "soft_reset_input.h"
-#include "gba.h"
-#include "macros.h"
-#include "menus/boot_debug.h"
+#include "mzm/soft_reset_input.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/menus/boot_debug.h"
 
-#include "constants/game_state.h"
-#include "structs/audio.h"
-#include "structs/game_state.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 #define SOFT_RESET_KEYS (KEY_A | KEY_B | KEY_START | KEY_SELECT)
 
 /**
  * @brief 7c4 | c | Removed code for V-Blank during soft reset
- * 
+ *
  */
 void SoftResetVBlankCallback(void)
 {
@@ -21,7 +23,7 @@ void SoftResetVBlankCallback(void)
 
 /**
  * @brief 7d0 | 34 | Checks for soft reset conditions
- * 
+ *
  */
 void SoftResetCheck(void)
 {
@@ -37,7 +39,7 @@ void SoftResetCheck(void)
 
 /**
  * @brief 804 | 108 | Prepares game and register states for a soft reset
- * 
+ *
  */
 void SoftReset(void)
 {

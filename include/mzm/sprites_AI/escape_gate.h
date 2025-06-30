@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define ESCAPE_GATE_POSE_LOAD_GRAPHICS 0x1
 #define ESCAPE_GATE_POSE_IDLE 0x9

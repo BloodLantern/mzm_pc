@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "structs/audio.h"
+#include "mzm/structs/audio.h"
 
 void DMA2IntrCode(void);
 void RestartSound(void);

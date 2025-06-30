@@ -1,25 +1,27 @@
-#include "macros.h"
-#include "sprites_AI/acid_worm.h"
+#include "mzm/macros.h"
+#include "mzm/sprites_AI/acid_worm.h"
 
-#include "data/sprites/acid_worm.h"
-#include "data/sprite_data.h"
-#include "data/generic_data.h"
+#include "mzm/data/sprites/acid_worm.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/generic_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/clipdata.h"
-#include "structs/connection.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
-#include "structs/scroll.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/scroll.h"
+
+#include "mzm_include.h"
 
 // Acid worm
 
@@ -62,7 +64,7 @@ enum AcidWormSpitBehavior {
 
 /**
  * @brief 3d860 | 118 | Handles the rotation on the half-half circle of every part
- * 
+ *
  */
 static void AcidWormHandleRotation(void)
 {
@@ -76,7 +78,7 @@ static void AcidWormHandleRotation(void)
     s32 temp;
     s32 c;
     u8 angle;
-    
+
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         angle = gCurrentSprite.rotation + PI;
     else
@@ -134,7 +136,7 @@ static void AcidWormHandleRotation(void)
 
 /**
  * @brief 3d978 | 40 | Handles the semi movement horizontal wiggle movement
- * 
+ *
  */
 static void AcidWormWiggleHorizontally(void)
 {
@@ -155,7 +157,7 @@ static void AcidWormWiggleHorizontally(void)
 
 /**
  * @brief 3d9b8 | 48 | Updates the clipdata of the 2 blocks on the ground
- * 
+ *
  * @param caa Clipdata affecting action
  * @param yPosition Y Position
  * @param xPosition X Position
@@ -173,7 +175,7 @@ static void AcidWormChangeTwoGroundCcaa(u8 caa, u16 yPosition, u16 xPosition)
 
 /**
  * @brief 3da50 | 58 | Updates the clipdata of the first 2 blocks of the big block on the ground
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void AcidWormChangeBigBlockDownCcaa(u8 caa)
@@ -200,7 +202,7 @@ static void AcidWormChangeBigBlockDownCcaa(u8 caa)
 
 /**
  * @brief 3da50 | 58 | Updates the clipdata of the 2 middle blocks of the big block on the ground
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void AcidWormChangeBigBlockMiddleCcaa(u8 caa)
@@ -226,7 +228,7 @@ static void AcidWormChangeBigBlockMiddleCcaa(u8 caa)
 
 /**
  * @brief 3daa8 | e4 | Updates the clipdata of the 2 top blocks of the big block on the ground
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void AcidWormChangeBigBlockTopCcaa(u8 caa)
@@ -268,7 +270,7 @@ static void AcidWormChangeBigBlockTopCcaa(u8 caa)
 
 /**
  * @brief 3db8c | 24 | Plays the retracting sound
- * 
+ *
  */
 static void AcidWormPlayRetractingSound(void)
 {
@@ -286,7 +288,7 @@ static void AcidWormPlayRetractingSound(void)
 
 /**
  * @brief 3dbb0 | 44 | Checks if the acid worm is colliding with samus when extending
- * 
+ *
  * @return u8 bool, colliding
  */
 static u8 AcidWormCollidingWithSamusWhenExtending(void)
@@ -310,7 +312,7 @@ static u8 AcidWormCollidingWithSamusWhenExtending(void)
 
 /**
  * @brief 3dbf4 | 224 | Initializes an acid worm sprite
- * 
+ *
  */
 static void AcidWormInit(void)
 {
@@ -331,7 +333,7 @@ static void AcidWormInit(void)
     gCurrentSprite.pOam = sAcidWormOam_Idle;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
-    
+
     gCurrentSprite.samusCollision = SSC_ACID_WORM_MOUTH;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
@@ -381,7 +383,7 @@ static void AcidWormInit(void)
 
     gfxSlot = gCurrentSprite.spritesetGfxSlot;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    
+
     // Spawn body
     SpriteSpawnSecondary(SSPRITE_ACID_WORM_PART, ACID_WORM_PART_AROUND_MOUTH,
         gfxSlot, ramSlot, yPosition + BLOCK_SIZE * 1, xPosition, 0);
@@ -407,7 +409,7 @@ static void AcidWormInit(void)
 
 /**
  * @brief 3de18 | 20 | Checks if samus is on a zipline
- * 
+ *
  */
 static void AcidWormCheckSamusOnZipline(void)
 {
@@ -420,7 +422,7 @@ static void AcidWormCheckSamusOnZipline(void)
 
 /**
  * @brief 3de38 | 84 | Checks if the acid worm should spawn
- * 
+ *
  */
 static void AcidWormSpawnStart(void)
 {
@@ -429,7 +431,7 @@ static void AcidWormSpawnStart(void)
         return;
 
     // In range
-    if (gSamusData.xPosition > gCurrentSprite.xPositionSpawn - ACID_WORM_SPAWN_RANGE && 
+    if (gSamusData.xPosition > gCurrentSprite.xPositionSpawn - ACID_WORM_SPAWN_RANGE &&
         gSamusData.xPosition < gCurrentSprite.xPositionSpawn + ACID_WORM_SPAWN_RANGE)
     {
         // Set ignore projectiles
@@ -453,7 +455,7 @@ static void AcidWormSpawnStart(void)
 
 /**
  * @brief 3debc | 90 | Handles the acid worm extending when spawning
- * 
+ *
  */
 static void AcidWormSpawnExtending(void)
 {
@@ -507,7 +509,7 @@ static void AcidWormSpawnStayingOnTop(void)
 
 /**
  * @brief 3df84 | 80 | Handles the acid worm retracting when spawning
- * 
+ *
  */
 static void AcidWormSpawnRetracting(void)
 {
@@ -547,7 +549,7 @@ static void AcidWormSpawnRetracting(void)
 
 /**
  * @brief 3e004 | 2c | Initializes the acid worm to be idle
- * 
+ *
  */
 static void AcidWormIdleInit(void)
 {
@@ -562,7 +564,7 @@ static void AcidWormIdleInit(void)
 
 /**
  * @brief 3e030 | c0 | Handles the idle animation and Samus detection
- * 
+ *
  */
 static void AcidWormIdle(void)
 {
@@ -574,7 +576,7 @@ static void AcidWormIdle(void)
 
     samusY = gSamusData.yPosition;
     spritePos = gCurrentSprite.yPosition;
-    
+
     if (samusY > gEffectYPosition || samusY > spritePos)
     {
         // If samus ever goes below the acid, or below the worm, restart the wait to extend
@@ -604,7 +606,7 @@ static void AcidWormIdle(void)
     gCurrentSprite.pOam = sAcidWormOam_Warning;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
-    
+
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
 
     SpriteUtilMakeSpriteFaceSamusDirection();
@@ -615,7 +617,7 @@ static void AcidWormIdle(void)
 
 /**
  * @brief 3e0f0 | 5c | Checks if the warning animation before extending has ended
- * 
+ *
  */
 static void AcidWormCheckWarningAnimEnded(void)
 {
@@ -641,7 +643,7 @@ static void AcidWormCheckWarningAnimEnded(void)
 
 /**
  * @brief 3e14c | 35c | Handles the acid worm extending
- * 
+ *
  */
 static void AcidWormExtend(void)
 {
@@ -721,7 +723,7 @@ static void AcidWormExtend(void)
         else
             checks++; // X Movement done
     }
-    
+
     if (gSubSpriteData1.yPosition > gCurrentSprite.yPositionSpawn - THREE_QUARTER_BLOCK_SIZE)
         gSubSpriteData1.yPosition -= speed;
     else
@@ -765,7 +767,7 @@ static void AcidWormExtend(void)
                 SpriteDebrisInit(0, 0x12, yPosition + BLOCK_SIZE, xPosition);
 
                 ParticleSet(yPosition + HALF_BLOCK_SIZE, xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-    
+
                 // Timer to stay
                 gCurrentSprite.work0 = CONVERT_SECONDS(2.f);
                 SoundPlay(SOUND_ACID_WORM_CRASHING_FAST);
@@ -791,10 +793,10 @@ static void AcidWormExtend(void)
             {
                 ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
                 ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
-    
+
                 SpriteDebrisInit(0, 0x12, yPosition - (BLOCK_SIZE + PIXEL_SIZE / 2), xPosition - HALF_BLOCK_SIZE);
                 SpriteDebrisInit(0, 0x4, yPosition + HALF_BLOCK_SIZE, xPosition + HALF_BLOCK_SIZE);
-    
+
                 ParticleSet(yPosition + HALF_BLOCK_SIZE, xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
 
                 // Timer to stay
@@ -824,7 +826,7 @@ static void AcidWormExtend(void)
 
 /**
  * @brief 3e4a8 | 210 | Handles the acid worm being fully extended (hooked to block or spitting)
- * 
+ *
  */
 static void AcidWormExtended(void)
 {
@@ -936,7 +938,7 @@ static void AcidWormExtended(void)
 
 /**
  * @brief 3e6b8 | 1ac | Handles the acid worm retracting
- * 
+ *
  */
 static void AcidWormRetracting(void)
 {
@@ -1057,7 +1059,7 @@ static void AcidWormRetracting(void)
 
 /**
  * @brief 3e864 | 68 | Handles the acid worm bringing the acid up
- * 
+ *
  */
 static void AcidWormRaiseAcid(void)
 {
@@ -1085,13 +1087,13 @@ static void AcidWormRaiseAcid(void)
 
 /**
  * @brief 3e8cc | 70 | Handles the acid worm bringing the acid down
- * 
+ *
  */
 static void AcidWormAcidGoDown(void)
 {
     // Offset down
     gEffectYPositionOffset += ONE_SUB_PIXEL;
-    
+
     // Check start screen shake
     if (MOD_AND(gFrameCounter8Bit, 16) == 0)
         ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
@@ -1110,7 +1112,7 @@ static void AcidWormAcidGoDown(void)
 
 /**
  * @brief 3e93c | 24 | Initializes the acid worm to be dying
- * 
+ *
  */
 static void AcidWormDeathGfxInit(void)
 {
@@ -1124,7 +1126,7 @@ static void AcidWormDeathGfxInit(void)
 
 /**
  * @brief 3e960 | 88 | Handles the flashing animation when the acid worm is dying
- * 
+ *
  */
 static void AcidWormDeathFlashingAnim(void)
 {
@@ -1138,7 +1140,7 @@ static void AcidWormDeathFlashingAnim(void)
         return;
 
     isft = --gCurrentSprite.invincibilityStunFlashTimer;
-    
+
     if (!(isft & 0x3))
     {
         if (isft & 0x4)
@@ -1156,17 +1158,17 @@ static void AcidWormDeathFlashingAnim(void)
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.work0 = DELTA_TIME;
             }
-        }    
+        }
     }
 }
 
 /**
  * @brief 3e9e8 | d0 | Handles the acid worm death
- * 
+ *
  */
 static void AcidWormDying(void)
 {
-    // Check acid reached bottom 
+    // Check acid reached bottom
     if (gEffectYPosition > gCurrentSprite.yPositionSpawn + (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
     {
         if (!gSubSpriteData1.workVariable2)
@@ -1213,7 +1215,7 @@ static void AcidWormDying(void)
 
 /**
  * @brief 3eab8 | 258 | Initializes an acid worm body sprite
- * 
+ *
  */
 static void AcidWormPartInit(void)
 {
@@ -1243,7 +1245,7 @@ static void AcidWormPartInit(void)
             gCurrentSprite.hitboxBottom = QUARTER_BLOCK_SIZE;
             gCurrentSprite.hitboxLeft = -QUARTER_BLOCK_SIZE;
             gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE;
-    
+
             gCurrentSprite.drawOrder = 3;
             gCurrentSprite.pOam = sAcidWormPartOam_AroundMouth;
 
@@ -1303,7 +1305,7 @@ static void AcidWormPartInit(void)
             gCurrentSprite.work0 = PI * ACID_WORM_PART_ROTATION_OFFSET * 5;
             gCurrentSprite.work3 = 0x0;
             break;
-            
+
         case ACID_WORM_PART_SEGMENT2:
             gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
             gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
@@ -1363,17 +1365,17 @@ static void AcidWormPartInit(void)
 
 /**
  * @brief 3ed10 | 10c | Handles the movement of the acid worm body
- * 
+ *
  */
 static void AcidWormPartMove(void)
 {
     u32 mainBodySlot;
     u16 oldY;
     u16 health;
-    
+
     mainBodySlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gSpriteData[mainBodySlot].pose == ACID_WORM_POSE_SPAWN_EXTEND) 
+    if (gSpriteData[mainBodySlot].pose == ACID_WORM_POSE_SPAWN_EXTEND)
     {
         // Extending, so just move upwards and check for a splash effect
 
@@ -1428,7 +1430,7 @@ static void AcidWormPartMove(void)
 
 /**
  * @brief 3ee1c | 1fc | Main loop for the acid worm body
- * 
+ *
  */
 static void AcidWormPartIdle(void)
 {
@@ -1499,7 +1501,7 @@ static void AcidWormPartIdle(void)
         {
             gSpriteData[slot].health -= health2;
             gCurrentSprite.health = 0x400;
-            
+
             if (gSpriteData[slot].health <= GET_PSPRITE_HEALTH(gSpriteData[slot].spriteId) / 4)
                 gSpriteData[slot].absolutePaletteRow = 2;
             else if (gSpriteData[slot].health <= DIV_SHIFT(GET_PSPRITE_HEALTH(gSpriteData[slot].spriteId), 2))
@@ -1530,7 +1532,7 @@ static void AcidWormPartIdle(void)
 
 /**
  * @brief 3f018 | c8 | Handles the death of an acid worm body
- * 
+ *
  */
 static void AcidWormPartDeath(void)
 {
@@ -1587,7 +1589,7 @@ static void AcidWormPartDeath(void)
 
 /**
  * @brief 3f0e0 | 8c | Initialize an acid worm spit sprite
- * 
+ *
  */
 static void AcidWormSpitInit(void)
 {
@@ -1617,7 +1619,7 @@ static void AcidWormSpitInit(void)
 
 /**
  * @brief 3f16c | 118 | Handles the movement of an acid worm spit
- * 
+ *
  */
 static void AcidWormSpitMove(void)
 {
@@ -1699,7 +1701,7 @@ static void AcidWormSpitMove(void)
 
 /**
  * @brief 3f284 | 48 | Initializes an acid worm spit sprite to be exploding
- * 
+ *
  */
 static void AcidWormSpitExplodingInit(void)
 {
@@ -1715,7 +1717,7 @@ static void AcidWormSpitExplodingInit(void)
 
 /**
  * @brief 3f2cc | 24 | Checks if the explosion animation has ended
- * 
+ *
  */
 static void AcidWormSpitExploding(void)
 {
@@ -1726,7 +1728,7 @@ static void AcidWormSpitExploding(void)
 
 /**
  * @brief 3f2f0 | 2c | Checks if the explosion animation has ended (on acid)
- * 
+ *
  */
 static void AcidWormSpitCheckExplodingOnAcidAnimEnded(void)
 {
@@ -1741,7 +1743,7 @@ static void AcidWormSpitCheckExplodingOnAcidAnimEnded(void)
 
 /**
  * @brief 3f31c | 264 | Acid worm AI
- * 
+ *
  */
 void AcidWorm(void)
 {
@@ -1830,7 +1832,7 @@ void AcidWorm(void)
 
 /**
  * @brief 3f580 | a4 | Acid worm body AI
- * 
+ *
  */
 void AcidWormPart(void)
 {
@@ -1869,7 +1871,7 @@ void AcidWormPart(void)
 
 /**
  * @brief 3f624 | 60 | Acid worm spit AI
- * 
+ *
  */
 void AcidWormSpit(void)
 {

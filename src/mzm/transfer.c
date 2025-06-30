@@ -1,11 +1,13 @@
-#include "cable_link.h"
-#include "macros.h"
-#include "gba.h"
-#include "transfer.h"
+#include "mzm/cable_link.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
+#include "mzm/transfer.h"
 
-#include "constants/transfer.h"
-#include "structs/cable_link.h"
-#include "structs/transfer.h"
+#include "mzm/constants/transfer.h"
+#include "mzm/structs/cable_link.h"
+#include "mzm/structs/transfer.h"
+
+#include "mzm_include.h"
 
 static u16 TransferHandleTransfer(u32 transferMode, u32 size, const u32* pData, u32* recvBuffer);
 static u16 TransferDetermineSendRecvState(u8 transferMode);
@@ -18,7 +20,7 @@ static void TransferRetrieveIoRegs(void);
 
 /**
  * @brief 8980c | ac | Process the serial transfer
- * 
+ *
  * @param size Data size
  * @param pData Pointer to data to transfer
  * @return u32 Result of serial transfer update, 0 is finished, otherwise failure
@@ -86,7 +88,7 @@ u32 TransferProcessSend(u32 size, const u32* pData)
 
 /**
  * @brief 898b8 | 54 | Initialize data for transfer
- * 
+ *
  */
 static void TransferInit(void)
 {
@@ -105,7 +107,7 @@ static void TransferInit(void)
 
 /**
  * @brief 8990c | 40 | Stop serial transfer and timer 3
- * 
+ *
  */
 static void TransferCloseSerial(void)
 {
@@ -122,7 +124,7 @@ static void TransferCloseSerial(void)
 
 /**
  * @brief 8994c | 58 | Set serial transfer to multi mode
- * 
+ *
  */
 static void TransferOpenSerialMulti(void)
 {
@@ -145,7 +147,7 @@ static void TransferOpenSerialMulti(void)
 
 /**
  * @brief 899a4 | 24 | Set serial transfer to 32 bit transfer and set serial out to ready
- * 
+ *
  */
 static void TransferOpenSerial32(void)
 {
@@ -156,7 +158,7 @@ static void TransferOpenSerial32(void)
 
 /**
  * @brief 899c8 | 174 | Handle the serial transfer
- * 
+ *
  * @param transferMode (Unused) Transfer mode, 0 is receiving, 1 is sending
  * @param Size Data size
  * @param pData Pointer to data to transfer
@@ -212,7 +214,7 @@ static u16 TransferHandleTransfer(u32 transferMode, u32 size, const u32* pData, 
                     break;
                 }
             }
-            
+
             TransferStartTransfer();
             gTransferManager.status.dataTransferStage = TRANSFER_DATA_STAGE_SENDING;
             break;
@@ -245,15 +247,15 @@ static u16 TransferHandleTransfer(u32 transferMode, u32 size, const u32* pData, 
 
     gTransferManager.status.unk_2 = gTransferManager.data.cursor * 100 / gTransferManager.data.sizeInt;
 
-    return gTransferManager.status.dataTransferStage << TRANSFER_DATA_STAGE_SHIFT | 
-           gTransferManager.status.verifyTransferResult << TRANSFER_VERIFY_SHIFT | 
-           gTransferManager.status.errorDuringTransfer << TRANSFER_ERROR_SHIFT | 
+    return gTransferManager.status.dataTransferStage << TRANSFER_DATA_STAGE_SHIFT |
+           gTransferManager.status.verifyTransferResult << TRANSFER_VERIFY_SHIFT |
+           gTransferManager.status.errorDuringTransfer << TRANSFER_ERROR_SHIFT |
            gTransferManager.status.unk_2 << 8;
 }
 
 /**
  * @brief 89b3c | 34 | Determine if all GBA's are ready and the GBA is the parent or child
- * 
+ *
  * @param transferMode Transfer mode, 0 is receiving, 1 is sending
  * @return u16 bool Is GBA parent
  */
@@ -274,7 +276,7 @@ static u16 TransferDetermineSendRecvState(u8 transferMode)
 
 /**
  * @brief 89b70 | 30 | Set up the data to transfer
- * 
+ *
  * @param size Data size
  * @param pData Pointer to data to send
  * @param recvBuffer (Unused) Pointer to data to receive
@@ -282,7 +284,7 @@ static u16 TransferDetermineSendRecvState(u8 transferMode)
 static void TransferSetUpTransferManager(u32 size, const u32* pData, u32* recvBuffer)
 {
     write16(REG_SIO, read16(REG_SIO) | SIO_BAUD_RATE_38400);
-    
+
     gTransferManager.data.pData = pData;
     write32(REG_SIO_MULTI, size); // transmit the size of data to transfer
 
@@ -293,7 +295,7 @@ static void TransferSetUpTransferManager(u32 size, const u32* pData, u32* recvBu
 
 /**
  * @brief 89ba0 | 34 | Initialize timer 3 for transfer
- * 
+ *
  */
 static void TransferInitTimer(void)
 {
@@ -309,7 +311,7 @@ static void TransferInitTimer(void)
 
 /**
  * @brief 89bd4 | 10 | Reload timer 3 and start serial transfer
- * 
+ *
  */
 void TransferReloadTransfer(void)
 {
@@ -320,7 +322,7 @@ void TransferReloadTransfer(void)
 
 /**
  * @brief 89be4 | 180 | Exchange data over serial
- * 
+ *
  */
 void TransferExchangeData(void)
 {
@@ -435,7 +437,7 @@ void TransferExchangeData(void)
 
 /**
  * @brief 89d64 | 10 | Start a serial transfer
- * 
+ *
  */
 static void TransferStartTransfer(void)
 {
@@ -444,7 +446,7 @@ static void TransferStartTransfer(void)
 
 /**
  * @brief 89d74 | 24 | Stop and reload timer 3
- * 
+ *
  */
 static void TransferStopTimer(void)
 {
@@ -454,7 +456,7 @@ static void TransferStopTimer(void)
 
 /**
  * @brief 89d98 | 54 | Makes a backup of the registers used for transfer
- * 
+ *
  */
 static void TransferBackupIoRegs(void)
 {
@@ -467,7 +469,7 @@ static void TransferBackupIoRegs(void)
 
 /**
  * @brief 89dec | 44 | Retrieves the registers used for transfer from the backups
- * 
+ *
  */
 static void TransferRetrieveIoRegs(void)
 {

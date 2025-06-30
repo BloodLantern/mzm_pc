@@ -1,15 +1,17 @@
-#include "init_helpers.h"
-#include "dma.h"
-#include "gba.h"
-#include "globals.h"
-#include "interrupts.h"
-#include "dma.h"
-#include "oam.h"
-#include "types.h"
+#include "mzm/init_helpers.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/globals.h"
+#include "mzm/interrupts.h"
+#include "mzm/dma.h"
+#include "mzm/oam.h"
+#include "mzm/types.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 9a0 | 48 | Clears all the graphics ram (VRAM, OAM, PALRAM)
- * 
+ *
  */
 void ClearGfxRam(void)
 {
@@ -25,7 +27,7 @@ void ClearGfxRam(void)
 
 /**
  * @brief 9e8 | 30 | Loads the interrupt code in RAM
- * 
+ *
  */
 void LoadInterruptCode(void)
 {
@@ -38,7 +40,7 @@ void LoadInterruptCode(void)
 
 /**
  * @brief a18 | 34 | Clears the oam buffer past the next oam slot
- * 
+ *
  */
 void ResetFreeOam(void)
 {
@@ -49,7 +51,7 @@ void ResetFreeOam(void)
     oam = (u16*)&gOamData;
     oam += gNextOamSlot * sizeof(union OamData) / sizeof(*oam);
 
-    // Write until the end of the 
+    // Write until the end of the
     for (i = gNextOamSlot; i < OAM_BUFFER_DATA_SIZE; oam++, i++)
     {
         // Part 1

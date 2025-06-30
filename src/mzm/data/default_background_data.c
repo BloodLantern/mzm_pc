@@ -1,5 +1,7 @@
-#include "data/default_background_data.h"
-#include "macros.h"
+#include "mzm/data/default_background_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sTileset_0_Bg_Gfx[949] = INCBIN_U32("data/rooms/Tileset0_Background.gfx.lz");
 const u8 sTest_Bg3[896] = INCBIN_U8("data/rooms/Test_Bg3.gfx.lz");

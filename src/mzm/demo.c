@@ -1,21 +1,23 @@
-#include "demo.h"
-#include "callbacks.h"
-#include "dma.h"
+#include "mzm/demo.h"
+#include "mzm/callbacks.h"
+#include "mzm/dma.h"
 
-#include "data/demo_data.h"
+#include "mzm/data/demo_data.h"
 
-#include "constants/connection.h"
-#include "constants/demo.h"
-#include "constants/event.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/demo.h"
+#include "mzm/constants/event.h"
 
-#include "structs/demo.h"
-#include "structs/game_state.h"
-#include "structs/minimap.h"
-#include "structs/save_file.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/minimap.h"
+#include "mzm/structs/save_file.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 60b14 | c | Demo v-blank, empty
- * 
+ *
  */
 void DemoVBlank(void)
 {
@@ -24,7 +26,7 @@ void DemoVBlank(void)
 
 /**
  * @brief 60b20 | 5c | Starts a new demo
- * 
+ *
  */
 void DemoStart(void)
 {
@@ -50,7 +52,7 @@ void DemoStart(void)
 
 /**
  * @brief 60b7c | 140 | Initializes a demo
- * 
+ *
  */
 void DemoInit(void)
 {
@@ -124,7 +126,7 @@ void DemoInit(void)
 
 /**
  * @brief 60cbc | 7c | To document
- * 
+ *
  * @param param_1 To document
  */
 void unk_60cbc(u8 param_1)
@@ -156,7 +158,7 @@ void unk_60cbc(u8 param_1)
 
 /**
  * @brief 60d38 | f0 | ends a demo
- * 
+ *
  */
 void DemoEnd(void)
 {
@@ -167,7 +169,7 @@ void DemoEnd(void)
         // Debug, forward demo input and duration to SRAM, and save it flash
         DMA_SET(3, gDemoInputData, gSramDemoInputData, C_32_2_16(DMA_ENABLE, DEMO_MAX_DURATION));
         DMA_SET(3, gDemoInputDuration, gSramDemoInputDuration, C_32_2_16(DMA_ENABLE, DEMO_MAX_DURATION));
-    
+
         DoSramOperation(SRAM_OPERATION_SAVE_RECORDED_DEMO);
 
         // Debug leftover

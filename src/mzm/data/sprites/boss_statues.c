@@ -1,6 +1,8 @@
-#include "data/sprites/boss_statues.h"
+#include "mzm/data/sprites/boss_statues.h"
 
-#include "macros.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sBossStatuesGfx[2388] = INCBIN_U32("data/sprites/BossStatues.gfx.lz");
 const u16 sBossStatuesPal[128] = INCBIN_U16("data/sprites/BossStatues.pal");

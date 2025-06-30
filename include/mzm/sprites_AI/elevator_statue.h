@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 void KraidElevatorStatue(void);
 void RidleyElevatorStatue(void);

@@ -1,5 +1,7 @@
-#include "data/sprites/zebbo.h"
-#include "macros.h"
+#include "mzm/data/sprites/zebbo.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sZebboGreenGfx[124] = INCBIN_U32("data/sprites/ZebboGreen.gfx.lz");
 const u16 sZebboGreenPal[16] = INCBIN_U16("data/sprites/ZebboGreen.pal");

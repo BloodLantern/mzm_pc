@@ -1,10 +1,12 @@
-#include "data/rooms/brinstar_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/brinstar_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sBrinstar_0_Scrolls[SCROLL_DATA_SIZE(3)] = {
 	0, // Room
 	3, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 76, // X bounds
 	22, 31, // Y bounds
@@ -56,4 +58,3 @@ const u8 sBrinstar_0_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(9)] = {
 	34, 39, SPRITESET_IDX(3),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

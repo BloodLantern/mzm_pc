@@ -1,19 +1,21 @@
-#include "sprites_AI/skree.h"
-#include "macros.h"
-#include "gba/display.h"
+#include "mzm/sprites_AI/skree.h"
+#include "mzm/macros.h"
+#include "mzm/gba/display.h"
 
-#include "data/sprites/skree.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/skree.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/display.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define SKREE_POSE_IDLE_INIT 0x8
 #define SKREE_POSE_IDLE 0x9
@@ -33,7 +35,7 @@
 
 /**
  * @brief 1c644 | 50 | Initializes a skree sprite
- * 
+ *
  */
 static void SkreeInit(void)
 {
@@ -53,7 +55,7 @@ static void SkreeInit(void)
 
 /**
  * @brief 1c694 | 1c | Initializes a skree to be idle
- * 
+ *
  */
 static void SkreeIdleInit(void)
 {
@@ -65,7 +67,7 @@ static void SkreeIdleInit(void)
 
 /**
  * @brief 1c6b0 | 50 | Checks if samus is in the range of the skree
- * 
+ *
  */
 static void SkreeDetectSamus(void)
 {
@@ -90,7 +92,7 @@ static void SkreeDetectSamus(void)
 
 /**
  * @brief 1c700 | 1c | Initializes a skree to be spinning
- * 
+ *
  */
 static void SkreeSpinningInit(void)
 {
@@ -102,7 +104,7 @@ static void SkreeSpinningInit(void)
 
 /**
  * @brief 1c71c | 1c | Checks if the spin animation ended
- * 
+ *
  */
 static void SkreeCheckSpinAnimEnded(void)
 {
@@ -112,7 +114,7 @@ static void SkreeCheckSpinAnimEnded(void)
 
 /**
  * @brief 1c738 | 68 | Initializes a skree to be going down
- * 
+ *
  */
 static void SkreeGoingDownInit(void)
 {
@@ -135,7 +137,7 @@ static void SkreeGoingDownInit(void)
 
 /**
  * @brief 1c7a0 | fc | Handles a skree going down
- * 
+ *
  */
 static void SkreeGoDown(void)
 {
@@ -197,7 +199,7 @@ static void SkreeGoDown(void)
 
 /**
  * @brief 1c89c | 128 | Handles a skree crashing on the ground
- * 
+ *
  */
 static void SkreeCrashGround(void)
 {
@@ -237,7 +239,7 @@ static void SkreeCrashGround(void)
                 spriteId = SSPRITE_BLUE_SKREE_EXPLOSION;
             else
                 spriteId = SSPRITE_SKREE_EXPLOSION;
-            
+
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
                 yPosition - EIGHTH_BLOCK_SIZE, xPosition, 0);
 
@@ -259,7 +261,7 @@ static void SkreeCrashGround(void)
 
 /**
  * @brief 1c9c4 | b4 | Initializes a skree explosion sprite
- * 
+ *
  */
 static void SkreeExplosionInit(void)
 {
@@ -275,15 +277,15 @@ static void SkreeExplosionInit(void)
     gCurrentSprite.hitboxBottom = QUARTER_BLOCK_SIZE - PIXEL_SIZE;
     gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE - PIXEL_SIZE);
     gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE - PIXEL_SIZE;
-    
+
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
-    
+
     gCurrentSprite.pose = SKREE_EXPLOSION_POSE_MOVING;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 3;
     gCurrentSprite.bgPriority = BGCNT_GET_PRIORITY(gIoRegistersBackup.BG1CNT);
-    
+
     gCurrentSprite.yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     gCurrentSprite.status |= SPRITE_STATUS_DOUBLE_SIZE | SPRITE_STATUS_ROTATION_SCALING;
     gCurrentSprite.scaling = Q_8_8(1.f);
@@ -297,7 +299,7 @@ static void SkreeExplosionInit(void)
 
 /**
  * @brief 1ca78 | 68 | Handles the movement of a skree explosion sprite
- * 
+ *
  */
 static void SkreeExplosionMove(void)
 {
@@ -326,7 +328,7 @@ static void SkreeExplosionMove(void)
 
 /**
  * @brief 1cae0 | 194 | Skree AI
- * 
+ *
  */
 void Skree(void)
 {
@@ -345,7 +347,7 @@ void Skree(void)
 
     if (SpriteUtilIsSpriteStunned())
         return;
-    
+
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:
@@ -384,7 +386,7 @@ void Skree(void)
 
 /**
  * @brief 1cc74 | 24 | Skree explosion AI
- * 
+ *
  */
 void SkreeExplosion(void)
 {

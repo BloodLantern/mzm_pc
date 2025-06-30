@@ -1,16 +1,18 @@
-#include "sprites_AI/squeept.h"
-#include "macros.h"
+#include "mzm/sprites_AI/squeept.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/squeept.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/squeept.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define SQUEEPT_POSE_IDLE_INIT 0xE
 #define SQUEEPT_POSE_IDLE 0xF
@@ -20,7 +22,7 @@
 
 /**
  * @brief 1eff4 | 24 | Initializes a squeept to be going up
- * 
+ *
  */
 static void SqueeptGoingUpInit(void)
 {
@@ -34,7 +36,7 @@ static void SqueeptGoingUpInit(void)
 
 /**
  * @brief 1f018 | 24 | Initializes a squeept to be turning around
- * 
+ *
  */
 static void SqueeptTurningAroundInit(void)
 {
@@ -48,7 +50,7 @@ static void SqueeptTurningAroundInit(void)
 
 /**
  * @brief 1f03c | 20 | Initializes a squeept to be going down
- * 
+ *
  */
 static void SqueeptGoingDownInit(void)
 {
@@ -62,7 +64,7 @@ static void SqueeptGoingDownInit(void)
 
 /**
  * @brief 1f05c | 4c | Initializes a squeept sprite
- * 
+ *
  */
 static void SqueeptInit(void)
 {
@@ -83,7 +85,7 @@ static void SqueeptInit(void)
 
 /**
  * @brief 1f0a8 | 28 | Initializes a squeept to be idle
- * 
+ *
  */
 static void SqueeptIdleInit(void)
 {
@@ -97,7 +99,7 @@ static void SqueeptIdleInit(void)
 
 /**
  * @brief 1f0d0 | 50 | Handles a squeept being idle
- * 
+ *
  */
 static void SqueeptIdle(void)
 {
@@ -122,7 +124,7 @@ static void SqueeptIdle(void)
 
 /**
  * @brief 1f120 | bc | Handles a squeept going up
- * 
+ *
  */
 static void SqueeptGoUp(void)
 {
@@ -181,7 +183,7 @@ static void SqueeptGoUp(void)
 
 /**
  * @brief 1f1dc | 28 | Handles a squeept turning around
- * 
+ *
  */
 static void SqueeptTurningAround(void)
 {
@@ -196,7 +198,7 @@ static void SqueeptTurningAround(void)
 
 /**
  * @brief 1f204 | 84 | Handles a squeept going down
- * 
+ *
  */
 static void SqueeptGoDown(void)
 {
@@ -235,7 +237,7 @@ static void SqueeptGoDown(void)
 
 /**
  * @brief  1f288 | 194 | Squeept AI
- * 
+ *
  */
 void Squeept(void)
 {

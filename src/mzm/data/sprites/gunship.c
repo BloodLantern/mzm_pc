@@ -1,5 +1,7 @@
-#include "data/sprites/gunship.h"
-#include "macros.h"
+#include "mzm/data/sprites/gunship.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sGunshipTakingOffYVelocity[153] = {
 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, -1, 0, -1, 0,

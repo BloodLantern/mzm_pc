@@ -1,5 +1,7 @@
-#include "data/rooms/chozodia_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/chozodia_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sChozodia_67_Clipdata[215] = INCBIN_U8("data/rooms/chozodia/Chozodia_67_Clipdata.gfx");
 
@@ -18,4 +20,3 @@ const u8 sChozodia_67_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(7)] = {
 };
 
 const u8 sChozodia_67_Bg0[334] = INCBIN_U8("data/rooms/chozodia/Chozodia_67_Bg0.gfx");
-

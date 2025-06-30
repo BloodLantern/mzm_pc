@@ -1,6 +1,8 @@
-#include "data/menus/title_screen_data.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/data/menus/title_screen_data.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u16 sTitleScreenPal[15 * 16] = INCBIN_U16("data/menus/TitleScreen/Palette.pal");
 const u16 sTitleScreenPromptPal[5 * 16] = INCBIN_U16("data/menus/TitleScreen/Prompt.pal");
@@ -195,7 +197,7 @@ const struct MenuOamData sTitleScreenTopSparkleBaseOam = {
     .notDrawn = FALSE,
     .exists = TRUE,
     .boundBackground = 0,
-    .unk_E = 0 
+    .unk_E = 0
 };
 
 const struct MenuOamData sTitleScreenBottomSparkleBaseOam = {
@@ -214,7 +216,7 @@ const struct MenuOamData sTitleScreenBottomSparkleBaseOam = {
     .notDrawn = FALSE,
     .exists = TRUE,
     .boundBackground = 0,
-    .unk_E = 0 
+    .unk_E = 0
 };
 
 const struct OamArray sTitleScreenOam[TITLE_SCREEN_OAM_ID_END] = {

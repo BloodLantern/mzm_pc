@@ -1,29 +1,31 @@
-#include "minimap.h"
-#include "dma.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/minimap.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/engine_pointers.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/menus/pause_screen_map_data.h"
-#include "data/menus/internal_pause_screen_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/menus/pause_screen_map_data.h"
+#include "mzm/data/menus/internal_pause_screen_data.h"
 
-#include "constants/connection.h"
-#include "constants/game_state.h"
-#include "constants/minimap.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/minimap.h"
 
-#include "structs/bg_clip.h"
-#include "structs/game_state.h"
-#include "structs/minimap.h"
-#include "structs/samus.h"
-#include "structs/room.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/minimap.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/room.h"
+
+#include "mzm_include.h"
 
 #ifdef DEBUG
 
 /**
  * @brief Draws room ID and coordinates on the minimap
- * 
+ *
  */
 void MinimapDrawRoomInfo(void)
 {
@@ -34,7 +36,7 @@ void MinimapDrawRoomInfo(void)
 
 /**
  * @brief Draws a number on the minimap
- * 
+ *
  * @param value Number to draw
  * @param dst Destination address
  */
@@ -68,7 +70,7 @@ void MinimapDrawNumber(u8 value, void* dst)
 
 /**
  * @brief 6c154 | 24 | Updates the minimap
- * 
+ *
  */
 void MinimapUpdate(void)
 {
@@ -83,14 +85,14 @@ void MinimapUpdate(void)
 
 /**
  * @brief 6c178 | 4c | Sets the current minimap tile to be explored
- * 
+ *
  */
 void MinimapSetTileAsExplored(void)
 {
     u32 offset;
     if (!gShipLandingFlag)
     {
-        offset = gCurrentArea * MINIMAP_SIZE + gMinimapY; 
+        offset = gCurrentArea * MINIMAP_SIZE + gMinimapY;
         sVisitedMinimapTilesPointer[offset] |= sExploredMinimapBitFlags[gMinimapX];
     }
 }
@@ -99,7 +101,7 @@ void MinimapSetTileAsExplored(void)
 void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
 {
     // https://decomp.me/scratch/lc52R
-    
+
     u32 set;
     s32 i;
     s32 j;
@@ -461,7 +463,7 @@ lbl_0806c398: .4byte 0x000003ff \n\
 
 /**
  * @brief 6c39c | d8 | Checks if Samus is on an unexplored minimap tile
- * 
+ *
  */
 void MinimapCheckForUnexploredTile(void)
 {
@@ -521,7 +523,7 @@ void MinimapCheckForUnexploredTile(void)
 
 /**
  * @brief 6c474 | a4 | Updates the minimap when taking a transition
- * 
+ *
  */
 void MinimapCheckOnTransition(void)
 {
@@ -567,7 +569,7 @@ void MinimapCheckOnTransition(void)
 
 /**
  * @brief 6c518 | 9c | Updates the minimap for the explored tiles
- * 
+ *
  */
 void MinimapUpdateForExploredTiles(void)
 {
@@ -582,7 +584,7 @@ void MinimapUpdateForExploredTiles(void)
     offset = gMinimapX + gMinimapY * MINIMAP_SIZE;
     // FIXME use symbol
     tiles = (u16*)0x2034000 + offset; // gDecompressedMinimapVisitedTiles
-    
+
     if (!(*tiles & 0xF000))
     {
         // FIXME use symbol
@@ -605,7 +607,7 @@ void MinimapUpdateForExploredTiles(void)
 
 /**
  * @brief 6c5b4 | 100 | To document
- * 
+ *
  */
 void MinimapDraw(void)
 {
@@ -676,7 +678,7 @@ void MinimapDraw(void)
         do {
         tile = *tmp & 0x3ff;
         } while(0);
-        
+
         if (gLanguage == LANGUAGE_HIRAGANA && tile > MINIMAP_TILE_BACKGROUND)
             tile += 0x20;
 
@@ -687,7 +689,7 @@ void MinimapDraw(void)
 
 /**
  * @brief 6c6b4 | d8 | Copies the graphics of a map tile
- * 
+ *
  * @param dst Destination pointer
  * @param pTile Tile pointer
  * @param palette Palette
@@ -726,7 +728,7 @@ void MinimapCopyTileGfx(u32* dst, u16* pTile, u8 palette)
 
 /**
  * @brief 6c78c | ec | Copies the graphics of a map tile (X flipped)
- * 
+ *
  * @param dst Destination pointer
  * @param pTile Tile pointer
  * @param palette Palette
@@ -761,14 +763,14 @@ void MinimapCopyTileXFlippedGfx(u32* dst, u16* pTile, u8 palette)
             sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 24;
 
         *dst++ = value;
-        
+
         *pTile += 4;
     }
 }
 
 /**
  * @brief 6c878 | dc | Copies the graphics of a map tile (Y flipped)
- * 
+ *
  * @param dst Destination pointer
  * @param pTile Tile pointer
  * @param palette Palette
@@ -778,9 +780,9 @@ void MinimapCopyTileYFlippedGfx(u32* dst, u16* pTile, u8 palette)
     s32 i;
     u32 value;
     u32 tile;
-    
+
     *pTile += 28;
-    
+
     for (i = 0; i < 8; i++)
     {
         tile = sMinimapTilesGfx[*pTile];
@@ -809,7 +811,7 @@ void MinimapCopyTileYFlippedGfx(u32* dst, u16* pTile, u8 palette)
 
 /**
  * @brief 6c954 | f0 | Copies the graphics of a map tile (X/Y flipped)
- * 
+ *
  * @param dst Destination pointer
  * @param pTile Tile pointer
  * @param palette Palette
@@ -824,7 +826,7 @@ void MinimapCopyTileXYFlippedGfx(u32* dst, u16* pTile, u8 palette)
     do{
         *pTile += 31;
     }while(0);
-    
+
     for (i = 0; i < 8; i++)
     {
         tile = sMinimapTilesGfx[*pTile];
@@ -848,13 +850,13 @@ void MinimapCopyTileXYFlippedGfx(u32* dst, u16* pTile, u8 palette)
         (*pTile)--;
 
         *dst++ = value;
-        
+
     }
 }
 
 /**
  * @brief 6ca44 | 6c | Updates the tiles of a minimap with obtained items
- * 
+ *
  * @param area Area
  * @param dst Destination pointer
  */
@@ -875,7 +877,7 @@ void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
     {
         if (!*src)
             continue;
-        
+
         tile = *src;
         for (j = 0; j < MINIMAP_SIZE && tile; j++)
         {
@@ -890,7 +892,7 @@ void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
 
 /**
  * @brief 6cab0 | 128 | Updates the tiles of a minimap with the downloaded tiles
- * 
+ *
  * @param area Area
  * @param dst Destination pointer
  */
@@ -950,7 +952,7 @@ void MinimapSetDownloadedTiles(u8 area, u16* dst)
 
 /**
  * @brief 6cbd8 | 90 | Updates the minimap for a collected item
- * 
+ *
  * @param xPosition X position
  * @param yPosition Y position
  */
@@ -973,7 +975,7 @@ void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
         ptr = (u32*)(0x2033800) + offset; // gMinimapTilesWithObtainedItems
         ptr[itemY] |= sExploredMinimapBitFlags[itemX];
 
-        
+
         itemX += itemY * MINIMAP_SIZE;
         // FIXME use symbol
         ptrU = (u16*)0x2034000; // gDecompressedMinimapVisitedTiles
@@ -989,7 +991,7 @@ void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
 
 /**
  * @brief 6cc68 | 64 | Checks if a minimap has been explored
- * 
+ *
  * @param xPosition X Position
  * @param yPosition Y Position
  * @return u32 Explored bit flag
@@ -1015,7 +1017,7 @@ u32 MinimapCheckIsTileExplored(u8 xPosition, u8 yPosition)
 
 /**
  * @brief 6cccc | b8 | Sets the minimap tiles with obtained items when loading a save file
- * 
+ *
  */
 void MinimapLoadTilesWithObtainedItems(void)
 {
@@ -1055,7 +1057,7 @@ void MinimapLoadTilesWithObtainedItems(void)
 
 /**
  * @brief 6cd84 | 174 | Updates a minimap chunk/boss icon
- * 
+ *
  * @param event Event linked
  */
 void MinimapUpdateChunk(u8 event)
@@ -1093,13 +1095,13 @@ void MinimapUpdateChunk(u8 event)
             mask = 0xF000;
             ptr = pVisited;
             pVisitedLower = pMinimap;
-            
+
             for (i = 2; i >= 0; i--)
             {
                 (*pVisitedLower)++;
                 if (mask & *ptr)
                     (*ptr)++;
-                
+
                 ptr++;
                 pVisitedLower++;
             }
@@ -1120,7 +1122,7 @@ void MinimapUpdateChunk(u8 event)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
-                
+
                 pVisitedLower++;
                 pMinimapLower++;
             }
@@ -1134,7 +1136,7 @@ void MinimapUpdateChunk(u8 event)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
-                
+
                 pVisitedLower++;
                 pMinimapLower++;
             }
@@ -1154,7 +1156,7 @@ void MinimapUpdateChunk(u8 event)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
-                
+
                 pVisitedLower++;
                 pMinimapLower++;
             }
@@ -1168,7 +1170,7 @@ void MinimapUpdateChunk(u8 event)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
-                
+
                 pVisitedLower++;
                 pMinimapLower++;
             }

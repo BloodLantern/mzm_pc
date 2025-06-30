@@ -1,5 +1,7 @@
-#include "data/sprites/space_pirate_carrying_power_bomb.h"
-#include "macros.h"
+#include "mzm/data/sprites/space_pirate_carrying_power_bomb.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sFakePowerBombGfx[115] = INCBIN_U32("data/sprites/FakePowerBomb.gfx.lz");
 const u16 sFakePowerBombPal[16] = INCBIN_U16("data/sprites/FakePowerBomb.pal");

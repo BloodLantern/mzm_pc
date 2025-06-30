@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/block.h"
+#include "mzm/types.h"
+#include "mzm/structs/block.h"
 
 u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock);
 u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock);

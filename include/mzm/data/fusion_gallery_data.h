@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "structs/fusion_gallery.h"
+#include "mzm/structs/fusion_gallery.h"
 
 #define NUMBER_OF_FUSION_GALLERY_IMAGES 13
 

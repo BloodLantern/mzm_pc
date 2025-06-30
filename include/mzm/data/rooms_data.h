@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "structs/connection.h"
-#include "structs/room.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/room.h"
 
 extern const u8 sEnemyRoomData_Empty[3];
 

@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/event.h"
+#include "mzm/types.h"
+#include "mzm/constants/event.h"
 
 #ifdef DEBUG
 extern const u8* const sPauseDebugEventNamePointers[EVENT_COUNT];

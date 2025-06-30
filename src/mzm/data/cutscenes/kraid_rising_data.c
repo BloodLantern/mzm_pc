@@ -1,7 +1,9 @@
-#include "data/cutscenes/kraid_rising_data.h"
-#include "cutscenes/kraid_rising.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/data/cutscenes/kraid_rising_data.h"
+#include "mzm/cutscenes/kraid_rising.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const struct CutscenePageData sKraidRisingPagesData[4] = {
     {

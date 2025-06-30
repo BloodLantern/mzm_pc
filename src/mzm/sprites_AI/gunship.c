@@ -1,23 +1,25 @@
-#include "sprites_AI/gunship.h"
-#include "gba.h"
-#include "sprites_AI/item_banner.h"
+#include "mzm/sprites_AI/gunship.h"
+#include "mzm/gba.h"
+#include "mzm/sprites_AI/item_banner.h"
 
-#include "data/sprites/gunship.h"
+#include "mzm/data/sprites/gunship.h"
 
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/event.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/connection.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/hud.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define GUNSHIP_POSE_IDLE 0x9
 #define GUNSHIP_POSE_CHECK_ESCAPE 0xF
@@ -75,14 +77,14 @@ do {                                            \
 
 /**
  * @brief 44c24 | 84 | Updates the flames palette
- * 
+ *
  */
 static void GunshipFlickerFlames(void)
 {
     u32 timer;
     u8 row;
     u8 offset;
-    
+
     if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC) && gCurrentSprite.work2 == CONVERT_SECONDS(1.f / 15))
     {
         row = gCurrentSprite.scaling;
@@ -113,7 +115,7 @@ static void GunshipFlickerFlames(void)
 
 /**
  * @brief 44ca8 | b0 | Updates the entrance palette
- * 
+ *
  */
 static void GunshipEntranceFlashingAnim(void)
 {
@@ -159,13 +161,13 @@ static void GunshipEntranceFlashingAnim(void)
 
 /**
  * @brief 44d58 | 64 | Checks if samus is entering the gunship
- * 
+ *
  * @return u8 1 if entering, 0 otherwise
  */
 static u8 GunshipCheckSamusEnter(void)
 {
     u16 samusX;
-    
+
     if (!SpriteUtilCheckCrouchingOrMorphed())
     {
         samusX = gSamusData.xPosition;
@@ -183,13 +185,13 @@ static u8 GunshipCheckSamusEnter(void)
             return TRUE;
         }
     }
-    
+
     return FALSE;
 }
 
 /**
  * @brief 44dbc | 1e0 | Initializes a gunship sprite
- * 
+ *
  */
 static void GunshipInit(void)
 {
@@ -270,7 +272,7 @@ static void GunshipInit(void)
         // Idle
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0);
-        
+
         gCurrentSprite.yPositionSpawn = 0;
         gCurrentSprite.samusCollision = SSC_CAN_STAND_ON_TOP;
 
@@ -285,7 +287,7 @@ static void GunshipInit(void)
 
 /**
  * @brief 44f9c | 48 | Handles the gunship landing during the intro
- * 
+ *
  */
 static void GunshipLanding(void)
 {
@@ -307,7 +309,7 @@ static void GunshipLanding(void)
 
 /**
  * @brief 44fe4 | 40 | Handles the gunship being idle
- * 
+ *
  */
 static void GunshipIdle(void)
 {
@@ -326,7 +328,7 @@ static void GunshipIdle(void)
 
 /**
  * @brief 45024 | cc | Handles Samus entering the gunship
- * 
+ *
  */
 static void GunshipSamusEntering(void)
 {
@@ -355,7 +357,7 @@ static void GunshipSamusEntering(void)
                 gSpriteData[ramSlot].pose = GUNSHIP_PART_POSE_ENTRANCE_BACK_OPENING_CLOSING;
 
                 SoundPlay(SOUND_GUNSHIP_CLOSING);
-                SoundFade(SOUND_GUNSHIP_PLATFORM_MOVING, CONVERT_SECONDS(1.f / 6)); 
+                SoundFade(SOUND_GUNSHIP_PLATFORM_MOVING, CONVERT_SECONDS(1.f / 6));
             }
         }
     }
@@ -366,13 +368,13 @@ static void GunshipSamusEntering(void)
     }
     else if (gCurrentSprite.work0 == TWO_THIRD_SECOND + CONVERT_SECONDS(1.f / 15))
     {
-        SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING); 
+        SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING);
     }
 }
 
 /**
  * @brief 450f0 | 15c | Handles the gunship refilling Samus
- * 
+ *
  */
 static void GunshipRefill(void)
 {
@@ -436,7 +438,7 @@ static void GunshipRefill(void)
         else if (!SpriteUtilRefillPowerBombs())
         {
             gCurrentSprite.work0--;
-    
+
             if (gEquipment.maxPowerBombs != 0)
                 gPowerBombRefillAnimation = 13;
         }
@@ -463,7 +465,7 @@ static void GunshipRefill(void)
 
 /**
  * @brief 4524c | 90 | Handles the behavior of the gunship after a refill
- * 
+ *
  */
 static void GunshipAfterRefill(void)
 {
@@ -504,7 +506,7 @@ static void GunshipAfterRefill(void)
 
 /**
  * @brief 452dc | 44 | Handles the gunship saving
- * 
+ *
  */
 static void GunshipSaving(void)
 {
@@ -520,7 +522,7 @@ static void GunshipSaving(void)
 
 /**
  * @brief 45320 | 38 | Handles the behavior of the gunship after saving
- * 
+ *
  */
 static void GunshipAfterSave(void)
 {
@@ -537,7 +539,7 @@ static void GunshipAfterSave(void)
 
 /**
  * @brief 45358 | b8 | Handles the gunship starting to eject samus
- * 
+ *
  */
 static void GunshipSamusLeave(void)
 {
@@ -578,7 +580,7 @@ static void GunshipSamusLeave(void)
 
 /**
  * @brief 45410 | 28 | Handles samus leaving the gunship
- * 
+ *
  */
 static void GunshipSamusLeaving(void)
 {
@@ -605,7 +607,7 @@ static void GunshipSamusLeaving(void)
 
 /**
  * @brief 45468 | 24 | Handles the gunship releasing samus
- * 
+ *
  */
 static void GunshipReleaseSamus(void)
 {
@@ -618,7 +620,7 @@ static void GunshipReleaseSamus(void)
 
 /**
  * @brief 4548c | 28 | Called after samus is released
- * 
+ *
  */
 static void GunshipSamusReleased(void)
 {
@@ -631,7 +633,7 @@ static void GunshipSamusReleased(void)
 
 /**
  * @brief 454b4 | 28 | Checks if samus is still on the gunship after being released
- * 
+ *
  */
 static void GunshipCheckSamusOnTopAfterLeaving(void)
 {
@@ -644,7 +646,7 @@ static void GunshipCheckSamusOnTopAfterLeaving(void)
 
 /**
  * @brief 454dc | 50 | Checks if samus should escape
- * 
+ *
  */
 static void GunshipCheckEscapeZebes(void)
 {
@@ -665,7 +667,7 @@ static void GunshipCheckEscapeZebes(void)
 
 /**
  * @brief 4552c | e4 | Handles samus entering the gunship when escaping
- * 
+ *
  */
 static void GunshipSamusEnteringWhenEscaping(void)
 {
@@ -711,13 +713,13 @@ static void GunshipSamusEnteringWhenEscaping(void)
     }
     else if (gCurrentSprite.work0 == TWO_THIRD_SECOND + CONVERT_SECONDS(1.f / 15))
     {
-        SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING); 
+        SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING);
     }
 }
 
 /**
  * @brief 45610 | 78 | Handles the gunship starting to escape
- * 
+ *
  */
 static void GunshipStartEscaping(void)
 {
@@ -744,7 +746,7 @@ static void GunshipStartEscaping(void)
 
 /**
  * @brief 45688 | 80 | Handles the gunship taking off before flying
- * 
+ *
  */
 static void GunshipTakingOff(void)
 {
@@ -767,7 +769,7 @@ static void GunshipTakingOff(void)
             movement = sGunshipTakingOffYVelocity[offset - 1];
             gCurrentSprite.yPosition += movement;
             gSamusData.yPosition += movement;
-            
+
         }
         else
         {
@@ -780,7 +782,7 @@ static void GunshipTakingOff(void)
 
 /**
  * @brief 45708 | 8c | Handles the ship flying when escaping
- * 
+ *
  */
 static void GunshipFlying(void)
 {
@@ -820,7 +822,7 @@ static void GunshipFlying(void)
 
 /**
  * @brief 45794 | 1a0 | Initializes a gunship part sprite
- * 
+ *
  */
 static void GunshipPartInit(void)
 {
@@ -844,7 +846,7 @@ static void GunshipPartInit(void)
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = 0;
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE + HALF_BLOCK_SIZE);
-            
+
             gCurrentSprite.pOam = sGunshipPartOam_EntranceFrontClosed;
 
             if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
@@ -912,7 +914,7 @@ static void GunshipPartInit(void)
 
 /**
  * @brief 45934 | 40 | Checks if the horizontal flames should become the vertical flames
- * 
+ *
  */
 static void GunshipPartCheckSetVerticalFlames(void)
 {
@@ -931,7 +933,7 @@ static void GunshipPartCheckSetVerticalFlames(void)
 
 /**
  * @brief 45974 | 38 | Checks if the vertical flames should become the horizontal flames
- * 
+ *
  */
 static void GunshipPartCheckSetHorizontalFlames(void)
 {
@@ -952,7 +954,7 @@ static void GunshipPartCheckSetHorizontalFlames(void)
 
 /**
  * @brief 459ac | 38 | Checks if the horizontal flames should become the vertical flames (before landing)
- * 
+ *
  */
 static void GunshipPartCheckSetVerticalFlamesBeforeLanding(void)
 {
@@ -972,7 +974,7 @@ static void GunshipPartCheckSetVerticalFlamesBeforeLanding(void)
 
 /**
  * @brief 459e4 | 5c | Checks if the vertical flames should become the horizontal flames (before landing)
- * 
+ *
  */
 static void GunshipPartCheckSetHorizontalFlamesBeforeLanding(void)
 {
@@ -999,7 +1001,7 @@ static void GunshipPartCheckSetHorizontalFlamesBeforeLanding(void)
 
 /**
  * @brief 45a40 | 28 | Flickers the flames, unused
- * 
+ *
  */
 static void GunshipPartFlickFlames_Unused(void)
 {
@@ -1011,7 +1013,7 @@ static void GunshipPartFlickFlames_Unused(void)
 
 /**
  * @brief 45a68 | a8 | Handles the front part of the entrance being idle
- * 
+ *
  */
 static void GunshipPartEntranceFrontIdle(void)
 {
@@ -1066,14 +1068,14 @@ static void GunshipPartEntranceFrontIdle(void)
                 gCurrentSprite.pOam = sGunshipPartOam_EntranceFrontClosing;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
-            }            
+            }
         }
     }
 }
 
 /**
  * @brief 45b10 | 5c | Handles the front part of the entrance opening/closing
- * 
+ *
  */
 static void GunshipPartEntranceFrontOpenClose(void)
 {
@@ -1100,7 +1102,7 @@ static void GunshipPartEntranceFrontOpenClose(void)
 
 /**
  * @brief 45b6c | f8 | Handles the back part of the entrance being idle
- * 
+ *
  */
 static void GunshipPartEntranceBackIdle(void)
 {
@@ -1167,7 +1169,7 @@ static void GunshipPartEntranceBackIdle(void)
 
 /**
  * @brief 45c64 | 5c | Handles the back part of the entrance opening/closing
- * 
+ *
  */
 static void GunshipPartEntranceBackOpenClose(void)
 {
@@ -1194,7 +1196,7 @@ static void GunshipPartEntranceBackOpenClose(void)
 
 /**
  * @brief 45cc0 | 54 | Checks if the platform should go up
- * 
+ *
  */
 static void GunshipPartCheckPlatformGoUp(void)
 {
@@ -1210,7 +1212,7 @@ static void GunshipPartCheckPlatformGoUp(void)
 
 /**
  * @brief 45d14 | 50 | Handles the platform moving up
- * 
+ *
  */
 static void GunshipPartPlatformGoUp(void)
 {
@@ -1236,7 +1238,7 @@ static void GunshipPartPlatformGoUp(void)
 
 /**
  * @brief 45d64 | 98 | Checks if the platform should go down
- * 
+ *
  */
 static void GunshipPartCheckPlatformGoDown(void)
 {
@@ -1266,8 +1268,8 @@ static void GunshipPartCheckPlatformGoDown(void)
 }
 
 /**
- * @brief 45dfc | 50 | Handles the platform moving down 
- * 
+ * @brief 45dfc | 50 | Handles the platform moving down
+ *
  */
 static void GunshipPartPlatformGoDown(void)
 {
@@ -1293,7 +1295,7 @@ static void GunshipPartPlatformGoDown(void)
 
 /**
  * @brief 45e4c | 24c | Gunship AI
- * 
+ *
  */
 void Gunship(void)
 {
@@ -1398,7 +1400,7 @@ void Gunship(void)
 
 /**
  * @brief 46098 | 1e4 | Gunship part AI
- * 
+ *
  */
 void GunshipPart(void)
 {

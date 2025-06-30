@@ -1,25 +1,27 @@
-#include "haze.h"
-#include "dma.h"
-#include "gba.h"
-#include "macros.h"
-#include "temp_globals.h"
+#include "mzm/haze.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/temp_globals.h"
 
-#include "data/engine_pointers.h"
-#include "data/haze_data.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/haze_data.h"
 
-#include "constants/color_fading.h"
-#include "constants/haze.h"
-#include "constants/game_state.h"
-#include "constants/room.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/haze.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/room.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/haze.h"
-#include "structs/room.h"
-#include "structs/power_bomb_explosion.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/haze.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/power_bomb_explosion.h"
+
+#include "mzm_include.h"
 
 #define HAZE_SET_INACTIVE() \
 do {                        \
@@ -28,7 +30,7 @@ gHazeInfo.active = FALSE;   \
 
 /**
  * @brief 5cfe0 | 54 | Sets the background haze effect based on the visual effect of the room entry
- * 
+ *
  */
 void HazeSetBackgroundEffect(void)
 {
@@ -47,7 +49,7 @@ void HazeSetBackgroundEffect(void)
 
 /**
  * @brief 5d034 | 98 | Transfers the haze effect and clears it
- * 
+ *
  */
 void HazeTransferAndDeactivate(void)
 {
@@ -68,7 +70,7 @@ void HazeTransferAndDeactivate(void)
 
 /**
  * @brief 5d09c | 7c | To document
- * 
+ *
  */
 void unk_5d09c(void)
 {
@@ -92,7 +94,7 @@ void unk_5d09c(void)
 
 /**
  * @brief 5d118 | 2ba | Sets up code and values for a haze effect
- * 
+ *
  * @param hazeValue Haze value
  */
 void HazeSetupCode(u8 hazeValue)
@@ -108,7 +110,7 @@ void HazeSetupCode(u8 hazeValue)
             HazeCalculateGradient();
 
             gHazeInfo.enabled = TRUE;
-            
+
             gHazeInfo.size = 2;
             gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = PALRAM_BASE;
@@ -119,7 +121,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
 
             gHazeInfo.enabled = TRUE;
-            
+
             gHazeInfo.size = 2;
             gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_BG3HOFS;
@@ -130,18 +132,18 @@ void HazeSetupCode(u8 hazeValue)
             gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
 
             gHazeInfo.enabled = TRUE;
-            
+
             gHazeInfo.size = 2;
             gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_BG3HOFS;
             break;
- 
+
         case HAZE_VALUE_BG3_NONE_WEAK:
             DmaTransfer(3, Haze_Bg3NoneWeak, &gNonGameplayRam.inGame[640], 0x200, 16);
             gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
 
             gHazeInfo.enabled = TRUE;
-            
+
             gHazeInfo.size = 2;
             gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_BG3HOFS;
@@ -152,7 +154,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
 
             gHazeInfo.enabled = TRUE;
-            
+
             gHazeInfo.size = 8;
             gHazeInfo.unk_4 = 0x500;
             gHazeInfo.pAffected = REG_BG2HOFS;
@@ -163,7 +165,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
 
             gHazeInfo.enabled = TRUE;
-            
+
             gHazeInfo.size = 12;
             gHazeInfo.unk_4 = 0x780;
             gHazeInfo.pAffected = REG_BG1HOFS;
@@ -192,7 +194,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRam.inGame[640] + 1);
 
             gHazeInfo.enabled = TRUE;
-            
+
             gHazeInfo.size = 2;
             gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_WIN1H;
@@ -220,7 +222,7 @@ void HazeSetupCode(u8 hazeValue)
 
 /**
  * @brief 5d3d8 | 3c | Resets the haze loops
- * 
+ *
  */
 void HazeResetLoops(void)
 {
@@ -237,7 +239,7 @@ void HazeResetLoops(void)
 
 /**
  * @brief 5d414 | 1a8 | Calcules the gradiant
- * 
+ *
  */
 void HazeCalculateGradient(void)
 {
@@ -254,7 +256,7 @@ void HazeCalculateGradient(void)
     s32 r;
     s32 g;
     s32 b;
-    
+
     u8 newR;
     u8 newG;
     u8 newB;
@@ -283,7 +285,7 @@ void HazeCalculateGradient(void)
     {
         src = (u16*)(PALRAM_BASE + 16 * 28);
         src2 = &src[i];
-        
+
         rBase = RED(src2[0]);
         gBase = GREEN(src2[0]);
         bBase = BLUE(src2[0]);
@@ -305,7 +307,7 @@ void HazeCalculateGradient(void)
             newG = j * (g / 10) + gBase;
             newG += (g % 10 * j) / 10;
             newG += (g % 100 * j) / 100;
-            
+
             newB = j * (b / 10) + bBase;
             newB += (b % 10 * j) / 10;
             newB += (b % 100 * j) / 100;
@@ -317,7 +319,7 @@ void HazeCalculateGradient(void)
 
 /**
  * @brief 5d5bc | 1ac | Processes the current haze effect
- * 
+ *
  * @return u32 bool, ended
  */
 u32 HazeProcess(void)
@@ -330,7 +332,7 @@ u32 HazeProcess(void)
     {
         case HAZE_VALUE_NONE:
             break;
-    
+
         case HAZE_VALUE_BG3:
         case HAZE_VALUE_BG3_STRONG_WEAK:
         case HAZE_VALUE_BG3_NONE_WEAK:
@@ -404,7 +406,7 @@ u32 HazeProcess(void)
 
 /**
  * @brief 5d768 | c0 | Updates the haze effect (BG3, strong everywhere)
- * 
+ *
  */
 void Haze_Bg3(void)
 {
@@ -459,7 +461,7 @@ void Haze_Bg3(void)
 
 /**
  * @brief 5d828 | 118 | Updates the haze effect (BG3, strong in effect, weak outside)
- * 
+ *
  */
 void Haze_Bg3StrongWeak(void)
 {
@@ -528,7 +530,7 @@ void Haze_Bg3StrongWeak(void)
 
 /**
  * @brief 5d940 | 70 | Updates the haze effect (BG3, nothing in effect, weak outside)
- * 
+ *
  */
 void Haze_Bg3NoneWeak(void)
 {
@@ -564,7 +566,7 @@ void Haze_Bg3NoneWeak(void)
 
 /**
  * @brief 5d9b0 | 90 | Updates the haze effect (BG3 and BG2, strong in effect, weak outside and medium everywhere)
- * 
+ *
  */
 void Haze_Bg3Bg2StrongWeakMedium(void)
 {
@@ -603,7 +605,7 @@ void Haze_Bg3Bg2StrongWeakMedium(void)
 
 /**
  * @brief 5da40 | ec | Updates the haze effect (BG3, BG2 and BG1, strong everywhere)
- * 
+ *
  */
 void Haze_Bg3Bg2Bg1(void)
 {
@@ -670,7 +672,7 @@ void Haze_Bg3Bg2Bg1(void)
 
 /**
  * @brief 5db2c | 118 | Updates the haze effect (power bomb expanding)
- * 
+ *
  * @return u32 bool, ended
  */
 u32 Haze_PowerBombExpanding(void)
@@ -746,7 +748,7 @@ u32 Haze_PowerBombExpanding(void)
 
 /**
  * @brief 5dc44 | 118 | Updates the haze effect (power bomb retracting)
- * 
+ *
  * @return u32 bool, ended
  */
 u32 Haze_PowerBombRetracting(void)
@@ -780,7 +782,7 @@ u32 Haze_PowerBombRetracting(void)
     do {
     subSlice = 0;
     }while(0);
-        
+
     i = yPosition - size;
     if (i < 0)
     {

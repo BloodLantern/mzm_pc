@@ -1,5 +1,7 @@
-#include "data/rooms/norfair_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/norfair_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sNorfair_47_Clipdata[151] = INCBIN_U8("data/rooms/norfair/Norfair_47_Clipdata.gfx");
 
@@ -29,4 +31,3 @@ const u8 sNorfair_47_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(5)] = {
 	10, 27, SPRITESET_IDX(2),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

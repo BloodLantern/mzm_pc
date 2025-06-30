@@ -1,5 +1,7 @@
-#include "data/sprites/geron.h"
-#include "macros.h"
+#include "mzm/data/sprites/geron.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sGeronGfx[711] = INCBIN_U32("data/sprites/Geron.gfx.lz");
 const u16 sGeronPal[48] = INCBIN_U16("data/sprites/Geron.pal");

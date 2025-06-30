@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cable_link.h"
+#include "mzm/types.h"
+#include "mzm/structs/cable_link.h"
 
 extern const struct IoTransferInfo sIoTransferInfo_Empty;
 

@@ -1,7 +1,9 @@
-#include "data/save_file_data.h"
-#include "gba.h"
+#include "mzm/data/save_file_data.h"
+#include "mzm/gba.h"
 
-#include "constants/connection.h"
+#include "mzm/constants/connection.h"
+
+#include "mzm_include.h"
 
 const u8 sMetZeroSramCheck_Text[SRAM_TEXT_SIZE] = "MetZeroSramCheck";
 const u8 sZERO_MISSION_010_Text[SRAM_TEXT_SIZE] = "ZERO_MISSION_010";
@@ -38,7 +40,7 @@ const u8 sLanguageSave_Text[2][SRAM_TEXT_SIZE] = {
 };
 
 const u8 sTimeAttackSave_Text[2][SRAM_TEXT_SIZE] = {
-    "SUKPIFZAILU25976", 
+    "SUKPIFZAILU25976",
     "_StartKey_198129"
 };
 

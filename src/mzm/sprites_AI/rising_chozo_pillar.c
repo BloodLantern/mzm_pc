@@ -1,18 +1,20 @@
-#include "sprites_AI/rising_chozo_pillar.h"
-#include "macros.h"
+#include "mzm/sprites_AI/rising_chozo_pillar.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/rising_chozo_pillar.h"
-#include "data/sprites/enemy_drop.h"
+#include "mzm/data/sprites/rising_chozo_pillar.h"
+#include "mzm/data/sprites/enemy_drop.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define RISING_CHOZO_PILLAR_POSE_WAIT_FOR_POWER_GRIP 0x8
 #define RISING_CHOZO_PILLAR_POSE_EXTENDING 0x9
@@ -32,9 +34,9 @@ enum ChozoPillarPlatformPart {
 
 /**
  * 4854c | a8 | Spawns random sprite debris depending on the parameters
- * 
+ *
  * @param yPosition Y Position
- * @param xPosition X Position 
+ * @param xPosition X Position
  * @param rng Set of debris to use
  */
 static void RisingChozoPillarRandomSpriteDebris(u16 yPosition, u16 xPosition, u8 rng)
@@ -66,9 +68,9 @@ static void RisingChozoPillarRandomSpriteDebris(u16 yPosition, u16 xPosition, u8
 
 /**
  * 485f4 | ac | Spawns random particles depending on the parameters
- * 
+ *
  * @param yPosition Y Position
- * @param xPosition X Position 
+ * @param xPosition X Position
  * @param rng Set of particles to use
  */
 static void RisingChozoPillarRandomParticles(u16 yPosition, u16 xPosition, u8 rng)
@@ -119,16 +121,16 @@ static void RisingChozoPillarSpawnThreePlatforms(u16 yPosition, u16 xPosition, u
 {
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition + BLOCK_SIZE * 3);
-    
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition + BLOCK_SIZE * 4);
-    
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 11, xPosition + BLOCK_SIZE * 3);
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 11, xPosition + BLOCK_SIZE * 4);
-    
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 19, xPosition + BLOCK_SIZE * 3);
 
@@ -148,7 +150,7 @@ static void RisingChozoPillarSpawnThreePlatforms(u16 yPosition, u16 xPosition, u
 
 /**
  * 48784 | b8 | Spawns two platforms and sets the collision for them
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param caa Clipdata affecting action
@@ -173,9 +175,9 @@ static void RisingChozoPillarSpawnTwoPlatforms(u16 yPosition, u16 xPosition, u8 
 }
 
 /**
- * 4883c | 68 | 
+ * 4883c | 68 |
  * Spawns one platform and sets the collision for it
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param caa Clipdata affecting action
@@ -194,7 +196,7 @@ static void RisingChozoPillarSpawnOnePlatform(u16 yPosition, u16 xPosition, u8 c
 
 /**
  * 488a4 | 248 | Rising Chozo Pillar AI
- * 
+ *
  */
 void RisingChozoPillar(void)
 {
@@ -295,8 +297,8 @@ void RisingChozoPillar(void)
 }
 
 /**
- * 48aec | 124 | Chozo Pillar Platform AI 
- * 
+ * 48aec | 124 | Chozo Pillar Platform AI
+ *
  */
 void ChozoPillarPlatform(void)
 {
@@ -375,7 +377,7 @@ void ChozoPillarPlatform(void)
 
 /**
  * 48c10 | 6c | Chozo Pillar Platform Shadow AI
- * 
+ *
  */
 void ChozoPillarPlatformShadow(void)
 {

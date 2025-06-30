@@ -1,22 +1,24 @@
-#include "sprites_AI/multiviola.h"
-#include "macros.h"
+#include "mzm/sprites_AI/multiviola.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/multiviola.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/multiviola.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define MULTIVIOLA_POSE_MOVING 0x9
 
 /**
  * @brief 1e854 | 70 | Initializes a multiviola sprite
- * 
+ *
  */
 static void MultiviolaInit(void)
 {
@@ -41,7 +43,7 @@ static void MultiviolaInit(void)
 
 /**
  * @brief 1e8c4 | 110 | Handles a multiviola moving
- * 
+ *
  */
 static void MultiviolaMove(void)
 {
@@ -121,7 +123,7 @@ static void MultiviolaMove(void)
 
 /**
  * @brief 1e9cc | 4 | Unused multiviola sprite function
- * 
+ *
  */
 void MultiviolaUnused_Empty1(void)
 {
@@ -130,7 +132,7 @@ void MultiviolaUnused_Empty1(void)
 
 /**
  * @brief 1e9d0 | 4 | Unused multiviola sprite function
- * 
+ *
  */
 void MultiviolaUnused_Empty2(void)
 {
@@ -139,7 +141,7 @@ void MultiviolaUnused_Empty2(void)
 
 /**
  * @brief 1e9d4 | 90 | Multiviola AI
- * 
+ *
  */
 void Multiviola(void)
 {
@@ -165,7 +167,7 @@ void Multiviola(void)
         default:
             SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
             break;
-            
+
         case SPRITE_POSE_UNINITIALIZED:
             MultiviolaInit();
             break;
@@ -177,7 +179,7 @@ void Multiviola(void)
 
 /**
  * @brief 1ea64 | 4 | Unused multiviola sprite AI
- * 
+ *
  */
 void MultiviolaUnused(void)
 {

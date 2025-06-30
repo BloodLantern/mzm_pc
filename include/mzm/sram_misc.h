@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 enum SramOperation {
     SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS,

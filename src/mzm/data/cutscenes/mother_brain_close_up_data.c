@@ -1,7 +1,9 @@
-#include "data/cutscenes/mother_brain_close_up_data.h"
-#include "cutscenes/mother_brain_close_up.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/data/cutscenes/mother_brain_close_up_data.h"
+#include "mzm/cutscenes/mother_brain_close_up.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u16 sTourianEscapeOam_375d10_Frame0[OAM_DATA_SIZE(12)] = {
     0xc,

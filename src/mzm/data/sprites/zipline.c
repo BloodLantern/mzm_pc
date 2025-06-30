@@ -1,5 +1,7 @@
-#include "data/sprites/zipline.h"
-#include "macros.h"
+#include "mzm/data/sprites/zipline.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sZiplineGfx[264] = INCBIN_U32("data/sprites/Zipline.gfx.lz");
 const u16 sZiplinePal[16] = INCBIN_U16("data/sprites/Zipline.pal");

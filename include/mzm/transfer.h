@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 u32 TransferProcessSend(u32 size, const u32* pData);
 void TransferReloadTransfer(void);

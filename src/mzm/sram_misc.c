@@ -1,15 +1,17 @@
-#include "sram_misc.h"
-#include "gba.h"
-#include "dma.h"
-#include "sram/sram.h"
-#include "types.h"
-#include "structs/save_file.h"
+#include "mzm/sram_misc.h"
+#include "mzm/gba.h"
+#include "mzm/dma.h"
+#include "mzm/sram/sram.h"
+#include "mzm/types.h"
+#include "mzm/structs/save_file.h"
 
-#include "data/shortcut_pointers.h"
+#include "mzm/data/shortcut_pointers.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief c04 | 44 | Fully erases all the contents of the Sram
- * 
+ *
  */
 void EraseSram(void)
 {
@@ -25,7 +27,7 @@ void EraseSram(void)
 
 /**
  * @brief c48 | 374 | Performs an sram operation
- * 
+ *
  * @param operation Operation to perform
  * @return u8* Pointer to difference
  */
@@ -155,7 +157,7 @@ u8* DoSramOperation(u8 operation)
 
 /**
  * @brief fbc | 108 | To document
- * 
+ *
  * @param param_1 To document
  * @return u32 To document
  */

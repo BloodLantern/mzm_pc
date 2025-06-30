@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menus/pause_screen.h"
+#include "mzm/types.h"
+#include "mzm/structs/menus/pause_screen.h"
 
 u32 PauseScreenEasySleepSubroutine(void);
 u32 ChozoStatueHintCalculateCoordinates(struct ChozoHintMapData* pHintMapData);

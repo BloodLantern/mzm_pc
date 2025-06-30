@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
 
 extern const struct FrameData sEnemyDropOam_SmallEnergy[5];
 extern const struct FrameData sEnemyDropOam_LargeEnergy[5];

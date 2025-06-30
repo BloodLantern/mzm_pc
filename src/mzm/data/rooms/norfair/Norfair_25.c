@@ -1,10 +1,12 @@
-#include "data/rooms/norfair_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/norfair_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sNorfair_9_Scrolls[SCROLL_DATA_SIZE(2)] = {
 	25, // Room
 	2, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 16, // X bounds
 	2, 11, // Y bounds
@@ -41,4 +43,3 @@ const u8 sNorfair_25_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)] = {
 };
 
 const u8 sNorfair_25_Bg0[214] = INCBIN_U8("data/rooms/norfair/Norfair_25_Bg0.gfx");
-

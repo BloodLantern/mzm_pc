@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define SPACE_PIRATE_POSE_WALKING_INIT 0x8
 #define SPACE_PIRATE_POSE_WALKING 0x9

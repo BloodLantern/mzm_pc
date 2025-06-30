@@ -1,17 +1,19 @@
-#include "sprites_AI/reo.h"
-#include "macros.h"
+#include "mzm/sprites_AI/reo.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/reo.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/reo.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define REO_POSE_IDLE_INIT 0x8
 #define REO_POSE_IDLE 0x9
@@ -20,7 +22,7 @@
 
 /**
  * @brief 1cc98 | 88 | Initializes a reo sprite
- * 
+ *
  */
 static void ReoInit(void)
 {
@@ -50,12 +52,12 @@ static void ReoInit(void)
 
 /**
  * @brief 1cd20 | 24 | Initializes a reo to be idle
- * 
+ *
  */
 static void ReoIdleInit(void)
 {
     u8 offset;
-    
+
     gCurrentSprite.pose = REO_POSE_IDLE;
     offset = gSpriteRng * 4;
     gCurrentSprite.work2 = offset;
@@ -64,7 +66,7 @@ static void ReoIdleInit(void)
 
 /**
  * @brief 1cd44 | 84 | Handles a reo being idle
- * 
+ *
  */
 static void ReoIdle(void)
 {
@@ -81,7 +83,7 @@ static void ReoIdle(void)
     }
     gCurrentSprite.work3 = offset + 1;
     gCurrentSprite.yPosition += movement;
-    
+
     // X movement
     offset = gCurrentSprite.work2;
     movement = sReoIdleXMovement[offset];
@@ -100,7 +102,7 @@ static void ReoIdle(void)
 
 /**
  * @brief 1cdc8 | 88 | Initializes a reo to be moving
- * 
+ *
  */
 static void ReoMovingInit(void)
 {
@@ -127,7 +129,7 @@ static void ReoMovingInit(void)
 
 /**
  * @brief 1ce50 | 394 | Handles a reo moving
- * 
+ *
  */
 static void ReoMove(void)
 {
@@ -135,12 +137,12 @@ static void ReoMove(void)
     u16 xPosition;
     u16 otherY;
     u16 otherX;
-    
+
     u8 spriteId;
     u8 ramSlot;
     u16 offset;
     u8 collision;
-    
+
     u16 ySpeedCap;
     u16 xSpeedCap;
 
@@ -156,7 +158,7 @@ static void ReoMove(void)
 
         if (gSpriteData[ramSlot].properties & SP_SECONDARY_SPRITE)
             continue;
-        
+
         if (gSpriteData[ramSlot].spriteId != spriteId)
             continue;
 
@@ -221,7 +223,7 @@ static void ReoMove(void)
 
     otherY = gSamusData.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
     otherX = gSamusData.xPosition;
-    
+
     if (spriteId == PSPRITE_REO_PURPLE_WINGS)
     {
         ySpeedCap = HALF_BLOCK_SIZE;
@@ -366,7 +368,7 @@ static void ReoMove(void)
 
 /**
  * @brief 1d1e4 | 134 | Reo AI
- * 
+ *
  */
 void Reo(void)
 {

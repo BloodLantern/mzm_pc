@@ -1,11 +1,13 @@
-#include "data/menus/internal_file_select_data.h"
-#include "data/menus/file_select_data.h"
-#include "gba.h"
-#include "menus/file_select.h"
+#include "mzm/data/menus/internal_file_select_data.h"
+#include "mzm/data/menus/file_select_data.h"
+#include "mzm/gba.h"
+#include "mzm/menus/file_select.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/samus.h"
+
+#include "mzm_include.h"
 
 const s8 sSaveFileAreasId[12] = {
     [0] = AREA_KRAID,

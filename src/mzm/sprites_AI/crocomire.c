@@ -1,13 +1,15 @@
-#include "sprites_AI/crocomire.h"
-#include "macros.h"
+#include "mzm/sprites_AI/crocomire.h"
+#include "mzm/macros.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/crocomire.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/crocomire.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/sprite.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define CROCOMIRE_POSE_IDLE_INIT 0x8
 #define CROCOMIRE_POSE_IDLE 0x9
@@ -19,7 +21,7 @@
 
 /**
  * @brief 43d88 | 68 | Synchronize the sub sprites of Crocomire
- * 
+ *
  */
 static void CrocomireSyncSubSprites(void)
 {
@@ -29,7 +31,7 @@ static void CrocomireSyncSubSprites(void)
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
 
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sCrocomireFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sCrocomireFrameDataPointers[oamIdx];
@@ -43,7 +45,7 @@ static void CrocomireSyncSubSprites(void)
 
 /**
  * @brief 43df0 | 120 | Initializes a Crocomire sprite
- * 
+ *
  */
 static void CrocomireInit(void)
 {
@@ -95,7 +97,7 @@ static void CrocomireInit(void)
 
 /**
  * @brief 43f10 | 24 | Initializes Crocomire to be idle
- * 
+ *
  */
 static void CrocomireIdleInit(void)
 {
@@ -113,7 +115,7 @@ static void Crocomire_Empty(void)
 
 /**
  * @brief 43f38 | 160 | Initializes a crocomire part sprite
- * 
+ *
  */
 static void CrocomirePartInit(void)
 {
@@ -220,7 +222,7 @@ void Crocomire(void)
 
 /**
  * @brief 440dc | 6c | Crocomire part AI
- * 
+ *
  */
 void CrocomirePart(void)
 {

@@ -1,16 +1,18 @@
-#include "sprites_AI/zebbo.h"
-#include "macros.h"
+#include "mzm/sprites_AI/zebbo.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/zebbo.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/zebbo.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define ZEBBO_POSE_IDLE_INIT 0x8
 #define ZEBBO_POSE_IDLE 0x9
@@ -19,7 +21,7 @@
 
 /**
  * @brief 2f058 | 58 | Initializes a zebbo sprite
- * 
+ *
  */
 static void ZebboInit(void)
 {
@@ -44,7 +46,7 @@ static void ZebboInit(void)
 
 /**
  * @brief 2f0b0 | 3c | Initializes a zebbo to be idle
- * 
+ *
  */
 static void ZebboIdleInit(void)
 {
@@ -61,7 +63,7 @@ static void ZebboIdleInit(void)
 
 /**
  * @brief 2f0ec | 164 | Handles a zebbo being idle
- * 
+ *
  */
 static void ZebboIdle(void)
 {
@@ -104,7 +106,7 @@ static void ZebboIdle(void)
 
     if (ABS_DIFF(spriteX, samusX) <= (HALF_BLOCK_SIZE + PIXEL_SIZE))
         return;
-        
+
     if (SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 5, BLOCK_SIZE * 5) != NSAB_ABOVE)
         return;
 
@@ -149,7 +151,7 @@ static void ZebboIdle(void)
 
 /**
  * @brief 2f250 | 80 | Handles a zebbo going up
- * 
+ *
  */
 static void ZebboGoingUp(void)
 {
@@ -186,7 +188,7 @@ static void ZebboGoingUp(void)
 
 /**
  * @brief 2f2d0 | 64 | Handles a zebbo respawning
- * 
+ *
  */
 static void ZebboRespawn(void)
 {
@@ -216,7 +218,7 @@ static void ZebboRespawn(void)
 
 /**
  * @brief 2f334 | c8 | Handles a zebbo moving
- * 
+ *
  */
 static void ZebboMove(void)
 {
@@ -263,7 +265,7 @@ static void ZebboMove(void)
 
 /**
  * @brief 2f3fc | 138 | Zebbo AI
- * 
+ *
  */
 void Zebbo(void)
 {

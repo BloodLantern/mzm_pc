@@ -1,19 +1,21 @@
-#include "sprites_AI/gadora.h"
-#include "macros.h"
+#include "mzm/sprites_AI/gadora.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/gadora.h"
-#include "data/sprites/enemy_drop.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/gadora.h"
+#include "mzm/data/sprites/enemy_drop.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/display.h"
-#include "structs/sprite.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define GADORA_POSE_IDLE_INIT 0x8
 #define GADORA_POSE_SAMUS_DETECTION 0x9
@@ -38,7 +40,7 @@
 
 /**
  * @brief 49eb8 | 134 | Initializes a gadora sprite
- * 
+ *
  */
 static void GadoraInit(void)
 {
@@ -120,7 +122,7 @@ static void GadoraInit(void)
 
 /**
  * @brief 49fec | 30 | Initializes a gadora to be idle
- * 
+ *
  */
 static void GadoraIdleInit(void)
 {
@@ -135,7 +137,7 @@ static void GadoraIdleInit(void)
 
 /**
  * @brief 4a01c | 54 | Checks if samus is in range to open the eye
- * 
+ *
  */
 static void GadoraSamusDetection(void)
 {
@@ -160,7 +162,7 @@ static void GadoraSamusDetection(void)
 
 /**
  * @brief 4a070 | 34 | Checks if the warning animation ended
- * 
+ *
  */
 static void GadoraCheckWarningAnimEnded(void)
 {
@@ -178,13 +180,13 @@ static void GadoraCheckWarningAnimEnded(void)
 
 /**
  * @brief 4a0a4 | 38 | Checks if the opening eye animation ended
- * 
+ *
  */
 static void GadoraCheckOpeningEyeAnimEnded(void)
 {
     u16 xPosition;
     u16 status;
-    
+
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = GADORA_POSE_EYE_OPENED;
@@ -210,7 +212,7 @@ static void GadoraCheckOpeningEyeAnimEnded(void)
 
 /**
  * @brief 4a10c | 74 | Handles the gadora having its eye opened
- * 
+ *
  */
 static void GadoraEyeOpened(void)
 {
@@ -250,7 +252,7 @@ static void GadoraEyeOpened(void)
 
 /**
  * @brief 4a180 | 1c | Checks if the closing eye animation almost ended
- * 
+ *
  */
 static void GadoraCheckClosingEyeAnimNearEnded(void)
 {
@@ -260,7 +262,7 @@ static void GadoraCheckClosingEyeAnimNearEnded(void)
 
 /**
  * @brief 4a19c | 30 | Initializes a gadara to be dying
- * 
+ *
  */
 static void GadoraDeathGfxInit(void)
 {
@@ -276,7 +278,7 @@ static void GadoraDeathGfxInit(void)
 
 /**
  * @brief 4a1cc | d4 | Handles the death of a gadora
- * 
+ *
  */
 static void GadoraDeath(void)
 {
@@ -286,7 +288,7 @@ static void GadoraDeath(void)
     u8 drop;
     u8 timer;
     u32 yOffset;
-    
+
     timer = APPLY_DELTA_TIME_DEC(gCurrentSprite.GADORA_DEATH_ANIMATION_TIMER);
     // CONVERT_SECONDS(1.f / 15)
     if (MOD_AND(timer, 4))
@@ -338,7 +340,7 @@ static void GadoraDeath(void)
 
 /**
  * @brief 4a2a0 | 78 | Gadora AI
- * 
+ *
  */
 void Gadora(void)
 {
@@ -382,7 +384,7 @@ void Gadora(void)
 
 /**
  * @brief 4a318 | 1d0 | Gadora eye AI
- * 
+ *
  */
 void GadoraEye(void)
 {
@@ -454,7 +456,7 @@ void GadoraEye(void)
                 rng = gSpriteRng;
                 yOffset = rng - (BLOCK_SIZE + PIXEL_SIZE);
                 rng += QUARTER_BLOCK_SIZE;
-                
+
                 SpriteUtilSpriteDeath(DEATH_NORMAL, yOffset + gCurrentSprite.yPosition,
                     rng + gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
             }
@@ -477,7 +479,7 @@ void GadoraEye(void)
 
 /**
  * @brief 4a4e8 | fc | Gadora beam AI
- * 
+ *
  */
 void GadoraBeam(void)
 {
@@ -523,7 +525,7 @@ void GadoraBeam(void)
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     return;
 
-                ParticleSet(gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3, gCurrentSprite.xPosition, 
+                ParticleSet(gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3, gCurrentSprite.xPosition,
                     PE_SPRITE_EXPLOSION_BIG);
 
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)

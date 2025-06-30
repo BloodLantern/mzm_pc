@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
 
 enum RidleyInSpaceOamId {
     RIDLEY_IN_SPACE_OAM_ID_LEFT_BLUE_SHIP = 1,

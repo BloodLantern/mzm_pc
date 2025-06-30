@@ -1,29 +1,31 @@
-#include "sprites_AI/mother_brain.h"
-#include "macros.h"
-#include "gba/display.h"
+#include "mzm/sprites_AI/mother_brain.h"
+#include "mzm/macros.h"
+#include "mzm/gba/display.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/mother_brain.h"
-#include "data/sprites/zebetite_and_cannon.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/mother_brain.h"
+#include "mzm/data/sprites/zebetite_and_cannon.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/in_game_cutscene.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
-#include "constants/sprite.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/in_game_cutscene.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/projectile.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/text.h"
 
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/in_game_timer.h"
-#include "structs/samus.h"
-#include "structs/scroll.h"
-#include "structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/in_game_timer.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/scroll.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define MOTHER_BRAIN_POSE_WAITING_GLASS 0x1
 #define MOTHER_BRAIN_POSE_MAIN_LOOP 0x9
@@ -56,7 +58,7 @@ enum MotherBrainFightStage {
 
 /**
  * @brief 3c964 | 68 | Synchronize the sub sprites of Mother Brain
- * 
+ *
  */
 static void MotherBrainSyncSubSpritesPosition(void)
 {
@@ -79,7 +81,7 @@ static void MotherBrainSyncSubSpritesPosition(void)
 
 /**
  * @brief 3c9cc | 80 | Updates the palette of mother brain when firing
- * 
+ *
  */
 static void MotherBrainUpdatePalette(void)
 {
@@ -114,7 +116,7 @@ static void MotherBrainUpdatePalette(void)
 
 /**
  * @brief 3ca4c | 144 | Initializes mother brain
- * 
+ *
  */
 static void MotherBrainInit(void)
 {
@@ -159,7 +161,7 @@ static void MotherBrainInit(void)
     gCurrentSprite.scaling = 0;
     gCurrentSprite.rotation = 0;
     gCurrentSprite.work2 = 0;
-    
+
     gSubSpriteData1.pMultiOam = sMotherBrainMultiSpriteData;
     gSubSpriteData1.animationDurationCounter = 0;
     gSubSpriteData1.currentAnimationFrame = 0;
@@ -183,7 +185,7 @@ static void MotherBrainInit(void)
 
 /**
  * @brief 3cb90 | 6c | Checks if the glass breaked, starts battle behaviors
- * 
+ *
  */
 static void MotherBrainCheckGlassBroke(void)
 {
@@ -206,7 +208,7 @@ static void MotherBrainCheckGlassBroke(void)
 
 /**
  * @brief 3cbfc | 3fc | Mother brain main behavior loop
- * 
+ *
  */
 static void MotherBrainMainLoop(void)
 {
@@ -221,7 +223,7 @@ static void MotherBrainMainLoop(void)
     bottomSlot = gSubSpriteData1.workVariable6;
 
     palette = gSpriteData[eyeSlot].paletteRow;
-    
+
     gCurrentSprite.paletteRow = palette;
     gSpriteData[bottomSlot].paletteRow = palette;
 
@@ -241,7 +243,7 @@ static void MotherBrainMainLoop(void)
 
         gSpriteData[eyeSlot].paletteRow = 0;
         gSpriteData[bottomSlot].paletteRow = 0;
-               
+
         gSpriteData[eyeSlot].pOam = sMotherBrainPartOam_EyeDying;
         gSpriteData[eyeSlot].animationDurationCounter = 0;
         gSpriteData[eyeSlot].currentAnimationFrame = 0;
@@ -356,7 +358,7 @@ static void MotherBrainMainLoop(void)
 
     if (gCurrentSprite.work1 == 0)
         return;
-   
+
     // Shooting beam
     if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work1) == 0)
     {
@@ -413,7 +415,7 @@ static void MotherBrainMainLoop(void)
 
 /**
  * @brief 3cff8 | cc | Handles the death of mother brain
- * 
+ *
  */
 static void MotherBrainDeath(void)
 {
@@ -451,7 +453,7 @@ static void MotherBrainDeath(void)
 
 /**
  * @brief 3d0c4 | 6c | Starts the escape
- * 
+ *
  */
 static void MotherBrainStartEscape(void)
 {
@@ -471,12 +473,12 @@ static void MotherBrainStartEscape(void)
 
 /**
  * @brief 3d130 | 158 | Initializes a mother brain part sprite
- * 
+ *
  */
 static void MotherBrainPartInit(void)
 {
     u16 health;
-    
+
     switch (gCurrentSprite.roomSlot)
     {
         case MOTHER_BRAIN_PART_BEAM_SHOOTER:
@@ -509,7 +511,7 @@ static void MotherBrainPartInit(void)
             gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
             gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
             gCurrentSprite.hitboxRight = PIXEL_SIZE;
-            
+
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 5;
             gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_IDLE;
@@ -544,7 +546,7 @@ static void MotherBrainPartInit(void)
 
 /**
  * @brief 3d288 | a4 | Upates the hitbox of the mother brain eye
- * 
+ *
  */
 static void MotherBrainPartHitboxInit(void)
 {
@@ -589,7 +591,7 @@ static void MotherBrainPartHitboxInit(void)
 
 /**
  * @brief 3d32c | 4 | Empty function
- * 
+ *
  */
 static void MotherBrainPart_Empty(void)
 {
@@ -598,7 +600,7 @@ static void MotherBrainPart_Empty(void)
 
 /**
  * @brief 3d330 | 74 | Spawns the mother brain block sprite if necessary
- * 
+ *
  */
 static void MotherBrainSpawnBlock(void)
 {
@@ -619,7 +621,7 @@ static void MotherBrainSpawnBlock(void)
 
 /**
  * @brief 3d3a4 | 40 | First stage of the glass
- * 
+ *
  */
 static void MotherBrainPartGlassStage1(void)
 {
@@ -636,7 +638,7 @@ static void MotherBrainPartGlassStage1(void)
 
 /**
  * @brief 3d3e4 | 3c | Second stage of the glass
- * 
+ *
  */
 static void MotherBrainPartGlassStage2(void)
 {
@@ -653,7 +655,7 @@ static void MotherBrainPartGlassStage2(void)
 
 /**
  * @brief 3d420 | 3c | Third stage of the glass
- * 
+ *
  */
 static void MotherBrainPartGlassStage3(void)
 {
@@ -670,7 +672,7 @@ static void MotherBrainPartGlassStage3(void)
 
 /**
  * @brief 3d45c | 10 | Sets the invicibility stun flash timer to 0
- * 
+ *
  */
 static void MotherBrainPartGlassBroken(void)
 {
@@ -679,7 +681,7 @@ static void MotherBrainPartGlassBroken(void)
 
 /**
  * @brief 3d46c | 54 | Breaks the mother brain glass
- * 
+ *
  */
 static void MotherBrainPartSpawnGlassBreaking(void)
 {
@@ -698,7 +700,7 @@ static void MotherBrainPartSpawnGlassBreaking(void)
 
 /**
  * @brief 3d4c0 | e0 | Mother brain AI
- * 
+ *
  */
 void MotherBrain(void)
 {
@@ -741,7 +743,7 @@ void MotherBrain(void)
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gSubSpriteData1.workVariable3 < MB_FIGHT_STAGE_DEAD
         && gSamusData.xPosition < gSubSpriteData1.xPosition + BLOCK_SIZE * 12)
     {
-        // Lock the screen if 
+        // Lock the screen if
         gLockScreen.lock = LOCK_SCREEN_TYPE_POSITION;
         gLockScreen.yPositionCenter = gBossWork.work1;
         gLockScreen.xPositionCenter = gSubSpriteData1.xPosition + BLOCK_SIZE * 5;
@@ -766,7 +768,7 @@ void MotherBrain(void)
 
 /**
  * @brief 3d5a0 | a0 | Mother brain part AI
- * 
+ *
  */
 void MotherBrainPart(void)
 {
@@ -819,7 +821,7 @@ void MotherBrainPart(void)
 
 /**
  * @brief 3d640 | e4 | Mother brain beam AI
- * 
+ *
  */
 void MotherBrainBeam(void)
 {
@@ -870,7 +872,7 @@ void MotherBrainBeam(void)
 
 /**
  * @brief 3d724 | a8 | Mother brain block AI
- * 
+ *
  */
 void MotherBrainBlock(void)
 {
@@ -888,7 +890,7 @@ void MotherBrainBlock(void)
         gCurrentSprite.pOam = sMotherBrainBlockOam;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
-        
+
         gCurrentSprite.pose = MOTHER_BRAIN_BLOCK_POSE_IDLE;
         gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
     }
@@ -904,7 +906,7 @@ void MotherBrainBlock(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
-            
+
             gCurrentClipdataAffectingAction = CAA_MAKE_NON_POWER_GRIP;
             ClipdataProcess(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         }
@@ -913,7 +915,7 @@ void MotherBrainBlock(void)
 
 /**
  * @brief 3d7cc | 94 | Mother brain glass breaking AI
- * 
+ *
  */
 void MotherBrainGlassBreaking(void)
 {

@@ -1,18 +1,20 @@
-#include "sprites_AI/zipline_generator.h"
-#include "macros.h"
+#include "mzm/sprites_AI/zipline_generator.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/zipline_generator.h"
+#include "mzm/data/sprites/zipline_generator.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/animated_graphics.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/animated_graphics.h"
+
+#include "mzm_include.h"
 
 #define ZIPLINE_GENERATOR_POSE_DETECT_SAMUS 0x9
 #define ZIPLINE_GENERATOR_POSE_ACTIVATING 0xB
@@ -32,7 +34,7 @@ enum ZiplineGeneratorPart {
 
 /**
  * @brief 2e1f0 | 64 | Updates the clipdata of the zipline generator
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void ZiplineGeneratorChangeClipdata(u8 caa)
@@ -58,7 +60,7 @@ static void ZiplineGeneratorChangeClipdata(u8 caa)
 
 /**
  * @brief 2e254 | e0 | Initializes a zipline generator sprite
- * 
+ *
  */
 static void ZiplineGeneratorInit(void)
 {
@@ -95,7 +97,7 @@ static void ZiplineGeneratorInit(void)
         gCurrentSprite.status = 0;
         return;
     }
-    
+
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
     {
         // Set already activated
@@ -116,7 +118,7 @@ static void ZiplineGeneratorInit(void)
 
 /**
  * @brief 2e334 | bc | Detects if Samus is activating the ziplines
- * 
+ *
  */
 static void ZiplineGeneratorDetectSamus(void)
 {
@@ -169,7 +171,7 @@ static void ZiplineGeneratorDetectSamus(void)
 
 /**
  * @brief 2e3f0 | fc | Handles the zipline generator activating the ziplines
- * 
+ *
  */
 static void ZiplineGeneratorActivating(void)
 {
@@ -226,7 +228,7 @@ static void ZiplineGeneratorActivating(void)
 
 /**
  * @brief 2e4ec | 38 | Zipline generator AI
- * 
+ *
  */
 void ZiplineGenerator(void)
 {
@@ -248,7 +250,7 @@ void ZiplineGenerator(void)
 
 /**
  * @brief 2e524 | ec | Zipline generator part AI
- * 
+ *
  */
 void ZiplineGeneratorPart(void)
 {

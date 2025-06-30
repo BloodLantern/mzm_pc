@@ -1,5 +1,7 @@
-#include "data/rooms/tourian_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/tourian_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sTourian_14_Clipdata[68] = INCBIN_U8("data/rooms/tourian/Tourian_14_Clipdata.gfx");
 
@@ -22,4 +24,3 @@ const u8 sTourian_14_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(4)] = {
 	6, 16, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
-

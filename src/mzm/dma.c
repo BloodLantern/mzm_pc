@@ -1,5 +1,7 @@
-#include "dma.h"
-#include "gba.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+
+#include "mzm_include.h"
 
 struct DMA {
     const void* pSrc;
@@ -9,7 +11,7 @@ struct DMA {
 
 /**
  * @brief 31e4 | d0 | Peform DMA transfer
- * 
+ *
  * @param channel The DMA channel to perform the transfer on
  * @param src The pointer to the source
  * @param dst The pointer to the destination

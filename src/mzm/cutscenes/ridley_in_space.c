@@ -1,19 +1,21 @@
-#include "cutscenes/ridley_in_space.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "oam_id.h"
+#include "mzm/cutscenes/ridley_in_space.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/oam_id.h"
 
-#include "data/generic_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/cutscenes/cutscenes_data.h"
-#include "data/cutscenes/ridley_in_space_data.h"
-#include "data/cutscenes/internal_ridley_in_space_data.h"
+#include "mzm/data/generic_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
+#include "mzm/data/cutscenes/ridley_in_space_data.h"
+#include "mzm/data/cutscenes/internal_ridley_in_space_data.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
 
-#include "structs/display.h"
-#include "structs/game_state.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 #define SHIP_ACTION_MOVE_HORIZONTALLY 1
 #define SHIP_ACTION_MOVE_VERTICALLY 2
@@ -31,7 +33,7 @@
 
 /**
  * @brief 63884 | 298 | Handles the ship leaving part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyInSpaceShipLeaving(void)
@@ -174,7 +176,7 @@ u8 RidleyInSpaceShipLeaving(void)
 
 /**
  * @brief 63b1c | c4 | Updates the ship leaving object
- * 
+ *
  * @param pOam Cutscene oam data pointer
  */
 void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
@@ -244,7 +246,7 @@ void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
 
 /**
  * @brief 63be0 | 1b0 | Handles the ridley being suspicious part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyInSpaceRidleySuspicious(void)
@@ -272,7 +274,7 @@ u8 RidleyInSpaceRidleySuspicious(void)
             // Load ship interior tile table
             CallLZ77UncompVram(sRidleyInSpaceShipInteriorTileTable2, BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[3].tiletablePage));
 
-            // Enable the ship interior and both ridley backgrounds 
+            // Enable the ship interior and both ridley backgrounds
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[3]);
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[4]);
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[5]);
@@ -308,7 +310,7 @@ u8 RidleyInSpaceRidleySuspicious(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-        
+
         case 1:
         case 4:
             if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.f))
@@ -334,7 +336,7 @@ u8 RidleyInSpaceRidleySuspicious(void)
 
 /**
  * @brief 63d90 | 1c4 | Handles the red alert part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyInSpaceRedAlert(void)
@@ -429,7 +431,7 @@ u8 RidleyInSpaceRedAlert(void)
 
 /**
  * @brief 63f54 | 60 | Updates the red alert palette
- * 
+ *
  * @param pPalette Cutscene palette data pointer
  */
 void RidleyInSpaceUpdateAlertPalette(struct CutscenePaletteData* pPalette)
@@ -458,7 +460,7 @@ void RidleyInSpaceUpdateAlertPalette(struct CutscenePaletteData* pPalette)
 
 /**
  * @brief 63fb4 | 1b4 | Handles the view of ship part
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyInSpaceViewOfShip(void)
@@ -559,7 +561,7 @@ u8 RidleyInSpaceViewOfShip(void)
 
 /**
  * @brief 64168 | 64 | Updates the mother ship during the view of ship part
- * 
+ *
  * @param pOam Cutscene OAM data pointer
  */
 void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
@@ -589,13 +591,13 @@ void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
 
 /**
  * @brief 641cc | 80 | Updates the right blue ship
- * 
+ *
  * @param pOam Cutscene oam data pointer
  */
 void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 {
     s32 yVelocity;
-    
+
     if (pOam->actions & SHIP_ACTION_MOVE_HORIZONTALLY)
     {
         // Move horizontally
@@ -627,7 +629,7 @@ void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 
 /**
  * @brief 6424c | 70 | Updates the left blue ship during the view of ship part
- * 
+ *
  * @param pOam Cutscene oam data pointer
  */
 void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
@@ -661,7 +663,7 @@ void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
 
 /**
  * @brief 642bc | 15c | Initializes the ridley in space cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 RidleyInSpaceInit(void)
@@ -720,7 +722,7 @@ u8 RidleyInSpaceInit(void)
 
 /**
  * @brief 64418 | 34 | Subroutine for the ridley in space cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 RidleyInSpaceSubroutine(void)
@@ -728,7 +730,7 @@ u8 RidleyInSpaceSubroutine(void)
     u8 ended;
 
     ended = sRidleyInSpaceSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
-    
+
     CutsceneUpdateBackgroundsPosition(TRUE);
     RidleyInSpaceProcessOAM();
     return ended;
@@ -736,7 +738,7 @@ u8 RidleyInSpaceSubroutine(void)
 
 /**
  * @brief 6444c | 4c | Processes the OAM for the cutscene
- * 
+ *
  */
 void RidleyInSpaceProcessOAM(void)
 {
@@ -749,7 +751,7 @@ void RidleyInSpaceProcessOAM(void)
 
 /**
  * @brief 64498 | 144 | Updates the particles during the view of ship part
- * 
+ *
  */
 void RidleyInSpaceViewOfShipParticles(void)
 {
@@ -814,7 +816,7 @@ void RidleyInSpaceViewOfShipParticles(void)
 
 /**
  * @brief 645dc | c0 | Updates a particle during the view of ship sequence
- * 
+ *
  * @param pOam Cutscene oam data pointer
  * @return u32 Oam id
  */
@@ -896,7 +898,7 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
 
 /**
  * @brief 6469c | fc | Updates the particles during the ship leaving part
- * 
+ *
  */
 void RidleyInSpaceShipLeavingParticles(void)
 {
@@ -959,7 +961,7 @@ void RidleyInSpaceShipLeavingParticles(void)
 
 /**
  * @brief 64798 | 38 | Updates a particle during the ship leaving sequence
- * 
+ *
  * @param pOam Cutscene OAM Data Pointer
  * @return struct CutsceneOamData* First param
  */

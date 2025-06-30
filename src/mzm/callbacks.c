@@ -1,14 +1,16 @@
-#include "callbacks.h"
+#include "mzm/callbacks.h"
 
-#include "gba.h"
-#include "globals.h"
-#include "io.h"
-#include "audio/track_internal.h"
-#include "structs/game_state.h"
+#include "mzm/gba.h"
+#include "mzm/globals.h"
+#include "mzm/io.h"
+#include "mzm/audio/track_internal.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief a98 | 4c | Calls the v-blank callback
- * 
+ *
  */
 void CallbackCallVblank(void)
 {
@@ -25,7 +27,7 @@ void CallbackCallVblank(void)
 
 /**
  * @brief ae4 | 1c | Sets the v-blank callback
- * 
+ *
  * @param callback Callback pointer
  */
 void CallbackSetVBlank(Func_T callback)
@@ -41,7 +43,7 @@ void CallbackSetVBlank(Func_T callback)
 
 /**
  * @brief b00 | 24 | Calls the h-blank callback
- * 
+ *
  */
 void CallbackCallHBlank(void)
 {
@@ -53,7 +55,7 @@ void CallbackCallHBlank(void)
 
 /**
  * @brief b24 | 1c | Sets the h-blank callback
- * 
+ *
  * @param callback Callback pointer
  */
 void CallbackSetHBlank(Func_T callback)
@@ -69,7 +71,7 @@ void CallbackSetHBlank(Func_T callback)
 
 /**
  * @brief b40 | 24 | Calls the v-count callback
- * 
+ *
  */
 void CallbackCallVCount(void)
 {
@@ -81,7 +83,7 @@ void CallbackCallVCount(void)
 
 /**
  * @brief b64 | 1c | Sets the v-count callback
- * 
+ *
  * @param callback Callback pointer
  */
 void CallbackSetVCount(Func_T callback)
@@ -97,7 +99,7 @@ void CallbackSetVCount(Func_T callback)
 
 /**
  * @brief b80 | 24 | Calls the serial communication callback
- * 
+ *
  */
 void CallbackCallSerialCommunication(void)
 {
@@ -109,7 +111,7 @@ void CallbackCallSerialCommunication(void)
 
 /**
  * @brief ba4 | 1c | Sets the serial communication callback
- * 
+ *
  * @param callback Callback pointer
  */
 void CallbackSetSerialCommunication(Func_T callback)
@@ -125,7 +127,7 @@ void CallbackSetSerialCommunication(Func_T callback)
 
 /**
  * @brief bc0 | 24 | Calls the timer 3 callback
- * 
+ *
  */
 void CallbackCallTimer3(void)
 {
@@ -137,7 +139,7 @@ void CallbackCallTimer3(void)
 
 /**
  * @brief be4 | 1c | Sets the timer 3 callback
- * 
+ *
  * @param callback Callback pointer
  */
 void CallbackSetTimer3(Func_T callback)
@@ -153,7 +155,7 @@ void CallbackSetTimer3(Func_T callback)
 
 /**
  * @brief c00 | 4 | Empty callback
- * 
+ *
  */
 void Callback_Empty(void)
 {

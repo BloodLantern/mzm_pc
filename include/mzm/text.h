@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/text.h"
+#include "mzm/types.h"
+#include "mzm/structs/text.h"
 
 u32 TextGetCharacterWidth(u16 charID);
 void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color);

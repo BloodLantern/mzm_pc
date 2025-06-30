@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/game_state.h"
+#include "mzm/types.h"
+#include "mzm/structs/game_state.h"
 
 void BootDebugUpdateMenuOam(void);
 void BootDebugSetupMenuOam(void);

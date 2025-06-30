@@ -1,7 +1,9 @@
-#include "data/menus/internal_status_screen_data.h"
-#include "data/menus/status_screen_data.h"
+#include "mzm/data/menus/internal_status_screen_data.h"
+#include "mzm/data/menus/status_screen_data.h"
 
-#include "constants/menus/status_screen.h"
+#include "mzm/constants/menus/status_screen.h"
+
+#include "mzm_include.h"
 
 #ifdef DEBUG
 const u8* const sPauseDebugEventNamePointers[EVENT_COUNT] = {

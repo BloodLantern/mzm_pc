@@ -1,17 +1,19 @@
-#include "sprites_AI/mella.h"
-#include "macros.h"
+#include "mzm/sprites_AI/mella.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/mella.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/mella.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define MELLA_POSE_IDLE_INIT 0x8
 #define MELLA_POSE_IDLE 0x9
@@ -22,7 +24,7 @@
 
 /**
  * @brief 3b36c | cc | Handles the X movement of a mella
- * 
+ *
  * @param movement Y Movement
  * @return u8 bool, colliding with solid
  */
@@ -33,7 +35,7 @@ static u8 MellaYMovement(u16 movement)
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
-        
+
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - THREE_QUARTER_BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
@@ -41,7 +43,7 @@ static u8 MellaYMovement(u16 movement)
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition + THREE_QUARTER_BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
-            
+
         gCurrentSprite.yPosition += movement;
     }
     else
@@ -69,7 +71,7 @@ static u8 MellaYMovement(u16 movement)
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return TRUE;
         }
-            
+
         gCurrentSprite.yPosition -= movement;
     }
 
@@ -78,7 +80,7 @@ static u8 MellaYMovement(u16 movement)
 
 /**
  * @brief 3b438 | 8c | Handles the X movement of a mella
- * 
+ *
  * @param movement X Movement
  * @return u8 bool, colliding with solid
  */
@@ -114,7 +116,7 @@ static u8 MellaXMovement(u16 movement)
 
 /**
  * @brief 3b4c4 | 68 | Initializes a mella sprite
- * 
+ *
  */
 static void MellaInit(void)
 {
@@ -138,12 +140,12 @@ static void MellaInit(void)
 
 /**
  * @brief 3b52c | 38 | Initializes a mella to be idle
- * 
+ *
  */
 static void MellaIdleInit(void)
 {
     u8 rng;
-    
+
     gCurrentSprite.pose = MELLA_POSE_IDLE;
     gCurrentSprite.pOam = sMellaOam_Idle;
     gCurrentSprite.animationDurationCounter = 0;
@@ -156,7 +158,7 @@ static void MellaIdleInit(void)
 
 /**
  * @brief 3b564 | 9c | Handles a mella being idle
- * 
+ *
  */
 static void MellaIdle(void)
 {
@@ -199,7 +201,7 @@ static void MellaIdle(void)
 
 /**
  * @brief 3b600 | 34 | Initializes a mella to be moving
- * 
+ *
  */
 static void MellaMovingInit(void)
 {
@@ -214,7 +216,7 @@ static void MellaMovingInit(void)
 
 /**
  * @brief 3b624 | 64 | Handles the delay before a mella goes down
- * 
+ *
  */
 static void MellaDelayBeforeGoingDown(void)
 {
@@ -240,7 +242,7 @@ static void MellaDelayBeforeGoingDown(void)
 
 /**
  * @brief 3b688 | 94 | Handles a mella going down
- * 
+ *
  */
 static void MellaGoingDown(void)
 {
@@ -277,7 +279,7 @@ static void MellaGoingDown(void)
 
 /**
  * @brief 3b71c | 94 | Handles the mella going up
- * 
+ *
  */
 static void MellaGoingUp(void)
 {
@@ -314,7 +316,7 @@ static void MellaGoingUp(void)
 
 /**
  * @brief 3b7b0 | 194 | Mella AI
- * 
+ *
  */
 void Mella(void)
 {
@@ -350,7 +352,7 @@ void Mella(void)
 
         case MELLA_POSE_MOVING_INIT:
             MellaMovingInit();
-        
+
         case MELLA_POSE_DELAY_BEOFRE_GOING_DOWN:
             MellaDelayBeforeGoingDown();
             break;

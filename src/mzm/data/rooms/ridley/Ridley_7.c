@@ -1,5 +1,7 @@
-#include "data/rooms/ridley_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/ridley_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sRidley_7_Clipdata[76] = INCBIN_U8("data/rooms/ridley/Ridley_7_Clipdata.gfx");
 
@@ -28,4 +30,3 @@ const u8 sRidley_7_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(8)] = {
 };
 
 const u8 sRidley_7_Bg0[464] = INCBIN_U8("data/rooms/ridley/Ridley_7_Bg0.gfx");
-

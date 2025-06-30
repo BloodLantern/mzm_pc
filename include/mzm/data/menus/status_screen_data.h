@@ -6,12 +6,12 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/menus/status_screen.h"
-#include "constants/game_state.h"
-#include "constants/event.h"
-#include "constants/connection.h"
-#include "structs/menus/status_screen.h"
+#include "mzm/types.h"
+#include "mzm/constants/menus/status_screen.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/connection.h"
+#include "mzm/structs/menus/status_screen.h"
 
 #ifdef DEBUG
 

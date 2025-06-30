@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "structs/in_game_cutscene.h"
-#include "constants/in_game_cutscene.h"
+#include "mzm/structs/in_game_cutscene.h"
+#include "mzm/constants/in_game_cutscene.h"
 
 extern const struct InGameCutsceneData sInGameCutsceneData[IGC_END];
 

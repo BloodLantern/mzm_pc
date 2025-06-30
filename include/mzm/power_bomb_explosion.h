@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 void PowerBombExplosionProcess(void);
 void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner);

@@ -1,6 +1,8 @@
-#include "data/menus/status_screen_data.h"
-#include "constants/menus/pause_screen.h"
-#include "macros.h"
+#include "mzm/data/menus/status_screen_data.h"
+#include "mzm/constants/menus/pause_screen.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 #ifdef DEBUG
 
@@ -798,5 +800,3 @@ const u8 sStatusScreenUnknownItemsFullFlash[6] = {
 const u8 sStatusScreenUnknownItemsNamesFlash[4] = {
     0, 1, 2, 3
 };
-
-

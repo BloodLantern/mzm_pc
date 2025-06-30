@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 u8 ScreenShakeStartVertical(u8 duration, u8 intensity);
 u8 ScreenShakeStartHorizontal(u8 duration, u8 intensity);

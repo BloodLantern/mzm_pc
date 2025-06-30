@@ -1,20 +1,22 @@
-#include "color_effects.h"
-#include "macros.h"
-#include "dma.h"
-#include "gba.h"
+#include "mzm/color_effects.h"
+#include "mzm/macros.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
 
-#include "data/color_fading_data.h"
+#include "mzm/data/color_fading_data.h"
 
-#include "constants/color_fading.h"
-#include "constants/game_state.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/color_effects.h"
-#include "structs/room.h"
-#include "structs/game_state.h"
+#include "mzm/structs/color_effects.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 5b24c | 3c | Transfers palette RAM to color data 2 RAM
- * 
+ *
  */
 void unk_5b24c(void)
 {
@@ -24,7 +26,7 @@ void unk_5b24c(void)
 
 /**
  * @brief 5b288 | 3c | Transfers palette RAM to color data 1 RAM
- * 
+ *
  */
 void unk_5b288(void)
 {
@@ -34,7 +36,7 @@ void unk_5b288(void)
 
 /**
  * @brief 5b2c4 | 3c | Transfers color data 2 RAM to color data 1 RAM
- * 
+ *
  */
 void unk_5b2c4(void)
 {
@@ -44,7 +46,7 @@ void unk_5b2c4(void)
 
 /**
  * @brief 5b304 | 3c | Transfers palette RAM to color data 3 RAM
- * 
+ *
  */
 void unk_5b304(void)
 {
@@ -54,7 +56,7 @@ void unk_5b304(void)
 
 /**
  * @brief 5b340 | 10 | Transfers palette RAM to color data 1 and 2 RAM
- * 
+ *
  */
 void unk_5b340(void)
 {
@@ -64,7 +66,7 @@ void unk_5b340(void)
 
 /**
  * @brief 5b350 | 3c | Transfers color data 2 RAM to color data 1 RAM
- * 
+ *
  */
 void unk_5b350(void)
 {
@@ -74,7 +76,7 @@ void unk_5b350(void)
 
 /**
  * @brief 5b390 | 6c | [Unused] Checks for the color fading status and transfer the results to Palram
- * 
+ *
  */
 void CheckTransferFadedPalette_Unused(void)
 {
@@ -96,7 +98,7 @@ void CheckTransferFadedPalette_Unused(void)
 
 /**
  * @brief 5b3fc | dc | Checks for the color fading status and transfer the results to Palram
- * 
+ *
  */
 void CheckTransferFadedPalette(void)
 {
@@ -138,7 +140,7 @@ void CheckTransferFadedPalette(void)
 
 /**
  * @brief 5b4d8 | ac | Calls the apply fading color function with the correct fading type and values
- * 
+ *
  * @param color Color
  */
 void CallApplySpecialBackgroundFadingColor(u8 color)
@@ -178,7 +180,7 @@ void CallApplySpecialBackgroundFadingColor(u8 color)
 
 /**
  * @brief 5b584 | a0 | Handles the yellow on the screen during a power bomb explosion
- * 
+ *
  * @param paletteRow Palette row to start from
  */
 void PowerBombYellowTint(u8 paletteRow)
@@ -238,7 +240,7 @@ void PowerBombYellowTint(u8 paletteRow)
 
 /**
  * @brief 5b624 | 68 | Applies a monochrome effect to a palette
- * 
+ *
  * @param src Source address
  * @param dst Destination address
  * @param additionalValue Additional color
@@ -260,7 +262,7 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue)
         // Get average
         result = (r + g + b) / 3 + additionalValue;
         CLAMP2(result, 0, COLOR_MASK);
-        
+
         // Create grey color
         *dst = COLOR(result, result, result);
     }
@@ -268,7 +270,7 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue)
 
 /**
  * @brief 5b68c | d8 | Applies a smooth transition of a palette to its monochrome variant (created with ApplyMonochromeToPalette)
- * 
+ *
  * @param srcBase Base palette pointer
  * @param srcMonochrome Monochrome palette pointer
  * @param dst Destination address
@@ -279,7 +281,7 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
     s32 i;
 
     s32 color;
-    
+
     s32 colorMono;
     u16 monoR;
     u16 monoG;
@@ -300,14 +302,14 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
         DmaTransfer(3, srcBase, dst, PAL_SIZE, 16);
         return;
     }
-    
+
     if (stage >= 31)
     {
         // Transition is done, simply use the monochrome
         DmaTransfer(3, srcMonochrome, dst, PAL_SIZE, 16);
         return;
     }
-    
+
     i = 0;
     while (i < COLORS_IN_PAL)
     {
@@ -347,7 +349,7 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
 
 /**
  * @brief 5b764 | cc | Applies a smooth transition between 2 palettes
- * 
+ *
  * @param srcStart Start palette pointer
  * @param srcEnd End palette pointer
  * @param dst Destination address
@@ -414,7 +416,7 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 
 /**
  * @brief 5b830 | 13c | Applies the color of a special fading to the background palette
- * 
+ *
  * @param mask Row mask
  * @param color Color
  * @param stage Stage
@@ -481,7 +483,7 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 
 /**
  * @brief 5b96c | 140 | Applies the color of a special fading to the object palette
- * 
+ *
  * @param mask Row mask
  * @param color Color
  * @param stage Stage
@@ -543,7 +545,7 @@ void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage)
 
 /**
  * @brief 5baac | 13a | Applies the color change of a background fading
- * 
+ *
  * @param type Fading type
  * @param color Color
  * @param ppSrc Source address pointer
@@ -607,7 +609,7 @@ void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppD
 
 /**
  * @brief 5bbe4 | cc | Applies a fade effect on a color, unused
- * 
+ *
  * @param type Fading type
  * @param color Color
  * @param currentColor Current color

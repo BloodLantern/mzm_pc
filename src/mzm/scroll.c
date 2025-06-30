@@ -1,23 +1,25 @@
-#include "scroll.h"
-#include "gba.h"
+#include "mzm/scroll.h"
+#include "mzm/gba.h"
 
-#include "data/clipdata_data.h"
-#include "data/engine_pointers.h"
+#include "mzm/data/clipdata_data.h"
+#include "mzm/data/engine_pointers.h"
 
-#include "constants/game_state.h"
-#include "constants/samus.h"
-#include "constants/room.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/room.h"
 
-#include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/color_effects.h"
-#include "structs/samus.h"
-#include "structs/room.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/color_effects.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/room.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 582c4 | 64 | Processes the current scrolls
- * 
+ *
  * @param pCoords Coordinates pointer
  */
 void ScrollProcess(struct Coordinates* pCoords)
@@ -58,7 +60,7 @@ void ScrollProcess(struct Coordinates* pCoords)
 
 /**
  * @brief 58328 | bc | Scrolls the screen to the provided position
- * 
+ *
  * @param screenX Screen Y
  * @param screenY Screen X
  */
@@ -100,7 +102,7 @@ void ScrollScreen(u16 screenX, u16 screenY)
         // Already at position
         gCamera.yVelocity = 0;
     }
-    
+
     if (screenX != gBg1XPosition)
     {
         // Compute X difference
@@ -131,7 +133,7 @@ void ScrollScreen(u16 screenX, u16 screenY)
 
 /**
  * @brief 583e4 | 40 | Processes the X scrolling
- * 
+ *
  * @param pScroll Scroll pointer
  * @param pCoords Coordinates pointer
  * @return s32 Screen X
@@ -158,7 +160,7 @@ s32 ScrollProcessX(struct Scroll* pScroll, struct Coordinates* pCoords)
 
 /**
  * @brief 58424 | 54 | Processes the Y scrolling
- * 
+ *
  * @param pScroll Scroll pointer
  * @param pCoords Coordinates pointer
  * @return s32 Screen Y
@@ -193,7 +195,7 @@ s32 ScrollProcessY(struct Scroll* pScroll, struct Coordinates* pCoords)
 
 /**
  * @brief 58478 | 60 | Loads the scrolls for the current room
- * 
+ *
  */
 void ScrollLoad(void)
 {
@@ -211,7 +213,7 @@ void ScrollLoad(void)
             gCurrentRoomEntry.scrollsFlag = ROOM_SCROLLS_FLAG_HAS_SCROLLS;
             break;
         }
-        
+
         if (**ppSrc == UCHAR_MAX)
         {
             // Reached terminator
@@ -223,7 +225,7 @@ void ScrollLoad(void)
 
 /**
  * @brief 584d8 | 138 | Updates the current scrolls
- * 
+ *
  * @param pCoords Center coordinates
  */
 void ScrollUpdateCurrent(struct Coordinates* pCoords)
@@ -308,7 +310,7 @@ void ScrollUpdateCurrent(struct Coordinates* pCoords)
             // Set X start (left bound), check isn't below the X screen padding
             {
                 s32 upper = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_X_START]]);
-                
+
                 gCurrentScrolls[i].xStart = SCREEN_X_BLOCK_PADDING < upper ? upper : SCREEN_X_BLOCK_PADDING;
             }
 
@@ -316,29 +318,29 @@ void ScrollUpdateCurrent(struct Coordinates* pCoords)
             {
                 s32 upper = position = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.clipdataWidth) - SCREEN_X_BLOCK_PADDING;
                 s32 lower = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_X_END]] + 1);
-                
+
                 gCurrentScrolls[i].xEnd = lower >= position ? upper : lower;
             }
-            
+
             EMPTY_DO_WHILE
 
             // Set Y start (top bound), check isn't below the Y screen padding
             {
                 s32 upper = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_Y_START]]);
-                
+
                 gCurrentScrolls[i].yStart = SCREEN_Y_BLOCK_PADDING < upper ? upper : SCREEN_Y_BLOCK_PADDING;
-            } 
+            }
 
             // Set Y end (bottom bound), check isn't after the size of the room
             {
                 s32 upper = position = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.clipdataHeight) - SCREEN_Y_BLOCK_PADDING;
                 s32 lower = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_Y_END]] + 1);
-                
+
                 gCurrentScrolls[i].yEnd = lower >= position ? upper : lower;
             }
-            
+
             EMPTY_DO_WHILE
-            
+
             gCurrentScrolls[i].within = SCROLL_WITHIN_FLAG;
             i++;
         }
@@ -356,7 +358,7 @@ void ScrollUpdateCurrent(struct Coordinates* pCoords)
 
 /**
  * @brief 58640 | 1f4 | Processes the general scrolling
- * 
+ *
  */
 void ScrollProcessGeneral(void)
 {
@@ -500,7 +502,7 @@ void ScrollProcessGeneral(void)
 
 /**
  * @brief 58834 | 14 | Handles the automatic scrolling in a room with no scrolls
- * 
+ *
  * @param pCoords Coordinates pointer
  */
 void ScrollWithNoScrolls(struct Coordinates* pCoords)
@@ -511,7 +513,7 @@ void ScrollWithNoScrolls(struct Coordinates* pCoords)
 
 /**
  * @brief 58848 | 100 | Handles the automatic Y scrolling in a room with no scrolls
- * 
+ *
  * @param pCoords Coordinates pointer
  */
 void ScrollWithNoScrollsY(struct Coordinates* pCoords)
@@ -580,7 +582,7 @@ void ScrollWithNoScrollsY(struct Coordinates* pCoords)
 
 /**
  * @brief 58948 | d0 | Handles the automatic X scrolling in a room with no scrolls
- * 
+ *
  * @param pCoords Coordinates pointer
  */
 void ScrollWithNoScrollsX(struct Coordinates* pCoords)
@@ -640,7 +642,7 @@ void ScrollWithNoScrollsX(struct Coordinates* pCoords)
 
 /**
  * @brief 58a18 | 2a8 | Updates the haze and effect position
- * 
+ *
  * @param pCoords Coordinates pointer
  */
 void ScrollUpdateEffectAndHazePosition(struct Coordinates* pCoords)
@@ -649,7 +651,7 @@ void ScrollUpdateEffectAndHazePosition(struct Coordinates* pCoords)
     s32 position;
     s32 waterOffset;
     u16 temp;
-    
+
     var_0 = FALSE;
     if (gCurrentRoomEntry.Bg0Prop & BG_PROP_RLE_COMPRESSED)
     {
@@ -657,7 +659,7 @@ void ScrollUpdateEffectAndHazePosition(struct Coordinates* pCoords)
         {
             gBg0XPosition = gBg1XPosition / 2;
             gBg0YPosition = gBg1YPosition;
-            
+
             var_0 = TRUE;
         }
     }
@@ -780,7 +782,7 @@ void ScrollUpdateEffectAndHazePosition(struct Coordinates* pCoords)
 
 /**
  * @brief 58cc0 | 60 | Handles the automatic scrolling of the background 0
- * 
+ *
  */
 void ScrollAutoBg0(void)
 {
@@ -810,7 +812,7 @@ void ScrollAutoBg0(void)
 
 /**
  * @brief 58d20 | 80 | Gets the BG3 scrolling type
- * 
+ *
  * @return u32 Types (y << 16 | x)
  */
 u32 ScrollGetBG3Scroll(void)
@@ -856,7 +858,7 @@ u32 ScrollGetBG3Scroll(void)
             xScroll = BG3_SCROLLING_TYPE_NORMAL;
             yScroll = BG3_SCROLLING_TYPE_NORMAL;
             break;
-        
+
         case 9:
             xScroll = BG3_SCROLLING_TYPE_QUARTERED;
             yScroll = BG3_SCROLLING_TYPE_NONE;
@@ -873,7 +875,7 @@ u32 ScrollGetBG3Scroll(void)
 
 /**
  * @brief 58da0 | 124 | Scrolls the background 3
- * 
+ *
  */
 void ScrollBg3(void)
 {
@@ -917,7 +919,7 @@ void ScrollBg3(void)
             size -= gBg1YPosition;
         else
             size = DIV_SHIFT(size - gBg1YPosition, 4);
-        
+
         if (offset - size > 0)
             gBg3YPosition = offset - size;
         else
@@ -938,7 +940,7 @@ void ScrollBg3(void)
 
 /**
  * @brief 58ec4 | 50 | To document
- * 
+ *
  */
 void ScrollBg3Related(void)
 {
@@ -956,7 +958,7 @@ void ScrollBg3Related(void)
 
 /**
  * @brief 58f14 | 2c | Handles the automatic scrolling of the background 3
- * 
+ *
  */
 void ScrollAutoBg3(void)
 {
@@ -971,7 +973,7 @@ void ScrollAutoBg3(void)
 
 /**
  * @brief 58f40 | c8 | Scrolls the BG2
- * 
+ *
  * @param pCoords Coordinates pointer
  */
 void ScrollBg2(struct Coordinates* pCoords)
@@ -1027,7 +1029,7 @@ void ScrollBg2(struct Coordinates* pCoords)
 
 /**
  * @brief 59008 | a8 | Handle the debug no-clip camera lock functionality
- * 
+ *
  * @param pCoords Coords pointer
  */
 void ScrollNoClipDebugCameraLock(struct Coordinates* pCoords)

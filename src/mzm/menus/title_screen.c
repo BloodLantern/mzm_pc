@@ -1,30 +1,32 @@
-#include "menus/title_screen.h"
-#include "dma.h"
-#include "macros.h"
-#include "callbacks.h"
-#include "oam_id.h"
-#include "gba/rom_header.h"
+#include "mzm/menus/title_screen.h"
+#include "mzm/dma.h"
+#include "mzm/macros.h"
+#include "mzm/callbacks.h"
+#include "mzm/oam_id.h"
+#include "mzm/gba/rom_header.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/menus/title_screen_data.h"
-#include "data/menus/internal_title_screen_data.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/text_data.h"
-#include "data/menus/game_over_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/menus/title_screen_data.h"
+#include "mzm/data/menus/internal_title_screen_data.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/text_data.h"
+#include "mzm/data/menus/game_over_data.h"
 
-#include "constants/menus/title_screen.h"
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/demo.h"
+#include "mzm/constants/menus/title_screen.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/demo.h"
 
-#include "structs/demo.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 76390 | 60 | Forward the page data to the correct BGCNT register
- * 
+ *
  * @param pPageData Title screen page data pointer
  */
 void TitleScreenSetBGCNTPageData(const struct TitleScreenPageData* const pPageData)
@@ -47,7 +49,7 @@ void TitleScreenSetBGCNTPageData(const struct TitleScreenPageData* const pPageDa
 
 /**
  * @brief 763f0 | 18 | Loads the tiletable of a page data
- * 
+ *
  * @param pPageData Title screen page data pointer
  */
 void TitleScreenLoadPageData(const struct TitleScreenPageData* const pPageData)
@@ -57,7 +59,7 @@ void TitleScreenLoadPageData(const struct TitleScreenPageData* const pPageData)
 
 /**
  * @brief 76408 | 18 | Loads the tiletable of a page data
- * 
+ *
  * @param pPageData Title screen page data pointer
  */
 void TitleScreenLoadPageData_Copy(const struct TitleScreenPageData* const pPageData)
@@ -67,7 +69,7 @@ void TitleScreenLoadPageData_Copy(const struct TitleScreenPageData* const pPageD
 
 /**
  * @brief 76420 | 2c | Updates the OAM id of a title screen OAM
- * 
+ *
  * @param offset OAM offset
  * @param oamId OAM id
  */
@@ -80,7 +82,7 @@ void TitleScreenUpdateOamId(u8 offset, u8 oamId)
 
 /**
  * @brief 7644c | 2c | Calls the OAM process handler
- * 
+ *
  */
 void TitleScreenCallProcessOAM(void)
 {
@@ -91,7 +93,7 @@ void TitleScreenCallProcessOAM(void)
 
 /**
  * @brief 76478 | 50 | Resets the OAM
- * 
+ *
  */
 void TitleScreenResetOAM(void)
 {
@@ -109,8 +111,8 @@ void TitleScreenResetOAM(void)
 
 /**
  * @brief 764c8 | 118 | Handles the title screen fading in
- * 
- * @return u32 
+ *
+ * @return u32
  */
 u32 TitleScreenFadingIn(void)
 {
@@ -157,7 +159,7 @@ u32 TitleScreenFadingIn(void)
 
                 break;
             }
-            
+
             DmaTransfer(3, (void*)sEwramPointer + 0x8000, (void*)sEwramPointer + 0x8400, 0x400, 16);
             TITLE_SCREEN_DATA.paletteUpdated = TRUE;
             TITLE_SCREEN_DATA.fadingStage++;
@@ -177,9 +179,9 @@ u32 TitleScreenFadingIn(void)
 
 /**
  * @brief 765e0 | 130 | Handles the title screen fading out
- * 
- * @param intensity 
- * @param delay 
+ *
+ * @param intensity
+ * @param delay
  * @return u32 bool, ended
  */
 u32 TitleScreenFadingOut(u8 intensity, u8 delay)
@@ -232,7 +234,7 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
 
                 break;
             }
-            
+
             BitFill(3, 0, (void*)sEwramPointer + 0x8400, 0x400, 16);
             TITLE_SCREEN_DATA.paletteUpdated = TRUE;
             TITLE_SCREEN_DATA.fadingStage++;
@@ -252,7 +254,7 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
 
 /**
  * @brief 76710 | 94 | To document
- * 
+ *
  * @param param_1 To document
  */
 void unk_76710(u8 param_1)
@@ -271,7 +273,7 @@ void unk_76710(u8 param_1)
 
 /**
  * @brief 767a4 | 40 | To document
- * 
+ *
  */
 void unk_767a4(void)
 {
@@ -284,7 +286,7 @@ void unk_767a4(void)
 
 /**
  * @brief 767e4 | 194 | Updates the animated palettes of the title screen
- * 
+ *
  */
 void TitleScreenUpdateAnimatedPalette(void)
 {
@@ -363,7 +365,7 @@ void TitleScreenUpdateAnimatedPalette(void)
                 if (pAnim->paletteRow > 5)
                     pAnim->paletteRow = 0;
             }
-            
+
             DmaTransfer(3, &sTitleScreenPromptPal[sTitleScreenPromptPaletteRows[pAnim->paletteRow] * 16], PALRAM_BASE + 0x1A0, 0x18, 16);
         }
     }
@@ -371,7 +373,7 @@ void TitleScreenUpdateAnimatedPalette(void)
 
 /**
  * @brief 76978 | 120 | To document
- * 
+ *
  */
 void unk_76978(u8 param_1)
 {
@@ -402,7 +404,7 @@ void unk_76978(u8 param_1)
 
 /**
  * @brief 76a98 | c8 | To document
- * 
+ *
  * @return u32 bool, ended
  */
 u32 unk_76a98(void)
@@ -460,7 +462,7 @@ u32 unk_76a98(void)
 
 /**
  * @brief 76b60 | 194 | Handles the comet view part of the title screen
- * 
+ *
  * @return u32 bool, ended
  */
 u32 TitleScreenCometsView(void)
@@ -562,7 +564,7 @@ u32 TitleScreenCometsView(void)
 
 /**
  * @brief 76cf4 | 9c | Transfers the ground graphics
- * 
+ *
  */
 void TitleScreenTransferGroundGraphics(void)
 {
@@ -604,7 +606,7 @@ void TitleScreenTransferGroundGraphics(void)
 
 /**
  * @brief 76d90 | 88 | Processes the comets and the sparkles
- * 
+ *
  */
 void TitleScreenProcessOAM(void)
 {
@@ -627,7 +629,7 @@ void TitleScreenProcessOAM(void)
 
 /**
  * @brief 76e18 | 174 | Processes a comet
- * 
+ *
  * @param pTiming OAM Timing pointer
  * @param pOam Menu OAM pointer
  * @param cometNumber Comet number
@@ -639,7 +641,7 @@ void TitleScreenProcessComets(struct TitleScreenOamTiming* pTiming, struct MenuO
     u32 yLimit;
 
     pTiming->timer++;
-    
+
     switch (pTiming->stage)
     {
         case 0:
@@ -727,7 +729,7 @@ void TitleScreenProcessComets(struct TitleScreenOamTiming* pTiming, struct MenuO
 
 /**
  * @brief 76f8c | 88 | Processes the top sparkle
- * 
+ *
  * @param pTiming OAM Timing pointer
  * @param pOam Menu OAM pointer
  */
@@ -774,7 +776,7 @@ void TitleScreenProcessTopSparkle(struct TitleScreenOamTiming* pTiming, struct M
 
 /**
  * @brief 77014 | e4 | Processes the bottom sparkle
- * 
+ *
  * @param pTiming OAM Timing pointer
  * @param pOam Menu OAM pointer
  * @return u32 bool, OAM id update needed
@@ -803,7 +805,7 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScreenOamTiming* pTiming, struct
                 pTiming->timer = 0;
             }
             break;
-        
+
         case 2:
             // Move to the left
             pOam->xPosition -= PIXEL_SIZE * 3;
@@ -829,7 +831,7 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScreenOamTiming* pTiming, struct
             pOam->xPosition -= PIXEL_SIZE * 3;
             if (pOam->xPosition <= BLOCK_SIZE * 10)
             {
-                // Flag an OAM id update for both sparkles 
+                // Flag an OAM id update for both sparkles
                 idUpdate = TRUE;
                 pTiming->stage++;
                 pTiming->timer = 0;
@@ -858,7 +860,7 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScreenOamTiming* pTiming, struct
 
 /**
  * @brief 770f8 | a8 | Checks if a demo should play
- * 
+ *
  * @return s8 0 = Nothing, 1 = Input, 2 = Demo start
  */
 s8 TitleScreenCheckPlayEffects(void)
@@ -918,7 +920,7 @@ s8 TitleScreenCheckPlayEffects(void)
 
 /**
  * @brief 771a0 | 178 | Subroutine for the title screen
- * 
+ *
  * @return u32 bool, leaving
  */
 u32 TitleScreenSubroutine(void)
@@ -1017,7 +1019,7 @@ u32 TitleScreenSubroutine(void)
 
 /**
  * @brief 77318 | b0 | Handles the title screen being idle
- * 
+ *
  * @return u32 0 = Nothing, 1 = Input, 2 = Demo start
  */
 u32 TitleScreenIdle(void)
@@ -1054,7 +1056,7 @@ u32 TitleScreenIdle(void)
                     TitleScreenSetIdleStage(TITLE_SCREEN_IDLE_STAGE_IDLE);
                     break;
                 }
-                
+
                 gWrittenToBLDALPHA_L++;
                 gWrittenToBLDALPHA_H = 16 - gWrittenToBLDALPHA_L;
             }
@@ -1072,8 +1074,8 @@ u32 TitleScreenIdle(void)
 
 /**
  * @brief 773c8 | 94 | Sets the idle stage for the title screen
- * 
- * @param stage 
+ *
+ * @param stage
  */
 void TitleScreenSetIdleStage(u8 stage)
 {
@@ -1111,14 +1113,14 @@ void TitleScreenSetIdleStage(u8 stage)
 
 /**
  * @brief 7745c | 2a0 | Initializes the title screen
- * 
+ *
  */
 void TitleScreenInit(void)
 {
     u32 zero;
 
     CallbackSetVBlank(TitleScreenVBlank_Empty);
-    
+
     zero = 0;
     DMA_SET(3, &zero, &gNonGameplayRam, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRam) / 4);
 
@@ -1134,7 +1136,7 @@ void TitleScreenInit(void)
 
     ClearGfxRam();
     ResetFreeOam();
-    
+
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
     zero = 0;
@@ -1213,7 +1215,7 @@ void TitleScreenInit(void)
         TITLE_SCREEN_DATA.oamTimings[2].stage = TITLE_SCREEN_IDLE_STAGE_IDLE;
 
         TITLE_SCREEN_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
-        
+
         gWrittenToBLDALPHA_L = 16;
         gWrittenToBLDALPHA_H = 0;
 
@@ -1241,7 +1243,7 @@ void TitleScreenInit(void)
 
 /**
  * @brief 776fc | d0 | Title screen V-blank code
- * 
+ *
  */
 void TitleScreenVBlank(void)
 {
@@ -1267,7 +1269,7 @@ void TitleScreenVBlank(void)
 
 /**
  * @brief 777cc | c | Empty v-blank for the title screen
- * 
+ *
  */
 void TitleScreenVBlank_Empty(void)
 {
@@ -1276,7 +1278,7 @@ void TitleScreenVBlank_Empty(void)
 
 /**
  * @brief 777d8 | 4c | Changes the copyright symbol
- * 
+ *
  * @param symbol Which symbol to use
  */
 void TitleScreenSetCopyrightSymbol(u8 symbol)
@@ -1298,7 +1300,7 @@ void TitleScreenSetCopyrightSymbol(u8 symbol)
     else
         temp = 0x10D;
     value = temp;
-    
+
     i = 0;
     mask = 0xFC00;
     dst = VRAM_BASE + 0x178 + bgOffset;
@@ -1313,7 +1315,7 @@ void TitleScreenSetCopyrightSymbol(u8 symbol)
 
 /**
  * @brief 77824 | a0 | Draws a string to the title screen (for debugging purposes)
- * 
+ *
  * @param pString String pointer
  * @param dst Destination pointer
  * @param palette Palette
@@ -1359,7 +1361,7 @@ void TitleScreenDrawDebugText(void)
 {
     s32 i;
     u8 string[5];
-    
+
     DmaTransfer(3, sCharactersGfx, VRAM_BASE + 0xF800, 0x800, 16);
     DmaTransfer(3, sGameOverMenuPal+0x20, PALRAM_BASE + 0x1E0, 0x20, 16);
     TitleScreenDrawString(sRomInfoStringPointers[0], VRAM_BASE + sTitleScreenPageData[0].tiletablePage * 0x800, 0xF);
@@ -1378,7 +1380,7 @@ void TitleScreenDrawDebugText(void)
     else
         i = ' ';
     string[0] = i;
-    
+
     i = game_version & 0xF;
     if (i >= 0 && i < 10)
         i += '0';

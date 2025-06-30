@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menu.h"
+#include "mzm/types.h"
+#include "mzm/structs/menu.h"
 
 #define GAME_OVER_DATA sNonGameplayRamPointer->gameOver
 
@@ -46,7 +46,7 @@ struct GameOverData {
     u8 padding_30_34[5]; // 30
 
     u8 unk_35; // set but never read
-    
+
     struct MenuOamData oam[1];
 };
 

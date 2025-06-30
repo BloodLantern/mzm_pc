@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/audio.h"
+#include "mzm/types.h"
+#include "mzm/structs/audio.h"
 
 void UpdateMusic(void);
 void UpdatePsgSounds(void);

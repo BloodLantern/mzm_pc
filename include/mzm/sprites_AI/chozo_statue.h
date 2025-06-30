@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 enum ChozoStatueBehavior {
     CHOZO_STATUE_BEHAVIOR_ITEM,

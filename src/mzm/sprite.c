@@ -1,27 +1,29 @@
-#include "sprite.h"
-#include "sprite_debris.h"
-#include "syscalls.h"
-#include "gba.h"
-#include "macros.h"
-#include "fixed_point.h"
+#include "mzm/sprite.h"
+#include "mzm/sprite_debris.h"
+#include "mzm/syscalls.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/fixed_point.h"
 
-#include "data/generic_data.h"
-#include "data/samus_sprites_pointers.h"
-#include "data/sprite_data.h"
+#include "mzm/data/generic_data.h"
+#include "mzm/data/samus_sprites_pointers.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/game_state.h"
-#include "constants/connection.h"
-#include "constants/sprite.h"
-#include "constants/particle.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/bg_clip.h"
-#include "structs/game_state.h"
-#include "structs/room.h"
-#include "structs/samus.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * cf00 | 42c | Main routine that updates all the sprites
- * 
+ *
  */
 void SpriteUpdate(void)
 {
@@ -100,7 +102,7 @@ void SpriteUpdate(void)
 
                     // Transfer sprite to current
                     DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
-                    
+
                     // Update random number
                     gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
 
@@ -152,7 +154,7 @@ void SpriteUpdate(void)
 
             // Update random number
             gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
-            
+
             // Update stun timer
             SpriteUtilUpdateStunTimer(pCurrent);
 
@@ -216,7 +218,7 @@ void SpriteUpdate(void)
 
 /**
  * d32c | 40 | Updates the animation related info of a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  */
 void SpriteUpdateAnimation(struct SpriteData* pSprite)
@@ -243,7 +245,7 @@ void SpriteUpdateAnimation(struct SpriteData* pSprite)
 
 /**
  * @brief d36c | c4 | Call draw sprite function, difference with the other is unknown
- * 
+ *
  */
 void SpriteDrawAll_2(void)
 {
@@ -305,7 +307,7 @@ void SpriteDrawAll_2(void)
 
 /**
  * @brief d430 | 8c | Draws the sprites based on the draw order
- * 
+ *
  */
 void SpriteDrawAll(void)
 {
@@ -317,7 +319,7 @@ void SpriteDrawAll(void)
 
     checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN_10;
     drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
-    
+
     SpriteDebrisDrawAll();
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
@@ -349,7 +351,7 @@ void SpriteDrawAll(void)
 
 /**
  * @brief d4bc | 88 | Draws the sprites that have a draw order between 9 and 16
- * 
+ *
  */
 void SpriteDrawAll_Upper(void)
 {
@@ -391,7 +393,7 @@ void SpriteDrawAll_Upper(void)
 
 /**
  * @brief d544 | 890 | Draws a sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  * @param slot Ram slot
  */
@@ -405,7 +407,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 
     u32 shape;
     u32 size;
-    
+
     u16 dy;
     u16 dmy;
 
@@ -425,10 +427,10 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
     u16 status_unk3;
     s32 i;
     u16 partCount;
-    
+
     u32 yOffset;
     u32 xOffset;
-    
+
     u16 xFlip;
     u16 doubleSize;
     u16 alphaBlending;
@@ -576,7 +578,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
                 gOamData[slot * 4 + 0].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
                 gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
             }
-            
+
             gOamData[slot * 4 + 2].all.affineParam = FixedMultiplication(-sin(rotation), FixedInverse(scaling));
             gOamData[slot * 4 + 3].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
         }
@@ -609,7 +611,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             // Don't really know what maths are used here, but it seems to be directly applying rotation and scaling to the position
             shape = gOamData[prevSlot + i].split.shape;
             size = gOamData[prevSlot + i].split.size;
-        
+
             yOffset = sOamYFlipOffsets[shape][size];
             yOffset = PIXEL_TO_SUB_PIXEL(yOffset);
             xOffset = sOamXFlipOffsets[shape][size];
@@ -618,25 +620,25 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             // Get current positions
             y = (s16)MOD_AND(part1 + yPosition, 256);
             x = (s16)MOD_AND(part2 + xPosition, 512);
-        
+
             tmpY = (s16)(y - yPosition + yOffset);
             tmpX = (s16)(x - xPosition + xOffset);
 
             // Apply scaling
             tmpX = (s16)(Q_8_8_TO_SHORT_DIV(tmpX * scaling) - tmpX);
             tmpY = (s16)(Q_8_8_TO_SHORT_DIV(tmpY * scaling) - tmpY);
-        
+
             x = (s16)(x + tmpX);
             y = (s16)(y + tmpY);
-        
+
             // Offset to 0;0 temporarly to apply the rotation
             unk_2 = (s16)(x - xPosition + xOffset);
             unk_3 = (s16)(y - yPosition + yOffset);
-        
+
             // Rotation matrix
             x = Q_8_8_TO_SHORT(unk_2 * cos(rotation) - unk_3 * sin(rotation));
             y = Q_8_8_TO_SHORT(unk_2 * sin(rotation) + unk_3 * cos(rotation));
-        
+
             if (doubleSize)
             {
                 x = (s16)(x - xOffset * 2);
@@ -647,7 +649,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
                 x = (s16)(x - xOffset);
                 y = (s16)(y - yOffset);
             }
-        
+
             // Rotated position + position
             gOamData[prevSlot + i].split.y = MOD_AND(y + yPosition - BLOCK_SIZE, 256);
             gOamData[prevSlot + i].split.x = MOD_AND(x + xPosition - BLOCK_SIZE, 512);
@@ -705,12 +707,12 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 
             dst++;
         }
-        
+
         // Update next oam slot
         gNextOamSlot = partCount + prevSlot;
 
         // Setup matrices for normal and x flip
-        
+
         // [ cos / scaling, -sin / scaling ]
         // [ sin / scaling,  cos / scaling ]
         // and
@@ -748,7 +750,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 
 /**
  * @brief ddd4 | 150 | Checks if a sprite is on screen
- * 
+ *
  * @param pSprite Sprite data pointer
  */
 void SpriteCheckOnScreen(struct SpriteData* pSprite)
@@ -824,7 +826,7 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
  * @brief df24 | 4c | Calls : ClearSpriteData, LoadSpriteset,
  * CheckReloadEscapeDigitsGraphics, LoadLocationText, LoadRoomSprite
  * and SpawnSpacePiratesWaiting
- * 
+ *
  */
 void SpriteLoadAllData(void)
 {
@@ -857,7 +859,7 @@ void SpriteLoadAllData(void)
 
 /**
  * @brief df84 | 100 | Loads a spriteset
- * 
+ *
  */
 void SpriteLoadSpriteset(void)
 {
@@ -896,7 +898,7 @@ void SpriteLoadSpriteset(void)
         gfxSlot = sSpritesetPointers[spriteset][j * 2 + 1];
 
         j++;
-        
+
         if (spriteId == PSPRITE_UNUSED0)
         {
             break;
@@ -926,7 +928,7 @@ void SpriteLoadSpriteset(void)
 
 /**
  * e084 | 2c | Loads the graphics in VRAM for a new sprite
- * 
+ *
  * @param spriteId Sprite ID
  * @param row Spriteset Graphics Row
  */
@@ -939,7 +941,7 @@ void SpriteLoadGfx(u8 spriteId, u8 row)
 
 /**
  * e0b0 | 40 | Loads the palette in PALRAM for a new sprite
- * 
+ *
  * @param spriteId Sprite ID
  * @param row Palette Row
  * @param len Lenght (in rows)
@@ -953,7 +955,7 @@ void SpriteLoadPal(u8 spriteId, u8 row, u8 len)
 
 /**
  * @brief e0f0 | 44 | Clears the sprite data (including debris)
- * 
+ *
  */
 void SpriteClearData(void)
 {
@@ -974,7 +976,7 @@ void SpriteClearData(void)
 
 /**
  * @brief e134 | 48 | Loads the sprites of the current room
- * 
+ *
  */
 void SpriteLoadRoomSprites(void)
 {
@@ -982,7 +984,7 @@ void SpriteLoadRoomSprites(void)
     u8 y;
     u8 x;
     u8 slot;
-    
+
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
         /*
@@ -1004,7 +1006,7 @@ void SpriteLoadRoomSprites(void)
 
 /**
  * @brief e17c | dc | Initializes a primary sprite with the values in parameters
- * 
+ *
  * @param spritesetSlot Spriteset slot/properties
  * @param yPosition Y Position (blocks)
  * @param xPosition X Position (blocks)
@@ -1073,7 +1075,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
 
 /**
  * e258 | c4 | Spawns a new secondary sprite with the given parameters
- * 
+ *
  * @param spriteId The ID of the sprite to spawn
  * @param partNumber Part number
  * @param gfxSlot The sprite graphics slot (usually the same as the primary sprite)
@@ -1129,7 +1131,7 @@ u8 SpriteSpawnSecondary(u8 spriteId, u8 partNumber, u8 gfxSlot, u8 ramSlot, u16 
 
 /**
  * e31c | b8 | Spawns a new primary sprite with the given parameters
- * 
+ *
  * @param spriteId The ID of the sprite to spawn
  * @param partNumber Part number
  * @param gfxSlot The sprite graphics slot
@@ -1184,7 +1186,7 @@ u8 SpriteSpawnPrimary(u8 spriteId, u8 partNumber, u8 gfxSlot, u16 yPosition, u16
 
 /**
  * e3d4 | b8 | Spawns a new primary sprite with the given parameters (used only for the drops and the followers sprite)
- * 
+ *
  * @param spriteId The ID of the sprite to spawn
  * @param partNumber The room slot
  * @param gfxSlot The sprite graphics slot

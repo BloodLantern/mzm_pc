@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/transparency.h"
+#include "mzm/types.h"
+#include "mzm/structs/transparency.h"
 
 // Defines
 

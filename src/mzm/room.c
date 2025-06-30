@@ -1,47 +1,49 @@
-#include "room.h"
-#include "dma.h"
-#include "gba.h"
+#include "mzm/room.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
 
-#include "data/engine_pointers.h"
-#include "data/empty_datatypes.h"
-#include "data/common_pals.h"
-#include "data/clipdata_types.h"
-#include "data/clipdata_types_tilemap.h"
-#include "data/rooms_data.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/empty_datatypes.h"
+#include "mzm/data/common_pals.h"
+#include "mzm/data/clipdata_types.h"
+#include "mzm/data/clipdata_types_tilemap.h"
+#include "mzm/data/rooms_data.h"
 
-#include "constants/audio.h"
-#include "constants/haze.h"
-#include "constants/connection.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/samus.h"
-#include "constants/room.h"
-#include "constants/in_game_cutscene.h"
-#include "constants/power_bomb_explosion.h"
-#include "constants/menus/pause_screen.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/haze.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/room.h"
+#include "mzm/constants/in_game_cutscene.h"
+#include "mzm/constants/power_bomb_explosion.h"
+#include "mzm/constants/menus/pause_screen.h"
 
-#include "structs/audio.h"
-#include "structs/haze.h"
-#include "structs/animated_graphics.h"
-#include "structs/bg_clip.h"
-#include "structs/in_game_cutscene.h"
-#include "structs/color_effects.h"
-#include "structs/clipdata.h"
-#include "structs/cutscene.h"
-#include "structs/display.h"
-#include "structs/demo.h"
-#include "structs/game_state.h"
-#include "structs/scroll.h"
-#include "structs/room.h"
-#include "structs/samus.h"
-#include "structs/text.h"
-#include "structs/screen_shake.h"
-#include "structs/visual_effects.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/haze.h"
+#include "mzm/structs/animated_graphics.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/in_game_cutscene.h"
+#include "mzm/structs/color_effects.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/scroll.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/text.h"
+#include "mzm/structs/screen_shake.h"
+#include "mzm/structs/visual_effects.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 55f7c | 26c | Loads the current room
- * 
+ *
  */
 void RoomLoad(void)
 {
@@ -165,7 +167,7 @@ void RoomLoad(void)
 
 /**
  * @brief 561e8 | 21c | Loads the tileset of the current room
- * 
+ *
  */
 void RoomLoadTileset(void)
 {
@@ -231,7 +233,7 @@ void RoomLoadTileset(void)
 
 /**
  * 56404 | 168 | Load the current room entry
- * 
+ *
  */
 void RoomLoadEntry(void)
 {
@@ -304,7 +306,7 @@ void RoomLoadEntry(void)
 
 /**
  * @brief 5656c | 158 | Loads the backgrounds of the current room
- * 
+ *
  */
 void RoomLoadBackgrounds(void)
 {
@@ -341,7 +343,7 @@ void RoomLoadBackgrounds(void)
             src += 4;
             CallLZ77UncompWram(src, gDecompBg0Map);
         }
-        
+
         // Load clipdata, assume RLE
         src = entry.pClipData;
         gBgPointersAndDimensions.pClipDecomp = gDecompClipdataMap;
@@ -377,7 +379,7 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 
 /**
  * @brief 566d4 | 3f4 | Resets all the room related info during a transition
- * 
+ *
  */
 void RoomReset(void)
 {
@@ -388,7 +390,7 @@ void RoomReset(void)
     u16 count;
     u16* ptr;
     s32 temp;
-    
+
     gColorFading.unk_3 = 0;
     gColorFading.fadeTimer = 0;
     gColorFading.status = 0;
@@ -426,7 +428,7 @@ void RoomReset(void)
             if (gCurrentDemo.loading)
                 unk_60cbc(FALSE);
         }
-    
+
         gDoorPositionStart.x = 0;
         gDoorPositionStart.y = 0;
         gCurrentItemBeingAcquired = 0;
@@ -446,7 +448,7 @@ void RoomReset(void)
     gScreenShakeRelated = 0;
     gDisablePause = FALSE;
     gDisableClipdataChangingTransparency = FALSE;
-    
+
     gBackdropColor = 0;
     gScreenYOffset = 0;
     gScreenXOffset = 0;
@@ -527,7 +529,7 @@ void RoomReset(void)
         gWaitingSpacePiratesPosition.x -= HALF_BLOCK_SIZE;
     else if (pDoor->xExit < 0)
         gWaitingSpacePiratesPosition.x += HALF_BLOCK_SIZE;
-    
+
     if (gSamusDoorPositionOffset != 0)
     {
         if (gSamusDoorPositionOffset < 0)
@@ -556,7 +558,7 @@ void RoomReset(void)
 
 /**
  * @brief 56ac8 | 60 | Sets the automatic background scrolling (BG0 and BG3)
- * 
+ *
  */
 void RoomSetBackgroundScrolling(void)
 {
@@ -582,7 +584,7 @@ void RoomSetBackgroundScrolling(void)
 
 /**
  * @brief 56b28 | 1f0 | Setups the initial tilemapfor the BG specified
- * 
+ *
  * @param bgNumber Background number
  */
 void RoomSetInitialTilemap(u8 bgNumber)
@@ -710,7 +712,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
 
 /**
  * @brief 56d18 | 110 | RLE decompression algorithm
- * 
+ *
  * @param isBG Is background
  * @param src Source address
  * @param dst Destination address
@@ -738,13 +740,13 @@ u32 RoomRleDecompress(u8 isBG, const u8* src, u8* dst)
             if (sizeType == 3)
                 size = 0x2000;
         }
-        
+
         src++;
         length = 0x2000;
     }
 
     BitFill(3, 0, dst, length, 0x10);
-    
+
     // do 2 passes, one for low byte and one for high byte
     for (length = 0; length < 2; )
     {
@@ -777,7 +779,7 @@ u32 RoomRleDecompress(u8 isBG, const u8* src, u8* dst)
                     else
                         dest += value * 2;
 
-                    src++;  
+                    src++;
                 }
                 else
                 {
@@ -849,7 +851,7 @@ u32 RoomRleDecompress(u8 isBG, const u8* src, u8* dst)
 
 /**
  * @brief 56e28 | 4c | Updates the graphics information about a room
- * 
+ *
  */
 void RoomUpdateGfxInfo(void)
 {
@@ -869,7 +871,7 @@ void RoomUpdateGfxInfo(void)
 
 /**
  * @brief 56e74 | 80 | Checks if the animated graphics, palette and effects should be updated
- * 
+ *
  */
 void RoomUpdateAnimatedGraphicsAndPalettes(void)
 {
@@ -912,12 +914,12 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void)
 
 /**
  * @brief 56ef4 | dc | Updates the hatches flashing animation
- * 
+ *
  */
 void RoomUpdateHatchFlashingAnimation(void)
 {
     const u16* pPalette;
-    
+
     if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
         return;
 
@@ -962,7 +964,7 @@ void RoomUpdateHatchFlashingAnimation(void)
 
 /**
  * @brief 56fd0 | dc | Updates the current room
- * 
+ *
  */
 void RoomUpdate(void)
 {
@@ -1030,7 +1032,7 @@ void RoomUpdate(void)
 
 /**
  * @brief 570ac | 128 | Updates the positions of the backgrounds
- * 
+ *
  */
 void RoomUpdateBackgroundsPosition(void)
 {
@@ -1081,7 +1083,7 @@ void RoomUpdateBackgroundsPosition(void)
 
 /**
  * @brief 571d4 | 124 | Updates the vertical tilemap of the room
- * 
+ *
  * @param offset Movement offset
  */
 void RoomUpdateVerticalTilemap(s32 offset)
@@ -1128,7 +1130,7 @@ void RoomUpdateVerticalTilemap(s32 offset)
 
         if (properties > gBgPointersAndDimensions.backgrounds[i].height)
             continue;
-            
+
         yPosition = properties;
 
         properties = xPosition - 2;
@@ -1142,7 +1144,7 @@ void RoomUpdateVerticalTilemap(s32 offset)
             size = gBgPointersAndDimensions.backgrounds[i].width;
 
         tilemapOffset = yPosition * gBgPointersAndDimensions.backgrounds[i].width + xPosition;
-        
+
         dst = VRAM_BASE + i * 4096;
         dst += (yPosition & 0xF) * 32;
 
@@ -1162,7 +1164,7 @@ void RoomUpdateVerticalTilemap(s32 offset)
 
 /**
  * @brief 572f8 | 144 | Updates the horizontal tilemap of the room
- * 
+ *
  * @param offset Movement offset
  */
 void RoomUpdateHorizontalTilemap(s32 offset)
@@ -1209,7 +1211,7 @@ void RoomUpdateHorizontalTilemap(s32 offset)
 
         if (properties > gBgPointersAndDimensions.backgrounds[i].width)
             continue;
-            
+
         xPosition = properties;
 
         properties = yPosition - 2;
@@ -1223,7 +1225,7 @@ void RoomUpdateHorizontalTilemap(s32 offset)
             size = gBgPointersAndDimensions.backgrounds[i].height;
 
         tilemapOffset = gBgPointersAndDimensions.backgrounds[i].width * yPosition + xPosition;
-        
+
         dst = VRAM_BASE + i * 4096;
         if (xPosition & 0x10)
             dst = VRAM_BASE + 0x800 + i * 4096;
@@ -1246,7 +1248,7 @@ void RoomUpdateHorizontalTilemap(s32 offset)
 
 /**
  * @brief 5743c | 20 | Checks if DMA 3 has ended
- * 
+ *
  */
 void RoomCheckDMA3Ended(void)
 {

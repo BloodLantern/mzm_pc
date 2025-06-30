@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/multiboot.h"
+#include "mzm/types.h"
+#include "mzm/structs/multiboot.h"
 
 void MultiBootInit(struct MultiBootData* pMultiBoot);
 u32 MultiBootMain(struct MultiBootData* pMultiBoot);

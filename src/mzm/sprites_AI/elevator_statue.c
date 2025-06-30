@@ -1,17 +1,19 @@
-#include "sprites_AI/elevator_statue.h"
-#include "macros.h"
+#include "mzm/sprites_AI/elevator_statue.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/elevator_statue.h"
+#include "mzm/data/sprites/elevator_statue.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
-#include "constants/event.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/clipdata.h"
+
+#include "mzm_include.h"
 
 #define ELEVATOR_STATUE_POSE_CHECK_FALL 0x8
 #define ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING 0x9
@@ -29,7 +31,7 @@
 
 /**
  * @brief 47ebc | 50 | Updates the clipdata of the statue debris on the ground
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void ElevatorStatueChangeTwoGroundCcaa(u8 caa)
@@ -48,7 +50,7 @@ static void ElevatorStatueChangeTwoGroundCcaa(u8 caa)
 
 /**
  * @brief 47f0c | 64 | Updates the clipdata of the Kraid elevator statue
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void KraidElevatorStatueChangeCAA(u8 caa)
@@ -58,7 +60,7 @@ static void KraidElevatorStatueChangeCAA(u8 caa)
 
     yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
     xPosition = gCurrentSprite.xPosition - BLOCK_SIZE;
-    
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - (BLOCK_SIZE * 2), xPosition - BLOCK_SIZE); // Head block
 
@@ -74,7 +76,7 @@ static void KraidElevatorStatueChangeCAA(u8 caa)
 
 /**
  * @brief 47f70 | 4c | Initializes a Kraid elevator statue to be fallen
- * 
+ *
  */
 static void KraidElevatorStatueFallenInit(void)
 {
@@ -96,7 +98,7 @@ static void KraidElevatorStatueFallenInit(void)
 
 /**
  * @brief 47fbc | 8c | Initializes a Kraid elevator statue sprite
- * 
+ *
  */
 static void KraidElevatorStatueInit(void)
 {
@@ -132,7 +134,7 @@ static void KraidElevatorStatueInit(void)
 
 /**
  * @brief 48048 | 34 | Checks if the Kraid elevator statue should fall
- * 
+ *
  */
 static void KraidElevatorStatueCheckShouldFall(void)
 {
@@ -147,7 +149,7 @@ static void KraidElevatorStatueCheckShouldFall(void)
 
 /**
  * @brief 4807c | 54 | Handles the delay before the Kraid elevator statue starts falling
- * 
+ *
  */
 static void KraidElevatorStatueDelayBeforeFalling(void)
 {
@@ -175,7 +177,7 @@ static void KraidElevatorStatueDelayBeforeFalling(void)
 
 /**
  * @brief 480d0 | a4 | Handles the Kraid elevator statue falling
- * 
+ *
  */
 static void KraidElevatorStatueFalling(void)
 {
@@ -220,7 +222,7 @@ static void KraidElevatorStatueFalling(void)
 
 /**
  * @brief 48174 | 64 | Updates the clipdata of the Ridley elevator statue
- * 
+ *
  * @param caa Clipdata Affecting Action
  */
 static void RidleyElevatorStatueChangeCcaa(u8 caa)
@@ -246,7 +248,7 @@ static void RidleyElevatorStatueChangeCcaa(u8 caa)
 
 /**
  * @brief 481d8 | 4c | Initializes the Ridley elevator statue to be fallen
- * 
+ *
  */
 static void RidleyElevatorStatueFallenInit(void)
 {
@@ -268,7 +270,7 @@ static void RidleyElevatorStatueFallenInit(void)
 
 /**
  * @brief 48224 | 8c | Initializes the Ridley elevator sprite
- * 
+ *
  */
 static void RidleyElevatorStatueInit(void)
 {
@@ -304,7 +306,7 @@ static void RidleyElevatorStatueInit(void)
 
 /**
  * @brief 482b0 | 34 | Checks if the Ridley elevator statue should fall
- * 
+ *
  */
 static void RidleyElevatorStatueCheckShouldFall(void)
 {
@@ -319,7 +321,7 @@ static void RidleyElevatorStatueCheckShouldFall(void)
 
 /**
  * @brief 482e4 | 54 | Handles the delay before the Ridley elevator statue starts falling
- * 
+ *
  */
 static void RidleyElevatorStatueDelayBeforeFalling(void)
 {
@@ -347,7 +349,7 @@ static void RidleyElevatorStatueDelayBeforeFalling(void)
 
 /**
  * @brief 48338 | b8 | Handles the Ridley elevator statue falling
- * 
+ *
  */
 static void RidleyElevatorStatueFalling(void)
 {
@@ -397,7 +399,7 @@ static void RidleyElevatorStatueFalling(void)
 
 /**
  * @brief 483f0 | 48 | Kraid elevator statue AI
- * 
+ *
  */
 void KraidElevatorStatue(void)
 {
@@ -424,7 +426,7 @@ void KraidElevatorStatue(void)
 
 /**
  * @brief 48438 | 48 | Ridley elevator statue AI
- * 
+ *
  */
 void RidleyElevatorStatue(void)
 {
@@ -451,7 +453,7 @@ void RidleyElevatorStatue(void)
 
 /**
  * @brief 48480 | cc | Elevator status debris AI
- * 
+ *
  */
 void ElevatorStatueDebris(void)
 {

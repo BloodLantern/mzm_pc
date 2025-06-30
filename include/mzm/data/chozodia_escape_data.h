@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
+#include "mzm/macros.h"
 
 extern const u16 sChozodiaEscapeShipHeatingUpPal[8 * 16];
 extern const u16 sChozodiaEscapeGroundHeatingUpPal[8 * 16];

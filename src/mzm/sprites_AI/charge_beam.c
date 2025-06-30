@@ -1,15 +1,17 @@
-#include "sprites_AI/charge_beam.h"
-#include "macros.h"
+#include "mzm/sprites_AI/charge_beam.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/charge_beam.h"
+#include "mzm/data/sprites/charge_beam.h"
 
-#include "constants/sprite.h"
-#include "constants/event.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define CHARGE_BEAM_POSE_IDLE 0x9
 #define CHARGE_BEAM_POSE_SPAWN_GLOW 0xA
@@ -24,7 +26,7 @@
 
 /**
  * @brief 13498 | a4 | Initializes the charge beam sprite
- * 
+ *
  */
 static void ChargeBeamInit(void)
 {
@@ -60,7 +62,7 @@ static void ChargeBeamInit(void)
 
 /**
  * @brief 1353c | 4c | Spawns the charge beam glow
- * 
+ *
  */
 static void ChargeBeamSpawnGlow(void)
 {
@@ -77,7 +79,7 @@ static void ChargeBeamSpawnGlow(void)
 
 /**
  * @brief 13588 | 44 | Initializes the charge beam to be visible/idle
- * 
+ *
  */
 static void ChargeBeamVisibleInit(void)
 {
@@ -95,7 +97,7 @@ static void ChargeBeamVisibleInit(void)
 
 /**
  * @brief 135cc | 44 | Handles the charge beam being idle
- * 
+ *
  */
 static void ChargeBeamIdle(void)
 {
@@ -145,7 +147,7 @@ static void ChargeBeamIdle(void)
 
 /**
  * @brief 13694 | 44 | Handles the flashing animation of the charge beam
- * 
+ *
  */
 static void ChargeBeamFlashingAnim(void)
 {
@@ -164,7 +166,7 @@ static void ChargeBeamFlashingAnim(void)
 
 /**
  * @brief 136d8 | 64 | Initializes the charge beam glow sprite
- * 
+ *
  */
 static void ChargeBeamGlowInit(void)
 {
@@ -190,7 +192,7 @@ static void ChargeBeamGlowInit(void)
 
 /**
  * @brief 1373c | 20 | Synchronises the charge beam glow Y position with the charge beam
- * 
+ *
  */
 void ChargeBeamGlowMovement(void)
 {
@@ -202,7 +204,7 @@ void ChargeBeamGlowMovement(void)
 
 /**
  * @brief 1375c | d0 | Charge beam AI
- * 
+ *
  */
 void ChargeBeam(void)
 {
@@ -231,7 +233,7 @@ void ChargeBeam(void)
 
 /**
  * @brief 1382c | 24 | Charge beam glow AI
- * 
+ *
  */
 void ChargeBeamGlow(void)
 {

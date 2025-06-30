@@ -1,5 +1,7 @@
-#include "data/internal_ending_and_gallery_data.h"
-#include "ending_and_gallery.h"
+#include "mzm/data/internal_ending_and_gallery_data.h"
+#include "mzm/ending_and_gallery.h"
+
+#include "mzm_include.h"
 
 const CreditsFunc_T sCreditsFunctionPointers[3] = {
     [0] = CreditsDisplay,
@@ -19,4 +21,3 @@ const CreditsFunc_T sUnlockedOptionsFunctionPointers[2] = {
     [0] = UnlockedOptionsPopUp,
     [1] = UnlockedOptionsPopUp
 };
-

@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 enum ImagoCocoonPart {
     IMAGO_COCOON_PART_VINE_LEFT_VINE_DECORATIONS,

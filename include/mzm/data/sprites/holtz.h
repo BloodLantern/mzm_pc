@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "macros.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
+#include "mzm/oam.h"
 
 extern const s16 sHoltzIdleYVelocity[65];
 

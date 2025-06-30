@@ -1,4 +1,6 @@
-#include "data/frame_data_pointers.h"
+#include "mzm/data/frame_data_pointers.h"
+
+#include "mzm_include.h"
 
 const struct FrameData* const sChozoStatueFrameDataPointers[CHOZO_STATUE_OAM_END] = {
     [CHOZO_STATUE_OAM_LEG_STANDING] = sChozoStatuePartOam_LegStanding,

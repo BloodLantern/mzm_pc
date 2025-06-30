@@ -1,22 +1,24 @@
-#include "sprites_AI/rinka.h"
-#include "sprites_AI/zebetite_and_cannon.h"
-#include "gba/display.h"
-#include "syscalls.h"
-#include "macros.h"
+#include "mzm/sprites_AI/rinka.h"
+#include "mzm/sprites_AI/zebetite_and_cannon.h"
+#include "mzm/gba/display.h"
+#include "mzm/syscalls.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/rinka.h"
-#include "data/sprites/zebetite_and_cannon.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/rinka.h"
+#include "mzm/data/sprites/zebetite_and_cannon.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/event.h"
-#include "constants/samus.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/display.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define RINKA_POSE_SPAWNING_INIT 0x8
 #define RINKA_POSE_SPAWNING 0x9
@@ -24,7 +26,7 @@
 
 /**
  * @brief 3630c | 98 | Initializes a rinka sprite
- * 
+ *
  */
 static void RinkaInit(void)
 {
@@ -55,7 +57,7 @@ static void RinkaInit(void)
 
 /**
  * @brief 363a4 | 3c | Initializes a rinka to be spawning
- * 
+ *
  */
 static void RinkaSpawningInit(void)
 {
@@ -76,7 +78,7 @@ static void RinkaSpawningInit(void)
 
 /**
  * @brief 363e0 | 94 | Handles a rinka respawning
- * 
+ *
  */
 static void RinkaRespawn(void)
 {
@@ -107,7 +109,7 @@ static void RinkaRespawn(void)
 
 /**
  * @brief 36474 | 118 | Handles a rinka spawning
- * 
+ *
  */
 static void RinkaSpawning(void)
 {
@@ -172,7 +174,7 @@ static void RinkaSpawning(void)
             else
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
-                
+
             if (samusX < spriteX)
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
             else
@@ -183,7 +185,7 @@ static void RinkaSpawning(void)
 
 /**
  * @brief 3658c | 234 | Handles a rinka moving
- * 
+ *
  */
 static void RinkaMove(void)
 {
@@ -307,7 +309,7 @@ static void RinkaMove(void)
 
 /**
  * @brief 367c0 | 20 | Initializes a rinka mother brain to be spawning
- * 
+ *
  */
 static void RinkaMotherBrainSpawningInit(void)
 {
@@ -319,7 +321,7 @@ static void RinkaMotherBrainSpawningInit(void)
 
 /**
  * @brief 367e0 | 184 | Handles a rinka mother brain respawning
- * 
+ *
  */
 static void RinkaMotherBrainRespawn(void)
 {
@@ -423,7 +425,7 @@ static void RinkaMotherBrainRespawn(void)
 
 /**
  * @brief 36964 | 110 | Handles a rinka mother brain spawning
- * 
+ *
  */
 static void RinkaMotherBrainSpawning(void)
 {
@@ -489,7 +491,7 @@ static void RinkaMotherBrainSpawning(void)
             else
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
-                
+
             if (samusX < spriteX)
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
             else
@@ -500,7 +502,7 @@ static void RinkaMotherBrainSpawning(void)
 
 /**
  * @brief 36a74 | 2c0 | Handles the movement of a rinka mother brain
- * 
+ *
  */
 static void RinkaMotherBrainMove(void)
 {
@@ -660,7 +662,7 @@ static void RinkaMotherBrainMove(void)
 
 /**
  * @brief 36d34 | 9c | Rinka AI
- * 
+ *
  */
 void Rinka(void)
 {
@@ -677,7 +679,7 @@ void Rinka(void)
     {
         case SPRITE_POSE_UNINITIALIZED:
             RinkaInit();
-            
+
         case RINKA_POSE_SPAWNING_INIT:
             RinkaSpawningInit();
 
@@ -706,7 +708,7 @@ void Rinka(void)
 
 /**
  * @brief 36dd0 | f4 | Rinka mother brain AI
- * 
+ *
  */
 void RinkaMotherBrain(void)
 {
@@ -742,7 +744,7 @@ void RinkaMotherBrain(void)
     {
         case SPRITE_POSE_UNINITIALIZED:
             RinkaInit();
-            
+
         case RINKA_POSE_SPAWNING_INIT:
             RinkaMotherBrainSpawningInit();
 

@@ -1,25 +1,27 @@
-#include "cable_link.h"
-#include "macros.h"
-#include "gba.h"
-#include "callbacks.h"
-#include "music_wrappers.h"
-#include "multiboot.h"
-#include "link.h"
-#include "transfer.h"
+#include "mzm/cable_link.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
+#include "mzm/callbacks.h"
+#include "mzm/music_wrappers.h"
+#include "mzm/multiboot.h"
+#include "mzm/link.h"
+#include "mzm/transfer.h"
 
-#include "data/cable_link_data.h"
-#include "data/io_transfer_data.h"
-#include "data/internal_io_transfer_data.h"
+#include "mzm/data/cable_link_data.h"
+#include "mzm/data/io_transfer_data.h"
+#include "mzm/data/internal_io_transfer_data.h"
 
-#include "constants/cable_link.h"
+#include "mzm/constants/cable_link.h"
 
-#include "structs/cable_link.h"
-#include "structs/game_state.h"
-#include "structs/multiboot.h"
+#include "mzm/structs/cable_link.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/multiboot.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 88ea0 | 270 | Handles sending multiboot and fusion gallery transfer roms
- * 
+ *
  * @return u8 Connection result
  */
 u8 FusionGalleryConnectProcess(void)
@@ -29,7 +31,7 @@ u8 FusionGalleryConnectProcess(void)
     u8 i;
     const u8* string;
     #endif // DEBUG
-    
+
     gIoTransferInfo.result = TRANSFER_RESULT_NONE;
 
     switch (gIoTransferInfo.connectStage)
@@ -133,7 +135,7 @@ u8 FusionGalleryConnectProcess(void)
                     gIoTransferInfo.timer = 0;
                     string = sCableLinkDebugString_NowSending12;
                 }
-                
+
                 if (gMultiBootParamData.probeCount >= MULTIBOOT_REQ_HANDSHAKE_START)
                 {
                     gIoTransferInfo.timer = 0;
@@ -156,7 +158,7 @@ u8 FusionGalleryConnectProcess(void)
                 probeCount = gMultiBootParamData.probeCount;
                 if (gMultiBootParamData.probeCount == MULTIBOOT_REQ_TX_START)
                     gIoTransferInfo.timer = 0;
-                
+
                 if (gMultiBootParamData.probeCount >= MULTIBOOT_REQ_HANDSHAKE_START)
                     gIoTransferInfo.timer = 0;
             }
@@ -297,7 +299,7 @@ u8 FusionGalleryConnectProcess(void)
 
 /**
  * @brief 89110 | 84 | Draws an error string to the provided tilemap
- * 
+ *
  * @param str Error string
  * @param dst Destination
  * @param palette Palette

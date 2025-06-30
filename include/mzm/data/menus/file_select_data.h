@@ -6,12 +6,12 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/menus/file_select.h"
-#include "constants/text.h"
-#include "structs/menu.h"
-#include "structs/cutscene.h"
-#include "structs/text.h"
+#include "mzm/types.h"
+#include "mzm/constants/menus/file_select.h"
+#include "mzm/constants/text.h"
+#include "mzm/structs/menu.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/text.h"
 
 extern const u16 sFileSelectPal[7 * 16];
 extern const u16 sFileSelect_4548f8[2 * 16];

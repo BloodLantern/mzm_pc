@@ -1,6 +1,8 @@
-#include "data/common_pals.h"
+#include "mzm/data/common_pals.h"
 
-#include "macros.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u16 sCommonTilesPal[1 * 16] = INCBIN_U16("data/common/CommonTiles.pal");
 const u16 sDoorTransitionPal[15 * 16] = INCBIN_U16("data/common/DoorTransition.pal");

@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/link.h"
+#include "mzm/types.h"
+#include "mzm/structs/link.h"
 
 u8 FusionGalleryLinkProcess(void);
 void LinkVSync(void);

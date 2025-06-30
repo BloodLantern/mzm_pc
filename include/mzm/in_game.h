@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/samus.h"
+#include "mzm/types.h"
+#include "mzm/structs/samus.h"
 
 u32 InGameMainLoop(void);
 void SetVBlankCodeInGame(void);

@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/menus/title_screen.h"
+#include "mzm/types.h"
+#include "mzm/structs/menus/title_screen.h"
 
 extern const struct TitleScreenAnimatedPalette sTitleScreenAnimatedPaletteTemplates[4];
 extern const u8* const sRomInfoStringPointers[4];

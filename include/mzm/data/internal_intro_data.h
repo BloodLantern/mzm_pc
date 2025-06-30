@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/intro.h"
+#include "mzm/types.h"
+#include "mzm/structs/intro.h"
 
 extern const IntroFunc_T sIntroSubroutinesFunctionsPointer[8];
 

@@ -1,6 +1,8 @@
-#include "data/samus/samus_graphics.h"
-#include "data/samus/samus_empty_data.h"
-#include "oam.h"
+#include "mzm/data/samus/samus_graphics.h"
+#include "mzm/data/samus/samus_empty_data.h"
+#include "mzm/oam.h"
+
+#include "mzm_include.h"
 
 #define SAMUS_ANIM_TERMINATOR \
 {							  \

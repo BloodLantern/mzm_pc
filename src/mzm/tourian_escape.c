@@ -1,29 +1,31 @@
-#include "tourian_escape.h"
-#include "macros.h"
-#include "fixed_point.h"
-#include "complex_oam.h"
-#include "callbacks.h"
-#include "dma.h"
+#include "mzm/tourian_escape.h"
+#include "mzm/macros.h"
+#include "mzm/fixed_point.h"
+#include "mzm/complex_oam.h"
+#include "mzm/callbacks.h"
+#include "mzm/dma.h"
 
-#include "data/generic_data.h"
-#include "data/intro_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/tourian_escape_data.h"
-#include "data/cutscenes/story_text_cutscene_data.h"
-#include "data/internal_tourian_escape_data.h"
+#include "mzm/data/generic_data.h"
+#include "mzm/data/intro_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/tourian_escape_data.h"
+#include "mzm/data/cutscenes/story_text_cutscene_data.h"
+#include "mzm/data/internal_tourian_escape_data.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/tourian_escape.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/tourian_escape.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 81248 | d8 | V-blank for the tourian escape
- * 
+ *
  */
 void TourianEscapeVBLank(void)
 {
@@ -52,7 +54,7 @@ void TourianEscapeVBLank(void)
 
 /**
  * @brief 81320 | f8 | V-blank for the tourian escape (zebes exploding sequence)
- * 
+ *
  */
 void TourianEscapeVBLankZebesExploding(void)
 {
@@ -79,7 +81,7 @@ void TourianEscapeVBLankZebesExploding(void)
 
 /**
  * @brief 81418 | 100 | V-blank for the tourian escape (samus surrounded sequence)
- * 
+ *
  */
 void TourianEscapeVBLankSamusSurrounded(void)
 {
@@ -110,7 +112,7 @@ void TourianEscapeVBLankSamusSurrounded(void)
 
 /**
  * @brief 81518 | 16c | Processes the OAM
- * 
+ *
  */
 void TourianEscapeProcessOam(void)
 {
@@ -126,7 +128,7 @@ void TourianEscapeProcessOam(void)
     dst = (u16*)gOamData;
     nextSlot = 0;
     currSlot = 0;
-    
+
     if (TOURIAN_ESCAPE_DATA.unk_BE > 2)
     {
         src = sTourianEscapeOam_375d10_Frame0;
@@ -159,7 +161,7 @@ void TourianEscapeProcessOam(void)
     {
         if (!TOURIAN_ESCAPE_DATA.unk_8[i])
             continue;
-        
+
         src = TOURIAN_ESCAPE_DATA.oamFramePointers[i];
         part = *src++;
         nextSlot += part & 0xFF;
@@ -191,7 +193,7 @@ void TourianEscapeProcessOam(void)
 
 /**
  * @brief 81684 | 104 | Calcultes the BG2 position and matrix parameters
- * 
+ *
  */
 void TourianEscapeCalculateBg2(void)
 {
@@ -206,7 +208,7 @@ void TourianEscapeCalculateBg2(void)
 
 /**
  * @brief 81788 | 144 | To document
- * 
+ *
  * @param param_1 To document
  */
 void unk_81788(u8 param_1)
@@ -267,7 +269,7 @@ void unk_81788(u8 param_1)
 
 /**
  * @brief 818cc | 20c | To document
- * 
+ *
  */
 void unk_818cc(void)
 {
@@ -290,15 +292,15 @@ void unk_818cc(void)
 
         yPosition = TOURIAN_ESCAPE_DATA.oamYPositions[0];
         xPosition = TOURIAN_ESCAPE_DATA.oamXPositions[0];
-    
+
         for (currSlot = 0; currSlot < nextSlot; currSlot++)
         {
             part = *src++;
             *dst++ = part;
-            
+
             part = *src++;
             *dst++ = part;
-            
+
             *dst++ = *src++;
             dst++;
 
@@ -316,15 +318,15 @@ void unk_818cc(void)
 
         yPosition = TOURIAN_ESCAPE_DATA.oamYPositions[1];
         xPosition = TOURIAN_ESCAPE_DATA.oamXPositions[1];
-    
+
         for (; currSlot < nextSlot; currSlot++)
         {
             part = *src++;
             *dst++ = part;
-            
+
             part = *src++;
             *dst++ = part;
-            
+
             *dst++ = *src++;
             dst++;
 
@@ -370,7 +372,7 @@ void unk_818cc(void)
 
 /**
  * @brief 81ad8 | 22c | To document
- * 
+ *
  */
 void unk_81ad8(void)
 {
@@ -453,7 +455,7 @@ void unk_81ad8(void)
         src = TOURIAN_ESCAPE_DATA.oamFramePointers[i];
         part = *src++;
         nextSlot += part & 0xFF;
-        
+
         xPosition = TOURIAN_ESCAPE_DATA.oamXPositions[i];
         yPosition = TOURIAN_ESCAPE_DATA.oamYPositions[i];
 
@@ -480,7 +482,7 @@ void unk_81ad8(void)
 
 /**
  * @brief 81d04 | 12c | Initializes the tourian escape
- * 
+ *
  */
 void TourianEscapeInit(void)
 {
@@ -526,7 +528,7 @@ void TourianEscapeInit(void)
 
 /**
  * @brief 81e30 | 834 | Handles the rooms exploding and ship leaving the planet part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeZebesExploding(void)
@@ -838,13 +840,13 @@ u8 TourianEscapeZebesExploding(void)
             gBg2XPosition += 8;
             gBg2YPosition -= 8;
         }
-        
+
         if (i == 3)
         {
             gBg3XPosition += 8;
             gBg3YPosition -= 8;
         }
-        
+
         if (i == 4)
         {
             gBg0XPosition -= 8;
@@ -854,7 +856,7 @@ u8 TourianEscapeZebesExploding(void)
             gBg2XPosition -= 8;
             gBg2YPosition += 8;
         }
-        
+
         if (i == 6)
         {
             gBg3XPosition -= 8;
@@ -869,7 +871,7 @@ u8 TourianEscapeZebesExploding(void)
 
 /**
  * @brief 82664 | 36c | Handles the samus in her ship part of the cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusInHerShip(void)
@@ -1032,7 +1034,7 @@ u8 TourianEscapeSamusInHerShip(void)
 
 /**
  * @brief 829d0 | 288 | Handles the samus looking around part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusLookingAround(void)
@@ -1116,7 +1118,7 @@ u8 TourianEscapeSamusLookingAround(void)
 
 /**
  * @brief 82c58 | 178 | Handles the samus being surrounded part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusSurrounded(void)
@@ -1195,7 +1197,7 @@ u8 TourianEscapeSamusSurrounded(void)
 
 /**
  * @brief 82dd0 | 1d0 | Handles the samus flying in part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusFlyingIn(void)
@@ -1278,7 +1280,7 @@ u8 TourianEscapeSamusFlyingIn(void)
 
 /**
  * @brief 82fa0 | 424 | Handles the samus being chased by pirates part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusChasedByPirates(void)
@@ -1472,13 +1474,13 @@ u8 TourianEscapeSamusChasedByPirates(void)
     }
 
     TourianEscapeProcessOam();
-    
+
     return ended;
 }
 
 /**
  * @brief 833c4 | 49c | Handles the samus chased by pirates firing part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusChasedByPiratesFiring(void)
@@ -1621,7 +1623,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
                 TOURIAN_ESCAPE_DATA.unk_96[3] = 0;
                 TOURIAN_ESCAPE_DATA.unk_B0 = 0;
             }
-            
+
             if (var_0 == 2)
             {
                 if (TOURIAN_ESCAPE_DATA.oamFrames[2] < 3)
@@ -1664,7 +1666,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
             if (TOURIAN_ESCAPE_DATA.unk_82 < 0x1F8)
                 TOURIAN_ESCAPE_DATA.unk_82 += 8;
         }
-        
+
         var_1 = TOURIAN_ESCAPE_DATA.oamFrames[0] / 4;
         TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47cf70[var_1];
 
@@ -1707,7 +1709,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
 
 /**
  * @brief 83860 | 4b0 | Handles the samus getting shot part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusGettingShot(void)
@@ -1860,17 +1862,17 @@ u8 TourianEscapeSamusGettingShot(void)
                     TOURIAN_ESCAPE_DATA.oamFrames[1]++;
                 break;
         }
-        
+
         velocity = TOURIAN_ESCAPE_DATA.unk_96[1];
         if (velocity > 16)
             velocity = 16;
-    
+
         if (velocity < -16)
             velocity = -16;
-    
+
         position = TOURIAN_ESCAPE_DATA.oamXPositions[1] += velocity;
         TOURIAN_ESCAPE_DATA.oamXPositions[0] = position / 32;
-    
+
         switch (TOURIAN_ESCAPE_DATA.oamFrames[2])
         {
                 case 0:
@@ -1878,13 +1880,13 @@ u8 TourianEscapeSamusGettingShot(void)
                     if (TOURIAN_ESCAPE_DATA.unk_96[2] < -19)
                         TOURIAN_ESCAPE_DATA.oamFrames[2]++;
                     break;
-    
+
                 case 1:
                     TOURIAN_ESCAPE_DATA.unk_96[2]++;
                     if (TOURIAN_ESCAPE_DATA.unk_96[2] == 0)
                         TOURIAN_ESCAPE_DATA.oamFrames[2]++;
                     break;
-    
+
                 case 2:
                 case 5:
                     if (TOURIAN_ESCAPE_DATA.oamTimers[4]++ > 3)
@@ -1893,31 +1895,31 @@ u8 TourianEscapeSamusGettingShot(void)
                             TOURIAN_ESCAPE_DATA.oamFrames[2]++;
                         else
                             TOURIAN_ESCAPE_DATA.oamFrames[2] = 0;
-    
+
                         TOURIAN_ESCAPE_DATA.oamTimers[4] = 0;
                     }
                     break;
-    
+
                 case 3:
                     TOURIAN_ESCAPE_DATA.unk_96[2]++;
                     if (TOURIAN_ESCAPE_DATA.unk_96[2] > 19)
                         TOURIAN_ESCAPE_DATA.oamFrames[2]++;
                     break;
-    
+
                 case 4:
                     TOURIAN_ESCAPE_DATA.unk_96[2]--;
                     if (TOURIAN_ESCAPE_DATA.unk_96[2] == 0)
                         TOURIAN_ESCAPE_DATA.oamFrames[2]++;
                     break;
         }
-    
+
         velocity = TOURIAN_ESCAPE_DATA.unk_96[2];
         if (velocity > 8)
             velocity = 8;
-    
+
         if (velocity < -8)
             velocity = -8;
-    
+
         position = TOURIAN_ESCAPE_DATA.oamXPositions[2] += velocity;
         TOURIAN_ESCAPE_DATA.oamYPositions[0] = position / 32;
     }
@@ -1929,7 +1931,7 @@ u8 TourianEscapeSamusGettingShot(void)
 
 /**
  * @brief 83d10 | 198 | Handles the samus going to crash part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusGoingToCrash(void)
@@ -2008,7 +2010,7 @@ u8 TourianEscapeSamusGoingToCrash(void)
 
 /**
  * @brief 83ea8 | 25c | Handles the samus crashing part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusCrashing(void)
@@ -2075,7 +2077,7 @@ u8 TourianEscapeSamusCrashing(void)
         case 104:
             DMA_SET(3, sTourianEscape_479f80, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscape_479f80));
             TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
-            
+
             TOURIAN_ESCAPE_DATA.unk_8[0] = FALSE;
             TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47ab28;
             TOURIAN_ESCAPE_DATA.unk_2++;
@@ -2115,7 +2117,7 @@ u8 TourianEscapeSamusCrashing(void)
 
 /**
  * @brief 84104 | 288 | Handles the samus looking at the sky part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusLookingAtSky(void)
@@ -2234,7 +2236,7 @@ u8 TourianEscapeSamusLookingAtSky(void)
 
 /**
  * @brief 8438c | 388 | Handles the samus looking at the mother ship part
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSamusLookingAtMotherShip(void)
@@ -2342,7 +2344,7 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
             gBg0XPosition--;
             gBg1XPosition++;
         }
-        
+
         if (i == 8)
             gBg1XPosition++;
     }
@@ -2368,7 +2370,7 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
         position = TOURIAN_ESCAPE_DATA.oamYPositions[i];
         TOURIAN_ESCAPE_DATA.oamYPositions[i] += 4;
         position -= (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-        
+
         if (position < 13)
         {
             TOURIAN_ESCAPE_DATA.oamXPositions[i] = sTourianEscape_47cffe[i];
@@ -2388,7 +2390,7 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
 
 /**
  * @brief 84714 | e4 | Executes the current tourian escape subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeCallSubroutines(void)

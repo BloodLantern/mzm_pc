@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
+#include "mzm/macros.h"
 
-#include "structs/tourian_escape.h"
+#include "mzm/structs/tourian_escape.h"
 
 // Defined in mother_brain_close_up_data.c
 extern const u16 sTourianEscapeOam_375d10_Frame0[OAM_DATA_SIZE(12)];

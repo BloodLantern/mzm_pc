@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "constants/audio.h"
-#include "structs/audio.h"
+#include "mzm/constants/audio.h"
+#include "mzm/structs/audio.h"
 
 extern const u16 sUnk_808cad0[128];
 extern const u8 sClockTable[49];

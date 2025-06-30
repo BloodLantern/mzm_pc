@@ -1,5 +1,7 @@
-#include "data/text_pointers.h"
-#include "data/text_data.h"
+#include "mzm/data/text_pointers.h"
+#include "mzm/data/text_data.h"
+
+#include "mzm_include.h"
 
 const u16* const sJapaneseTextPointers_Message[MESSAGE_END] = {
     [MESSAGE_DUMMY] = sJapaneseText_Message_Dummy,

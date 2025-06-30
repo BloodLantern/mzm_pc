@@ -1,5 +1,7 @@
-#include "data/menus/internal_boot_debug_data.h"
-#include "data/menus/boot_debug_data.h"
+#include "mzm/data/menus/internal_boot_debug_data.h"
+#include "mzm/data/menus/boot_debug_data.h"
+
+#include "mzm_include.h"
 
 #ifdef DEBUG
 

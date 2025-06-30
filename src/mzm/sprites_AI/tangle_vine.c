@@ -1,17 +1,19 @@
-#include "sprites_AI/tangle_vine.h"
-#include "macros.h"
+#include "mzm/sprites_AI/tangle_vine.h"
+#include "mzm/macros.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/tangle_vine.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/tangle_vine.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define TANGLE_VINE_GERUTA_POSE_IDLE 0x9
 #define TANGLE_VINE_GERUTA_POSE_NO_GERUTA 0x23
@@ -28,7 +30,7 @@ enum TangleVineGerutaStatus {
 
 /**
  * @brief 413c4 | 88 | Synchronize the sub sprites of a tangle vine
- * 
+ *
  */
 void TangleVineSyncSprites(void)
 {
@@ -37,7 +39,7 @@ void TangleVineSyncSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sTangleVineFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sTangleVineFrameDataPointers[oamIdx];
@@ -55,7 +57,7 @@ void TangleVineSyncSprites(void)
 
 /**
  * @brief 4144c | 1a0 | Tangle vine (geruta) AI
- * 
+ *
  */
 void TangleVineGeruta(void)
 {
@@ -127,7 +129,7 @@ void TangleVineGeruta(void)
         else
             gSubSpriteData1.health = TANGLE_VINE_GERUTA_STATUS_FULL;
     }
-    else 
+    else
     {
         if (gCurrentSprite.pose >= SPRITE_POSE_DESTROYED)
         {
@@ -154,7 +156,7 @@ void TangleVineGeruta(void)
 
 /**
  * @brief 415ec | 130 | Tangle vine (geruta) part AI
- * 
+ *
  */
 void TangleVineGerutaPart(void)
 {
@@ -224,7 +226,7 @@ void TangleVineGerutaPart(void)
             gCurrentSprite.status = 0;
             return;
         }
-        
+
         if (gSubSpriteData1.health == TANGLE_VINE_GERUTA_STATUS_VINE_DEAD)
         {
             SpriteSpawnPrimary(PSPRITE_GERUTA_RED, 0x80, 5, gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0);
@@ -238,7 +240,7 @@ void TangleVineGerutaPart(void)
 
 /**
  * @brief 417ac | cc | Tangle vine (red geruta) AI
- * 
+ *
  */
 void TangleVineRedGeruta(void)
 {
@@ -281,7 +283,7 @@ void TangleVineRedGeruta(void)
 
 /**
  * @brief 417e8 | d0 | Tangle vine (imago right) AI
- * 
+ *
  */
 void TangleVineLarvaRight(void)
 {
@@ -325,7 +327,7 @@ void TangleVineLarvaRight(void)
 
 /**
  * @brief 418b8 | d4 | Tangle vine (imago left) AI
- * 
+ *
  */
 void TangleVineLarvaLeft(void)
 {
@@ -370,7 +372,7 @@ void TangleVineLarvaLeft(void)
 
 /**
  * @brief 4198c | 130 | Tangle vine (tall) AI
- * 
+ *
  */
 void TangleVineTall(void)
 {
@@ -437,7 +439,7 @@ void TangleVineTall(void)
 
 /**
  * @brief 41abc | 130 | Tangle vine (medium) AI
- * 
+ *
  */
 void TangleVineMedium(void)
 {
@@ -504,7 +506,7 @@ void TangleVineMedium(void)
 
 /**
  * @brief 41bec | 130 | Tangle vine (curved) AI
- * 
+ *
  */
 void TangleVineCurved(void)
 {
@@ -571,7 +573,7 @@ void TangleVineCurved(void)
 
 /**
  * @brief 41d1c | 130 | Tangle vine (short) AI
- * 
+ *
  */
 void TangleVineShort(void)
 {

@@ -1,34 +1,36 @@
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "gba.h"
-#include "oam.h"
-#include "color_effects.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/oam.h"
+#include "mzm/color_effects.h"
 
-#include "data/cutscenes/cutscenes_data.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/engine_pointers.h"
-#include "data/block_data.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/block_data.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/color_fading.h"
-#include "constants/cutscene.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/audio.h"
-#include "structs/cutscene.h"
-#include "structs/connection.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 #define PAL_TO_FADE ((void*)(sEwramPointer))
 #define PAL_WITH_FADE ((void*)sEwramPointer + PALRAM_SIZE)
 
 /**
  * @brief 60e28 | 4 | Default subroutine for cutscenes that don't have any
- * 
+ *
  * @return u8 1
  */
 u8 CutsceneDefaultRoutine(void)
@@ -38,7 +40,7 @@ u8 CutsceneDefaultRoutine(void)
 
 /**
  * @brief 60e2c | 94 | Subroutine for the tourian escape
- * 
+ *
  * @return u8 bool, ended
  */
 u8 TourianEscapeSubroutine(void)
@@ -95,7 +97,7 @@ u8 TourianEscapeSubroutine(void)
 
 /**
  * @brief 60ec0 | 34 | Updates the audio after a cutscene was skipped
- * 
+ *
  */
 void CutsceneUpdateMusicAfterSkip(void)
 {
@@ -116,7 +118,7 @@ void CutsceneUpdateMusicAfterSkip(void)
 
 /**
  * @brief 60ef4 | 150 | Ends a cutscene
- * 
+ *
  */
 void CutsceneEnd(void)
 {
@@ -227,7 +229,7 @@ void CutsceneEnd(void)
 
 /**
  * @brief 61044 | 1e4 | Subroutine for a cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 CutsceneSubroutine(void)
@@ -258,14 +260,14 @@ u8 CutsceneSubroutine(void)
             if (CutsceneUpdateFading())
                 gSubGameModeStage++;
             break;
-            
+
         case CUTSCENE_STAGE_INIT:
             CutsceneInit();
             CallbackSetVBlank(CutsceneVBlank);
 
             gSubGameModeStage++;
             break;
-            
+
         case CUTSCENE_STAGE_ONGOING:
             #ifdef DEBUG
             ended = FALSE;
@@ -324,7 +326,7 @@ u8 CutsceneSubroutine(void)
                 #endif // DEBUG
             }
             break;
-            
+
         case CUTSCENE_STAGE_ENDING:
             if (CUTSCENE_DATA.fadingType == 3)
                 BitFill(3, COLOR_WHITE, PALRAM_BASE, PALRAM_SIZE, 16);
@@ -352,7 +354,7 @@ u8 CutsceneSubroutine(void)
                 if (gBootDebugActive == 0)
                 #endif // DEBUG
                 {
-                    gCurrentCutscene = CUTSCENE_NONE;                
+                    gCurrentCutscene = CUTSCENE_NONE;
                 }
             }
 
@@ -364,7 +366,7 @@ u8 CutsceneSubroutine(void)
 
 /**
  * @brief 61228 | 4 | Subroutine that marks the end of a cutscene
- * 
+ *
  * @return u8 1
  */
 u8 CutsceneEndFunction(void)
@@ -374,7 +376,7 @@ u8 CutsceneEndFunction(void)
 
 /**
  * @brief 6122c | a8 | V-blank code during cutscenes
- * 
+ *
  */
 void CutsceneVBlank(void)
 {
@@ -403,7 +405,7 @@ void CutsceneVBlank(void)
 
 /**
  * @brief 612d4 | c | V blank code when loading a cutscene
- * 
+ *
  */
 void CutsceneLoadingVBlank(void)
 {
@@ -412,7 +414,7 @@ void CutsceneLoadingVBlank(void)
 
 /**
  * @brief 612e0 | 13c | Initializes a cutscene
- * 
+ *
  */
 void CutsceneInit(void)
 {
@@ -443,7 +445,7 @@ void CutsceneInit(void)
         {
             if (gameplayType == CUTSCENE_TYPE_IN_GAMEPLAY)
                 gPauseScreenFlag = PAUSE_SCREEN_PAUSE_OR_CUTSCENE;
-    
+
             if (gameplayType < CUTSCENE_TYPE_END)
                 DmaTransfer(3, VRAM_OBJ, EWRAM_BASE + 0x1E000, gameplayType * 0x4000, 16);
         }
@@ -481,7 +483,7 @@ void CutsceneInit(void)
 
 /**
  * @brief 6141c | 58 | Sets up a BGCNT IO register with the page data info
- * 
+ *
  * @param pageData Page Data Info
  */
 void CutsceneSetBgcntPageData(struct CutscenePageData pageData)
@@ -504,7 +506,7 @@ void CutsceneSetBgcntPageData(struct CutscenePageData pageData)
 
 /**
  * @brief 61484 | 50 | Changes the BGCNT value of a specified background
- * 
+ *
  * @param value Value
  * @param bg Background (DISPCNT flags)
  */
@@ -528,7 +530,7 @@ void CutsceneSetBgcnt(u16 value, u16 bg)
 
 /**
  * @brief 614d4 | a4 | Sets the position of a background
- * 
+ *
  * @param type Type (HOVS | VOFS)
  * @param bg Background (DISPCNT flags)
  * @param value Value
@@ -562,7 +564,7 @@ void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value)
 
 /**
  * @brief 61578 | 50 | Gets the pointer to the HOFS (X) value of a specified background
- * 
+ *
  * @param bg Background (DISPCNT flags)
  * @return u16* Pointer
  */
@@ -585,7 +587,7 @@ u16* CutsceneGetBgHorizontalPointer(u16 bg)
 
 /**
  * @brief 615c8 | 50 | Gets the pointer to the VOFS (Y) value of a specified background
- * 
+ *
  * @param bg Background (DISPCNT flags)
  * @return u16* Pointer
  */
@@ -608,10 +610,10 @@ u16* CutsceneGetBgVerticalPointer(u16 bg)
 
 /**
  * @brief 61618 | 2c0 | Starts a background scrolling
- * 
+ *
  * @param scrollingData Scrolling data
  * @param bg Backgrounds
- * @return u32 
+ * @return u32
  */
 u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg)
 {
@@ -742,7 +744,7 @@ u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData,
 
 /**
  * @brief 618d8 | 6c | Updates a cutscene background scrolling
- * 
+ *
  * @param pScrolling Cutscene Scrolling Data Pointer
  */
 void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
@@ -778,7 +780,7 @@ void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
             if (offset)
             {
                 // No overflow, move at designated speed
-                offset = pScrolling->speed;    
+                offset = pScrolling->speed;
                 pScrolling->lengthLeft -= offset;
             }
             else
@@ -790,7 +792,7 @@ void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
 
             (*pScrolling->pPosition) += offset;
         }
-        
+
     }
 
     // Check ended
@@ -800,13 +802,13 @@ void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
 
 /**
  * @brief 61944 | 80 | Checks if a background scrolling is active
- * 
+ *
  * @param bg Background
  * @return u8 Flags
  */
 u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
 {
-    s32 offset;    
+    s32 offset;
     u8 status;
 
     status = 0;
@@ -835,7 +837,7 @@ u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
 
 /**
  * @brief 619c4 | c4 | Updates the backgrounds positions
- * 
+ *
  * @param updateScrolling Update scrolling flag
  */
 void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
@@ -868,8 +870,8 @@ void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
 }
 
 /**
- * @brief 61a88 | 110 | 
- * 
+ * @brief 61a88 | 110 |
+ *
  * @param affectVertical Affect vertical offset
  * @param pShake Cutscene screen shake pointer
  */
@@ -895,7 +897,7 @@ void CutsceneUpdateScreenShake(u8 affectVertical, struct CutsceneScreenShake* pS
 
     // Get screen offset
     offset = sCutsceneScreenShakeOffsetSetPointers[pShake->set][pShake->currentSubSet];
-    
+
     // Update sub set
     pShake->currentSubSet++;
 
@@ -934,7 +936,7 @@ void CutsceneUpdateScreenShake(u8 affectVertical, struct CutsceneScreenShake* pS
 
 /**
  * @brief 61b98 | 4c | Starts a cutscene screen shake
- * 
+ *
  * @param shakeInfo Screen shake start info
  * @param bg Affected background
  */
@@ -966,7 +968,7 @@ void CutsceneStartScreenShake(struct CutsceneScreenShakeInfo shakeInfo, u16 bg)
 
 /**
  * @brief 61be4 | 184 | Updates the cutscene special effect
- * 
+ *
  */
 void CutsceneUpdateSpecialEffect(void)
 {
@@ -1082,7 +1084,7 @@ void CutsceneUpdateSpecialEffect(void)
 
 /**
  * @brief 61d68 | 60 | Starts a cutscene sprite effect
- * 
+ *
  * @param bldcnt Bldcnt
  * @param bldy Bldy target
  * @param interval Interval between value changes
@@ -1111,7 +1113,7 @@ void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u32 interval, u8 intensity)
 
 /**
  * @brief 61dc8 | 70 | Starts a cutscene background effect
- * 
+ *
  * @param bldcnt Bldcnt
  * @param bldalphaL Bldqlphq L target
  * @param bldalphaH Bldqlphq H target
@@ -1124,7 +1126,7 @@ void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u32 i
 
     CUTSCENE_DATA.specialEffect.status &= ~CUTSCENE_SPECIAL_EFFECT_STATUS_BG_ENDED;
     CUTSCENE_DATA.specialEffect.status |= CUTSCENE_SPECIAL_EFFECT_STATUS_ON_BG;
-    
+
     CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L = bldalphaL;
     CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H = bldalphaH;
     CUTSCENE_DATA.specialEffect.bg_Intensity = intensity;
@@ -1132,7 +1134,7 @@ void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u32 i
     if (CUTSCENE_DATA.specialEffect.bg_Interval)
     {
     }
-    
+
     _interval = interval;
     CUTSCENE_DATA.specialEffect.bg_Interval = _interval;
     CUTSCENE_DATA.specialEffect.bg_Timer = _interval;
@@ -1145,7 +1147,7 @@ void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u32 i
 
 /**
  * @brief 61e38 | d4 | Resets the data for a cutscene
- * 
+ *
  */
 void CutsceneReset(void)
 {
@@ -1176,7 +1178,7 @@ void CutsceneReset(void)
 
 /**
  * @brief 61f0c | 1c | Fade the screen to black
- * 
+ *
  */
 void CutsceneFadeScreenToBlack(void)
 {
@@ -1187,7 +1189,7 @@ void CutsceneFadeScreenToBlack(void)
 
 /**
  * @brief 61f28 | 1c | Fade the screen to white
- * 
+ *
  */
 void CutsceneFadeScreenToWhite(void)
 {
@@ -1198,7 +1200,7 @@ void CutsceneFadeScreenToWhite(void)
 
 /**
  * @brief 61f44 | 40 | Update palette with fade and update cutscene fading
- * 
+ *
  * @return u32 bool, ended
  */
 u32 CutsceneTransferAndUpdateFade(void)
@@ -1212,7 +1214,7 @@ u32 CutsceneTransferAndUpdateFade(void)
 
 /**
  * @brief 61f60 | 40 | Transfer faded palette to RAM when ready
- * 
+ *
  */
 void CutsceneTransferFade(void)
 {
@@ -1225,7 +1227,7 @@ void CutsceneTransferFade(void)
 
 /**
  * @brief 61fa0 | 230 | Starts a cutscene background fading
- * 
+ *
  * @param type Type
  * @return u8 bool, couldn't start
  */
@@ -1320,7 +1322,7 @@ u8 CutsceneStartBackgroundFading(u8 type)
 
 /**
  * @brief 621d0 | 23c | Updates a cutscene fading
- * 
+ *
  * @return u8 bool, ended
  */
 u8 CutsceneUpdateFading(void)
@@ -1360,7 +1362,7 @@ u8 CutsceneUpdateFading(void)
                     CUTSCENE_DATA.fadingColor++;
                     break;
                 }
-                
+
                 if (CUTSCENE_DATA.fadingColor + CUTSCENE_DATA.fadingIntensity > 31)
                     CUTSCENE_DATA.fadingColor = 31;
                 else
@@ -1410,7 +1412,7 @@ u8 CutsceneUpdateFading(void)
                     CUTSCENE_DATA.fadingColor++;
                     break;
                 }
-                
+
                 if (CUTSCENE_DATA.fadingColor + CUTSCENE_DATA.fadingIntensity > 31)
                     CUTSCENE_DATA.fadingColor = 31;
                 else
@@ -1420,7 +1422,7 @@ u8 CutsceneUpdateFading(void)
             {
                 if (CUTSCENE_DATA.fadingType == 3)
                     BitFill(3, COLOR_WHITE, PAL_WITH_FADE, PALRAM_SIZE, 16);
-                else                
+                else
                     BitFill(3, COLOR_BLACK, PAL_WITH_FADE, PALRAM_SIZE, 16);
 
                 CUTSCENE_DATA.fadingReady = TRUE;
@@ -1444,7 +1446,7 @@ u8 CutsceneUpdateFading(void)
 #ifdef DEBUG
 /**
  * @brief Checks if the cutscene stage should be skipped when A is pressed
- * 
+ *
 * @param bg Fade type (1 for black, 2 for white)
  */
 void CutsceneCheckSkipStage(u8 fade)

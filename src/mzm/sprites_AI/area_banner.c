@@ -1,12 +1,14 @@
-#include "sprites_AI/area_banner.h"
-#include "macros.h"
-#include "location_text.h"
+#include "mzm/sprites_AI/area_banner.h"
+#include "mzm/macros.h"
+#include "mzm/location_text.h"
 
-#include "data/sprites/area_banner.h"
+#include "mzm/data/sprites/area_banner.h"
 
-#include "constants/sprite.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define AREA_BANNER_POSE_SPAWNING_INIT 0x8
 #define AREA_BANNER_POSE_SPAWNING 0x9
@@ -18,7 +20,7 @@
 
 /**
  * @brief 3c704 | a4 | Initializes an area banner sprite
- * 
+ *
  */
 static void AreaBannerInit(void)
 {
@@ -64,7 +66,7 @@ static void AreaBannerInit(void)
 
 /**
  * @brief 3c7a8 | 20 | Handles the area banner spawning
- * 
+ *
  */
 static void AreaBannerSpawningInit(void)
 {
@@ -75,7 +77,7 @@ static void AreaBannerSpawningInit(void)
 
 /**
  * @brief 3c7c8 | 60 | Handles the area banner scrolling up, determines the static behavior
- * 
+ *
  */
 static void AreaBannerSpawning(void)
 {
@@ -110,7 +112,7 @@ static void AreaBannerSpawning(void)
 
 /**
  * @brief 3c828 | 44 | Handles the area banner being static
- * 
+ *
  */
 static void AreaBannerStatic(void)
 {
@@ -131,7 +133,7 @@ static void AreaBannerStatic(void)
 
 /**
  * @brief 3c86c | 18 | Checks if the removing anim ended
- * 
+ *
  */
 static void AreaBannerLeaving(void)
 {
@@ -141,7 +143,7 @@ static void AreaBannerLeaving(void)
 
 /**
  * @brief 3c884 | e0 | Area banner AI
- * 
+ *
  */
 void AreaBanner(void)
 {
@@ -156,7 +158,7 @@ void AreaBanner(void)
         case AREA_BANNER_POSE_SPAWNING_INIT:
             AreaBannerSpawningInit();
             break;
-        
+
         case AREA_BANNER_POSE_SPAWNING:
             AreaBannerSpawning();
             break;

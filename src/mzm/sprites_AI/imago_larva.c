@@ -1,19 +1,21 @@
-#include "sprites_AI/imago_larva.h"
-#include "macros.h"
+#include "mzm/sprites_AI/imago_larva.h"
+#include "mzm/macros.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/imago_larva.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/imago_larva.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/event.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/connection.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define IMAGO_LARVA_POSE_IDLE_INIT 0x8
 #define IMAGO_LARVA_POSE_IDLE 0x9
@@ -49,7 +51,7 @@
 
 /**
  * @brief 259a0 | 84 | Synchronize the sub sprites of an Imago larva
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
@@ -59,7 +61,7 @@ static void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
 
     pData = pSub->pMultiOam[pSub->currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sImagoLarvaFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sImagoLarvaFrameDataPointers[oamIdx];
@@ -77,13 +79,13 @@ static void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
 
 /**
  * @brief 25a24 | 5c | Updates the palette of an Imago larva
- * 
+ *
  */
 static void ImagoLarvaUpdatePalette(void)
 {
     u8 timer;
     u8 timerLimit;
-    
+
     if (SPRITE_GET_ISFT(gCurrentSprite))
         return;
 
@@ -106,7 +108,7 @@ static void ImagoLarvaUpdatePalette(void)
 
 /**
  * @brief 25a80 | 194 | Initializes an Imago larva sprite
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaInit(struct SubSpriteData* pSub)
@@ -210,7 +212,7 @@ static void ImagoLarvaInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 25c14 | 38 | Checks if samus is in range for an Imago larva to attack
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaDetectSamus(struct SubSpriteData* pSub)
@@ -224,7 +226,7 @@ static void ImagoLarvaDetectSamus(struct SubSpriteData* pSub)
 
 /**
  * @brief 25c4c | 1c | Initializes an Imago larva to be idle
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaIdleInit(struct SubSpriteData* pSub)
@@ -238,7 +240,7 @@ static void ImagoLarvaIdleInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 25c68 | c | Handles an Imago larva being idle
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaIdle(struct SubSpriteData* pSub)
@@ -248,7 +250,7 @@ static void ImagoLarvaIdle(struct SubSpriteData* pSub)
 
 /**
  * @brief 25c74 | 28 | Initializes an Imago larva to be retreating
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaRetreatingInit(struct SubSpriteData* pSub)
@@ -265,7 +267,7 @@ static void ImagoLarvaRetreatingInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 25c9c | 68 | Handles an Imago larva retreating
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaRetreating(struct SubSpriteData* pSub)
@@ -295,7 +297,7 @@ static void ImagoLarvaRetreating(struct SubSpriteData* pSub)
 
 /**
  * @brief 25d04 | 1c | Initializes an Imago larva sprite to be stunned
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaStunnedInit(struct SubSpriteData* pSub)
@@ -309,7 +311,7 @@ static void ImagoLarvaStunnedInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 25d20 | 28 | Handles an Imago larva being stunned
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaStunned(struct SubSpriteData* pSub)
@@ -322,7 +324,7 @@ static void ImagoLarvaStunned(struct SubSpriteData* pSub)
 
 /**
  * @brief 25d48 | 34 | Initializes an Imago larva to do the warning
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaWarningInit(struct SubSpriteData* pSub)
@@ -340,7 +342,7 @@ static void ImagoLarvaWarningInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 25d7c | 24 | Checks if the warning animation has ended
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaCheckWarningAnimEnded(struct SubSpriteData* pSub)
@@ -353,8 +355,8 @@ static void ImagoLarvaCheckWarningAnimEnded(struct SubSpriteData* pSub)
 
 /**
  * @brief 25da0 | 28 | Initializes an Imago larva to be attacking
- * 
- * @param pSub Sub sprite data pointer 
+ *
+ * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaAttackingInit(struct SubSpriteData* pSub)
 {
@@ -368,7 +370,7 @@ static void ImagoLarvaAttackingInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 25dc8 | 34 | Handles an Imago larva attacking
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaAttacking(struct SubSpriteData* pSub)
@@ -401,7 +403,7 @@ static void ImagoLarvaAttacking(struct SubSpriteData* pSub)
 
 /**
  * @brief 25e2c | 38 | Initializes an Imago larva to be taking damage
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaTakingDamageInit(struct SubSpriteData* pSub)
@@ -420,8 +422,8 @@ static void ImagoLarvaTakingDamageInit(struct SubSpriteData* pSub)
 }
 
 /**
- * @brief 25e64 | 24 | Handles an Imago larva taking damage 
- * 
+ * @brief 25e64 | 24 | Handles an Imago larva taking damage
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaTakingDamage(struct SubSpriteData* pSub)
@@ -433,7 +435,7 @@ static void ImagoLarvaTakingDamage(struct SubSpriteData* pSub)
 
 /**
  * @brief 25e88 | 64 | Initializes an Imago larva to be dying
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
@@ -460,7 +462,7 @@ static void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 25eec | 28 | Handles an Imago larva dying
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaDying(struct SubSpriteData* pSub)
@@ -477,13 +479,13 @@ static void ImagoLarvaDying(struct SubSpriteData* pSub)
 
 /**
  * @brief 25f14 | 5c | Kills the Imago larva
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaDeath(struct SubSpriteData* pSub)
 {
     u16 yPosition;
-    
+
     gCurrentSprite.work0--;
 
     if (gCurrentSprite.work0 != 0)
@@ -507,7 +509,7 @@ static void ImagoLarvaDeath(struct SubSpriteData* pSub)
 
 /**
  * @brief 25f70 | 1cc | Initializes an Imago larva part sprite
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaPartInit(struct SubSpriteData* pSub)
@@ -536,7 +538,7 @@ static void ImagoLarvaPartInit(struct SubSpriteData* pSub)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_IDLE;
             break;
-            
+
         case IMAGO_LARVA_PART_MIDDLE_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
@@ -556,7 +558,7 @@ static void ImagoLarvaPartInit(struct SubSpriteData* pSub)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_IDLE;
             break;
-            
+
         case IMAGO_LARVA_PART_LEFT_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
@@ -626,7 +628,7 @@ static void ImagoLarvaPartInit(struct SubSpriteData* pSub)
 
 /**
  * @brief 2613c | 180 | Handles an Imago larva shell being idle
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
@@ -717,7 +719,7 @@ static void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
 
 /**
  * @brief 262bc | 60 | Handles an Imago larva dot being idle
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub)
@@ -747,7 +749,7 @@ static void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub)
 
 /**
  * @brief 2631c | 50 | Checks if the disappearing animation ended
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaPartDotCheckDisappearingAnimEnded(struct SubSpriteData* pSub)
@@ -773,8 +775,8 @@ static void ImagoLarvaPartDotCheckDisappearingAnimEnded(struct SubSpriteData* pS
 
 /**
  * @brief 2636c | 68 | Checks if an Imago larva dot should re-appear
- * 
- * @param pSub Sub sprite data pointer 
+ *
+ * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaPartDotCheckShouldReappear(struct SubSpriteData* pSub)
 {
@@ -803,8 +805,8 @@ static void ImagoLarvaPartDotCheckShouldReappear(struct SubSpriteData* pSub)
 
 /**
  * @brief 263d4 | 50 | Checks if the appearing animation ended
- * 
- * @param pSub Sub sprite data pointer 
+ *
+ * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaPartDotCheckAppearingAnimEnded(struct SubSpriteData* pSub)
 {
@@ -830,7 +832,7 @@ static void ImagoLarvaPartDotCheckAppearingAnimEnded(struct SubSpriteData* pSub)
 
 /**
  * @brief 26424 | d0 | Handles an Imago larva part dying
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 static void ImagoLarvaPartDead(struct SubSpriteData* pSub)
@@ -891,7 +893,7 @@ static void ImagoLarvaPartDead(struct SubSpriteData* pSub)
 
 /**
  * @brief 264f4 | 2c0 | Imago larva AI
- * 
+ *
  */
 void ImagoLarva(void)
 {
@@ -997,7 +999,7 @@ void ImagoLarva(void)
 
 /**
  * @brief 267b4 | 108 | Imago larva part AI
- * 
+ *
  */
 void ImagoLarvaPart(void)
 {
@@ -1045,7 +1047,7 @@ void ImagoLarvaPart(void)
         case IMAGO_LARVA_PART_POSE_SHELL_IDLE:
             ImagoLarvaPartShellIdle(pSub);
             break;
-        
+
         case IMAGO_LARVA_PART_POSE_DEAD:
             ImagoLarvaPartDead(pSub);
             break;
@@ -1064,7 +1066,7 @@ void ImagoLarvaPart(void)
     if (gCurrentSprite.pose == IMAGO_LARVA_PART_POSE_DEAD)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        ImagoLarvaSyncSubSprites(pSub);                
+        ImagoLarvaSyncSubSprites(pSub);
     }
     else
         SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam(pSub);

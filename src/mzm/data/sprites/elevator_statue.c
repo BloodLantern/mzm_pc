@@ -1,5 +1,7 @@
-#include "data/sprites/elevator_statue.h"
-#include "macros.h"
+#include "mzm/data/sprites/elevator_statue.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sElevatorStatuesGfx[1122] = INCBIN_U32("data/sprites/ElevatorStatues.gfx.lz");
 const u16 sElevatorStatuesPal[64] = INCBIN_U16("data/sprites/ElevatorStatues.pal");

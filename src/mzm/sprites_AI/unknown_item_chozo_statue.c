@@ -1,25 +1,27 @@
-#include "sprites_AI/unknown_item_chozo_statue.h"
+#include "mzm/sprites_AI/unknown_item_chozo_statue.h"
 #define CHOZO_STATUE_IGNORE_FUNCTIONS
-#include "sprites_AI/chozo_statue.h"
+#include "mzm/sprites_AI/chozo_statue.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/unknown_item_chozo_statue.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/unknown_item_chozo_statue.h"
 
-#include "constants/audio.h"
-#include "constants/in_game_cutscene.h"
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/in_game_cutscene.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/audio.h"
-#include "structs/clipdata.h"
-#include "structs/game_state.h"
-#include "structs/hud.h"
-#include "structs/scroll.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/scroll.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define UNKNOWN_ITEM_CHOZO_STATUE_POSE_IDLE 0x9
 #define UNKNOWN_ITEM_CHOZO_STATUE_POSE_DO_NOTHING 0xF
@@ -61,7 +63,7 @@
 
 /**
  * @brief 150a8 | 88 | Synchronize the sub sprites of an unknown item chozo statue
- * 
+ *
  */
 static void UnknownItemChozoStatueSyncSubSprites(void)
 {
@@ -70,7 +72,7 @@ static void UnknownItemChozoStatueSyncSubSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sUnknownItemChozoStatueFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sUnknownItemChozoStatueFrameDataPointers[oamIdx];
@@ -88,7 +90,7 @@ static void UnknownItemChozoStatueSyncSubSprites(void)
 
 /**
  * @brief 15130 | 1f8 | Initializes an unknown item chozo statue sprite
- * 
+ *
  */
 static void UnknownItemChozoStatueInit(void)
 {
@@ -204,7 +206,7 @@ static void UnknownItemChozoStatueInit(void)
 
 /**
  * @brief 15328 | 4 | Empty function
- * 
+ *
  */
 static void UnknownItemChozoStatue_Empty(void)
 {
@@ -213,7 +215,7 @@ static void UnknownItemChozoStatue_Empty(void)
 
 /**
  * @brief 1532c | 50 | Registers the hint
- * 
+ *
  */
 static void UnknownItemChozoStatueRegisterHint(void)
 {
@@ -234,7 +236,7 @@ static void UnknownItemChozoStatueRegisterHint(void)
 
 /**
  * @brief 1537c | bc | Handles the flashing before a chozo statue hint
- * 
+ *
  */
 static void UnknownItemChozoStatueHintFlashing(void)
 {
@@ -288,7 +290,7 @@ static void UnknownItemChozoStatueHintFlashing(void)
 
 /**
  * @brief 15438 | 40 | Initializes an unknown item chozo statue to be sitting
- * 
+ *
  */
 static void UnknownItemChozoStatueSittingInit(void)
 {
@@ -305,7 +307,7 @@ static void UnknownItemChozoStatueSittingInit(void)
 
 /**
  * @brief 15478 | 4c | Handles an unknown item chozo statue sitting
- * 
+ *
  */
 static void UnknownItemChozoStatueSitting(void)
 {
@@ -328,7 +330,7 @@ static void UnknownItemChozoStatueSitting(void)
 
 /**
  * @brief 154c4 | 24 | Handles the delay before the refill after the statue sat down
- * 
+ *
  */
 static void UnknownItemChozoStatueDelayBeforeRefillAfterHint(void)
 {
@@ -339,7 +341,7 @@ static void UnknownItemChozoStatueDelayBeforeRefillAfterHint(void)
 
 /**
  * @brief 154e8 | 2c | Waits for the item to be grabbed
- * 
+ *
  */
 static void UnknownItemChozoStatueWaitForItemToBeCollected(void)
 {
@@ -355,7 +357,7 @@ static void UnknownItemChozoStatueWaitForItemToBeCollected(void)
 
 /**
  * @brief 15514 | 24 | Timer after the item is grabbed, unknown purpose
- * 
+ *
  */
 static void UnknownItemChozoStatueTimerAfterItemGrabbed(void)
 {
@@ -366,7 +368,7 @@ static void UnknownItemChozoStatueTimerAfterItemGrabbed(void)
 
 /**
  * @brief 15538 | 48 | Initializes an unknown item chozo statue for a refill
- * 
+ *
  */
 static void UnknownItemChozoStatueRefillInit(void)
 {
@@ -380,7 +382,7 @@ static void UnknownItemChozoStatueRefillInit(void)
 
 /**
  * @brief 15580 | 4c | Handles an unknown item chozo statue refilling Samus
- * 
+ *
  */
 static void UnknownItemChozoStatueRefillSamus(void)
 {
@@ -392,7 +394,7 @@ static void UnknownItemChozoStatueRefillSamus(void)
         gCurrentSprite.work2 = CONVERT_SECONDS(1.f / 15);
         // Change row
         gCurrentSprite.paletteRow = sUnknownItemChozoStatueFlashingPaletteRows[gCurrentSprite.work3];
-        
+
         // Update offset
         if (gCurrentSprite.work3 >= ARRAY_SIZE(sUnknownItemChozoStatueFlashingPaletteRows) - 1)
             gCurrentSprite.work3 = 0;
@@ -403,7 +405,7 @@ static void UnknownItemChozoStatueRefillSamus(void)
 
 /**
  * @brief 155cc | 20 | Initializes an unknown item chozo statue to be sleeping
- * 
+ *
  */
 static void UnknownItemChozoStatueSleepingInit(void)
 {
@@ -414,7 +416,7 @@ static void UnknownItemChozoStatueSleepingInit(void)
 
 /**
  * @brief 155ec | 58 | Handles an unknown item chozo statue sleeping
- * 
+ *
  */
 static void UnknownItemChozoStatueSleeping(void)
 {
@@ -437,7 +439,7 @@ static void UnknownItemChozoStatueSleeping(void)
 
 /**
  * @brief 15644 | 174 | Initializes an unknown item chozo statue sprite
- * 
+ *
  */
 static void UnknownItemChozoStatuePartInit(void)
 {
@@ -452,7 +454,7 @@ static void UnknownItemChozoStatuePartInit(void)
 
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 2;
-    
+
     gCurrentSprite.hitboxTop = PIXEL_SIZE;
     gCurrentSprite.hitboxBottom = PIXEL_SIZE;
     gCurrentSprite.hitboxLeft = PIXEL_SIZE;
@@ -480,7 +482,7 @@ static void UnknownItemChozoStatuePartInit(void)
             else
                 gCurrentSprite.pOam = sUnknownItemChozoStatuePartOam_ArmGlow;
             break;
-    
+
         case UNKNOWN_ITEM_CHOZO_STATUE_PART_LEG:
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
@@ -527,7 +529,7 @@ static void UnknownItemChozoStatuePartInit(void)
 
 /**
  * @brief 157b8 | 5c | Handles the glow being idle
- * 
+ *
  */
 static void UnknownItemChozoStatuePartGlowIdle(void)
 {
@@ -555,7 +557,7 @@ static void UnknownItemChozoStatuePartGlowIdle(void)
 
 /**
  * @brief 15814 | a0 | Detects if Samus in in the hand (for a hint)
- * 
+ *
  */
 static void UnknownItemChozoStatuePartArmCheckGrabSamusHint(void)
 {
@@ -586,10 +588,10 @@ static void UnknownItemChozoStatuePartArmCheckGrabSamusHint(void)
     {
         // Set pose
         SamusSetPose(SPOSE_GRABBED_BY_CHOZO_STATUE);
-        
+
         // Update statue
         gSpriteData[ramSlot].pose = UNKNOWN_ITEM_CHOZO_STATUE_POSE_REGISTER_HINT;
-        
+
         gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_PART_POSE_ARM_SITTING;
 
         // Set samus grabbed
@@ -603,7 +605,7 @@ static void UnknownItemChozoStatuePartArmCheckGrabSamusHint(void)
 
 /**
  * @brief 158b4 | 30 | Synchronizes Samus' position with the hand position
- * 
+ *
  */
 static void UnknownItemChozoStatuePartSyncSamusPosition(void)
 {
@@ -617,7 +619,7 @@ static void UnknownItemChozoStatuePartSyncSamusPosition(void)
 
 /**
  * @brief 158e4 | 44 | Handles the arm part sitting
- * 
+ *
  */
 static void UnknownItemChozoStatuePartArmSitting(void)
 {
@@ -638,7 +640,7 @@ static void UnknownItemChozoStatuePartArmSitting(void)
 
 /**
  * @brief 15928 | 40 | Handles the arm part being seated
- * 
+ *
  */
 static void UnknownItemChozoStatuePartArmSeated(void)
 {
@@ -657,7 +659,7 @@ static void UnknownItemChozoStatuePartArmSeated(void)
 
 /**
  * @brief 15968 | fc | Detects if Samus in in the hand (for a refill)
- * 
+ *
  */
 static void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void)
 {
@@ -723,7 +725,7 @@ static void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void)
 
 /**
  * @brief 15a64 | 140 | Refills Samus
- * 
+ *
  */
 static void UnknownItemChozoStatuePartArmRefill(void)
 {
@@ -818,7 +820,7 @@ static void UnknownItemChozoStatuePartArmRefill(void)
 
 /**
  * @brief 15ba4 | 4 | Empty function
- * 
+ *
  */
 static void UnknownItemChozoStatuePart_Empty(void)
 {
@@ -827,7 +829,7 @@ static void UnknownItemChozoStatuePart_Empty(void)
 
 /**
  * @brief 15ba8 | 28 | Initializes the arm part to be sleeping
- * 
+ *
  */
 static void UnknownItemChozoStatuePartSleepingInit(void)
 {
@@ -841,7 +843,7 @@ static void UnknownItemChozoStatuePartSleepingInit(void)
 
 /**
  * @brief 15bd8 | 28 | Handles the arm part sleeping
- * 
+ *
  */
 static void UnknownItemChozoStatuePartArmSleeping(void)
 {
@@ -859,7 +861,7 @@ static void UnknownItemChozoStatuePartArmSleeping(void)
 
 /**
  * @brief 15c10 | 20 | Initializes the eye part to be opening
- * 
+ *
  */
 static void UnknownItemChozoStatuePartEyeOpeningInit(void)
 {
@@ -872,7 +874,7 @@ static void UnknownItemChozoStatuePartEyeOpeningInit(void)
 
 /**
  * @brief 15c30 | 2c | Handles the eye part opening
- * 
+ *
  */
 static void UnknownItemChozoStatuePartEyeOpening(void)
 {
@@ -889,7 +891,7 @@ static void UnknownItemChozoStatuePartEyeOpening(void)
 
 /**
  * @brief 15c5c | 20 | Initializes the eye part to be closing
- * 
+ *
  */
 static void UnknownItemChozoStatuePartEyeClosingInit(void)
 {
@@ -902,7 +904,7 @@ static void UnknownItemChozoStatuePartEyeClosingInit(void)
 
 /**
  * @brief 15c7c | 2c | Handles the eye part closing
- * 
+ *
  */
 static void UnknownItemChozoStatuePartEyeClosing(void)
 {
@@ -919,7 +921,7 @@ static void UnknownItemChozoStatuePartEyeClosing(void)
 
 /**
  * @brief 15c7c | 2c | Handles the leg part being idle
- * 
+ *
  */
 static void UnknownItemChozoStatuePartLegIdle(void)
 {
@@ -941,7 +943,7 @@ static void UnknownItemChozoStatuePartLegIdle(void)
 
 /**
  * @brief 15cf0 | 148 | Unknown item chozo statue AI
- * 
+ *
  */
 void UnknownItemChozoStatue(void)
 {
@@ -1007,7 +1009,7 @@ void UnknownItemChozoStatue(void)
 
 /**
  * @brief 15e38 | 248 | Unknown item chozo statue AI
- * 
+ *
  */
 void UnknownItemChozoStatuePart(void)
 {
@@ -1088,7 +1090,7 @@ void UnknownItemChozoStatuePart(void)
 
 /**
  * @brief 16080 | a8 | Unknown item chozo statue refill AI
- * 
+ *
  */
 void UnknownItemChozoStatueRefill(void)
 {
@@ -1108,7 +1110,7 @@ void UnknownItemChozoStatueRefill(void)
         gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        
+
         gCurrentSprite.hitboxTop = PIXEL_SIZE;
         gCurrentSprite.hitboxBottom = PIXEL_SIZE;
         gCurrentSprite.hitboxLeft = PIXEL_SIZE;
@@ -1131,7 +1133,7 @@ void UnknownItemChozoStatueRefill(void)
 
 /**
  * @brief 16128 | 104 | Updates the clipdata for a standing chozo statue
- * 
+ *
  * @param bodyCaa Clipdata affecting action (for the body)
  * @param handCaa Clidpata Affecting Action (for the hand)
  */
@@ -1184,7 +1186,7 @@ void ChozoStatueStandingChangeClipdata(u8 bodyCaa, u8 handCaa)
 
 /**
  * @brief 1622c | 80 | Updates the clipdata of a seated chozo statue
- * 
+ *
  * @param caa Clipdata affecting action
  */
 void ChozoStatueSeatedChangeClipdata(u8 caa)

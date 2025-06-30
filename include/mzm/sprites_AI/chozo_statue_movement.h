@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 void SpawnChozoStatueMovement(u8 stage);
 void ChozoStatueMovement(void);

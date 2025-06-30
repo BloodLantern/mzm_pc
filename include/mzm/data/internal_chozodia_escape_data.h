@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 typedef u8 (*ChozodiaEscapeFunc_T)(void);
 

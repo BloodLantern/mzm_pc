@@ -1,7 +1,9 @@
-#include "data/clipdata_data.h"
-#include "macros.h"
+#include "mzm/data/clipdata_data.h"
+#include "mzm/macros.h"
 
-#include "constants/clipdata.h"
+#include "mzm/constants/clipdata.h"
+
+#include "mzm_include.h"
 
 const u16 sMovementClipdataValues[16] = {
     [CLIP_BEHAVIOR_NONE] = CLIPDATA_MOVEMENT_NONE,
@@ -172,4 +174,3 @@ const struct CameraScrollVelocityCaps sScrollVelocityCaps[SCROLL_VELOCITY_CAP_EN
         .downCap = (BLOCK_SIZE - QUARTER_BLOCK_SIZE)
     }
 };
-

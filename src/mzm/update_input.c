@@ -1,11 +1,13 @@
-#include "update_input.h"
-#include "gba.h"
-#include "structs/game_state.h"
-#include "types.h"
+#include "mzm/update_input.h"
+#include "mzm/gba.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/types.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 968 | 38 | Updates the input
- * 
+ *
  */
 void UpdateInput(void)
 {

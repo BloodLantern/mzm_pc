@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "structs/animated_graphics.h"
-#include "constants/animated_graphics.h"
+#include "mzm/structs/animated_graphics.h"
+#include "mzm/constants/animated_graphics.h"
 
 extern const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_END];
 extern const u8 sAnimatedTilesetEntries[8][48];

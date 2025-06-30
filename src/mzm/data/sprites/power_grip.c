@@ -1,5 +1,7 @@
-#include "data/sprites/power_grip.h"
-#include "macros.h"
+#include "mzm/data/sprites/power_grip.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sPowerGripGfx[279] = INCBIN_U32("data/sprites/PowerGrip.gfx.lz");
 const u16 sPowerGripPal[32] = INCBIN_U16("data/sprites/PowerGrip.pal");

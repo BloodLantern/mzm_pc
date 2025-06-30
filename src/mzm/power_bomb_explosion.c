@@ -1,26 +1,28 @@
-#include "gba.h"
-#include "power_bomb_explosion.h"
-#include "audio_wrappers.h"
-#include "haze.h"
-#include "screen_shake.h"
+#include "mzm/gba.h"
+#include "mzm/power_bomb_explosion.h"
+#include "mzm/audio_wrappers.h"
+#include "mzm/haze.h"
+#include "mzm/screen_shake.h"
 
-#include "data/engine_pointers.h"
+#include "mzm/data/engine_pointers.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/haze.h"
-#include "constants/game_state.h"
-#include "constants/room.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/haze.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/room.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/in_game_cutscene.h"
-#include "structs/game_state.h"
-#include "structs/room.h"
-#include "structs/power_bomb_explosion.h"
-#include "temp_globals.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/in_game_cutscene.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/power_bomb_explosion.h"
+#include "mzm/temp_globals.h"
+
+#include "mzm_include.h"
 
 // FIXME, find a better solution
 void BlockApplyCcaa(s32, s32, u16); // From block.h
@@ -54,7 +56,7 @@ void PowerBombExplosionProcess(void)
 
 /**
  * @brief 574a4 | 248 | Updates the power bomb explosion, handles interacting with blocks
- * 
+ *
  */
 static void PowerBombExplosion(void)
 {
@@ -71,7 +73,7 @@ static void PowerBombExplosion(void)
     s32 yPositionTop;
     s32 yPositionBottom;
     u16 clipdata;
-    
+
     verticalAxis = gCurrentPowerBomb.semiMinorAxis * 4;
     horizontalAxis = gCurrentPowerBomb.semiMinorAxis * 8;
     verticalAxis *= 0.95;
@@ -145,7 +147,7 @@ static void PowerBombExplosion(void)
                     }
                     else
                         innerLoop++;
-                    
+
                     if ((s32)yPositionBottom <= hitboxBottom)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionBottom * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
@@ -183,12 +185,12 @@ static void PowerBombExplosion(void)
                         clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionLeft];
                         if (clipdata != 0)
                             BlockApplyCcaa(verticalAxis, xPositionLeft, clipdata);
-                        
+
                         xPositionLeft = (s16)(xPositionLeft - 1);
                     }
                     else
                         innerLoop++;
-                    
+
                     if (xPositionRight <= hitboxRight)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionRight];
@@ -208,7 +210,7 @@ static void PowerBombExplosion(void)
 
 /**
  * 576ec | 48 | Starts a power bomb explosion at the given parameters
- * 
+ *
  * @param xPosition The X Position of the epicenter
  * @param yPosition The Y Position of the epicenter
  * @param owner Owner of the power bomb, left over from fusion
@@ -233,8 +235,8 @@ void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
 }
 
 /**
- * 57734 | c | Sets the field at offset 0x12 of the current power bomb to 0x0, purpose is unknown 
- * 
+ * 57734 | c | Sets the field at offset 0x12 of the current power bomb to 0x0, purpose is unknown
+ *
  */
 static void PowerBombExplosionSet0x12To0(void)
 {
@@ -243,7 +245,7 @@ static void PowerBombExplosionSet0x12To0(void)
 
 /**
  * @brief 57740 | 78 | Begins a power bomb explosion
- * 
+ *
  */
 static void PowerBombExplosionBegin(void)
 {
@@ -276,7 +278,7 @@ static void PowerBombExplosionBegin(void)
 
 /**
  * @brief 577b8 | 154 | Handles ending a power bomb explosion
- * 
+ *
  */
 static void PowerBombExplosionEnd(void)
 {

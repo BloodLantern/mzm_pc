@@ -1,19 +1,21 @@
-#include "sprites_AI/dessgeega.h"
-#include "macros.h"
+#include "mzm/sprites_AI/dessgeega.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/dessgeega.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/dessgeega.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/clipdata.h"
-#include "structs/connection.h"
-#include "structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define DESSGEEGA_POSE_JUMP_WARNING_INIT 0x8
 #define DESSGEEGA_POSE_JUMP_WARNING 0x9
@@ -26,7 +28,7 @@
 
 /**
  * @brief 23b4c | 20 | Checks if samus is near the dessgeega on the sides in a 5 block range
- * 
+ *
  * @return u8 1 if near, 0 otherwise
  */
 static u8 DessgeegaCheckSamusNearLeftRight(void)
@@ -44,7 +46,7 @@ static u8 DessgeegaCheckSamusNearLeftRight(void)
 
 /**
  * @brief 23b6c | 10c | Initializes a dessgeega sprite
- * 
+ *
  */
 static void DessgeegaInit(void)
 {
@@ -111,7 +113,7 @@ static void DessgeegaInit(void)
 
 /**
  * @brief 23c78 | 20 | Initializes a dessgeega to do the warning before a jump
- * 
+ *
  */
 static void DessgeegaJumpWarningInit(void)
 {
@@ -123,7 +125,7 @@ static void DessgeegaJumpWarningInit(void)
 
 /**
  * @brief 23c98 | 64 | Initializes a dessgeega to be jumping
- * 
+ *
  */
 static void DessgeegaJumpingInit(void)
 {
@@ -145,7 +147,7 @@ static void DessgeegaJumpingInit(void)
 
 /**
  * @brief 23cfc | 38 | Initializes a dessgeega to be landing
- * 
+ *
  */
 static void DessgeegaLandingInit(void)
 {
@@ -160,7 +162,7 @@ static void DessgeegaLandingInit(void)
 
 /**
  * @brief 23d34 | 74 | Initializes a dessgeega to be idle
- * 
+ *
  */
 static void DessgeegaIdleInit(void)
 {
@@ -189,7 +191,7 @@ static void DessgeegaIdleInit(void)
 
 /**
  * @brief 23da8 | 24 | Initializes a dessgeega to be falling
- * 
+ *
  */
 static void DessgeegaFallingInit(void)
 {
@@ -202,7 +204,7 @@ static void DessgeegaFallingInit(void)
 
 /**
  * @brief 23dcc | 5c | Handles the jump warning of a dessgeega on the ground
- * 
+ *
  */
 static void DessgeegaJumpWarningGround(void)
 {
@@ -222,14 +224,14 @@ static void DessgeegaJumpWarningGround(void)
             }
         }
     }
-    
+
     if (SpriteUtilCheckEndCurrentSpriteAnim())
         DessgeegaJumpingInit(); // Jump if anim ended
 }
 
 /**
  * @brief 23e28 | 14 | Handles the jump warning of a dessgeega on the ceiling
- * 
+ *
  */
 static void DessgeegaJumpWarningCeiling(void)
 {
@@ -239,7 +241,7 @@ static void DessgeegaJumpWarningCeiling(void)
 
 /**
  * @brief 23e3c | 1e8 | Handles the dessgeega jumping from the ground
- * 
+ *
  */
 static void DessgeegaJumpingGround(void)
 {
@@ -363,7 +365,7 @@ static void DessgeegaJumpingGround(void)
 
 /**
  * @brief 24024 | 1fc | Handles the dessgeega jumping from the ceiling
- * 
+ *
  */
 static void DessgeegaJumpingCeiling(void)
 {
@@ -487,7 +489,7 @@ static void DessgeegaJumpingCeiling(void)
 
 /**
  * @brief 24220 | 14 | Checks if the landing animation as ended
- * 
+ *
  */
 static void DessgeegaCheckLandingAnimEnded(void)
 {
@@ -497,7 +499,7 @@ static void DessgeegaCheckLandingAnimEnded(void)
 
 /**
  * @brief 24234 | a4 | Handles a dessgeega falling from the ground
- * 
+ *
  */
 static void DessgeegaFallingGround(void)
 {
@@ -525,7 +527,7 @@ static void DessgeegaFallingGround(void)
                 colliding++;
         }
     }
-    
+
     if (colliding)
     {
         gCurrentSprite.yPosition = topEdge;
@@ -552,7 +554,7 @@ static void DessgeegaFallingGround(void)
 
 /**
  * @brief 242d8 | a8 | Handles a dessgeega falling from the ceiling
- * 
+ *
  */
 static void DessgeegaFallingCeiling(void)
 {
@@ -578,7 +580,7 @@ static void DessgeegaFallingCeiling(void)
                 colliding++;
         }
     }
-    
+
     if (colliding)
     {
         gCurrentSprite.yPosition = topEdge + BLOCK_SIZE;
@@ -605,7 +607,7 @@ static void DessgeegaFallingCeiling(void)
 
 /**
  * @brief 24380 | 98 | Handles a dessgeega being idle on the ground
- * 
+ *
  */
 static void DessgeegaIdleGround(void)
 {
@@ -638,7 +640,7 @@ static void DessgeegaIdleGround(void)
 
 /**
  * @brief 24418 | 5c | Handles a dessgeega being idle on the ceiling
- * 
+ *
  */
 static void DessgeegaIdleCeiling(void)
 {
@@ -656,12 +658,12 @@ static void DessgeegaIdleCeiling(void)
                     SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_SCREAMING);
             }
         }
-    } 
+    }
 }
 
 /**
  * @brief 24474 | 58 | Handles the death of a dessgeega
- * 
+ *
  */
 static void DessgeegaDeath(void)
 {
@@ -684,7 +686,7 @@ static void DessgeegaDeath(void)
 
 /**
  * @brief 244cc | b8 | Handles the detection of samus for the long beam dessgeega
- * 
+ *
  */
 static void DessgeegaLongBeamDetectSamus(void)
 {
@@ -720,7 +722,7 @@ static void DessgeegaLongBeamDetectSamus(void)
 
 /**
  * @brief 24584 | dc | Handles the spawning of the dessgeega long beam
- * 
+ *
  */
 static void DessgeegaLongBeamSpawning(void)
 {
@@ -779,7 +781,7 @@ static void DessgeegaLongBeamSpawning(void)
 
 /**
  * @brief 24660 | 1dc | Dessgeega AI
- * 
+ *
  */
 void Dessgeega(void)
 {

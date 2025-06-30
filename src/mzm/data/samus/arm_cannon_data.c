@@ -1,9 +1,11 @@
-#include "data/samus/arm_cannon_data.h"
-#include "data/samus/samus_empty_data.h"
-#include "oam.h"
-#include "macros.h"
+#include "mzm/data/samus/arm_cannon_data.h"
+#include "mzm/data/samus/samus_empty_data.h"
+#include "mzm/oam.h"
+#include "mzm/macros.h"
 
-#include "constants/samus.h"
+#include "mzm/constants/samus.h"
+
+#include "mzm_include.h"
 
 const u8 sArmCannonGfx_Upper_Forward_Left_Default[SAMUS_ARM_CANNON_Gfx_SIZE] = INCBIN_U8("data/samus/graphics/arm_cannon/Upper_Forward_Left_Default.gfx");
 const u8 sArmCannonGfx_Upper_DiagonalUp_Left_Default[SAMUS_ARM_CANNON_Gfx_SIZE] = INCBIN_U8("data/samus/graphics/arm_cannon/Upper_DiagonalUp_Left_Default.gfx");
@@ -10973,4 +10975,3 @@ const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningFromFac
         .pOam = sArmCannonOam_Empty
     }
 };
-

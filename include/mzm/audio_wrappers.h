@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "structs/audio.h"
+#include "mzm/structs/audio.h"
 
 extern void CallSoundCodeA(void);
 extern void CallSoundCodeB(void);

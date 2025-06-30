@@ -1,19 +1,21 @@
-#include "types.h"
-#include "dma.h"
-#include "gba.h"
+#include "mzm/types.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
 
-#include "transparency.h"
-#include "room.h"
-#include "scroll.h"
-#include "connection.h"
+#include "mzm/transparency.h"
+#include "mzm/room.h"
+#include "mzm/scroll.h"
+#include "mzm/connection.h"
 
-#include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/room.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/room.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 57d04 | c8 | Loads a room for the escape sequence
- * 
+ *
  * @param area Area
  * @param room Room id + 1
  * @param bgX Backgrounds X position
@@ -45,14 +47,14 @@ void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
 
     // Setup transparency
     TransparencySetRoomEffectsTransparency();
-    
+
     // Properly update background 3 position
     ScrollBg3();
 
     // Check play room effects
     AnimatedGraphicsCheckPlayLightningEffect();
 
-    // Properly 
+    // Properly
     RoomUpdateBackgroundsPosition();
 
     // Load doors

@@ -6,14 +6,14 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
-#include "constants/game_state.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/menus/pause_screen.h"
-#include "structs/minimap.h"
+#include "mzm/structs/menus/pause_screen.h"
+#include "mzm/structs/minimap.h"
 
-#include "constants/connection.h"
+#include "mzm/constants/connection.h"
 
 extern const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty;
 

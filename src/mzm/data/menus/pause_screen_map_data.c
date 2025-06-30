@@ -1,5 +1,7 @@
-#include "data/menus/pause_screen_map_data.h"
-#include "macros.h"
+#include "mzm/data/menus/pause_screen_map_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sMinimapTilesGfx[5120] = INCBIN_U8("data/menus/PauseScreen/sMinimapTiles.gfx");
 const u32 sPauseScreen_40f4c4[1792] = INCBIN_U32("data/menus/PauseScreen/40f4c4.gfx");

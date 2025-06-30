@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 u8 SavePlatformDetectSamus(void);
 void SavePlatform(void);

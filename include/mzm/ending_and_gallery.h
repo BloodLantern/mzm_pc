@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 void EndingImageUpdateLettersSpawnDelay(u32 offset);
 void EndingImageLoadTextOAM(u32 set);

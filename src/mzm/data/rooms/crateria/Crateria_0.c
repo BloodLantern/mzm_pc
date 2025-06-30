@@ -1,10 +1,12 @@
-#include "data/rooms/crateria_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/crateria_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sCrateria_0_Scrolls[SCROLL_DATA_SIZE(4)] = {
 	0, // Room
 	4, // Number of scrolls
-	
+
 	// Scroll 0
 	17, 76, // X bounds
 	0, 71, // Y bounds

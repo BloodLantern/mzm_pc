@@ -1,5 +1,7 @@
-#include "data/sprites/polyp.h"
-#include "macros.h"
+#include "mzm/data/sprites/polyp.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sPolypProjectileYVelocity[44] = {
     -16, -16, -14, -14, -12, -12, -10, -10, -8, -8, -8, -8,
@@ -40,7 +42,7 @@ static const u16 sPolypOam_Warning_Frame3[OAM_DATA_SIZE(4)] = {
     OBJ_SHAPE_HORIZONTAL | 0x1, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220,
     OBJ_SHAPE_HORIZONTAL | 0xf9, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x204,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x224
-}; 
+};
 
 static const u16 sPolypOam_Warning_Frame2[OAM_DATA_SIZE(4)] = {
     0x4,

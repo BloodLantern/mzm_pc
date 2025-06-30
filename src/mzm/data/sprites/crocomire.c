@@ -1,6 +1,8 @@
-#include "data/sprites/crocomire.h"
-#include "sprites_AI/crocomire.h"
-#include "macros.h"
+#include "mzm/data/sprites/crocomire.h"
+#include "mzm/sprites_AI/crocomire.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 static const s16 sCrocomireMultiSpriteData_Idle_Frame0[CROCOMIRE_PART_END][MULTI_SPRITE_DATA_ELEMENT_END] = {
     [CROCOMIRE_PART_RIGHT_ARM] = {

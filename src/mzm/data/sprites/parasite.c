@@ -1,5 +1,7 @@
-#include "data/sprites/parasite.h"
-#include "macros.h"
+#include "mzm/data/sprites/parasite.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sParasiteGfx[309] = INCBIN_U32("data/sprites/Parasite.gfx.lz");
 const u16 sParasitePal[16] = INCBIN_U16("data/sprites/Parasite.pal");

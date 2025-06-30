@@ -1,7 +1,9 @@
-#include "data/cutscenes/ridley_spawn_data.h"
-#include "cutscenes/ridley_spawn.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/data/cutscenes/ridley_spawn_data.h"
+#include "mzm/cutscenes/ridley_spawn.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const struct CutscenePageData sRidleySpawnPageData[4] = {
     [0] = {

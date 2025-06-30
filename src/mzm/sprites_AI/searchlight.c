@@ -1,16 +1,18 @@
-#include "sprites_AI/searchlight.h"
-#include "gba/display.h"
-#include "macros.h"
+#include "mzm/sprites_AI/searchlight.h"
+#include "mzm/gba/display.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/searchlight.h"
+#include "mzm/data/sprites/searchlight.h"
 
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/display.h"
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define SEARCHLIGHT_POSE_IDLE 0x9
 #define SEARCHLIGHT_POSE_ACTIVATING 0x23
@@ -18,7 +20,7 @@
 
 /**
  * @brief 49bd0 | 1fc | Searchlight AI
- * 
+ *
  */
 void Searchlight(void)
 {

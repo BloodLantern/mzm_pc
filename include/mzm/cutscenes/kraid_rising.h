@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "gba.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/gba.h"
+#include "mzm/structs/cutscene.h"
 
 enum KraidRisingOamId {
     KRAID_RISING_OAM_ID_SAMUS = 1,

@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define OAM_ID_CHANGED_FLAG (TRUE << 1)
 #define CUTSCENE_OAM_ACTION_NONE 0

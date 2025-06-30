@@ -1,7 +1,9 @@
-#include "data/sprites/unknown_item_chozo_statue.h"
-#include "macros.h"
+#include "mzm/data/sprites/unknown_item_chozo_statue.h"
+#include "mzm/macros.h"
 
-#include "sprites_AI/unknown_item_chozo_statue.h"
+#include "mzm/sprites_AI/unknown_item_chozo_statue.h"
+
+#include "mzm_include.h"
 
 static const s16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[UNKNOWN_ITEM_CHOZO_STATUE_PART_END][MULTI_SPRITE_DATA_ELEMENT_END] = {
     [UNKNOWN_ITEM_CHOZO_STATUE_PART_ARM] = {

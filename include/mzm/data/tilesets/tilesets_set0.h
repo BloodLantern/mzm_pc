@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 extern const u32 sTileset_42_Gfx[736];
 extern const u32 sTileset_78_Gfx[736];

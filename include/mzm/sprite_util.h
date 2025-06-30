@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/types.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
 
 void SpriteUtilInitLocationText(void);
 void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 samusY, u16 spriteX);

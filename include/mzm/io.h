@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define write64(addr, val) (*(vu64 *)(addr)) = (val)
 #define write32(addr, val) (*(vu32 *)(addr)) = (val)

@@ -1,7 +1,9 @@
-#include "data/demo_data.h"
+#include "mzm/data/demo_data.h"
 
-#include "constants/connection.h"
-#include "constants/samus.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/samus.h"
+
+#include "mzm_include.h"
 
 static const u16 sDemo0_Inputs[] = {
 	KEY_NONE,
@@ -2431,7 +2433,7 @@ const struct SaveDemo sDemo0_Ram = {
             8255, 8255, 8255, 8255, 8255, 8255, 8255, 8255,
             8255, 8255, 8255, 8255, 8255, 8255, 8255, 8255,
             8255, 8255, 8255, 8255, 8255, 8255, 8252, 8252,
-            8252, 8252, 8252, 8252, 8252, 8252, 8252, 8252  
+            8252, 8252, 8252, 8252, 8252, 8252, 8252, 8252
         },
         .previousPositionCounter = 194,
         .unknown = 1

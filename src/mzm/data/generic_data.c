@@ -1,7 +1,9 @@
-#include "data/generic_data.h"
-#include "macros.h"
-#include "music_wrappers.h"
-#include "callbacks.h"
+#include "mzm/data/generic_data.h"
+#include "mzm/macros.h"
+#include "mzm/music_wrappers.h"
+#include "mzm/callbacks.h"
+
+#include "mzm_include.h"
 
 const s16 sSineTable[2*PI + PI/2] = {
     // 0

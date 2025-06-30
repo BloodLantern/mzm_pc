@@ -1,20 +1,22 @@
-#include "sprites_AI/geron.h"
-#include "sprites_AI/parasite.h"
-#include "macros.h"
+#include "mzm/sprites_AI/geron.h"
+#include "mzm/sprites_AI/parasite.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/geron.h"
+#include "mzm/data/sprites/geron.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/sprite.h"
-#include "structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+
+#include "mzm_include.h"
 
 /**
- * @brief 448e0 | 344 | Geron AI 
- * 
+ * @brief 448e0 | 344 | Geron AI
+ *
  */
 void Geron(void)
 {
@@ -170,7 +172,7 @@ void Geron(void)
             }
             else
             {
-                // Check should shake 
+                // Check should shake
                 if (SPRITE_GET_ISFT(gCurrentSprite))
                 {
                     // 2 * DELTA_TIME
@@ -195,7 +197,7 @@ void Geron(void)
                 }
             }
             break;
-        
+
         case GERON_POSE_GETTING_DESTROYED:
             APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
             if (gCurrentSprite.work0 == 0)

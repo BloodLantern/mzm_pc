@@ -1,21 +1,23 @@
-#include "sprites_AI/map_station.h"
-#include "gba.h"
-#include "macros.h"
-#include "sprites_AI/item_banner.h"
+#include "mzm/sprites_AI/map_station.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/sprites_AI/item_banner.h"
 
-#include "data/sprites/map_station.h"
+#include "mzm/data/sprites/map_station.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/game_state.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/connection.h"
-#include "structs/game_state.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define MAP_STATION_POSE_IDLE 0x9
 #define MAP_STATION_POSE_DO_NOTHING 0xF
@@ -41,7 +43,7 @@ enum MapStationPart {
 
 /**
  * @brief 1f41c | f0 | Initializes a map station sprite
- * 
+ *
  */
 static void MapStationInit(void)
 {
@@ -91,7 +93,7 @@ static void MapStationInit(void)
 
 /**
  * @brief 1f50c | 98 | Handles a map station being idle
- * 
+ *
  */
 static void MapStationIdle(void)
 {
@@ -115,10 +117,10 @@ static void MapStationIdle(void)
         gCurrentSprite.pOam = sMapStationOam_GrabbingSamus;
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.animationDurationCounter = 0;
-        
+
         gCurrentSprite.pose = MAP_STATION_POSE_GRABBING_SAMUS;
         gSamusData.xPosition = spriteX;
-        
+
         if (gSamusData.invincibilityTimer != 0)
             gSamusData.invincibilityTimer = 0;
 
@@ -134,7 +136,7 @@ static void MapStationIdle(void)
 
 /**
  * @brief 1f5a4 | 3c | Checks if the grabbing animation ended
- * 
+ *
  */
 static void MapStationCheckSamusGrabbedAnimEnded(void)
 {
@@ -153,7 +155,7 @@ static void MapStationCheckSamusGrabbedAnimEnded(void)
 
 /**
  * @brief 1f5e0 | 4c | Handles Samus downloading the map
- * 
+ *
  */
 static void MapStationDownloading(void)
 {
@@ -176,7 +178,7 @@ static void MapStationDownloading(void)
 
 /**
  * @brief 1f62c | b4 | Spawns the map downloaded message
- * 
+ *
  */
 static void MapStationSpawnMessage(void)
 {
@@ -228,7 +230,7 @@ static void MapStationSpawnMessage(void)
 
 /**
  * @brief 1f6e0 | 38 | Waits for the message to be disappearing
- * 
+ *
  */
 static void MapStationWaitForMessage(void)
 {
@@ -245,7 +247,7 @@ static void MapStationWaitForMessage(void)
 
 /**
  * @brief 1f718 | 24 | Handles the delay before the map station retracts
- * 
+ *
  */
 static void MapStationDelayBeforeRetracting(void)
 {
@@ -256,7 +258,7 @@ static void MapStationDelayBeforeRetracting(void)
 
 /**
  * @brief 1f73c | 34 | Initializes a map station to be retracting
- * 
+ *
  */
 static void MapStationRetracting(void)
 {
@@ -272,7 +274,7 @@ static void MapStationRetracting(void)
 
 /**
  * @brief 1f770 | 144 | Map station AI
- * 
+ *
  */
 void MapStation(void)
 {
@@ -287,7 +289,7 @@ void MapStation(void)
         case MAP_STATION_POSE_IDLE:
             MapStationIdle();
             break;
-            
+
         case MAP_STATION_POSE_GRABBING_SAMUS:
             MapStationCheckSamusGrabbedAnimEnded();
             break;
@@ -315,7 +317,7 @@ void MapStation(void)
 
 /**
  * @brief 1f884 | 12c | Map station part AI
- * 
+ *
  */
 void MapStationPart(void)
 {

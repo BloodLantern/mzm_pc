@@ -1,22 +1,24 @@
-#include "transparency.h"
-#include "gba.h"
+#include "mzm/transparency.h"
+#include "mzm/gba.h"
 
-#include "data/empty_datatypes.h"
+#include "mzm/data/empty_datatypes.h"
 
-#include "constants/room.h"
-#include "constants/game_state.h"
-#include "constants/power_bomb_explosion.h"
+#include "mzm/constants/room.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/power_bomb_explosion.h"
 
-#include "structs/power_bomb_explosion.h"
-#include "structs/game_state.h"
-#include "structs/in_game_cutscene.h"
-#include "structs/display.h"
-#include "structs/samus.h"
-#include "structs/room.h"
+#include "mzm/structs/power_bomb_explosion.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/in_game_cutscene.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/room.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 554ac | 54c | Sets the room transparency and backgrounds effects
- * 
+ *
  */
 void TransparencySetRoomEffectsTransparency(void)
 {
@@ -109,7 +111,7 @@ void TransparencySetRoomEffectsTransparency(void)
             bgCnt[1] |= BGCNT_HIGH_MID_PRIORITY;
             bgCnt[2] |= BGCNT_LOW_MID_PRIORITY;
             break;
-     
+
         case 0x5:
         case 0x9:
         case 0xD:
@@ -163,7 +165,7 @@ void TransparencySetRoomEffectsTransparency(void)
             gSamusOnTopOfBackgrounds = TRUE;
             break;
     }
-    
+
     eva = 0;
     evb = 0;
 
@@ -343,7 +345,7 @@ u16 TransparencyGetBgSizeFlag(u8 size)
         case BGCNT_SIZE_256x256:
             flag = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT;
             break;
-            
+
         case BGCNT_SIZE_512x256:
         default:
             flag = BGCNT_SIZE_512x256 << BGCNT_SCREEN_SIZE_SHIFT;
@@ -352,7 +354,7 @@ u16 TransparencyGetBgSizeFlag(u8 size)
         case BGCNT_SIZE_256x512:
             flag = BGCNT_SIZE_256x512 << BGCNT_SCREEN_SIZE_SHIFT;
             break;
-        
+
     }
 
     return flag;
@@ -371,7 +373,7 @@ u32 TransparencyCheckIsDarkRoom(void)
 
 /**
  * @brief 55a40 | 9c | Updates the BLDCNT register
- * 
+ *
  * @param action Action
  * @param value Value
  */
@@ -416,7 +418,7 @@ void TransparencyUpdateBldcnt(u8 action, u16 value)
 
 /**
  * @brief 55adc | 48 | Starts a bldy sprite effect
- * 
+ *
  * @param value Requested value
  * @param delay Delay between increments
  * @param intensity Intensity
@@ -430,7 +432,7 @@ void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
     _delay = (s8)delay;
     _intensity = (u8)intensity;
     above = FALSE;
-    
+
     if (value > 16)
         above = TRUE;
 
@@ -439,7 +441,7 @@ void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
         gBLDYData2.activeFlag &= ~TRUE;
         return;
     }
-    
+
     gBLDYData2.delayMax = _delay;
     gBLDYData2.intensity = _intensity;
     gBLDYData2.value = value;
@@ -451,7 +453,7 @@ void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
 
 /**
  * @brief 55b24 | 78 | Queues a bldalpha update (for sprites)
- * 
+ *
  * @param eva Eva coefficient
  * @param evb Evb coefficient
  * @param delay Delay
@@ -494,7 +496,7 @@ void TransparencySpriteUpdateBldalpha(u8 eva, u8 evb, s32 delay, u32 intensity)
 
 /**
  * @brief 55b9c | 34 | Queues a bldy update
- * 
+ *
  * @param value Destination value
  * @param delay Delay
  * @param intensity Intensity
@@ -525,7 +527,7 @@ void TransparencyUpdateBLDY(u8 value, s32 delay, u32 intensity)
 
 /**
  * @brief 55bd0 | 54 | Queues a bldalpha update
- * 
+ *
  * @param eva Eva coefficient
  * @param evb Evb coefficient
  * @param delay Delay
@@ -563,7 +565,7 @@ void TransparencyUpdateBLDALPHA(u8 eva, u8 evb, s8 delay, u32 intensity)
 
 /**
  * @brief 55c24 | b8 | Applies the new transparency effects
- * 
+ *
  */
 void TransparencyApplyNewEffects(void)
 {
@@ -591,8 +593,8 @@ void TransparencyApplyNewEffects(void)
 }
 
 /**
- * @brief 55cdc | d8 | Applies the bldalpha effect 
- * 
+ * @brief 55cdc | d8 | Applies the bldalpha effect
+ *
  * @param pBldy Bldalpha data pointer
  */
 void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
@@ -674,8 +676,8 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 }
 
 /**
- * @brief 55db4 | ac | Applies the bldy effect 
- * 
+ * @brief 55db4 | ac | Applies the bldy effect
+ *
  * @param pBldy Bldy data pointer
  */
 void TransparencyApplyNewBLDY(struct BldyData* pBldy)
@@ -718,7 +720,7 @@ void TransparencyApplyNewBLDY(struct BldyData* pBldy)
             if (newValue > pBldy->value)
                 newValue = pBldy->value;
         }
-    
+
         gIoRegistersBackup.BLDY_NonGameplay = newValue;
         newValue = TRUE;
     }
@@ -738,7 +740,7 @@ void TransparencyApplyNewBLDY(struct BldyData* pBldy)
 
 /**
  * @brief 55e60 | 108 | To document
- * 
+ *
  */
 void unk_55e60(void)
 {
@@ -836,7 +838,7 @@ void unk_55e60(void)
 
 /**
  * @brief 55f68 | Update animated and faded palette and music on transition
- * 
+ *
  */
 void unk_55f68(void)
 {

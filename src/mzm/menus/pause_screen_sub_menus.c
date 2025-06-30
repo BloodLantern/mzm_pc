@@ -1,28 +1,30 @@
-#include "menus/pause_screen_sub_menus.h"
-#include "menus/pause_screen.h"
-#include "menus/pause_screen_map.h"
-#include "dma.h"
-#include "syscalls.h"
-#include "oam_id.h"
+#include "mzm/menus/pause_screen_sub_menus.h"
+#include "mzm/menus/pause_screen.h"
+#include "mzm/menus/pause_screen_map.h"
+#include "mzm/dma.h"
+#include "mzm/syscalls.h"
+#include "mzm/oam_id.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/clipdata_data.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/menus/pause_screen_sub_menus_data.h"
-#include "data/menus/internal_pause_screen_sub_menus_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/clipdata_data.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/menus/pause_screen_sub_menus_data.h"
+#include "mzm/data/menus/internal_pause_screen_sub_menus_data.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/demo.h"
-#include "constants/event.h"
-#include "constants/menus/pause_screen.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/demo.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/menus/pause_screen.h"
 
-#include "structs/display.h"
-#include "structs/minimap.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/minimap.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 71f70 | 1da | Easy sleep menu subroutine
- * 
+ *
  * @return u32 bool, ended
  */
 u32 PauseScreenEasySleepSubroutine(void)
@@ -139,7 +141,7 @@ u32 PauseScreenEasySleepSubroutine(void)
 
 /**
  * @brief 72144 | c0 | Calculates the X and Y coordiantes of the Chozo statue hint
- * 
+ *
  * @param pHintMapData Chozo statue hint map data pointer
  * @return u32 New position (YYXX, in bytes)
  */
@@ -196,7 +198,7 @@ u32 ChozoStatueHintCalculateCoordinates(struct ChozoHintMapData* pHintMapData)
 
     if (pHintMapData->xDirection == 0)
         xPosition = pHintMapData->hintTargetXPosition;
-    
+
     if (pHintMapData->yDirection == 0)
         yPosition = pHintMapData->hintTargetYPosition;
 
@@ -205,7 +207,7 @@ u32 ChozoStatueHintCalculateCoordinates(struct ChozoHintMapData* pHintMapData)
 
 /**
  * @brief 72204 | 46c | Handles the movement of the target on a chozo statue hint
- * 
+ *
  */
 void ChozoStatueHintMovement(void)
 {
@@ -401,7 +403,7 @@ void ChozoStatueHintMovement(void)
 
 /**
  * @brief 72670 | 248 | Handles the camera scrolling on a chozo statue hint
- * 
+ *
  */
 void ChozoStatueHintScrolling(void)
 {
@@ -449,7 +451,7 @@ void ChozoStatueHintScrolling(void)
 
             var_0 = Sqrt((PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget * PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget +
                 PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget * PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget) * 4) / 4;
-            
+
             if (var_0 == 0)
             {
                 PAUSE_SCREEN_DATA.chozoHintMapScrollingData.yDirection = PAUSE_SCREEN_DATA.chozoHintMapScrollingData.xDirection = 0;
@@ -514,7 +516,7 @@ void ChozoStatueHintScrolling(void)
 
 /**
  * @brief 728b8 | 25c | Chozo statue hint subroutine
- * 
+ *
  * @return u32 bool, ended
  */
 u32 ChozoStatueHintSubroutine(void)
@@ -636,7 +638,7 @@ u32 ChozoStatueHintSubroutine(void)
 
 /**
  * @brief 72b14 | a7 | Handles a chozo statue hint target changing area
- * 
+ *
  * @param pXPosition New X position pointer
  * @param pYPosition New Y position pointer
  * @param pOam Menu Oam data pointer
@@ -647,7 +649,7 @@ void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamDat
     if (sElevatorRoomPairs[pTarget[0]].area1 == PAUSE_SCREEN_DATA.currentArea)
     {
         PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 = sElevatorRoomPairs[pTarget[0]].area2;
-        
+
         *pXPosition = sElevatorRoomPairs[pTarget[0]].mapX1;
         pOam->xPosition = *pXPosition * HALF_BLOCK_SIZE;
 
@@ -662,7 +664,7 @@ void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamDat
     else
     {
         PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 = sElevatorRoomPairs[pTarget[0]].area1;
-        
+
         *pXPosition = sElevatorRoomPairs[pTarget[0]].mapX2;
         pOam->xPosition = *pXPosition * HALF_BLOCK_SIZE;
 
@@ -678,7 +680,7 @@ void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamDat
 
 /**
  * @brief 72bb8 | 498 | Determines the chozo statue path
- * 
+ *
  * @param param_1 To document
  */
 void ChozoStatueHintDeterminePath(u8 param_1)
@@ -694,7 +696,7 @@ void ChozoStatueHintDeterminePath(u8 param_1)
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
         oam.priority = 0;
-    else    
+    else
         oam.priority = 3;
 
     if (param_1 == FALSE)
@@ -770,7 +772,7 @@ void ChozoStatueHintDeterminePath(u8 param_1)
             pOam->yPosition = PAUSE_SCREEN_DATA.mapY * HALF_BLOCK_SIZE;
             pOam->oamID = pStatueTarget->startIcon;
             pOam++;
-            
+
             PAUSE_SCREEN_DATA.hintTargetX = pStatueTarget->targetX;
             PAUSE_SCREEN_DATA.hintTargetY = pStatueTarget->targetY;
 
@@ -845,7 +847,7 @@ void ChozoStatueHintDeterminePath(u8 param_1)
                 if (sChozoStatueTargetConditions[i][0] == CHOZO_STATUE_HINT_CONDITION_TYPE_SUIT_MISC)
                     break;
             }
-    
+
             pStatueTarget = &sChozoStatueTargets[i];
             if (pStatueTarget->targetArea <= AREA_NORFAIR)
             {
@@ -858,26 +860,26 @@ void ChozoStatueHintDeterminePath(u8 param_1)
                         pOam->xPosition = sElevatorRoomPairs[pTarget[i + 0]].mapX1 * HALF_BLOCK_SIZE;
                         pOam->yPosition = (sElevatorRoomPairs[pTarget[i + 0]].mapY1 + 4) * HALF_BLOCK_SIZE;
                         pOam->exists = TRUE;
-    
+
                         if (pTarget[i + 1] < 0)
                             pOam->oamID = TARGET_OAM_ID_UP_ARROW;
                         else
                             pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
-    
+
                         pOam++;
                     }
-    
+
                     if (sElevatorRoomPairs[pTarget[i + 0]].area2 == PAUSE_SCREEN_DATA.currentArea)
                     {
                         pOam->xPosition = sElevatorRoomPairs[pTarget[i + 0]].mapX2 * HALF_BLOCK_SIZE;
                         pOam->yPosition = (sElevatorRoomPairs[pTarget[i + 0]].mapY2 - 3) * HALF_BLOCK_SIZE;
                         pOam->exists = TRUE;
-    
+
                         if (pTarget[i + 1] < 0)
                             pOam->oamID = TARGET_OAM_ID_UP_ARROW;
                         else
                             pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
-    
+
                         pOam++;
                     }
                 }
@@ -909,7 +911,7 @@ void ChozoStatueHintDeterminePath(u8 param_1)
 
 /**
  * @brief 73050 | 7c | Checks if a target is enabled
- * 
+ *
  * @param target Target
  * @return s32 -1 = not activated, 0 = activated, 1 = de-activated
  */
@@ -919,7 +921,7 @@ s32 ChozoStatueHintCheckTargetIsActivated(u8 target)
 
     result = -1;
 
-    // Check for status 
+    // Check for status
     if (EventFunction(EVENT_ACTION_CHECKING, sChozoStatueHintEvents[target]))
     {
         if (sChozoStatueTargetConditions[target][0] == CHOZO_STATUE_HINT_CONDITION_TYPE_BEAM_BOMBS)
@@ -954,7 +956,7 @@ s32 ChozoStatueHintCheckTargetIsActivated(u8 target)
 
 /**
  * @brief 730cc | 3c | Checks which targets are activated
- * 
+ *
  */
 void PauseScreenCheckActivatedTargets(void)
 {
@@ -976,7 +978,7 @@ void PauseScreenCheckActivatedTargets(void)
 
 /**
  * @brief 73108 | 48 | Checks which areas have an active target
- * 
+ *
  */
 void PauseScreenCheckAreasWithTargets(void)
 {
@@ -998,7 +1000,7 @@ void PauseScreenCheckAreasWithTargets(void)
 
 /**
  * @brief 73150 | f8 | Setups the boss flame data
- * 
+ *
  */
 void PauseScreenDrawBossFlames(void)
 {
@@ -1042,7 +1044,7 @@ void PauseScreenDrawBossFlames(void)
             // Register in boss flame data 1
             PAUSE_SCREEN_DATA.bossFlameData[1].oamOffset = i;
             PAUSE_SCREEN_DATA.bossFlameData[1].movementDirection = TRUE;
-            
+
             PAUSE_SCREEN_DATA.targetsOam[i].xPosition += 8;
             PAUSE_SCREEN_DATA.bossFlameData[1].xPosition = PAUSE_SCREEN_DATA.targetsOam[i].xPosition;
             PAUSE_SCREEN_DATA.bossFlameData[1].yPosition = PAUSE_SCREEN_DATA.targetsOam[i].yPosition;
@@ -1053,7 +1055,7 @@ void PauseScreenDrawBossFlames(void)
 
 /**
  * @brief 73248 | 54 | Updates a boss flame movement animation
- * 
+ *
  * @param pFlame Boss flame data pointer
  */
 void PauseScreenUpdateBossFlameAnimation(struct BossFlameData* pFlame)

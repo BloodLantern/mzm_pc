@@ -1,5 +1,7 @@
-#include "data/sprites/searchlight_eye.h"
-#include "macros.h"
+#include "mzm/data/sprites/searchlight_eye.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sSearchlightEyeGfx[177] = INCBIN_U32("data/sprites/SearchlightEye.gfx.lz");
 const u16 sSearchlightEyePal[16] = INCBIN_U16("data/sprites/SearchlightEye.pal");

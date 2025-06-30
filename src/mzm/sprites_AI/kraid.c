@@ -1,31 +1,33 @@
-#include "sprites_AI/kraid.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/sprites_AI/kraid.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/kraid.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/kraid.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/projectile.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/bg_clip.h"
-#include "structs/connection.h"
-#include "structs/clipdata.h"
-#include "structs/game_state.h"
-#include "structs/in_game_timer.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/scroll.h"
-#include "structs/projectile.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/in_game_timer.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/scroll.h"
+#include "mzm/structs/projectile.h"
+
+#include "mzm_include.h"
 
 #define KRAID_POSE_GO_UP 0x1
 #define KRAID_POSE_CHECK_FULLY_UP 0x2
@@ -74,7 +76,7 @@ enum KraidNailType {
 
 /**
  * @brief 183d8 | 68 | Synchronize the sub sprites of Kraid
- * 
+ *
  */
 static void KraidSyncSubSprites(void)
 {
@@ -83,7 +85,7 @@ static void KraidSyncSubSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sKraidFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sKraidFrameDataPointers[oamIdx];
@@ -97,7 +99,7 @@ static void KraidSyncSubSprites(void)
 
 /**
  * @brief 18440 | 1ac | Checks if a projectile is colliding with Kraid's belly
- * 
+ *
  */
 static void KraidCheckProjectilesCollidingWithBelly(void)
 {
@@ -166,17 +168,17 @@ static void KraidCheckProjectilesCollidingWithBelly(void)
                 case PROJ_TYPE_CHARGED_BEAM:
                     ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
                     break;
-                    
+
                 case PROJ_TYPE_LONG_BEAM:
                 case PROJ_TYPE_CHARGED_LONG_BEAM:
                     ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                     break;
-                    
+
                 case PROJ_TYPE_ICE_BEAM:
                 case PROJ_TYPE_CHARGED_ICE_BEAM:
                     ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                     break;
-                    
+
                 case PROJ_TYPE_WAVE_BEAM:
                 case PROJ_TYPE_CHARGED_WAVE_BEAM:
                     ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
@@ -449,7 +451,7 @@ static void KraidOpenCloseRoutineAndProjectileCollision(void)
 
                 if (!damaged)
                     break;
-                
+
                 if (!closed)
                 {
                     SPRITE_CLEAR_AND_SET_ISFT(*pSprite, CONVERT_SECONDS(.25f + 1.f / 30));
@@ -527,7 +529,7 @@ static void KraidOpenCloseRoutineAndProjectileCollision(void)
 
 /**
  * @brief 18a5c | 1a0 | Spawns random sprite debris on the ceiling
- * 
+ *
  * @param timer Timer
  */
 static void KraidRandomSpriteDebrisOnCeiling(u8 timer)
@@ -600,7 +602,7 @@ static void KraidRandomSpriteDebrisOnCeiling(u8 timer)
 
 /**
  * @brief 18bfc | 1c | Changes the hitbox of something
- * 
+ *
  */
 static void KraidPartHitboxChange_1Unused(void)
 {
@@ -612,7 +614,7 @@ static void KraidPartHitboxChange_1Unused(void)
 
 /**
  * @brief 18c18 | 11c | Updates the arm (idling) hitbox
- * 
+ *
  */
 static void KraidPartUpdateRightArmIdlingHitbox(void)
 {
@@ -695,7 +697,7 @@ static void KraidPartUpdateRightArmIdlingHitbox(void)
 
 /**
  * @brief 18d34 | 154 | Updates the arm (attacking) hitbox
- * 
+ *
  */
 static void KraidPartUpdateRightArmAttackingHitbox(void)
 {
@@ -794,7 +796,7 @@ static void KraidPartUpdateRightArmAttackingHitbox(void)
 
 /**
  * @brief 18e88 | 28 | Changes the hitbox of something
- * 
+ *
  */
 static void KraidPartHitboxChange_2Unused(void)
 {
@@ -809,11 +811,11 @@ static void KraidPartHitboxChange_2Unused(void)
 
 /**
  * @brief 18eb0 | 11c | Updates the left arm (idling) hitbox
- * 
+ *
  */
 static void KraidPartUpdateLeftArmIdlingHitbox(void)
 {
-    
+
     if (gCurrentSprite.animationDurationCounter != DELTA_TIME)
         return;
 
@@ -893,7 +895,7 @@ static void KraidPartUpdateLeftArmIdlingHitbox(void)
 
 /**
  * @brief 18fcc | 138 | Updates the arm (dying) hitbox
- * 
+ *
  */
 static void KraidPartUpdateLeftArmDyingHitbox(void)
 {
@@ -978,7 +980,7 @@ static void KraidPartUpdateLeftArmDyingHitbox(void)
 
 /**
  * @brief 19104 | 22c | Updates the arm (attacking) hitbox
- * 
+ *
  */
 static void KraidPartUpdateLeftArmAttackingHitbox(void)
 {
@@ -1134,7 +1136,7 @@ static void KraidPartUpdateLeftArmAttackingHitbox(void)
 
 /**
  * @brief 19330 | 20 | Moves the BG2 to the right
- * 
+ *
  * @param movement Movement
  */
 static void KraidMoveBg2ToRight(u8 movement)
@@ -1145,7 +1147,7 @@ static void KraidMoveBg2ToRight(u8 movement)
 
 /**
  * @brief 19350 | 20 | Moves the BG2 to the left
- * 
+ *
  * @param movement Movement
  */
 static void KraidMoveBg2ToLeft(u8 movement)
@@ -1156,7 +1158,7 @@ static void KraidMoveBg2ToLeft(u8 movement)
 
 /**
  * @brief 19370 | 22c | Initializes a Kraid sprite
- * 
+ *
  */
 static void KraidInit(void)
 {
@@ -1185,7 +1187,7 @@ static void KraidInit(void)
     gCurrentSprite.hitboxBottom = BLOCK_SIZE + THREE_QUARTER_BLOCK_SIZE;
     gCurrentSprite.hitboxLeft = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
     gCurrentSprite.hitboxRight = BLOCK_SIZE + THREE_QUARTER_BLOCK_SIZE;
-    
+
     gCurrentSprite.work0 = CONVERT_SECONDS(2.f);
     gCurrentSprite.work1 = 0;
     gCurrentSprite.samusCollision = SSC_HURTS_KNOCKBACK_IF_INVINCIBLE;
@@ -1241,7 +1243,7 @@ static void KraidInit(void)
 
 /**
  * @brief 1959c | 50 | Handles kraid moving up at the beginning of the fight
- * 
+ *
  * @return u8 1 if done rising, 0 otherwise
  */
 static u8 KraidMoveUp(void)
@@ -1263,7 +1265,7 @@ static u8 KraidMoveUp(void)
 
 /**
  * @brief 19640 | 2c | Makes kraid go up at the beginning of the fight
- * 
+ *
  */
 static void KraidGoUp(void)
 {
@@ -1286,7 +1288,7 @@ static void KraidGoUp(void)
 
 /**
  * @brief 19640 | 2c | Checks if kraid is fully up
- * 
+ *
  */
 static void KraidCheckFullyUp(void)
 {
@@ -1297,8 +1299,8 @@ static void KraidCheckFullyUp(void)
 
 /**
  * @brief 1966c | 1a4 | Handles Kraid moving a feet
- * 
- * @return u8 
+ *
+ * @return u8
  */
 static u8 KraidMoveFeet(void)
 {
@@ -1380,7 +1382,7 @@ static u8 KraidMoveFeet(void)
 
 /**
  * @brief 19810 | 44 | Initializes Kraid to do the first step
- * 
+ *
  */
 static void KraidFirstStepInit(void)
 {
@@ -1397,7 +1399,7 @@ static void KraidFirstStepInit(void)
 
 /**
  * @brief 19854 | e0 | Handles Kraid doing the first step
- * 
+ *
  */
 static void KraidFirstStep(void)
 {
@@ -1428,7 +1430,7 @@ static void KraidFirstStep(void)
                 gCurrentSprite.pose = KRAID_POSE_SECOND_STEP_INIT;
             else
                 gCurrentSprite.pose = KRAID_POSE_STANDING_BETWEEN_STEPS_INIT;
-            
+
             if (feetStatus != 0)
             {
                 if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3 && feetStatus == 2)
@@ -1442,7 +1444,7 @@ static void KraidFirstStep(void)
 
 /**
  * @brief 19934 | 44 | Initializes Kraid to do the second step
- * 
+ *
  */
 static void KraidSecondStepInit(void)
 {
@@ -1458,7 +1460,7 @@ static void KraidSecondStepInit(void)
 
 /**
  * @brief 19978 | e0 | Handles Kraid doing the second step
- * 
+ *
  */
 static void KraidSecondStep(void)
 {
@@ -1489,7 +1491,7 @@ static void KraidSecondStep(void)
                 gCurrentSprite.pose = KRAID_POSE_FIRST_STEP_INIT;
             else
                 gCurrentSprite.pose = KRAID_POSE_STANDING_INIT;
-            
+
             if (feetStatus != 0)
             {
                 if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3 && feetStatus == 2)
@@ -1503,7 +1505,7 @@ static void KraidSecondStep(void)
 
 /**
  * @brief 19a58 | 24 | Initializes Kraid to be standing
- * 
+ *
  */
 static void KraidStandingInit(void)
 {
@@ -1515,7 +1517,7 @@ static void KraidStandingInit(void)
 
 /**
  * @brief 19a7c | 38 | Handles Kraid standing
- * 
+ *
  */
 static void KraidStanding(void)
 {
@@ -1532,7 +1534,7 @@ static void KraidStanding(void)
 
 /**
  * @brief 19ab4 | 24 | Initializes Kraid to be standing (between steps)
- * 
+ *
  */
 static void KraidStandingBetweenStepsInit(void)
 {
@@ -1544,7 +1546,7 @@ static void KraidStandingBetweenStepsInit(void)
 
 /**
  * @brief 19ad8 | 38 | Handles Kraid (between steps)
- * 
+ *
  */
 static void KraidStandingBetweenSteps(void)
 {
@@ -1562,21 +1564,21 @@ static void KraidStandingBetweenSteps(void)
 
 /**
  * @brief 19b10 | 24 | Prevents samus from going through Kraid
- * 
+ *
  */
 static void KraidPreventSamusGoingThrough(void)
 {
     u16 xPosition;
 
     xPosition = gSubSpriteData1.xPosition + BLOCK_SIZE * 3;
-    
+
     if (gSamusData.xPosition < xPosition)
         gSamusData.xPosition = xPosition;
 }
 
 /**
  * @brief 19b34 | b0 | Initializes Kraid to be dying
- * 
+ *
  */
 static void KraidDyingInit(void)
 {
@@ -1615,7 +1617,7 @@ static void KraidDyingInit(void)
 
 /**
  * @brief 19be4 | 160 | Handles Kraid dying
- * 
+ *
  */
 static void KraidDying(void)
 {
@@ -1686,7 +1688,7 @@ static void KraidDying(void)
 
 /**
  * @brief 19d44 | 184 | Handles Kraid being stationary while dying
- * 
+ *
  */
 static void KraidBeforeDeath(void)
 {
@@ -1751,7 +1753,7 @@ static void KraidBeforeDeath(void)
 
 /**
  * @brief 19ec8 | 360 | Initializes a Kraid part sprite
- * 
+ *
  */
 static void KraidPartInit(void)
 {
@@ -1887,7 +1889,7 @@ static void KraidPartInit(void)
         case KRAID_PART_LEFT_ARM:
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-            
+
             gCurrentSprite.drawDistanceTop = BLOCK_SIZE * 2;
             gCurrentSprite.drawDistanceBottom = (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
             gCurrentSprite.drawDistanceHorizontal = BLOCK_SIZE + HALF_BLOCK_SIZE;
@@ -1960,14 +1962,14 @@ static void KraidPartInit(void)
 
 /**
  * @brief 1a228 | e8 | Handles the left arm throwing the nails
- * 
+ *
  */
 static void KraidPartThrowNails(void)
 {
     u8 ramSlot;
     u8 threshold;
     u8 nbrDrops;
-    
+
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Check can throw the nails
@@ -2023,7 +2025,7 @@ static void KraidPartThrowNails(void)
 
 /**
  * @brief 1a310 | d4 | Checks if samus is near enough for the arm attack
- * 
+ *
  */
 static void KraidPartCheckAttack(void)
 {
@@ -2077,7 +2079,7 @@ static void KraidPartCheckAttack(void)
 
 /**
  * @brief 1a3e4 | c | Calls KraidCheckProjectilesCollidingWithBelly
- * 
+ *
  */
 static void KraidPartCallKraidCheckProjectilesCollidingWithBelly(void)
 {
@@ -2086,7 +2088,7 @@ static void KraidPartCallKraidCheckProjectilesCollidingWithBelly(void)
 
 /**
  * @brief 1a3f0 | 11c | Checks if the spikes should spawn
- * 
+ *
  */
 static void KraidPartCheckShouldSpawnSpikes(void)
 {
@@ -2158,7 +2160,7 @@ static void KraidPartCheckShouldSpawnSpikes(void)
 
 /**
  * @brief 1a50c | 8c | Spawn a spike
- * 
+ *
  */
 static void KraidPartSpawnSpike(void)
 {
@@ -2192,7 +2194,7 @@ static void KraidPartSpawnSpike(void)
 
 /**
  * @brief 1a598 | b0 | Initializes a Kraid part to be dying
- * 
+ *
  */
 static void KraidPartDyingInit(void)
 {
@@ -2239,7 +2241,7 @@ static void KraidPartDyingInit(void)
 
 /**
  * @brief 1a648 | 80 | Handles the arm while Kraid is dying and sinking
- * 
+ *
  */
 static void KraidPartDyingSinking(void)
 {
@@ -2280,12 +2282,12 @@ static void KraidPartDyingSinking(void)
 
 /**
  * @brief 1a6c8 | 188 | Handles the death of a Kraid part
- * 
+ *
  */
 static void KraidPartDyingStationary(void)
 {
     u8 ramSlot;
-    
+
     // Speed up arm animation
     if (gCurrentSprite.roomSlot == KRAID_PART_RIGHT_ARM || gCurrentSprite.roomSlot == KRAID_PART_LEFT_ARM)
         gCurrentSprite.animationDurationCounter += CONVERT_SECONDS(1.f / 30);
@@ -2359,7 +2361,7 @@ static void KraidPartDyingStationary(void)
 
 /**
  * @brief 1a850 | 1ec | Handles the movement of a Kraid nail
- * 
+ *
  */
 static void KraidNailMovement(void)
 {
@@ -2452,7 +2454,7 @@ static void KraidNailMovement(void)
 
 /**
  * @brief 1aa3c | 474 | Kraid AI
- * 
+ *
  */
 void Kraid(void)
 {
@@ -2630,7 +2632,7 @@ void Kraid(void)
 
 /**
  * @brief 1aeb0 | 198 | Kraid part AI
- * 
+ *
  */
 void KraidPart(void)
 {
@@ -2650,7 +2652,7 @@ void KraidPart(void)
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         }
     }
-    
+
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:
@@ -2735,7 +2737,7 @@ void KraidPart(void)
 
 /**
  * @brief 1b048 | 4ac | Kraid spike AI
- * 
+ *
  */
 void KraidSpike(void)
 {
@@ -2786,7 +2788,7 @@ void KraidSpike(void)
 
             gCurrentSprite.work0 = ONE_THIRD_SECOND;
             SoundPlay(SOUND_KRAID_SPIKE_SPAWNING);
-            
+
         case KRAID_SPIKE_POSE_DELAY_BEFORE_MOVING:
             caf = gCurrentSprite.currentAnimationFrame;
             if (caf <= 4)
@@ -2894,7 +2896,7 @@ void KraidSpike(void)
                         ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
                         gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
                         ClipdataProcess(yPosition + BLOCK_SIZE, xPosition);
-    
+
                         ParticleSet(yPosition + BLOCK_SIZE, xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
                     }
                 }
@@ -2970,7 +2972,7 @@ void KraidSpike(void)
 
 /**
  * @brief 1b4f4 | 1c4 | Kraid nail AI
- * 
+ *
  */
 void KraidNail(void)
 {

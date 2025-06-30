@@ -1,24 +1,26 @@
-#include "room_music.h"
+#include "mzm/room_music.h"
 
-#include "data/engine_pointers.h"
-#include "data/cutscenes/cutscenes_data.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/demo.h"
-#include "constants/game_state.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/demo.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/audio.h"
-#include "structs/demo.h"
-#include "structs/game_state.h"
-#include "structs/room.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 60928 | bc | Checks if the current room music track should play
- * 
+ *
  * @param area Area
  * @param room Room id
  */
@@ -38,10 +40,10 @@ void CheckPlayRoomMusicTrack(u8 area, u8 room)
         case AREA_CHOZODIA:
             if (gEquipment.suitType != SUIT_FULLY_POWERED)
                 break;
-            
+
             if (gAlarmTimer == 0)
                 break;
-            
+
             if (gMusicTrackInfo.currentRoomTrack == MUSIC_MAP_ROOM_2 || gMusicTrackInfo.currentRoomTrack == MUSIC_SAVE_ELEVATOR_ROOM_2)
                 gMusicTrackInfo.unk = TRUE;
     }
@@ -60,7 +62,7 @@ void CheckPlayRoomMusicTrack(u8 area, u8 room)
 
 /**
  * @brief 609e4 | 64 | Checks if the loading jingle should play
- * 
+ *
  */
 void CheckPlayLoadingJingle(void)
 {
@@ -117,7 +119,7 @@ void UpdateMusicWhenPausing(void)
 
 /**
  * @brief 60ab8 | 5c | Updates the music after leaving the pause menu
- * 
+ *
  */
 void UpdateMusicAfterPause(void)
 {

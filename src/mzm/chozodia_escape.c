@@ -1,28 +1,30 @@
-#include "chozodia_escape.h"
-#include "dma.h"
-#include "gba.h"
-#include "callbacks.h"
-#include "complex_oam.h" // Required
+#include "mzm/chozodia_escape.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/callbacks.h"
+#include "mzm/complex_oam.h" // Required
 
-#include "data/block_data.h"
-#include "data/haze_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/tourian_escape_data.h"
-#include "data/chozodia_escape_data.h"
-#include "data/internal_chozodia_escape_data.h"
-#include "data/cutscenes/ridley_landing_data.h"
+#include "mzm/data/block_data.h"
+#include "mzm/data/haze_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/tourian_escape_data.h"
+#include "mzm/data/chozodia_escape_data.h"
+#include "mzm/data/internal_chozodia_escape_data.h"
+#include "mzm/data/cutscenes/ridley_landing_data.h"
 
-#include "constants/audio.h"
-#include "constants/ending_and_gallery.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/ending_and_gallery.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/bg_clip.h"
-#include "structs/chozodia_escape.h"
-#include "structs/display.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/chozodia_escape.h"
+#include "mzm/structs/display.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 8784c | ec | V-blank code for the chozodia escape
- * 
+ *
  */
 void ChozodiaEscapeVBlank(void)
 {
@@ -47,7 +49,7 @@ void ChozodiaEscapeVBlank(void)
 
 /**
  * @brief 87938 | 3c | H-blank code for the chozodia escape
- * 
+ *
  */
 void ChozodiaEscapeHBlank(void)
 {
@@ -63,27 +65,27 @@ void ChozodiaEscapeHBlank(void)
 
 /**
  * @brief 87974 | 34 | Transfers and sets the h-blank code
- * 
+ *
  */
 void ChozodiaEscapeSetHBlank(void)
 {
     // Transfer code to RAM
     DMA_SET(3, ChozodiaEscapeHBlank, CHOZODIA_ESCAPE_DATA.hblankCode, C_32_2_16(DMA_ENABLE, 0x20));
-    
+
     // Set pointer
     CallbackSetHBlank((Func_T)(CHOZODIA_ESCAPE_DATA.hblankCode + 1));
 }
 
 /**
  * @brief 879a8 | 64 | Sets up the registers for the h-blank code
- * 
+ *
  */
 void ChozodiaEscapeSetupHBlankRegisters(void)
 {
     // Setup window 0 size (no width, max height)
     write16(REG_WIN0H, 0);
     write16(REG_WIN0V, SCREEN_SIZE_Y);
-    
+
     // Setup window 0 masks with every background and obj (BG0, BG1, BG2, BG3, OBJ)
     // Mask out color effects
     write16(REG_WININ, WIN0_BG0 | WIN0_BG1 | WIN0_BG2 | WIN0_BG3 | WIN0_OBJ | WIN0_COLOR_EFFECT);
@@ -105,7 +107,7 @@ void ChozodiaEscapeSetupHBlankRegisters(void)
 
 /**
  * @brief 87a0c | e0 | Updates the explosion haze values
- * 
+ *
  */
 void ChozodiaEscapeUpdateExplosionHaze(void)
 {
@@ -183,7 +185,7 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
 
 /**
  * @brief 87aec | 11c | Calculates the item count and ending number
- * 
+ *
  * @return u32 Bits 3-0 is ending image, bits 7-4 is ability tank count, bits 11-8 is power bomb tank count,
  *             bits 15-12 is super missile tank count, bits 23-16 is missile tank count, bits 31-24 is energy tank count
  */
@@ -283,7 +285,7 @@ u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
 
 /**
  * @brief 87c08 | f4 | Processe the OAM for the chozodia escape, to document
- * 
+ *
  */
 void ChozodiaEscapeProcessOam_1(void)
 {
@@ -333,13 +335,13 @@ void ChozodiaEscapeProcessOam_1(void)
             currSlot++;
         }
     }
-    
+
     gNextOamSlot = currSlot;
 }
 
 /**
  * @brief 87cfc | 150 | Processe the OAM for the chozodia escape, to document
- * 
+ *
  */
 void ChozodiaEscapeProcessOam_2(void)
 {
@@ -401,7 +403,7 @@ void ChozodiaEscapeProcessOam_2(void)
             part = *src++;
             *dst++ = part;
             gOamData[currSlot].split.x = (part + xPosition) & 0x1FF;
-            
+
             *dst++ = *src++;
             dst++;
         }
@@ -412,7 +414,7 @@ void ChozodiaEscapeProcessOam_2(void)
 
 /**
  * @brief 87e4c | 30c | Initializes the chozodia escape
- * 
+ *
  */
 void ChozodiaEscapeInit(void)
 {
@@ -490,7 +492,7 @@ void ChozodiaEscapeInit(void)
 
     ChozodiaEscapeProcessOam_2();
     ResetFreeOam();
-    
+
     ApplyMonochromeToPalette(sChozodiaEscapeMissionAccomplishedPal, CHOZODIA_ESCAPE_DATA.monochromePalette, 0);
 
     // Set ending flags
@@ -537,7 +539,7 @@ void ChozodiaEscapeInit(void)
 
 /**
  * @brief 88158 | 184 | Handles the blue ship leaving part of the cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ChozodiaEscapeShipLeaving(void)
@@ -597,7 +599,7 @@ u8 ChozodiaEscapeShipLeaving(void)
     if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] != CHOZODIA_ESCAPE_OAM_TYPE_NONE)
     {
         velocity = CHOZODIA_ESCAPE_DATA.oamYOffset;
-        
+
         if (CHOZODIA_ESCAPE_DATA.scaling > Q_8_8(2.f))
             CHOZODIA_ESCAPE_DATA.scaling = Q_8_8(2.f);
 
@@ -634,7 +636,7 @@ u8 ChozodiaEscapeShipLeaving(void)
 
 /**
  * @brief 882dc | 22c | Handles the ship heating up part of the cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ChozodiaEscapeShipHeatingUp(void)
@@ -764,7 +766,7 @@ u8 ChozodiaEscapeShipHeatingUp(void)
 
 /**
  * @brief 88508 | 3ec | Handles the ship blowing up part of the cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ChozodiaEscapeShipBlowingUp(void)
@@ -942,7 +944,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
 
 /**
  * @brief 888f4 | 30c | Handles the ship leaving the planet part of the cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ChozodiaEscapeShipLeavingPlanet(void)
@@ -971,7 +973,7 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
             LZ77UncompVRAM(sChozodiaEscapeZebesBackgroundTileTable, VRAM_BASE + 0xE800);
             LZ77UncompVRAM(sChozodiaEscapeZebesSkyTileTable, VRAM_BASE + 0xF000);
             LZ77UncompVRAM(sChozodiaEscapeSamusInBlueShipTileTable, VRAM_BASE + 0xF800);
-            
+
             DMA_SET(3, sChozodiaEscapeMissionAccomplishedPal, PALRAM_BASE,
                 DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeMissionAccomplishedPal));
             DMA_SET(3, sChozodiaEscapeMissionAccomplishedPal, PALRAM_OBJ,
@@ -1055,7 +1057,7 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
                 CHOZODIA_ESCAPE_DATA.oamTimers[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = 0;
             }
         }
-            
+
         xPosition = CHOZODIA_ESCAPE_DATA.oamXPositions[1] += CHOZODIA_ESCAPE_DATA.oamXOffset;
         yPosition = CHOZODIA_ESCAPE_DATA.oamYPositions[1] += CHOZODIA_ESCAPE_DATA.oamYOffset;
 
@@ -1098,7 +1100,7 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
 
 /**
  * @brief 88c00 | 15c | Handles the "mission accomplished" text part of the cutscene
- * 
+ *
  * @return u8 bool, ended (0, 2)
  */
 u8 ChozodiaEscapeMissionAccomplished(void)
@@ -1114,7 +1116,7 @@ u8 ChozodiaEscapeMissionAccomplished(void)
 
             // Load the "correct" palette for samus in blue ship, makes her visible
             DMA_SET(3, sChozodiaEscapeSamusInBlueShipPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sChozodiaEscapeSamusInBlueShipPal)));
-            
+
             CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_OBJ;
             break;
 
@@ -1178,7 +1180,7 @@ u8 ChozodiaEscapeMissionAccomplished(void)
 
 /**
  * @brief 88d5c | 144 | Subroutine for the chozodia escape
- * 
+ *
  * @return u32 bool, ended
  */
 u32 ChozodiaEscapeSubroutine(void)
@@ -1250,7 +1252,7 @@ u32 ChozodiaEscapeSubroutine(void)
                 gGameModeSub1++;
                 gGameModeSub2 = 0;
             }
-            
+
             ResetFreeOam();
             break;
 

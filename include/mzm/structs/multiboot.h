@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define READ_SIO_MULTI(i) (*(((vu16*)REG_SIO_MULTI) + i))
 

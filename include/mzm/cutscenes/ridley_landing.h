@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
 
 enum RidleyLandingOamId {
-    RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_IN_SPACE = 1, 
+    RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_IN_SPACE = 1,
     RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_BOTTOM_PART,
     RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_MIDDLE_PART,
     RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_TOP_PART,

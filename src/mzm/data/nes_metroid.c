@@ -1,5 +1,7 @@
-#include "data/nes_metroid.h"
-#include "macros.h"
+#include "mzm/data/nes_metroid.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const NesEmuFunc_T sNesEmuBootLoader = (NesEmuFunc_T)(0xEB000033);
 

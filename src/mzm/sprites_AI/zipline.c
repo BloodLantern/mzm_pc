@@ -1,17 +1,19 @@
-#include "sprites_AI/zipline.h"
-#include "macros.h"
+#include "mzm/sprites_AI/zipline.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/zipline.h"
+#include "mzm/data/sprites/zipline.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 // Zipline
 
@@ -36,7 +38,7 @@
 
 /**
  * @brief 1d318 | 8c | Checks the collision for a stop block
- * 
+ *
  */
 static void ZiplineCheckColliding(void)
 {
@@ -71,7 +73,7 @@ static void ZiplineCheckColliding(void)
 
 /**
  * @brief 1d3a4 | c8 | Handles a zipline moving
- * 
+ *
  * @return u8 1 if releasing, 0 otherwise
  */
 static u8 ZiplineMoving(void)
@@ -135,7 +137,7 @@ static u8 ZiplineMoving(void)
 
 /**
  * @brief 1d46c | 1dc | Updates the OAM of the zipline
- * 
+ *
  */
 static void ZiplineUpdateOAM(void)
 {
@@ -207,7 +209,7 @@ static void ZiplineUpdateOAM(void)
                         gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBED;
                     }
                     break;
-                
+
                 case ZIPLINE_ANIMATION_STATE_RELEASING:
                     if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
@@ -253,7 +255,7 @@ static void ZiplineUpdateOAM(void)
                         gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASED;
                     }
                     break;
-                
+
                 case ZIPLINE_ANIMATION_STATE_RELEASING:
                     if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
@@ -296,7 +298,7 @@ static void ZiplineUpdateOAM(void)
                         gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASED;
                     }
                     break;
-                
+
                 case ZIPLINE_ANIMATION_STATE_RELEASING:
                     if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
@@ -322,7 +324,7 @@ static void ZiplineUpdateOAM(void)
 
 /**
  * @brief 1d648 | a4 | Initializes a zipline sprite
- * 
+ *
  */
 static void ZiplineInit(void)
 {
@@ -362,7 +364,7 @@ static void ZiplineInit(void)
 
 /**
  * @brief 1d6ec | 84 | Handles a zipline being idle
- * 
+ *
  */
 static void ZiplineUpdate(void)
 {
@@ -394,7 +396,7 @@ static void ZiplineUpdate(void)
 
 /**
  * @brief 1d770 | 98 | Initializes a zipline button sprite
- * 
+ *
  */
 static void ZiplineButtonInit(void)
 {
@@ -428,7 +430,7 @@ static void ZiplineButtonInit(void)
 
 /**
  * @brief 1d808 | 20 | Initializes a zipline button to be idle
- * 
+ *
  */
 static void ZiplineButtonIdleInit(void)
 {
@@ -441,7 +443,7 @@ static void ZiplineButtonIdleInit(void)
 
 /**
  * @brief 1d828 | 4c | Binds the zipline of the room to the button
- * 
+ *
  */
 static void ZiplineButtonBindZipline(void)
 {
@@ -458,7 +460,7 @@ static void ZiplineButtonBindZipline(void)
 
     // Bind
     gCurrentSprite.work1 = ramSlot;
-    
+
     // Set behavior
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
         ZiplineButtonIdleInit();
@@ -468,7 +470,7 @@ static void ZiplineButtonBindZipline(void)
 
 /**
  * @brief 1d874 | 18 | Handles a zipline button being off
- * 
+ *
  */
 static void ZiplineButtonOff(void)
 {
@@ -478,7 +480,7 @@ static void ZiplineButtonOff(void)
 
 /**
  * @brief 1d88c | 78 | Handles a zipline button being idle
- * 
+ *
  */
 static void ZiplineButtonIdle(void)
 {
@@ -511,7 +513,7 @@ static void ZiplineButtonIdle(void)
 
 /**
  * @brief 1d904 | 28 | Handles a zipline button being active
- * 
+ *
  */
 static void ZiplineButtonZiplineMoving(void)
 {
@@ -525,7 +527,7 @@ static void ZiplineButtonZiplineMoving(void)
 
 /**
  * @brief 1d92c | 28 | Zipline AI
- * 
+ *
  */
 void Zipline(void)
 {
@@ -542,7 +544,7 @@ void Zipline(void)
 
 /**
  * @brief 1d954 | d0 | Zipline button AI
- * 
+ *
  */
 void ZiplineButton(void)
 {
@@ -559,7 +561,7 @@ void ZiplineButton(void)
         case ZIPLINE_BUTTON_POSE_IDLE:
             ZiplineButtonIdle();
             break;
-            
+
         case ZIPLINE_BUTTON_POSE_ACTIVATED:
             ZiplineButtonZiplineMoving();
             break;

@@ -1,5 +1,7 @@
-#include "data/sprites/metroid.h"
-#include "macros.h"
+#include "mzm/data/sprites/metroid.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sMetroidSpawningYMovement[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 2, 2, 1,
@@ -13,7 +15,7 @@ const s16 sMetroidSpawningXMovement[81] = {
     2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
     0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0,
     -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -1, -1, -1,
-    -1, -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX 
+    -1, -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const u32 sMetroidGfx[793] = INCBIN_U32("data/sprites/Metroid.gfx.lz");

@@ -1,16 +1,18 @@
-#include "sprites_AI/security_gate.h"
-#include "macros.h"
+#include "mzm/sprites_AI/security_gate.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/security_gate.h"
+#include "mzm/data/sprites/security_gate.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define SECURITY_GATE_POSE_IDLE 0x9
 #define SECURITY_GATE_POSE_CLOSING 0x23
@@ -19,7 +21,7 @@
 
 /**
  * @brief 2eaf8 | 50 | Updates the clipdata of the security gate
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void SecurityGateChangeClipdata(u8 caa)
@@ -46,7 +48,7 @@ static void SecurityGateChangeClipdata(u8 caa)
 
 /**
  * @brief 2eb48 | 40 | Opens the gate
- * 
+ *
  */
 static void SecurityGateOpen(void)
 {
@@ -63,7 +65,7 @@ static void SecurityGateOpen(void)
 
 /**
  * @brief 2eb88 | 38 | Starts the closing of the gate
- * 
+ *
  */
 static void SecurityGateClose(void)
 {
@@ -77,7 +79,7 @@ static void SecurityGateClose(void)
 
 /**
  * @brief 2ebc0 | a8 | Initializes a security gate default open sprite
- * 
+ *
  */
 static void SecurityGateDefaultOpenInit(void)
 {
@@ -115,7 +117,7 @@ static void SecurityGateDefaultOpenInit(void)
 
 /**
  * @brief 2ec68 | 18 | Checks if the alarm timer is different than 0, if yes closes the gate
- * 
+ *
  */
 static void SecurityGateDefaultOpenCheckAlarm(void)
 {
@@ -125,7 +127,7 @@ static void SecurityGateDefaultOpenCheckAlarm(void)
 
 /**
  * @brief 2ec80 | 38 | Checks if the closing animation has ended
- * 
+ *
  */
 static void SecurityGateCheckClosingAnimEnded(void)
 {
@@ -142,7 +144,7 @@ static void SecurityGateCheckClosingAnimEnded(void)
 
 /**
  * @brief 2ecb8 | 60 | Called after the alarm is done, opens the gate if necessary
- * 
+ *
  */
 static void SecurityGateDefaultOpenOpenAfterAlarm(void)
 {
@@ -166,7 +168,7 @@ static void SecurityGateDefaultOpenOpenAfterAlarm(void)
 
 /**
  * @brief 2ed18 | 28 | Checks if the opening animation has ended
- * 
+ *
  */
 static void SecurityGateOpening(void)
 {
@@ -181,7 +183,7 @@ static void SecurityGateOpening(void)
 
 /**
  * @brief 2ed40 | 40 | Handles the death of the security gate, unused
- * 
+ *
  */
 static void SecurityGateDeath(void)
 {
@@ -198,7 +200,7 @@ static void SecurityGateDeath(void)
 
 /**
  * @brief 2ed80 | a4 | Initializes a security gate default closed sprite
- * 
+ *
  */
 static void SecurityGateDefaultClosedInit(void)
 {
@@ -235,7 +237,7 @@ static void SecurityGateDefaultClosedInit(void)
 
 /**
  * @brief 2ee24 | 18 | Checks if the alarm timer is 0, if yes closes the gate
- * 
+ *
  */
 static void SecurityGateDefaultClosedCheckAlarm(void)
 {
@@ -245,7 +247,7 @@ static void SecurityGateDefaultClosedCheckAlarm(void)
 
 /**
  * @brief 2ee3c | 3c | Checks if the alarm timer isn't 0, if yes calls SecurityGateOpen
- * 
+ *
  */
 static void SecurityGateDefaultClosedCloseAfterAlarm(void)
 {
@@ -261,7 +263,7 @@ static void SecurityGateDefaultClosedCloseAfterAlarm(void)
 
 /**
  * @brief 2ee78 | f0 | Security Gate Default Open AI
- * 
+ *
  */
 void SecurityGateDefaultOpen(void)
 {
@@ -296,7 +298,7 @@ void SecurityGateDefaultOpen(void)
 
 /**
  * @brief 2ef68 | f0 | Security Gate Default Closed AI
- * 
+ *
  */
 void SecurityGateDefaultClosed(void)
 {

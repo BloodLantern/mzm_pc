@@ -1,5 +1,7 @@
-#include "data/sprites/holtz.h"
-#include "macros.h"
+#include "mzm/data/sprites/holtz.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sHoltzIdleYVelocity[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1,

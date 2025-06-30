@@ -1,42 +1,44 @@
-#include "event.h"
-#include "menus/status_screen.h"
-#include "menus/pause_screen.h"
-#include "dma.h"
+#include "mzm/event.h"
+#include "mzm/menus/status_screen.h"
+#include "mzm/menus/pause_screen.h"
+#include "mzm/dma.h"
 
-#include "data/block_data.h"
-#include "data/shortcut_pointers.h"
-#include "data/menus/status_screen_data.h"
-#include "data/menus/pause_screen_data.h"
-#include "data/menus/pause_screen_map_data.h"
-#include "data/menus/internal_pause_screen_data.h"
-#include "data/menus/internal_status_screen_data.h"
-#include "data/internal_text_data.h"
+#include "mzm/data/block_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/menus/status_screen_data.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/data/menus/pause_screen_map_data.h"
+#include "mzm/data/menus/internal_pause_screen_data.h"
+#include "mzm/data/menus/internal_status_screen_data.h"
+#include "mzm/data/internal_text_data.h"
 
-#include "constants/audio.h"
-#include "constants/connection.h"
-#include "constants/demo.h"
-#include "constants/event.h"
-#include "constants/samus.h"
-#include "constants/text.h"
-#include "constants/game_state.h"
-#include "constants/menus/pause_screen.h"
-#include "constants/menus/status_screen.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/demo.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/menus/pause_screen.h"
+#include "mzm/constants/menus/status_screen.h"
 
-#include "structs/demo.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/text.h"
-#include "structs/menus/pause_screen.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/text.h"
+#include "mzm/structs/menus/pause_screen.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 6fd00 | 118 | Updates the minimap animated palette
- * 
+ *
  */
 void UpdateMinimapAnimatedPalette(void)
 {
     s32 value;
     s32 temp;
-    
+
     if (!PAUSE_SCREEN_DATA.onWorldMap)
     {
         PAUSE_SCREEN_DATA.unk_18++;
@@ -92,7 +94,7 @@ void UpdateMinimapAnimatedPalette(void)
 
 /**
  * @brief 6fe18 | cc | Loads the pause screen background palette (To document)
- * 
+ *
  */
 void LoadPauseScreenBgPalette(void)
 {
@@ -123,7 +125,7 @@ void LoadPauseScreenBgPalette(void)
 
 /**
  * @brief Updates graphics related to the map screen
- * 
+ *
  * @param param_0 TODO
  * @param area Area
  */
@@ -156,7 +158,7 @@ void PauseDebugUpdateMapOverlay(u8 param_0, u8 area)
             PauseScreenDetermineMapsViewable();
             LoadPauseScreenBgPalette();
             DmaTransfer(3, (void*)sEwramPointer + 0x9800, VRAM_BASE + 0xD000, 0x800, 16);
-            
+
             PauseScreenMapSetSpawnPosition(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);
             PauseScreenUpdateWorldMap(2);
             break;
@@ -165,7 +167,7 @@ void PauseDebugUpdateMapOverlay(u8 param_0, u8 area)
 
 /**
  * @brief Activates all obtained abilities if fully powered
- * 
+ *
  */
 void PauseDebugActivateAbilities(void)
 {
@@ -178,7 +180,7 @@ void PauseDebugActivateAbilities(void)
 
 /**
  * @brief Main function for pause debug menu
- * 
+ *
  * @return u32 Leaving
  */
 u32 PauseDebugSubroutine(void)
@@ -217,7 +219,7 @@ u32 PauseDebugSubroutine(void)
 
 /**
  * @brief Toggles a single ability
- * 
+ *
  * @param isActivation Whether activation is being toggled
  * @param group Pause debug group
  * @param abilityNum Ability number within the group
@@ -237,7 +239,7 @@ void PauseDebugToggleAbility(u8 isActivation, u8 group, u8 abilityNum)
     start = PAUSE_DEBUG_GROUP_BEAM;
     flag = sStatusScreenFlagsOrderPointers[group - start][abilityNum];
     toggle = TRUE;
-    
+
     if (group < start)
         return;
 
@@ -283,7 +285,7 @@ void PauseDebugToggleAbility(u8 isActivation, u8 group, u8 abilityNum)
 
 /**
  * @brief Main function for pause debug status screen
- * 
+ *
  */
 void PauseDebugStatusScreen(void)
 {
@@ -360,11 +362,11 @@ void PauseDebugStatusScreen(void)
         case PAUSE_DEBUG_GROUP_GET_MAP:
             if (!(gChangedInput & KEY_A))
                 break;
-            
+
             work2 = TRUE;
             if (xPos == 3)
                 break;
-            
+
             if (xPos > 3)
                 work3 = yPos;
             else if (yPos == 0)
@@ -407,7 +409,7 @@ void PauseDebugStatusScreen(void)
                 UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
                 break;
             }
-            
+
             if (PAUSE_SCREEN_DATA.subroutineInfo.stage != 0)
             {
                 if (gChangedInput & KEY_RIGHT)
@@ -427,7 +429,7 @@ void PauseDebugStatusScreen(void)
                 }
             }
             break;
-        
+
         case PAUSE_DEBUG_GROUP_S_EVENT:
             work3 = FALSE;
             if (PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
@@ -455,7 +457,7 @@ void PauseDebugStatusScreen(void)
                 }
                 break;
             }
-            
+
             work3 = FALSE;
             if (gChangedInput & KEY_DOWN)
             {
@@ -525,7 +527,7 @@ void PauseDebugStatusScreen(void)
                 if (xPos < 7)
                     PAUSE_SCREEN_DATA.miscOam[0].xPosition -= 32;
             }
-            
+
             if (work3)
             {
                 gInGameTimer.frames = 0;
@@ -664,7 +666,7 @@ void PauseDebugStatusScreen(void)
 
 /**
  * @brief Draws one of the pause debug ability groups
- * 
+ *
  * @param group Pause debug group to draw
  */
 void PauseDebugDrawAbilityGroup(u8 group)
@@ -707,7 +709,7 @@ void PauseDebugDrawAbilityGroup(u8 group)
     {
         dst = VRAM_BASE + 0xB000 + (sPauseDebugGroupsPositions[group].top + i) * 64 +
             sPauseDebugGroupsPositions[group].left * 2;
-        
+
         if (*pAbility & sStatusScreenFlagsOrderPointers[group][i])
             tmp1 = 9;
         else
@@ -727,7 +729,7 @@ void PauseDebugDrawAbilityGroup(u8 group)
 
 /**
  * @brief Draws multiple pause debug groups
- * 
+ *
  * @param groups Bit flags of groups to redraw
  */
 void PauseDebugDrawAffectedGroups(u32 groups)
@@ -742,40 +744,40 @@ void PauseDebugDrawAffectedGroups(u32 groups)
 
     if (groups & (1 << PAUSE_DEBUG_GROUP_BEAM))
         PauseDebugDrawAbilityGroup(PAUSE_DEBUG_GROUP_BEAM);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_BOMB))
         PauseDebugDrawAbilityGroup(PAUSE_DEBUG_GROUP_BOMB);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_SUIT))
         PauseDebugDrawAbilityGroup(PAUSE_DEBUG_GROUP_SUIT);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_MISC))
         PauseDebugDrawAbilityGroup(PAUSE_DEBUG_GROUP_MISC);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_CURRENT_ENERGY))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_CURRENT_ENERGY);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_MAX_ENERGY))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_MAX_ENERGY);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_CURRENT_MISSILES))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_CURRENT_MISSILES);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_MAX_MISSILES))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_MAX_MISSILES);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_MAX_SUPER_MISSILES))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_MAX_SUPER_MISSILES);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_MAX_POWER_BOMBS))
         PauseDebugDrawEnergyAmmoGroup(PAUSE_DEBUG_GROUP_MAX_POWER_BOMBS);
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_GET_MAP))
     {
         i = 0;
@@ -809,7 +811,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
             dst = VRAM_BASE + palette;
         }
     }
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_TIME))
     {
         dst = VRAM_BASE + 0xB000 +
@@ -847,7 +849,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
             divisor /= 10;
         }
     }
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_SAVE))
     {
         dst = VRAM_BASE + 0xB000;
@@ -856,7 +858,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
         for (j = 4; j > 0; j--, dst++)
             *dst = (*dst & 0xFFF) | 0x9000;
     }
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_DOOR_UNLOCK))
     {
         if (gDoorUnlockTimer != 0 || gHatchesState.unlocking != 0)
@@ -880,7 +882,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
             }
         }
     }
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_LANGUAGE))
     {
         if (gLanguage < LANGUAGE_END)
@@ -893,7 +895,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
         for (j = 0; j < ARRAY_SIZE(sPauseDebug_Language_Text[0]); j++)
             *dst++ = (sPauseDebug_Language_Text[i][j] + 0x360) | 0xB000;
     }
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_DIFFICULTY))
     {
         if (gDifficulty < DIFF_END)
@@ -906,7 +908,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
         for (j = 0; j < ARRAY_SIZE(sPauseDebug_Difficulty_Text[0]); j++)
             *dst++ = (sPauseDebug_Difficulty_Text[i][j] + 0x360) | 0xB000;
     }
-    
+
     if (groups & (1 << PAUSE_DEBUG_GROUP_SUIT_TYPE))
     {
         if (gEquipment.suitType < SUIT_END)
@@ -925,7 +927,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
 
 /**
  * @brief Draws the area ID, room ID, door ID, region, and save color
- * 
+ *
  */
 void PauseDebugDrawStaticInfo(void)
 {
@@ -982,7 +984,7 @@ void PauseDebugDrawStaticInfo(void)
 
 /**
  * @brief Handles input for the enery and ammo pause debug groups
- * 
+ *
  * @param xOffset X offset from right edge of group
  * @param group Pause debug group
  * @return u8 Value changed
@@ -1002,7 +1004,7 @@ u8 PauseDebugEnergyAmmoInput(u8 xOffset, u8 group)
 
     ammoGroup = group - PAUSE_DEBUG_GROUP_CURRENT_ENERGY;
     valueChanged = FALSE;
-    
+
     if (group == PAUSE_DEBUG_GROUP_CURRENT_ENERGY)
     {
         changeValue16 = &gEquipment.currentEnergy;
@@ -1064,7 +1066,7 @@ u8 PauseDebugEnergyAmmoInput(u8 xOffset, u8 group)
     maxValue = sPowersOfTen[
         sPauseDebugGroupsPositions[group].right -
         sPauseDebugGroupsPositions[group].left + 1] - 1;
-    
+
     if (sPauseDebugEnergyAmmoInfo[ammoGroup].type == 0)
     {
         increase = sTankIncreaseAmount[gDifficulty].energy;
@@ -1173,14 +1175,14 @@ u8 PauseDebugEnergyAmmoInput(u8 xOffset, u8 group)
 
 /**
  * @brief Draws one of the enery or ammo pause debug groups
- * 
+ *
  * @param group Pause debug group to draw
  */
 void PauseDebugDrawEnergyAmmoGroup(u8 group)
 {
     switch (group)
     {
-        case PAUSE_DEBUG_GROUP_CURRENT_ENERGY:  
+        case PAUSE_DEBUG_GROUP_CURRENT_ENERGY:
         case PAUSE_DEBUG_GROUP_MAX_ENERGY:
             PauseDebugDrawEnergyAmmoNumber(gEquipment.currentEnergy, PAUSE_DEBUG_GROUP_CURRENT_ENERGY);
             PauseDebugDrawEnergyAmmoNumber(gEquipment.maxEnergy, PAUSE_DEBUG_GROUP_MAX_ENERGY);
@@ -1197,13 +1199,13 @@ void PauseDebugDrawEnergyAmmoGroup(u8 group)
             PauseDebugDrawEnergyAmmoNumber(gEquipment.currentSuperMissiles, PAUSE_DEBUG_GROUP_CURRENT_SUPER_MISSILES);
             PauseDebugDrawEnergyAmmoNumber(gEquipment.maxSuperMissiles, PAUSE_DEBUG_GROUP_MAX_SUPER_MISSILES);
             break;
-        
+
         case PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS:
         case PAUSE_DEBUG_GROUP_MAX_POWER_BOMBS:
             PauseDebugDrawEnergyAmmoNumber(gEquipment.currentPowerBombs, PAUSE_DEBUG_GROUP_CURRENT_POWER_BOMBS);
             PauseDebugDrawEnergyAmmoNumber(gEquipment.maxPowerBombs, PAUSE_DEBUG_GROUP_MAX_POWER_BOMBS);
             break;
-        
+
         case PAUSE_DEBUG_GROUP_S_EVENT:
             PauseDebugDrawEnergyAmmoNumber(0, PAUSE_DEBUG_GROUP_S_EVENT);
             break;
@@ -1212,7 +1214,7 @@ void PauseDebugDrawEnergyAmmoGroup(u8 group)
 
 /**
  * @brief Draws a number for one of the enery or ammo pause debug groups
- * 
+ *
  * @param number Number to draw
  * @param group Pause debug group
  */
@@ -1223,7 +1225,7 @@ void PauseDebugDrawEnergyAmmoNumber(u16 number, u8 group)
     s32 draw;
     s32 digit;
     s32 tmp;
-    
+
     dst = VRAM_BASE + 0xB000;
     dst += sPauseDebugGroupsPositions[group].top * 32 + sPauseDebugGroupsPositions[group].left;
     divisor = sPowersOfTen[sPauseDebugGroupsPositions[group].right - sPauseDebugGroupsPositions[group].left];
@@ -1253,7 +1255,7 @@ void PauseDebugDrawEnergyAmmoNumber(u16 number, u8 group)
 
 /**
  * @brief Handles input for the EQUIP:TANK pause debug group
- * 
+ *
  * @param tankOrEquip Whether tank or equip is selected
  */
 void PauseDebugEquipTank(u8 tankOrEquip)
@@ -1261,7 +1263,7 @@ void PauseDebugEquipTank(u8 tankOrEquip)
     s32 change;
 
     change = 0;
-    
+
     if (tankOrEquip == 0)
     {
         if (gChangedInput & (KEY_R | KEY_START))
@@ -1296,14 +1298,14 @@ void PauseDebugEquipTank(u8 tankOrEquip)
         {
             gEquipment.suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SPACE_JUMP | SMF_SCREW_ATTACK | SMF_VARIA_SUIT | SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP;
             gEquipment.beamBombs = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_WAVE_BEAM | BBF_PLASMA_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS;
-            
+
             change = 2;
         }
         else if (gChangedInput & (KEY_L | KEY_SELECT))
         {
             gEquipment.suitMisc = SMF_NONE;
             gEquipment.beamBombs = BBF_NONE;
-            
+
             change = 2;
         }
     }
@@ -1334,7 +1336,7 @@ void PauseDebugEquipTank(u8 tankOrEquip)
 
 /**
  * @brief Draws every pause debug group
- * 
+ *
  */
 void PauseDebugDrawAllGroups(void)
 {
@@ -1347,7 +1349,7 @@ void PauseDebugDrawAllGroups(void)
 
 /**
  * @brief Initializes the cursor for the pause debug menu
- * 
+ *
  */
 void PauseDebugInitCursor(void)
 {
@@ -1358,7 +1360,7 @@ void PauseDebugInitCursor(void)
 
 /**
  * @brief Draws the pause debug event list
- * 
+ *
  */
 void PauseDebugDrawEventList(void)
 {
@@ -1370,7 +1372,7 @@ void PauseDebugDrawEventList(void)
 
 /**
  * @brief Main function for the pause debug event list
- * 
+ *
  */
 void PauseDebugEventList(void)
 {
@@ -1433,7 +1435,7 @@ void PauseDebugEventList(void)
 
 /**
  * @brief Handles input for the pause debug event list
- * 
+ *
  */
 void PauseDebugEventListInput(void)
 {
@@ -1441,7 +1443,7 @@ void PauseDebugEventListInput(void)
     s32 move;
     s32 change;
     s32 topEvent;
-    
+
     if (gChangedInput & KEY_A)
     {
         event = EventFunction(EVENT_ACTION_TOGGLING, PAUSE_SCREEN_DATA.debugSelectedEvent);
@@ -1463,7 +1465,7 @@ void PauseDebugEventListInput(void)
             if (PAUSE_SCREEN_DATA.debugSelectedEvent >= EVENT_STATUE_LONG_BEAM_GRABBED && PAUSE_SCREEN_DATA.debugSelectedEvent <= EVENT_STATUE_SCREW_ATTACK_GRABBED)
                 PauseDebugUpdateMapOverlay(2, PAUSE_SCREEN_DATA.currentArea);
         }
-        
+
         PAUSE_SCREEN_DATA.debugPreviousChangedEvent = PAUSE_SCREEN_DATA.debugSelectedEvent;
     }
 
@@ -1532,7 +1534,7 @@ void PauseDebugEventListInput(void)
     // Update cursor position
     PAUSE_SCREEN_DATA.miscOam[0].xPosition = (PAUSE_SCREEN_DATA.debugEventCursorX & 31) * 32;
     PAUSE_SCREEN_DATA.miscOam[0].yPosition = ((PAUSE_SCREEN_DATA.debugSelectedEvent - PAUSE_SCREEN_DATA.debugTopEvent) & 31) * 32 + 12;
-    
+
     if (move == 2)
     {
         event = PAUSE_SCREEN_DATA.debugSelectedEvent;
@@ -1566,7 +1568,7 @@ void PauseDebugEventListInput(void)
 
 /**
  * @brief Draws a single event name in the pause debug event list
- * 
+ *
  * @param event Event
  * @param dst Destination address
  */
@@ -1619,7 +1621,7 @@ void PauseDebugDrawEventName(u16 event, u16* dst)
 
 /**
  * @brief 6fee4 | 68 | Updates the current suit type
- * 
+ *
  * @param newSuit New suit type
  */
 void UpdateSuitType(u8 newSuit)
@@ -1654,7 +1656,7 @@ void UpdateSuitType(u8 newSuit)
 
 /**
  * @brief 6ff4c | d4 | Draws the status screen row provided
- * 
+ *
  * @param u8 row Row to draw
  * @return u32 bool, done drawing
  */
@@ -1679,7 +1681,7 @@ u32 StatusScreenDrawItems(u8 row)
         tmp2 = FALSE; // Needed to produce matching ASM.
         position = (sStatusScreenGroupsPositions[sStatusScreenGroupsDimensions[i][0]].top + row) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsPositions[sStatusScreenGroupsDimensions[i][0]].left;
-    
+
         if (sStatusScreenGroupsDimensions[i][1] <= row)
             continue;
 
@@ -1689,7 +1691,7 @@ u32 StatusScreenDrawItems(u8 row)
             dst[position] = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position];
         }
     }
-    
+
     if (row >= 7)
         j = TRUE;
     else
@@ -1700,7 +1702,7 @@ u32 StatusScreenDrawItems(u8 row)
 
 /**
  * @brief 70020 | 160 | Gets the status slot for a new item
- * 
+ *
  * @param param_1 0: unused, 1: new item, 2: suit change
  * @param item Item
  * @return u8 Status slot
@@ -1789,7 +1791,7 @@ u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
 
 /**
  * @brief 70180 | 1a4 | Draws the status screen
- * 
+ *
  */
 void StatusScreenDraw(void)
 {
@@ -1852,7 +1854,7 @@ void StatusScreenDraw(void)
 
 /**
  * @brief 70324 | f0 | Sets the status screen pistol visibility
- * 
+ *
  * @param pTilemap Status screen tilemap pointer
  */
 void StatusScreenSetPistolVisibility(u16* pTilemap)
@@ -1888,7 +1890,7 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
 
     if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
         PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80;
-        
+
     if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == STATUS_SLOT_0)
         PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_BEAM;
 
@@ -1905,7 +1907,7 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
 
 /**
  * @brief 70414 | 120 | Draws a single status screen tank amount
- * 
+ *
  * @param group Status screen group
  * @param amount Amount
  * @param palette Palette
@@ -1980,7 +1982,7 @@ void StatusScreenDrawSingleTankAmount(u8 group, u16 amount, u8 palette, u8 isMax
 
 /**
  * @brief 70534 | 170 | Sets the status screen beams visibility
- * 
+ *
  * @param pTilemap Status screen tilemap pointer
  */
 void StatusScreenSetBeamsVisibility(u16* pTilemap)
@@ -2057,7 +2059,7 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
 
         srcPosition = sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS].bottom * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS].left;
-        
+
         for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS].right - sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS].left; j++)
         {
             pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
@@ -2067,7 +2069,7 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
 
 /**
  * @brief 706a4 | 16c | Sets the status screen suits visibility
- * 
+ *
  * @param pTilemap Status screen tilemap pointer
  */
 void StatusScreenSetSuitsVisibility(u16* pTilemap)
@@ -2083,7 +2085,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
     u8* pVisibility;
     u8* ptr;
     s32 size;
-    
+
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.suitActivation;
 
     i = 0;
@@ -2143,7 +2145,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
 
     srcPosition = sStatusScreenUnknownItemsPositions[ABILITY_GROUP_SUITS].bottom * HALF_BLOCK_SIZE +
         sStatusScreenUnknownItemsPositions[ABILITY_GROUP_SUITS].left;
-    
+
     for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS].right - sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS].left; j++)
     {
         pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
@@ -2152,7 +2154,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
 
 /**
  * @brief 70810 | 1b0 | Sets the status screen misc. visibility
- * 
+ *
  * @param pTilemap Status screen tilemap pointer
  */
 void StatusScreenSetMiscsVisibility(u16* pTilemap)
@@ -2212,7 +2214,7 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
 
     dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISC].top) * HALF_BLOCK_SIZE +
         sStatusScreenGroupsPositions[ABILITY_GROUP_MISC].left;
-    
+
     srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC].top) * HALF_BLOCK_SIZE +
         sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC].left;
 
@@ -2224,7 +2226,7 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
     j++;
     dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISC].top + j) * HALF_BLOCK_SIZE +
         sStatusScreenGroupsPositions[ABILITY_GROUP_MISC].left;
-    
+
     srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC].bottom) * HALF_BLOCK_SIZE +
         sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC].left;
 
@@ -2236,7 +2238,7 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
 
 /**
  * @brief 709c0 | 26c | Sets the status screen bombs visibility
- * 
+ *
  * @param pTilemap Status screen tilemap pointer
  */
 void StatusScreenSetBombsVisibility(u16* pTilemap)
@@ -2275,7 +2277,7 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
     {
         dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS].top + i) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS].left;
-        
+
         srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BOMBS].top + sPauseScreen_7603ea[i]) * HALF_BLOCK_SIZE;
         srcPosition += sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BOMBS].left;
 
@@ -2330,7 +2332,7 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
 
     dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS].top + nbrToProcess) * HALF_BLOCK_SIZE +
         sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS].left;
-    
+
     if (nbrToProcess != 2)
         nbrToProcess++;
 
@@ -2348,7 +2350,7 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
 
 /**
  * @brief 70c2c | 1f0 | Sets the status screen missiles visibility
- * 
+ *
  * @param pTilemap Status screen tilemap pointer
  */
 void StatusScreenSetMissilesVisibility(u16* pTilemap)
@@ -2380,7 +2382,7 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
     {
         dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES].top + i) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES].left;
-        
+
         srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES].top + i) * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES].left;
 
@@ -2424,12 +2426,12 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
         else if (gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
             j = FALSE;
 
-        StatusScreenUpdateRow(ABILITY_GROUP_MISSILES, i, j, FALSE);        
+        StatusScreenUpdateRow(ABILITY_GROUP_MISSILES, i, j, FALSE);
     }
 
     dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES].top + nbrToProcess) * HALF_BLOCK_SIZE +
         sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES].left;
-    
+
     srcPosition = sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES].bottom * HALF_BLOCK_SIZE +
         sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES].left;
 
@@ -2444,7 +2446,7 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
 
 /**
  * @brief 70e1c | a4 | Updates the tilemap of a status screen row
- * 
+ *
  * @param group Group
  * @param row Row
  * @param isActivated Is the row activated
@@ -2463,7 +2465,7 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 drawUpdate)
     size = sStatusScreenGroupsPositions[group].right - sStatusScreenGroupsPositions[group].left;
 
     baseTile = isActivated ? (11 << 12) : (12 << 12);
-    
+
     // Weird pointer/array access? this is just PAUSE_SCREEN_EWRAM.statusScreenTilemap[position + 1];
     pEwram = (u16*)&PAUSE_SCREEN_EWRAM;
     pTilemap = &pEwram[position + 1];
@@ -2487,7 +2489,7 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 drawUpdate)
 
 /**
  * @brief 70ec0 | 98 | Enables the tilemap for an unknown item
- * 
+ *
  * @param group Group
  * @param row Row
  */
@@ -2515,7 +2517,7 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
 
     i = (sStatusScreenGroupsPositions[group].top + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsPositions[group].left;
     size = sStatusScreenGroupsPositions[group].right - sStatusScreenGroupsPositions[group].left;
-    
+
     dst = (u16*)(VRAM_BASE + 0xC002) + i;
 
     position++;
@@ -2528,7 +2530,7 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
 
 /**
  * @brief 70f58 | 14 | Checks for the item toggle input
- * 
+ *
  * @param button Input flag
  * @return u32 bool, pressed
  */
@@ -2539,7 +2541,7 @@ u32 StatusScreenCheckItemToggleInput(u16 button)
 
 /**
  * @brief 70f6c | 44 | Initializes the cursor and the item
- * 
+ *
  */
 void StatusScreenInitCursorAndItems(void)
 {
@@ -2556,7 +2558,7 @@ void StatusScreenInitCursorAndItems(void)
 
 /**
  * @brief 70fb0 | 220 | Handles the suitless items sequence
- * 
+ *
  * @return u32 bool, ended
  */
 u32 StatusScreenSuitlessItems(void)
@@ -2588,7 +2590,7 @@ u32 StatusScreenSuitlessItems(void)
                 {
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
                     togglingResult = StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING2);
-                
+
                     if (togglingResult < 0)
                     {
                         if (gDemoState != DEMO_STATE_NONE)
@@ -2629,13 +2631,13 @@ u32 StatusScreenSuitlessItems(void)
                         // Update row
                         StatusScreenUpdateRow(sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group,
                             sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row, TRUE, TRUE);
-                        
+
                     default:
                         // Play normal item sound
                         SoundPlay(SOUND_TOGGLING_ITEM_ON);
                         break;
                 }
-                
+
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                 break;
@@ -2687,7 +2689,7 @@ u32 StatusScreenSuitlessItems(void)
 
 /**
  * @brief 711d0 | c0 | Navigates the current status slot until it finds an unknown item
- * 
+ *
  * @param wantUnknownItem Bool, want to get unknown item
  * @return u32 Result of search, 0: invalid slot, 1: wantUnknownItem satisfied, 2: all slots searched
  */
@@ -2701,7 +2703,7 @@ u32 StatusScreenFindUnknownItemSlot(u8 wantUnknownItem)
     {
         if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_END)
             return 2;
-        
+
         switch (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group)
         {
             case ABILITY_GROUP_BEAMS:
@@ -2755,7 +2757,7 @@ u32 StatusScreenFindUnknownItemSlot(u8 wantUnknownItem)
 
 /**
  * @brief 71290 | 19c | Updates the unknown items animated palette
- * 
+ *
  * @param stage Stage of unknown item palette
  * @return u32 bool, ended
  */
@@ -2801,7 +2803,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 stage)
             {
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
-                    
+
                 if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreenUnknownItemsFullFlash))
                 {
                     PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = ARRAY_SIZE(sStatusScreenUnknownItemsFullFlash) - 1;
@@ -2854,7 +2856,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 stage)
 
 /**
  * @brief 7142c | 3d4 | Handles the fully powered items sequence
- * 
+ *
  * @return u32 bool, ended
  */
 u32 StatusScreenFullyPoweredItems(void)
@@ -2910,11 +2912,11 @@ u32 StatusScreenFullyPoweredItems(void)
         case FULLY_POWERED_ITEMS_ACTIVATE_NORMAL_SLOT:
             if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(.1f))
                 break;
-            
+
             // Update row (enables it)
             StatusScreenUpdateRow(sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group,
                 sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row, TRUE, TRUE);
-            
+
             // Enable cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING_DESTROY);
@@ -2967,7 +2969,7 @@ u32 StatusScreenFullyPoweredItems(void)
 
             // Set position (same calculations as cursor)
             PAUSE_SCREEN_DATA.miscOam[10].yPosition = (sStatusScreenGroupsPositions[sStatusScreenItemsData[
-                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group].top + 
+                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group].top +
                 sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row) * HALF_BLOCK_SIZE;
 
             PAUSE_SCREEN_DATA.miscOam[10].xPosition = (sStatusScreenGroupsPositions[sStatusScreenItemsData[
@@ -2992,7 +2994,7 @@ u32 StatusScreenFullyPoweredItems(void)
             // Enable item (visually)
             StatusScreenEnableUnknownItem(sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group,
                 sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row);
-            
+
             // Update cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
@@ -3075,7 +3077,7 @@ u32 StatusScreenFullyPoweredItems(void)
 
 /**
  * @brief 71800 | 94 | Subroutine for the status screen
- * 
+ *
  */
 void StatusScreenSubroutine(void)
 {
@@ -3130,7 +3132,7 @@ void StatusScreenSubroutine(void)
 
 /**
  * @brief 71894 | 1a8 | Gets the equipment ID/description text id for the provided status slot
- * 
+ *
  * @param statusSlot Status slot
  * @return u8 Equipment id (description text id)
  */
@@ -3223,7 +3225,7 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
                 activation = PAUSE_SCREEN_DATA.statusScreenData.suitActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
                 if (activation == 0)
                     break;
-                
+
                 if (activation & SMF_VARIA_SUIT)
                 {
                     descriptionTextId = DESCRIPTION_TEXT_VARIA_SUIT;
@@ -3295,7 +3297,7 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
 
 /**
  * @brief 71a3c | 50 | Updates the item cursor position
- * 
+ *
  * @param statusSlot Status slot
  * @return u32 New position (XXYY, in bytes)
  */
@@ -3318,7 +3320,7 @@ u32 StatusScreenUpdateCursorPosition(u8 statusSlot)
 
 /**
  * @brief 71a8c | a0 | Checks if a status slot is enabled or not
- * 
+ *
  * @param statusSlot Status slot
  * @return u32 bool, enabled
  */
@@ -3362,7 +3364,7 @@ u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot)
 
 /**
  * @brief 71b2c | 294 | Handles toggling an item
- * 
+ *
  * @param statusSlot Status slot
  * @param action Toggling action
  * @return u32 bool, is on (0xFF if can't toggle)
@@ -3375,7 +3377,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
     u8 i;
     u8 isActivated;
     u8 subActivated;
-    
+
     flag = 0;
     switch (sStatusScreenItemsData[statusSlot].group)
     {
@@ -3473,7 +3475,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
                         subActivated = FALSE;
                         if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] == (BOMB_ACTIVATION_MORPH_ACTIVATED | BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_ACTIVATED | BOMB_ACTIVATION_COLLECTED))
                             subActivated = TRUE;
-                        
+
                         StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, i + 1, subActivated, TRUE);
                     }
                     break;
@@ -3495,7 +3497,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
                     subActivated = FALSE;
                     if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] == (BOMB_ACTIVATION_MORPH_ACTIVATED | BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_ACTIVATED | BOMB_ACTIVATION_COLLECTED))
                         subActivated = TRUE;
-                    
+
                     StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, 2, subActivated, TRUE);
                     break;
             }
@@ -3531,14 +3533,14 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
 
 /**
  * @brief 71dc0 | bc | Handles the cursor movement
- * 
+ *
  */
 void StatusScreenMoveCursor(void)
 {
     u32 statusSlot;
     s32 offset;
     u8 prevSlot;
-    
+
     // Check isn't doing the "focusing" animation
     if (PAUSE_SCREEN_DATA.miscOam[0].oamID == MISC_OAM_ID_ITEM_CURSOR_FOCUSING)
         return;
@@ -3593,7 +3595,7 @@ void StatusScreenMoveCursor(void)
 
 /**
  * @brief 71e7c | f4 | Determines the destination slot of the status screen cursor
- * 
+ *
  * @param offset Movement direction
  * @param previousSlot Previous slot
  * @return u32 New slot
@@ -3670,14 +3672,14 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
         {
             if (StatusScreenIsStatusSlotEnabled(newSlot))
                 break;
-            
+
             newSlot += off;
 
             if (newSlot < lowerLimit)
                 newSlot = upperLimit;
             else if (newSlot > upperLimit)
                 newSlot = lowerLimit;
-            
+
             if (newSlot == oldNewSlot)
             {
                 newSlot = prevSlot;
@@ -3718,7 +3720,7 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
                 newSlot = upperLimit;
             else if (newSlot > upperLimit)
                 newSlot = lowerLimit;
-            
+
             if (newSlot == oldNewSlot)
             {
                 newSlot = prevSlot;

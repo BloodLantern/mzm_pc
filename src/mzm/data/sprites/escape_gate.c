@@ -1,6 +1,8 @@
-#include "data/sprites/escape_gate.h"
+#include "mzm/data/sprites/escape_gate.h"
 
-#include "macros.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sEscapeGateAndTimerGfx[2048] = INCBIN_U8("data/sprites/EscapeGateAndTimer.gfx");
 const u16 sEscapeGateAndTimerPal[16] = INCBIN_U16("data/sprites/EscapeGateAndTimer.pal");

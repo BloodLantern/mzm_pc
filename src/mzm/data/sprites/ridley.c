@@ -1,7 +1,9 @@
-#include "data/sprites/ridley.h"
-#include "macros.h"
+#include "mzm/data/sprites/ridley.h"
+#include "mzm/macros.h"
 
-#include "sprites_AI/ridley.h"
+#include "mzm/sprites_AI/ridley.h"
+
+#include "mzm_include.h"
 
 static const s16 sRidleyMultiSpriteData_Idle_Frame0[RIDLEY_PART_END][MULTI_SPRITE_DATA_ELEMENT_END] = {
     [RIDLEY_PART_LEFT_WING] = {

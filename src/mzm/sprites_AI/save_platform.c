@@ -1,18 +1,20 @@
-#include "sprites_AI/save_platform.h"
-#include "sprites_AI/item_banner.h"
+#include "mzm/sprites_AI/save_platform.h"
+#include "mzm/sprites_AI/item_banner.h"
 
-#include "data/sprites/save_platform.h"
+#include "mzm/data/sprites/save_platform.h"
 
-#include "constants/audio.h"
-#include "constants/escape.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/escape.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/game_state.h"
-#include "structs/hud.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define SAVE_PLATFORM_POSE_IDLE 0x9
 #define SAVE_PLATFORM_POSE_OPENING 0x23
@@ -51,7 +53,7 @@ enum SavePlatformPart {
 
 /**
  * @brief 1f9b0 | 38 | Checks if Samus is standing on a save platform
- * 
+ *
  * @return u8 bool, samus standing on platform
  */
 u8 SavePlatformDetectSamus(void)
@@ -76,7 +78,7 @@ u8 SavePlatformDetectSamus(void)
 
 /**
  * @brief 1f9e8 | 128 | Initializes a save platform sprite
- * 
+ *
  */
 static void SavePlatformInit(void)
 {
@@ -129,7 +131,7 @@ static void SavePlatformInit(void)
 
 /**
  * @brief 1fb10 | 58 | Handles a save platform being idle
- * 
+ *
  */
 static void SavePlatformSamusDetection(void)
 {
@@ -153,7 +155,7 @@ static void SavePlatformSamusDetection(void)
 
 /**
  * @brief 1fb68 | 2c | Handles a save platform opening
- * 
+ *
  */
 static void SavePlatformCheckOpeningAnimEnded(void)
 {
@@ -168,7 +170,7 @@ static void SavePlatformCheckOpeningAnimEnded(void)
 
 /**
  * @brief 1fb94 | 80 | Handles a save platform being opened
- * 
+ *
  */
 static void SavePlatformSecondSamusDetection(void)
 {
@@ -199,7 +201,7 @@ static void SavePlatformSecondSamusDetection(void)
 
 /**
  * @brief 1fc14 | 30 | Handles a save platform closing
- * 
+ *
  */
 static void SavePlatformCheckClosingAnimEnded(void)
 {
@@ -215,7 +217,7 @@ static void SavePlatformCheckClosingAnimEnded(void)
 
 /**
  * @brief 1fc44 | 34 | Handles a save platform releasing Samus
- * 
+ *
  */
 static void SavePlatformReleaseSamus(void)
 {
@@ -232,7 +234,7 @@ static void SavePlatformReleaseSamus(void)
 
 /**
  * @brief 1fc78 | 38 | Handles a save platform after a save
- * 
+ *
  */
 static void SavePlatformSamusDetectionOut(void)
 {
@@ -248,7 +250,7 @@ static void SavePlatformSamusDetectionOut(void)
 
 /**
  * @brief 1fcb0 | d0 | Handles a save platform during a save prompt
- * 
+ *
  */
 static void SavePlatformSavePrompt(void)
 {
@@ -295,7 +297,7 @@ static void SavePlatformSavePrompt(void)
 
 /**
  * @brief 1fd80 | 40 | Handles a save platform saving
- * 
+ *
  */
 static void SavePlatformSaving(void)
 {
@@ -316,7 +318,7 @@ static void SavePlatformSaving(void)
 
 /**
  * @brief 1fdc0 | 44 | Initializes a save platform to be opened (off)
- * 
+ *
  */
 static void SavePlatformOpenedOffInit(void)
 {
@@ -332,7 +334,7 @@ static void SavePlatformOpenedOffInit(void)
 
 /**
  * @brief 1fe04 | 44 | Spawns the "save complete" message
- * 
+ *
  */
 static void SavePlatformSpawnSaveDoneMessage(void)
 {
@@ -340,14 +342,14 @@ static void SavePlatformSpawnSaveDoneMessage(void)
     if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_WAIT_FOR_MESSAGE_OUT;
-        gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE, 
+        gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE,
             SPRITE_GFX_SLOT_SPECIAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
 }
 
 /**
  * @brief 1fe48 | 38 | Handles a save platform waiting for the "Save complete" message to be done
- * 
+ *
  */
 static void SavePlatformCheckMessageBannerOut(void)
 {
@@ -363,7 +365,7 @@ static void SavePlatformCheckMessageBannerOut(void)
 
 /**
  * @brief 1fe80 | 24 | Handles the delay before a save platform releases Samus
- * 
+ *
  */
 static void SavePlatformDelayBeforeReleasingSamus(void)
 {
@@ -374,7 +376,7 @@ static void SavePlatformDelayBeforeReleasingSamus(void)
 
 /**
  * @brief 1fea4 | 16c | Initializes a save platform part sprite
- * 
+ *
  */
 static void SavePlatformPartInit(void)
 {
@@ -426,7 +428,7 @@ static void SavePlatformPartInit(void)
         case SAVE_PLATFORM_PART_RAY:
             gCurrentSprite.drawOrder = 5;
             gCurrentSprite.pOam = sSavePlatformPartOam_Ray;
-            
+
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
@@ -456,7 +458,7 @@ static void SavePlatformPartInit(void)
 
 /**
  * @brief 20010 | 4 | Empty function
- * 
+ *
  */
 static void SavePlatformPart_Empty(void)
 {
@@ -465,7 +467,7 @@ static void SavePlatformPart_Empty(void)
 
 /**
  * @brief 20014 | 1c | Initializes the top part to be extending
- * 
+ *
  */
 static void SavePlatformPartExtendingInit(void)
 {
@@ -477,7 +479,7 @@ static void SavePlatformPartExtendingInit(void)
 
 /**
  * @brief 20030 | 2c | Handles the top part extending
- * 
+ *
  */
 static void SavePlatformPartTopExtending(void)
 {
@@ -492,7 +494,7 @@ static void SavePlatformPartTopExtending(void)
 
 /**
  * @brief 2005c | 34 | Initializes the top part to be retracting
- * 
+ *
  */
 static void SavePlatformPartTopRetractingInit(void)
 {
@@ -506,7 +508,7 @@ static void SavePlatformPartTopRetractingInit(void)
 
 /**
  * @brief 20090 | 2c | Handles the top part retracting
- * 
+ *
  */
 static void SavePlatformPartTopRetracting(void)
 {
@@ -521,7 +523,7 @@ static void SavePlatformPartTopRetracting(void)
 
 /**
  * @brief 200bc | 50 | Handles the tube part spawning
- * 
+ *
  */
 static void SavePlatformPartTubeSpawning(void)
 {
@@ -540,7 +542,7 @@ static void SavePlatformPartTubeSpawning(void)
 
 /**
  * @brief 2010c | 54 | Handles the tube part spawning the ray part
- * 
+ *
  */
 static void SavePlatformPartSpawnRay(void)
 {
@@ -558,7 +560,7 @@ static void SavePlatformPartSpawnRay(void)
 
 /**
  * @brief 20160 | 30 | Handles the tube part being idle
- * 
+ *
  */
 static void SavePlatformPartTubeIdle(void)
 {
@@ -574,7 +576,7 @@ static void SavePlatformPartTubeIdle(void)
 
 /**
  * @brief 20190 | 3c | handles the tube part despawning
- * 
+ *
  */
 static void SavePlatformPartTubeDespawning(void)
 {
@@ -587,7 +589,7 @@ static void SavePlatformPartTubeDespawning(void)
 
 /**
  * @brief 201cc | 18 | Handles the tube shadow part being idle
- * 
+ *
  */
 static void SavePlatformPartTubeShadowIdle(void)
 {
@@ -597,7 +599,7 @@ static void SavePlatformPartTubeShadowIdle(void)
 
 /**
  * @brief 201e4 | 44 | Handles the ray part being idle
- * 
+ *
  */
 static void SavePlatformPartRayIdle(void)
 {
@@ -613,7 +615,7 @@ static void SavePlatformPartRayIdle(void)
 
 /**
  * @brief 20228 | 1a8 | Save platform AI
- * 
+ *
  */
 void SavePlatform(void)
 {
@@ -675,7 +677,7 @@ void SavePlatform(void)
 
 /**
  * @brief 203d0 | 194 | Save platform part AI
- * 
+ *
  */
 void SavePlatformPart(void)
 {

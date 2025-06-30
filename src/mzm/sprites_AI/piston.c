@@ -1,17 +1,19 @@
-#include "sprites_AI/piston.h"
-#include "macros.h"
-#include "gba/display.h"
+#include "mzm/sprites_AI/piston.h"
+#include "mzm/macros.h"
+#include "mzm/gba/display.h"
 
-#include "data/sprites/piston.h"
+#include "mzm/data/sprites/piston.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/display.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
-#include "structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/clipdata.h"
+
+#include "mzm_include.h"
 
 #define PISTON_POSE_IDLE_INIT 0x8
 #define PISTON_POSE_CHECK_FOR_PROJECTILES 0x9
@@ -20,7 +22,7 @@
 
 /**
  * @brief 31708 | 54 | Updates the clipdata of the 4 piston blocks
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void PistonChangeBodyClipdata(u8 caa)
@@ -46,7 +48,7 @@ static void PistonChangeBodyClipdata(u8 caa)
 
 /**
  * @brief 3175c | 20 | Updates the clipdata of the bottom block of the piston
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void PistonChangeOneBelowClipdata(u8 caa)
@@ -63,7 +65,7 @@ static void PistonChangeOneBelowClipdata(u8 caa)
 
 /**
  * @brief 3177c | 28 | Updates the clipdata of the top block of the piston
- * 
+ *
  * @param caa Clipdata affecting action
  */
 static void PistonChangeOneUpperClipdata(u8 caa)
@@ -80,7 +82,7 @@ static void PistonChangeOneUpperClipdata(u8 caa)
 
 /**
  * @brief 317a4 | 40 | Checks if samus is colliding with the piston
- * 
+ *
  * @return u8 bool, colliding
  */
 static u8 PistonSamusCollision(void)
@@ -111,7 +113,7 @@ static u8 PistonSamusCollision(void)
 
 /**
  * @brief 317e4 | 4c | Checks if samus is colliding with the piston upper part when it goes up
- * 
+ *
  * @return u8 bool, samus in
  */
 static u8 PistonCheckSamusIn(void)
@@ -139,7 +141,7 @@ static u8 PistonCheckSamusIn(void)
 
 /**
  * @brief 31830 | 60 | Initializes a piston sprite
- * 
+ *
  */
 static void PistonInit(void)
 {
@@ -161,7 +163,7 @@ static void PistonInit(void)
 
 /**
  * @brief 31890 | 2c | Initializes a piston to be idle
- * 
+ *
  */
 static void PistonIdleInit(void)
 {
@@ -177,7 +179,7 @@ static void PistonIdleInit(void)
 
 /**
  * @brief 318bc | 88 | Detects if a projectile is hitting the pistol
- * 
+ *
  */
 static void PistonCheckProjectile(void)
 {
@@ -208,7 +210,7 @@ static void PistonCheckProjectile(void)
 
 /**
  * @brief 31944 | 58 | Handles the piston opening
- * 
+ *
  */
 static void PistonOpen(void)
 {
@@ -234,7 +236,7 @@ static void PistonOpen(void)
 
 /**
  * @brief 3199c | 34 | Handles the piston being opened
- * 
+ *
  */
 static void PistonOpened(void)
 {
@@ -251,7 +253,7 @@ static void PistonOpened(void)
 
 /**
  * @brief 319d0 | d4 | Piston AI
- * 
+ *
  */
 void Piston(void)
 {
@@ -262,7 +264,7 @@ void Piston(void)
 
         case PISTON_POSE_IDLE_INIT:
             PistonIdleInit();
-        
+
         case PISTON_POSE_CHECK_FOR_PROJECTILES:
             PistonCheckProjectile();
             break;

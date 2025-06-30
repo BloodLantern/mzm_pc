@@ -1,12 +1,14 @@
-#include "sprites_AI/chozo_statue_movement.h"
-#include "macros.h"
+#include "mzm/sprites_AI/chozo_statue_movement.h"
+#include "mzm/macros.h"
 
-#include "structs/sprite.h"
-#include "constants/sprite.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/constants/sprite.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 125e8 | 160 | Spawns a new chozo statue movement secondary sprite
- * 
+ *
  * @param stage Movement stage
  */
 void SpawnChozoStatueMovement(u8 stage)
@@ -72,7 +74,7 @@ void SpawnChozoStatueMovement(u8 stage)
 
 /**
  * @brief 12748 | 38 | Chozo statue movement AI
- * 
+ *
  */
 void ChozoStatueMovement(void)
 {

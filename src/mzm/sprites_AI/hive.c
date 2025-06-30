@@ -1,20 +1,22 @@
-#include "sprites_AI/hive.h"
-#include "macros.h"
-#include "gba/display.h"
+#include "mzm/sprites_AI/hive.h"
+#include "mzm/macros.h"
+#include "mzm/gba/display.h"
 
-#include "data/sprites/hive.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/hive.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/event.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define HIVE_POSE_PHASE_1 0x9
 #define HIVE_POSE_PHASE_2 0x23
@@ -32,7 +34,7 @@
 
 /**
  * @brief 24a10 | 2c | Spawns 2 particle effects
- * 
+ *
  */
 static void HiveSpawnParticle(void)
 {
@@ -48,7 +50,7 @@ static void HiveSpawnParticle(void)
 
 /**
  * @brief 24a3c | 124 | Initializes a hive sprite
- * 
+ *
  */
 static void HiveInit(void)
 {
@@ -84,12 +86,12 @@ static void HiveInit(void)
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.pose = 9;
     gCurrentSprite.work0 = 0;
-    
+
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
     gfxSlot = gCurrentSprite.spritesetGfxSlot;
     roomSlot = gCurrentSprite.roomSlot;
-    
+
     // Spawn rooms
     SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, roomSlot, gfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0);
 
@@ -106,7 +108,7 @@ static void HiveInit(void)
 
 /**
  * @brief 24b60 | 54 | Counts the mellow linked to the current hive
- * 
+ *
  * @return u8 Number of mellows
  */
 static u8 HiveCountMellows(void)
@@ -135,7 +137,7 @@ static u8 HiveCountMellows(void)
 
 /**
  * @brief 24bb4 | 78 | Handles the phase 1 of the hive
- * 
+ *
  */
 static void HivePhase1(void)
 {
@@ -144,7 +146,7 @@ static void HivePhase1(void)
         SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
-    
+
     if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteId) / 2)
     {
         gCurrentSprite.frozenPaletteRowOffset = 2;
@@ -161,7 +163,7 @@ static void HivePhase1(void)
 
 /**
  * @brief 24c2c | 78 | Handles the phase 2 of the hive
- * 
+ *
  */
 static void HivePhase2(void)
 {
@@ -170,7 +172,7 @@ static void HivePhase2(void)
         SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
-    
+
     if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteId) / 4)
     {
         gCurrentSprite.frozenPaletteRowOffset = 3;
@@ -187,7 +189,7 @@ static void HivePhase2(void)
 
 /**
  * @brief 24ca4 | 30 | Handles the phase 3 of the hive
- * 
+ *
  */
 static void HivePhase3(void)
 {
@@ -200,7 +202,7 @@ static void HivePhase3(void)
 
 /**
  * @brief 24cd4 | 10c | Handles the hive dying
- * 
+ *
  */
 static void HiveDying(void)
 {
@@ -266,7 +268,7 @@ static void HiveDying(void)
 
 /**
  * @brief 24de0 | 10 | Sets the ignore samus collision timer to 1
- * 
+ *
  */
 static void HiveDead(void)
 {
@@ -275,7 +277,7 @@ static void HiveDead(void)
 
 /**
  * @brief 24df0 | 64 | Initializes a hive roots sprite
- * 
+ *
  */
 static void HiveRootsInit(void)
 {
@@ -302,7 +304,7 @@ static void HiveRootsInit(void)
 
 /**
  * @brief 24e54 | 24 | Syncronises the position of the roots with the hive
- * 
+ *
  */
 static void HiveRootsIdle(void)
 {
@@ -316,7 +318,7 @@ static void HiveRootsIdle(void)
 
 /**
  * @brief 24e78 | 150 | Initializes a mellow sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  */
 static void MellowInit(struct SpriteData* pSprite)
@@ -341,7 +343,7 @@ static void MellowInit(struct SpriteData* pSprite)
     pSprite->animationDurationCounter = 0;
     pSprite->currentAnimationFrame = 0;
     pSprite->samusCollision = SSC_MELLOW;
-    
+
     pSprite->health = GET_PSPRITE_HEALTH(pSprite->spriteId);
     if (pSprite->roomSlot != 0x88)
     {
@@ -352,7 +354,7 @@ static void MellowInit(struct SpriteData* pSprite)
             pSprite->work2 = 0x14;
         else
             pSprite->work2 = 0x3C;
-        
+
         if (pSprite->xPosition & 0x1)
             pSprite->drawOrder = 3;
         else
@@ -380,7 +382,7 @@ static void MellowInit(struct SpriteData* pSprite)
 
 /**
  * @brief 24fc8 | c0 | Handles a mellow being idle
- * 
+ *
  * @param pSprite Sprite data pointer
  */
 static void MellowIdle(struct SpriteData* pSprite)
@@ -437,7 +439,7 @@ static void MellowIdle(struct SpriteData* pSprite)
 
 /**
  * @brief 25088 | 48 | Handles the mellow fleeing
- * 
+ *
  * @param pSprite Sprite data pointer
  */
 static void MellowFleeing(struct SpriteData* pSprite)
@@ -461,7 +463,7 @@ static void MellowFleeing(struct SpriteData* pSprite)
 
 /**
  * @brief 250d0 | 68 | Initializes a mellow sprite to be in samus detected behavior
- * 
+ *
  * @param pSprite Sprite data pointer
  */
 static void MellowMoveInit(struct SpriteData* pSprite)
@@ -486,13 +488,13 @@ static void MellowMoveInit(struct SpriteData* pSprite)
 static void MellowMove(struct SpriteData* pSprite)
 {
     // https://decomp.me/scratch/o7G5U
-    
+
     struct SpriteData* pMellow;
     u8 offset;
 
     u8 limit;
     u8 flip;
-    
+
     u16 spriteY;
     u16 spriteX;
     u16 spriteTop;
@@ -511,7 +513,7 @@ static void MellowMove(struct SpriteData* pSprite)
     spriteRight = pSprite->xPosition + offset;
 
     ramSlot = pSprite->primarySpriteRamSlot + 1;
-    
+
     for (pMellow = gSpriteData + ramSlot; pMellow < gSpriteData + MAX_AMOUNT_OF_SPRITES; pMellow++)
     {
         if (!(pMellow->status & SPRITE_STATUS_EXISTS))
@@ -669,7 +671,7 @@ static void MellowMove(struct SpriteData* pSprite)
     }
 
     flip = FALSE;
-    
+
     if (pSprite->status & SPRITE_STATUS_FACING_DOWN)
     {
         if (pSprite->work0 == 0)
@@ -1348,7 +1350,7 @@ void Hive(void)
 
 /**
  * @brief 255b8 | ac | Hive roots AI
- * 
+ *
  */
 void HiveRoots(void)
 {
@@ -1401,7 +1403,7 @@ void Mellow(void)
         if (pSprite->status & SPRITE_STATUS_ONSCREEN)
             SoundPlayNotAlreadyPlaying(SOUND_MELLOW_DAMAGED);
     }
-    
+
     if (pSprite->freezeTimer != 0)
     {
         SpriteUtilUpdateFreezeTimer();
@@ -1461,7 +1463,7 @@ void MellowSwarm(void)
         }
 
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
-    
+
         gCurrentSprite.hitboxTop = -PIXEL_SIZE;
         gCurrentSprite.hitboxBottom = PIXEL_SIZE;
         gCurrentSprite.hitboxLeft = -PIXEL_SIZE;

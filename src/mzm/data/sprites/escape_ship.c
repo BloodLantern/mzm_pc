@@ -1,5 +1,7 @@
-#include "data/sprites/escape_ship.h"
-#include "macros.h"
+#include "mzm/data/sprites/escape_ship.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sEscapeShipHoveringYMovement[65] = {
     0, -1, 0, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1, -1,

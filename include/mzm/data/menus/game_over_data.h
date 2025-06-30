@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/game_over.h"
-#include "constants/game_state.h"
-#include "structs/menus/game_over.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/constants/game_over.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/structs/menus/game_over.h"
+#include "mzm/structs/cutscene.h"
 
 extern const u16 sGameOverMenuPal[16 * 5];
 extern const u32 sGameOverTextAndBackgroundGfx[2738];

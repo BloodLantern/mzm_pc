@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "structs/audio.h"
+#include "mzm/structs/audio.h"
 
 u8 InitTrack(struct TrackData* pTrack, const u32* pHeader);
 void StopMusicOrSound(struct TrackData* pTrack);

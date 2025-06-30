@@ -1,18 +1,20 @@
-#include "sprites_AI/skultera.h"
-#include "macros.h"
+#include "mzm/sprites_AI/skultera.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/skultera.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/skultera.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/clipdata.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define SKULTERA_POSE_IDLE_INIT 0x8
 #define SKULTERA_POSE_IDLE 0x9
@@ -30,7 +32,7 @@
 
 /**
  * @brief 48c7c | 30 | Sets the side hitboxes depending on the X flip
- * 
+ *
  */
 static void SkulteraSetSidesHitbox(void)
 {
@@ -48,7 +50,7 @@ static void SkulteraSetSidesHitbox(void)
 
 /**
  * @brief 48cac | 64 | Handles the horizontal movement of the skultera
- * 
+ *
  * @param movement X velocity
  * @return u8 bool, colliding with solid
  */
@@ -87,7 +89,7 @@ static u8 SkulteraXMovement(u16 movement)
 
 /**
  * @brief 48d10 | 68 | Initializes a skultera sprite
- * 
+ *
  */
 static void SkulteraInit(void)
 {
@@ -115,7 +117,7 @@ static void SkulteraInit(void)
 
 /**
  * @brief 48d78 | 30 | Initializes a skultera to be idle
- * 
+ *
  */
 static void SkulteraIdleInit(void)
 {
@@ -134,12 +136,12 @@ static void SkulteraIdleInit(void)
 
 /**
  * @brief 48da8 | c4 | Handles the skultera moving in idle behavior
- * 
+ *
  */
 static void SkulteraMoving(void)
 {
     u32 nslr;
-    
+
     // Timer before movement
     APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
@@ -197,7 +199,7 @@ static void SkulteraMoving(void)
 
 /**
  * @brief 48e6c | 20 | Initializes a skultera to be chasing samus
- * 
+ *
  */
 static void SkulteraChasingSamusInit(void)
 {
@@ -209,8 +211,8 @@ static void SkulteraChasingSamusInit(void)
 }
 
 /**
- * @brief 48e8c | 110 | Handles the skultera moving in chasing samus behavior 
- * 
+ * @brief 48e8c | 110 | Handles the skultera moving in chasing samus behavior
+ *
  */
 static void SkulteraChasingSamus(void)
 {
@@ -252,7 +254,7 @@ static void SkulteraChasingSamus(void)
     }
 
     // Check samus still in range
-    
+
     // Change Y range
     if (SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 10, BLOCK_SIZE) != NSLR_OUT_OF_RANGE)
         return;
@@ -283,7 +285,7 @@ static void SkulteraChasingSamus(void)
 
 /**
  * @brief 48f9c | 38 | Initializes a skultera to be turning around
- * 
+ *
  */
 static void SkulteraTurningAroundInit(void)
 {
@@ -299,7 +301,7 @@ static void SkulteraTurningAroundInit(void)
 
 /**
  * @brief 48fd4 | 24 | Checks if the skultera has finished turning around
- * 
+ *
  */
 static void SkulteraCheckTurningAroundAnimEnded(void)
 {
@@ -317,7 +319,7 @@ static void SkulteraCheckTurningAroundAnimEnded(void)
 
 /**
  * @brief 48ff8 | 18c | Skultera AI
- * 
+ *
  */
 void Skultera(void)
 {
@@ -360,7 +362,7 @@ void Skultera(void)
 
         case SKULTERA_POSE_CHASING_SAMUS_INIT:
             SkulteraChasingSamusInit();
-        
+
         case SKULTERA_POSE_CHASING_SAMUS:
             SkulteraChasingSamus();
             break;

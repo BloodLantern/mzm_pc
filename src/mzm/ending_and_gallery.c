@@ -1,24 +1,26 @@
-#include "ending_and_gallery.h"
-#include "callbacks.h"
-#include "dma.h"
+#include "mzm/ending_and_gallery.h"
+#include "mzm/callbacks.h"
+#include "mzm/dma.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/ending_and_gallery_data.h"
-#include "data/internal_ending_and_gallery_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/ending_and_gallery_data.h"
+#include "mzm/data/internal_ending_and_gallery_data.h"
 
-#include "constants/audio.h"
-#include "constants/ending_and_gallery.h"
-#include "constants/game_state.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/ending_and_gallery.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/text.h"
 
-#include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/ending_and_gallery.h"
-#include "structs/game_state.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/ending_and_gallery.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 84c34 | 48 | Checks if an ending letter should display
- * 
+ *
  * @param offset Offset, to document
  */
 void EndingImageUpdateLettersSpawnDelay(u32 offset)
@@ -36,7 +38,7 @@ void EndingImageUpdateLettersSpawnDelay(u32 offset)
 
 /**
  * @brief 84c7c | 26c | Loads a set of OAM for the ending image
- * 
+ *
  * @param set Set to load
  */
 void EndingImageLoadTextOAM(u32 set)
@@ -133,7 +135,7 @@ void EndingImageLoadTextOAM(u32 set)
 
 /**
  * @brief 84ee8 | c8 | Display a line of text of an ending image permanetly
- * 
+ *
  * @param line Line
  */
 void EndingImageDisplayLinePermanently(u32 line)
@@ -167,7 +169,7 @@ void EndingImageDisplayLinePermanently(u32 line)
 
 /**
  * @brief 84fb0 | 204 | To document
- * 
+ *
  */
 void EndingImageLoadIGTAndPercentageGraphics(void)
 {
@@ -260,7 +262,7 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
         DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x1C0, C_32_2_16(DMA_ENABLE, 64 / 2));
         DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x5C0, C_32_2_16(DMA_ENABLE, 64 / 2));
     }
-    
+
     if (percentageHundreds != 0 || hoursOnes != 0)
     {
         offset = hoursOnes * 64;
@@ -275,7 +277,7 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
 
 /**
  * @brief 851b4 | 164 | V-blank code for gallery, ending image and credits
- * 
+ *
  */
 void GalleryVBlank(void)
 {
@@ -313,7 +315,7 @@ void GalleryVBlank(void)
         buffer = 0;
         DMA_SET(3, &buffer, VRAM_BASE + ENDING_DATA.creditLineOffset_2,
             (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2) / 2);
-        
+
     }
 
     write16(REG_DISPCNT, ENDING_DATA.dispcnt);
@@ -330,7 +332,7 @@ void GalleryVBlank(void)
 
 /**
  * @brief 85318 | a8 | V-blank code for the end screen
- * 
+ *
  */
 void EndScreenVBlank(void)
 {
@@ -349,7 +351,7 @@ void EndScreenVBlank(void)
 
 /**
  * @brief 853c0 | a8 | V-blank code for the unlocked options
- * 
+ *
  */
 void UnlockedOptionsVBlank(void)
 {
@@ -367,7 +369,7 @@ void UnlockedOptionsVBlank(void)
 
 /**
  * @brief 85464 | 1f8 | Initializes the credits
- * 
+ *
  */
 void CreditsInit(void)
 {
@@ -438,7 +440,7 @@ void CreditsInit(void)
 
 /**
  * @brief 8565c | 398 | Displays a credit line
- * 
+ *
  * @param line Line
  * @return u8 To document
  */
@@ -453,7 +455,7 @@ u8 CreditsDisplayLine(u32 line)
 
     pCredits = sCredits;
     pCredits += line;
-    
+
     for (i = 0; i < ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1); i++)
     {
         ENDING_DATA.creditLineTilemap_1[i] = 0;
@@ -470,7 +472,7 @@ u8 CreditsDisplayLine(u32 line)
     ret_0 = 0;
     ret_1 = 0;
     i = 0;
-    
+
     switch (pCredits->type)
     {
         case CREDIT_LINE_TYPE_BLUE:
@@ -496,7 +498,7 @@ u8 CreditsDisplayLine(u32 line)
                 {
                     break;
                 }
-                
+
                 if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
                 {
                     ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 0x40);
@@ -578,7 +580,7 @@ u8 CreditsDisplayLine(u32 line)
                 {
                     break;
                 }
-                
+
                 if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
                 {
                     ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 1);
@@ -619,7 +621,7 @@ u8 CreditsDisplayLine(u32 line)
 
 /**
  * @brief 859f4 | 18c | Displays the credits
- * 
+ *
  * @return u8 bool, ended
  */
 u8 CreditsDisplay(void)
@@ -725,7 +727,7 @@ u8 CreditsDisplay(void)
 
 /**
  * @brief 85b80 | 90 | Handles the scrolling wall part of the after credits
- * 
+ *
  * @return u8 bool, ended
  */
 u8 CreditsChozoWallMovement(void)
@@ -756,7 +758,7 @@ u8 CreditsChozoWallMovement(void)
     {
         gBg2YPosition += 8;
         gBg3YPosition += 8;
-    
+
         // Check end scrolling
         if (gBg2YPosition == BLOCK_SIZE * 56)
             ENDING_DATA.unk_1 = FALSE; // Disable background scrolling
@@ -766,8 +768,8 @@ u8 CreditsChozoWallMovement(void)
 }
 
 /**
- * @brief 85c10 | 1f8 | Handles the zooming wall part of the after credits 
- * 
+ * @brief 85c10 | 1f8 | Handles the zooming wall part of the after credits
+ *
  * @return u8 bool, ended (0/2)
  */
 u8 CreditsChozoWallZoom(void)
@@ -865,7 +867,7 @@ u8 CreditsChozoWallZoom(void)
 
 /**
  * @brief 85e08 | 248 | Initializes the end screen (samus posing)
- * 
+ *
  */
 void EndScreenInit(void)
 {
@@ -902,7 +904,7 @@ void EndScreenInit(void)
     write16(REG_BG1CNT, CREATE_BGCNT(0, 26, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_512x256));
     write16(REG_BG2CNT, CREATE_BGCNT(2, 28, BGCNT_LOW_MID_PRIORITY, BGCNT_SIZE_512x256));
     write16(REG_BG3CNT, CREATE_BGCNT(0, 31, BGCNT_LOW_PRIORITY, BGCNT_SIZE_256x256));
-    
+
     gNextOamSlot = 0;
     ResetFreeOam();
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
@@ -940,7 +942,7 @@ void EndScreenInit(void)
 
 /**
  * @brief 86050 | 764 | Handles the entire samus posing sequence
- * 
+ *
  * @return u8 bool, ended
  */
 u8 EndScreenSamusPosing(void)
@@ -1026,7 +1028,7 @@ u8 EndScreenSamusPosing(void)
             if (ENDING_DATA.timer++ > 31)
             {
                 ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3;
-                
+
                 if (ENDING_DATA.endingNumber != 0)
                 {
                     ENDING_DATA.oamTypes[0] = 3;
@@ -1037,7 +1039,7 @@ u8 EndScreenSamusPosing(void)
                         BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
                     ENDING_DATA.oamTypes[0] = 1;
                 }
-                
+
                 ENDING_DATA.timer = 0;
                 ENDING_DATA.unk_1++;
             }
@@ -1193,7 +1195,7 @@ u8 EndScreenSamusPosing(void)
             ENDING_DATA.dispcnt = DCNT_BG0 | DCNT_BG2 | DCNT_BG3;
             ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                 BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
-            
+
             gWrittenToBLDALPHA_L = 0;
             gWrittenToBLDALPHA_H = 16;
             ENDING_DATA.oamTypes[0] = 2;
@@ -1205,7 +1207,7 @@ u8 EndScreenSamusPosing(void)
             ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
                 BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
                 BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
-            
+
             ENDING_DATA.oamTypes[0]++;
             ENDING_DATA.oamTypes[1]++;
             break;
@@ -1213,7 +1215,7 @@ u8 EndScreenSamusPosing(void)
         case 18:
             ENDING_DATA.dispcnt = DCNT_BG2 | DCNT_BG3;
             ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
-            
+
             ENDING_DATA.oamTypes[0]++;
             ENDING_DATA.oamTypes[1]++;
             break;
@@ -1241,7 +1243,7 @@ u8 EndScreenSamusPosing(void)
 
 /**
  * @brief 867b4 | 29c | Initiliazes the ending image sequence
- * 
+ *
  */
 void EndingImageInit(void)
 {
@@ -1276,7 +1278,7 @@ void EndingImageInit(void)
     powerBombNbr = PEN_GET_POWER_BOMB(pen);
     abilityCount = PEN_GET_ABILITY(pen);
     endingNbr = PEN_GET_ENDING(pen);
-        
+
     LZ77UncompVRAM(sEndingImagesTopGfxPointers[endingNbr], VRAM_BASE);
     LZ77UncompVRAM(sEndingImagesBottomGfxPointers[endingNbr], VRAM_BASE + 0x8000);
     LZ77UncompVRAM(sEndingImagesTopTileTablePointers[endingNbr], VRAM_BASE + 0xE000);
@@ -1336,7 +1338,7 @@ void EndingImageInit(void)
 
 /**
  * @brief 86a50 | 23c | Display the text on an ending image
- * 
+ *
  */
 void EndingImageDisplayText(void)
 {
@@ -1403,7 +1405,7 @@ void EndingImageDisplayText(void)
     {
         if (ENDING_DATA.newRecordPaletteTimer++ > 70)
             ENDING_DATA.newRecordPaletteTimer = 0;
-            
+
         palette = sEndingImageNewRecordPalettes[ENDING_DATA.newRecordPaletteTimer / 6];
 
         src = sEndingImageOam_NewRecord;
@@ -1434,7 +1436,7 @@ void EndingImageDisplayText(void)
 
 /**
  * @brief 86c8c | 1ec | Handles the ending image displaying
- * 
+ *
  * @return u8 bool, ended
  */
 u8 EndingImageDisplay(void)
@@ -1539,7 +1541,7 @@ u8 EndingImageDisplay(void)
 
 /**
  * @brief 86e78 | 158 | Initializes the unlocked options
- * 
+ *
  */
 void UnlockedOptionsInit(void)
 {
@@ -1589,7 +1591,7 @@ void UnlockedOptionsInit(void)
 
 /**
  * @brief 86fd0 | 20c | Handlkes the pop up displaying what's been unlocked
- * 
+ *
  * @return u8 0, 1 pop up ended, 2 ended
  */
 u8 UnlockedOptionsPopUp(void)
@@ -1691,7 +1693,7 @@ u8 UnlockedOptionsPopUp(void)
 
 /**
  * @brief 871dc | 208 | Subroutine for the credits
- * 
+ *
  * @return u32 bool, ended
  */
 u32 CreditsSubroutine(void)
@@ -1827,7 +1829,7 @@ u32 CreditsSubroutine(void)
 
 /**
  * @brief 873e4 | 238 | Initializes the gallery
- * 
+ *
  */
 void GalleryInit(void)
 {
@@ -1925,8 +1927,8 @@ void GalleryInit(void)
 
 /**
  * @brief 8761c | 15c | Handles the display of the gallery image
- * 
- * @return u32 
+ *
+ * @return u32
  */
 u32 GalleryDisplay(void)
 {
@@ -1956,7 +1958,7 @@ u32 GalleryDisplay(void)
             endingNbr++;
         else
             endingNbr = 0;
-        
+
         if (gFileScreenOptionsUnlocked.galleryImages > bit)
             change++;
     }
@@ -1972,7 +1974,7 @@ u32 GalleryDisplay(void)
             change++;
     }
 
-    
+
     if (change)
     {
         ENDING_DATA.endingNumber = endingNbr;
@@ -2025,7 +2027,7 @@ u32 GalleryDisplay(void)
 
 /**
  * @brief 87778 | d8 | Subroutine for the gallery
- * 
+ *
  * @return u32 bool, ended
  */
 u32 GallerySubroutine(void)

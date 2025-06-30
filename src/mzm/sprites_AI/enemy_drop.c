@@ -1,14 +1,16 @@
-#include "sprites_AI/enemy_drop.h"
-#include "macros.h"
+#include "mzm/sprites_AI/enemy_drop.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/enemy_drop.h"
+#include "mzm/data/sprites/enemy_drop.h"
 
-#include "constants/audio.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/display.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define ENEMY_DROP_POSE_IDLE 0x9
 
@@ -22,7 +24,7 @@
 
 /**
  * @brief 12d14 | 17a | Initializes an enemy drop sprite
- * 
+ *
  */
 static void EnemyDropInit(void)
 {
@@ -91,7 +93,7 @@ static void EnemyDropInit(void)
 
 /**
  * @brief 12e98 | 158 | Handles an enemy drop being idle
- * 
+ *
  */
 static void EnemyDropIdle(void)
 {
@@ -188,7 +190,7 @@ static void EnemyDropIdle(void)
 
 /**
  * @brief 12ff0 | 34 | Enemy drop AI
- * 
+ *
  */
 void EnemyDrop(void)
 {

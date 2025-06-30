@@ -1,5 +1,7 @@
-#include "data/sprites/rising_chozo_pillar.h"
-#include "macros.h"
+#include "mzm/data/sprites/rising_chozo_pillar.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sRisingChozoPillarGfx[671] = INCBIN_U32("data/sprites/RisingChozoPillar.gfx.lz");
 const u16 sRisingChozoPillarPal[64] = INCBIN_U16("data/sprites/RisingChozoPillar.pal");

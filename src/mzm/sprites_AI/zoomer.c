@@ -1,17 +1,19 @@
-#include "sprites_AI/zoomer.h"
-#include "macros.h"
+#include "mzm/sprites_AI/zoomer.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/zoomer.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/zoomer.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/game_state.h"
-#include "structs/sprite.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 enum ZoomerTurningDirection {
     ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER,
@@ -38,7 +40,7 @@ enum ZoomerTurningDirection {
 
 /**
  * @brief 16694 | 96 | Checks if a zoomer is colliding with air
- * 
+ *
  * @return u8 bool, colliding with air
  */
 static u8 ZoomerCheckCollidingWithAir(void)
@@ -91,7 +93,7 @@ static u8 ZoomerCheckCollidingWithAir(void)
 
 /**
  * @brief 16728 | 80 | Updates the hitbox of a zoomer
- * 
+ *
  */
 static void ZoomerUpdateHitbox(void)
 {
@@ -133,7 +135,7 @@ static void ZoomerUpdateHitbox(void)
 
 /**
  * @brief 167a8 | 30 | Sets the crawling OAM for a zoomer
- * 
+ *
  */
 static void ZoomerSetCrawlingOam(void)
 {
@@ -148,7 +150,7 @@ static void ZoomerSetCrawlingOam(void)
 
 /**
  * @brief 167d8 | 30 | Sets the falling OAM for a zoomer
- * 
+ *
  */
 static void ZoomerSetFallingOam(void)
 {
@@ -163,7 +165,7 @@ static void ZoomerSetFallingOam(void)
 
 /**
  * @brief 16808 | 114 | Initializes a zoomer sprite
- * 
+ *
  */
 static void ZoomerInit(void)
 {
@@ -219,7 +221,7 @@ static void ZoomerInit(void)
 
 /**
  * @brief 1691c | 18 | Initializes a zoomer to be idle
- * 
+ *
  */
 static void ZoomerIdleInit(void)
 {
@@ -229,7 +231,7 @@ static void ZoomerIdleInit(void)
 
 /**
  * @brief 16934 | 3e8 | Handles a zoomer crawling
- * 
+ *
  */
 static void ZoomerCrawling(void)
 {
@@ -547,7 +549,7 @@ static void ZoomerCrawling(void)
 
 /**
  * @brief 16d1c | 194 | Initializes a zoomer to be turning around
- * 
+ *
  */
 static void ZoomerTurningAroundInit(void)
 {
@@ -596,7 +598,7 @@ static void ZoomerTurningAroundInit(void)
             gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
             gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             break;
-        
+
         case ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 gCurrentSprite.pOam = sZoomerOam_TurningCornerLeft;
@@ -644,7 +646,7 @@ static void ZoomerTurningAroundInit(void)
 
 /**
  * @brief 16eb0 | 1cc | Handles a zoomer turning around
- * 
+ *
  */
 static void ZoomerTurningAround(void)
 {
@@ -714,7 +716,7 @@ static void ZoomerTurningAround(void)
             gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_Y_FLIP);
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
-        
+
         case ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
             {
@@ -739,7 +741,7 @@ static void ZoomerTurningAround(void)
             gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
-        
+
         case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
             {
@@ -761,7 +763,7 @@ static void ZoomerTurningAround(void)
 
 /**
  * @brief 1707c | 18 | Initializes a zoomer to be landing (unused)
- * 
+ *
  */
 static void ZoomerLandingInit_Unused(void)
 {
@@ -771,7 +773,7 @@ static void ZoomerLandingInit_Unused(void)
 
 /**
  * @brief 17094 | 30 | Handles a zoomer landing
- * 
+ *
  */
 static void ZoomerLanding(void)
 {
@@ -783,7 +785,7 @@ static void ZoomerLanding(void)
 
 /**
  * @brief 170c4 | 68 | Initializes a zoomer to be falling
- * 
+ *
  */
 static void ZoomerFallingInit(void)
 {
@@ -807,7 +809,7 @@ static void ZoomerFallingInit(void)
 
 /**
  * @brief 1712c | 84 | Handles a zoomer falling
- * 
+ *
  */
 static void ZoomerFalling(void)
 {
@@ -848,7 +850,7 @@ static void ZoomerFalling(void)
 
 /**
  * @brief 171b0 | 5c | Handles a zoomer dying
- * 
+ *
  */
 static void ZoomerDeath(void)
 {
@@ -878,7 +880,7 @@ static void ZoomerDeath(void)
 
 /**
  * @brief 1720c | 11c | Zoomer AI
- * 
+ *
  */
 void Zoomer(void)
 {

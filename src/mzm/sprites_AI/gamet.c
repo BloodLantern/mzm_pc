@@ -1,16 +1,18 @@
-#include "sprites_AI/gamet.h"
-#include "macros.h"
+#include "mzm/sprites_AI/gamet.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/gamet.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/gamet.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define GAMET_POSE_IDLE_INIT 0x8
 #define GAMET_POSE_IDLE 0x9
@@ -19,7 +21,7 @@
 
 /**
  * @brief 2e610 | 60 | Initializes a gamet sprite
- * 
+ *
  */
 static void GametInit(void)
 {
@@ -44,7 +46,7 @@ static void GametInit(void)
 
 /**
  * @brief 2e670 | Initializes a gamet to be idle
- * 
+ *
  */
 static void GametIdleInit(void)
 {
@@ -61,7 +63,7 @@ static void GametIdleInit(void)
 
 /**
  * @brief 2e6ac | 168 | Handles a gamet being idle
- * 
+ *
  */
 static void GametIdle(void)
 {
@@ -105,7 +107,7 @@ static void GametIdle(void)
 
     if (ABS_DIFF(spriteX, samusX) <= (HALF_BLOCK_SIZE + PIXEL_SIZE))
         return;
-        
+
     if (SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 5, BLOCK_SIZE * 5) != NSAB_ABOVE)
         return;
 
@@ -150,7 +152,7 @@ static void GametIdle(void)
 
 /**
  * @brief 2e814 | 80 | Handles a gamet going up
- * 
+ *
  */
 static void GametGoingUp(void)
 {
@@ -190,7 +192,7 @@ static void GametGoingUp(void)
 
 /**
  * @brief 2e894 | 64 | Handles a gamet respawning
- * 
+ *
  */
 static void GametRespawn(void)
 {
@@ -220,7 +222,7 @@ static void GametRespawn(void)
 
 /**
  * @brief 2e8f8 | d4 | Handles a gamet moving
- * 
+ *
  */
 static void GametMove(void)
 {
@@ -269,7 +271,7 @@ static void GametMove(void)
 
 /**
  * @brief 2e9bc | 13c | Gamet AI
- * 
+ *
  */
 void Gamet(void)
 {

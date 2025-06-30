@@ -1,19 +1,21 @@
-#include "sprites_AI/save_platform_chozodia.h"
-#include "sprites_AI/item_banner.h"
-#include "gba.h"
+#include "mzm/sprites_AI/save_platform_chozodia.h"
+#include "mzm/sprites_AI/item_banner.h"
+#include "mzm/gba.h"
 
-#include "data/sprites/save_platform_chozodia.h"
+#include "mzm/data/sprites/save_platform_chozodia.h"
 
-#include "constants/audio.h"
-#include "constants/escape.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/escape.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/text.h"
 
-#include "structs/game_state.h"
-#include "structs/hud.h"
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define SAVE_PLATFORM_CHOZODIA_POSE_IDLE 0x9
 #define SAVE_PLATFORM_CHOZODIA_POSE_OPENING 0x23
@@ -57,7 +59,7 @@ enum SavePlatformChozodiaPart {
 
 /**
  * @brief 46708 | 168 | Initializes a save platform (Chozodia) sprite
- * 
+ *
  */
 static void SavePlatformChozodiaInit(void)
 {
@@ -117,13 +119,13 @@ static void SavePlatformChozodiaInit(void)
     TransparencyUpdateBldcnt(0x1, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
         BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
         BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);
-    
+
     TransparencySpriteUpdateBldalpha(0, BLDALPHA_MAX_VALUE, 0, BLDALPHA_MAX_VALUE);
 }
 
 /**
  * @brief 46870 | 58 | Handles a save platform (Chozodia) being idle
- * 
+ *
  */
 static void SavePlatformChozodiaSamusDetection(void)
 {
@@ -147,7 +149,7 @@ static void SavePlatformChozodiaSamusDetection(void)
 
 /**
  * @brief 468c8 | 2c | Handles a save platform opening
- * 
+ *
  */
 static void SavePlatformChozodiaCheckOpeningAnimEnded(void)
 {
@@ -162,7 +164,7 @@ static void SavePlatformChozodiaCheckOpeningAnimEnded(void)
 
 /**
  * @brief 468f4 | 78 | Handles a save platform (Chozodia) being opened
- * 
+ *
  */
 static void SavePlatformChozodiaSecondSamusDetection(void)
 {
@@ -194,7 +196,7 @@ static void SavePlatformChozodiaSecondSamusDetection(void)
 
 /**
  * @brief 4696c | 30 | Handles a save platform (Chozodia) closing
- * 
+ *
  */
 static void SavePlatformChozodiaCheckClosingAnimEnded(void)
 {
@@ -210,7 +212,7 @@ static void SavePlatformChozodiaCheckClosingAnimEnded(void)
 
 /**
  * @brief 4699c | 34 | Handles a save platform (Chozodia) releasing Samus
- * 
+ *
  */
 static void SavePlatformChozodiaReleaseSamus(void)
 {
@@ -227,7 +229,7 @@ static void SavePlatformChozodiaReleaseSamus(void)
 
 /**
  * @brief 469d0 | 34 | Handles a save platform after a save
- * 
+ *
  */
 static void SavePlatformChozodiaSamusDetectionOut(void)
 {
@@ -243,7 +245,7 @@ static void SavePlatformChozodiaSamusDetectionOut(void)
 
 /**
  * @brief 46a04 | c0 | Checks if Samus needs a refill
- * 
+ *
  */
 static void SavePlatformChozodiaCheckRefill(void)
 {
@@ -294,7 +296,7 @@ static void SavePlatformChozodiaCheckRefill(void)
 
 /**
  * @brief 46ac4 | 194 | Handles a save platform (Chozodia) refilling Samus
- * 
+ *
  */
 static void SavePlatformChozodiaRefill(void)
 {
@@ -403,7 +405,7 @@ static void SavePlatformChozodiaRefill(void)
 
 /**
  * @brief 46c58 | 38 | Handles a save platform (Complete) waiting for the "Refill complete" message to be done
- * 
+ *
  */
 static void SavePlatformChozodiaAfterRefill(void)
 {
@@ -419,7 +421,7 @@ static void SavePlatformChozodiaAfterRefill(void)
 
 /**
  * @brief 46c90 | d0 | Handles a save platform (Chozodia) during a save prompt
- * 
+ *
  */
 static void SavePlatformChozodiaSavePrompt(void)
 {
@@ -466,7 +468,7 @@ static void SavePlatformChozodiaSavePrompt(void)
 
 /**
  * @brief 46d60 | 40 | Handles a save platform (Chozodia) saving
- * 
+ *
  */
 static void SavePlatformChozodiaSaving(void)
 {
@@ -487,7 +489,7 @@ static void SavePlatformChozodiaSaving(void)
 
 /**
  * @brief 46da0 | 44 | Initializes a save platform (Chozodia) to be opened (off)
- * 
+ *
  */
 static void SavePlatformChozodiaOpenedOffInit(void)
 {
@@ -503,7 +505,7 @@ static void SavePlatformChozodiaOpenedOffInit(void)
 
 /**
  * @brief 46de4 | 44 | Spawns the "save complete" message
- * 
+ *
  */
 static void SavePlatformChozodiaSpawnSaveDoneMessage(void)
 {
@@ -518,7 +520,7 @@ static void SavePlatformChozodiaSpawnSaveDoneMessage(void)
 
 /**
  * @brief 46e28 | 38 | Handles a save platform (Chozodia) waiting for the "Save complete" message to be done
- * 
+ *
  */
 static void SavePlatformChozodiaCheckMessageBannerOut(void)
 {
@@ -535,7 +537,7 @@ static void SavePlatformChozodiaCheckMessageBannerOut(void)
 
 /**
  * @brief 46e60 | 24 | andles the delay before a save platform (Chozodia) releases Samus
- * 
+ *
  */
 static void SavePlatformChozodiaDelayBeforeReleasingSamus(void)
 {
@@ -546,7 +548,7 @@ static void SavePlatformChozodiaDelayBeforeReleasingSamus(void)
 
 /**
  * @brief 46e84 | 1b6 | Initializes a save platform (Chozodia) part sprite
- * 
+ *
  */
 static void SavePlatformChozodiaPartInit(void)
 {
@@ -642,7 +644,7 @@ static void SavePlatformChozodiaPartInit(void)
 
 /**
  * @brief 4703c | 2c | Handles the refill light part being idle
- * 
+ *
  */
 static void SavePlatformChozodiaPartRefillLightIdle(void)
 {
@@ -655,7 +657,7 @@ static void SavePlatformChozodiaPartRefillLightIdle(void)
 
 /**
  * @brief 47068 | 4 | Empty function
- * 
+ *
  */
 static void SavePlatformChozodiaPart_Empty(void)
 {
@@ -664,7 +666,7 @@ static void SavePlatformChozodiaPart_Empty(void)
 
 /**
  * @brief 4706c | 1c | Initializes the top part to be extending
- * 
+ *
  */
 static void SavePlatformChozodiaPartTopExtendingInit(void)
 {
@@ -677,7 +679,7 @@ static void SavePlatformChozodiaPartTopExtendingInit(void)
 
 /**
  * @brief 47088 | 2c | Handles the top part extending
- * 
+ *
  */
 static void SavePlatformChozodiaPartTopExtending(void)
 {
@@ -693,7 +695,7 @@ static void SavePlatformChozodiaPartTopExtending(void)
 
 /**
  * @brief 470b4 | 34 | Initializes the top part to be retracting
- * 
+ *
  */
 static void SavePlatformChozodiaPartTopRetractingInit(void)
 {
@@ -709,7 +711,7 @@ static void SavePlatformChozodiaPartTopRetractingInit(void)
 
 /**
  * @brief 470e8 | 2c | Handles the top part retracting
- * 
+ *
  */
 static void SavePlatformChozodiaPartTopRetracting(void)
 {
@@ -725,14 +727,14 @@ static void SavePlatformChozodiaPartTopRetracting(void)
 
 /**
  * @brief 47114 | 50 | Handles the tube part spawning
- * 
+ *
  */
 static void SavePlatformChozodiaPartTubeSpawning(void)
 {
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TUBE_CHECK_SHADOW_DISAPPEARED;
-        
+
         gCurrentSprite.pOam = sSavePlatformChozodiaPartOam_TubeIdle;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
@@ -744,7 +746,7 @@ static void SavePlatformChozodiaPartTubeSpawning(void)
 
 /**
  * @brief 47164 | 54 | Handles the tube part spawning the ray part
- * 
+ *
  */
 static void SavePlatformChozodiaPartSpawnRay(void)
 {
@@ -763,7 +765,7 @@ static void SavePlatformChozodiaPartSpawnRay(void)
 
 /**
  * @brief 471b8 | 30 | Handles the tube part being idle
- * 
+ *
  */
 static void SavePlatformChozodiaPartTubeIdle(void)
 {
@@ -779,7 +781,7 @@ static void SavePlatformChozodiaPartTubeIdle(void)
 
 /**
  * @brief 471e8 | 3c | Handles the tube part despawning
- * 
+ *
  */
 static void SavePlatformChozodiaPartTubeDespawning(void)
 {
@@ -792,7 +794,7 @@ static void SavePlatformChozodiaPartTubeDespawning(void)
 
 /**
  * @brief 47224 | 18 | Handles the shadow part being idle
- * 
+ *
  */
 static void SavePlatformChozodiaPartTubeShadowIdle(void)
 {
@@ -802,7 +804,7 @@ static void SavePlatformChozodiaPartTubeShadowIdle(void)
 
 /**
  * @brief 4723c | 44 | Handles the ray part being idle
- * 
+ *
  */
 static void SavePlatformChozodiaPartRayIdle(void)
 {
@@ -818,7 +820,7 @@ static void SavePlatformChozodiaPartRayIdle(void)
 
 /**
  * @brief 47280 | 1e8 | Save platform (Chozodia) AI
- * 
+ *
  */
 void SavePlatformChozodia(void)
 {
@@ -894,7 +896,7 @@ void SavePlatformChozodia(void)
 
 /**
  * @brief 47468 | 198 | Save platform (Chozodia) part AI
- * 
+ *
  */
 void SavePlatformChozodiaPart(void)
 {

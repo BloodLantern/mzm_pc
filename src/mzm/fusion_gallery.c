@@ -1,22 +1,24 @@
-#include "fusion_gallery.h"
-#include "dma.h"
+#include "mzm/fusion_gallery.h"
+#include "mzm/dma.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/fusion_gallery_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/fusion_gallery_data.h"
 
-#include "constants/audio.h"
-#include "constants/ending_and_gallery.h"
-#include "constants/game_state.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/ending_and_gallery.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/text.h"
 
-#include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/fusion_gallery.h"
-#include "structs/game_state.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/fusion_gallery.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 847f8 | 78 | V-blank code for the fusion gallery
- * 
+ *
  */
 void FusionGalleryVBlank(void)
 {
@@ -97,7 +99,7 @@ void FusionGalleryInit(void)
 
 /**
  * @brief 84a40 | 120 | Handles the display of the fusion gallery image
- * 
+ *
  * @return u32 bool, ended
  */
 u32 FusionGalleryDisplay(void)
@@ -127,7 +129,7 @@ u32 FusionGalleryDisplay(void)
             imageId++;
         else
             imageId = 0;
-        
+
         change++;
     }
     else if (gChangedInput & KEY_LEFT)
@@ -140,7 +142,7 @@ u32 FusionGalleryDisplay(void)
         change++;
     }
 
-    
+
     if (change)
     {
         FUSION_GALLERY_DATA.currentImage = imageId;
@@ -192,7 +194,7 @@ u32 FusionGalleryDisplay(void)
 
 /**
  * @brief 84b60 | d4 | Fusion gallery subroutine
- * 
+ *
  * @return u32 bool, ended
  */
 u32 FusionGallerySubroutine(void)

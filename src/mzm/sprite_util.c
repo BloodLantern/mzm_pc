@@ -1,30 +1,32 @@
-#include "gba.h"
-#include "oam.h"
-#include "sprite_util.h"
-#include "clipdata.h"
-#include "sprites_AI/parasite.h"
-#include "sprites_AI/ridley.h"
-#include "sprites_AI/acid_worm.h"
-#include "data/sprite_data.h"
+#include "mzm/gba.h"
+#include "mzm/oam.h"
+#include "mzm/sprite_util.h"
+#include "mzm/clipdata.h"
+#include "mzm/sprites_AI/parasite.h"
+#include "mzm/sprites_AI/ridley.h"
+#include "mzm/sprites_AI/acid_worm.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/projectile.h"
 
-#include "structs/clipdata.h"
-#include "structs/game_state.h"
-#include "structs/screen_shake.h"
-#include "structs/sprite.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/screen_shake.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 
 /**
  * @brief e498 | 7c | Initialize the first sprite to be a location text if necessary
- * 
+ *
  */
 void SpriteUtilInitLocationText(void)
 {
@@ -58,7 +60,7 @@ void SpriteUtilInitLocationText(void)
 
 /**
  * @brief e514 | 90 | Checks if samus should stop when colliding with a solid sprite from the left
- * 
+ *
  * @param samusY Samus Y Position
  * @param spriteX Sprite X Position
  */
@@ -83,7 +85,7 @@ void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 samusY, u16 spriteX)
 
 /**
  * @brief e5a4 | 90 | Checks if samus should stop when colliding with a solid sprite from the right
- * 
+ *
  * @param samusY Samus Y Position
  * @param spriteX Sprite X Position
  */
@@ -108,7 +110,7 @@ void SpriteUtilCheckStopSamusAgainstSolidSpriteRight(u16 samusY, u16 spriteX)
 
 /**
  * e634 | c4 | Calculates and applies the damage samus takes from a sprite
- * 
+ *
  * @param kbFlag 1 if getting knocked back, 0 otherwise
  * @param pSprite Sprite Data Pointer to the sprite hurting samus
  * @param dmgMultiplier Damage Multiplier
@@ -176,7 +178,7 @@ u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmg
 
 /**
  * @brief e6f8 | 50 | Checks if two objects are touching
- * 
+ *
  * @param o1Top Object 1 Top
  * @param o1Bottom Object 1 Bottom
  * @param o1Left Object 1 Left
@@ -197,7 +199,7 @@ u32 SpriteUtilCheckObjectsTouching(u16 o1Top, u16 o1Bottom, u16 o1Left, u16 o1Ri
 
 /**
  * @brief e748 | c18 | Checks if the sprites are colliding with samus, applies said collision
- * 
+ *
  */
 void SpriteUtilSamusAndSpriteCollision(void)
 {
@@ -247,7 +249,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 samusTop -= HALF_BLOCK_SIZE;
                 samusBottom += HALF_BLOCK_SIZE;
                 break;
-            
+
             case FORCED_MOVEMENT_UPWARDS_SHINESPARK:
                 // Extend hitbox horizontally to make it look like the ballspark effect has a collision
                 samusLeft -= HALF_BLOCK_SIZE;
@@ -378,7 +380,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
             {
                 case SSC_NONE:
                     break;
-                
+
                 case SSC_SOLID_CHECK_COLLIDING:
                     pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
                     gIgnoreSamusAndSpriteCollision = TRUE;
@@ -404,7 +406,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             {
                                 // Put Samus right below the sprite
                                 pData->yPosition = spriteBottom - gSamusPhysics.drawDistanceTop;
-                                
+
                                 // If Samus was moving upwards, zero out velocity
                                 if (pData->yVelocity > 0 && gEquipment.currentEnergy != 0)
                                     pData->yVelocity = 0;
@@ -875,7 +877,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 default:
                     pSprite->ignoreSamusCollisionTimer = CONVERT_SECONDS(.25f);
                     gIgnoreSamusAndSpriteCollision = TRUE;
-                    
+
             }
         }
 
@@ -892,7 +894,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
 /**
  * @brief f360 | 11c | Checks the collision at the given parameters and updates the gPreviousVerticalCollisionCheck global variable
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @return u32 Block Top Edge Y Position
@@ -932,19 +934,19 @@ u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
             break;
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
-            blockY = (yPosition & BLOCK_POSITION_FLAG) | (DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2) + SUB_PIXEL_POSITION_FLAG / 2); 
+            blockY = (yPosition & BLOCK_POSITION_FLAG) | (DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2) + SUB_PIXEL_POSITION_FLAG / 2);
             gPreviousVerticalCollisionCheck = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
-            blockY = (yPosition & BLOCK_POSITION_FLAG) | DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2); 
+            blockY = (yPosition & BLOCK_POSITION_FLAG) | DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2);
             gPreviousVerticalCollisionCheck = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 
 
         case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
             gPreviousVerticalCollisionCheck = COLLISION_PASS_THROUGH_BOTTOM;
-            
+
         default:
             blockY = yPosition & BLOCK_POSITION_FLAG;
     }
@@ -954,7 +956,7 @@ u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
 
 /**
  * @brief f47c | 118 | Checks the vertical collision at the position, accounts for slopes
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @return u32 Block top Y position
@@ -995,19 +997,19 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
             break;
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
-            blockY = (yPosition & BLOCK_POSITION_FLAG) | (DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2) + SUB_PIXEL_POSITION_FLAG / 2); 
+            blockY = (yPosition & BLOCK_POSITION_FLAG) | (DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2) + SUB_PIXEL_POSITION_FLAG / 2);
             collision = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
-            blockY = (yPosition & BLOCK_POSITION_FLAG) | DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2); 
+            blockY = (yPosition & BLOCK_POSITION_FLAG) | DIV_SHIFT(xPosition & SUB_PIXEL_POSITION_FLAG, 2);
             collision = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 
 
         case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
             collision = COLLISION_PASS_THROUGH_BOTTOM;
-            
+
         default:
             blockY = yPosition & BLOCK_POSITION_FLAG;
     }
@@ -1022,7 +1024,7 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
 
 /**
  * @brief f594 | 74 | Unknown function
- * 
+ *
  */
 void unk_f594(void)
 {
@@ -1054,7 +1056,7 @@ void unk_f594(void)
 
 /**
  * @brief f608 | 80 | Unknown function
- * 
+ *
  */
 void unk_f608(void)
 {
@@ -1086,7 +1088,7 @@ void unk_f608(void)
 
 /**
  * f688 | 98 | Checks the collision at the given parameters and updates the gPreviousCollisionCheck global variable
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  */
@@ -1100,7 +1102,7 @@ void SpriteUtilCheckCollisionAtPosition(u32 yPosition, u32 xPosition)
         gPreviousCollisionCheck = COLLISION_SOLID;
     else
         gPreviousCollisionCheck = COLLISION_AIR;
-    
+
     switch (LOW_BYTE(collision))
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
@@ -1134,7 +1136,7 @@ void SpriteUtilCheckCollisionAtPosition(u32 yPosition, u32 xPosition)
 
 /**
  * @brief f720 | 7c | Gets the collision at the position
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @return u32 Collision check
@@ -1180,7 +1182,7 @@ u32 SpriteUtilGetCollisionAtPosition(u16 yPosition, u16 xPosition)
 
 /**
  * @brief f79c | 70 | Handles the current sprite falling
- * 
+ *
  */
 void SpriteUtilCurrentSpriteFall(void)
 {
@@ -1214,7 +1216,7 @@ void SpriteUtilCurrentSpriteFall(void)
 
 /**
  * f80c | 38 | Chooses a random X flip for the current sprite
- * 
+ *
  */
 void SpriteUtilChooseRandomXFlip(void)
 {
@@ -1226,7 +1228,7 @@ void SpriteUtilChooseRandomXFlip(void)
 
 /**
  * f844 | 3C | Chooses a random X direction for the current sprite
- * 
+ *
  */
 void SpriteUtilChooseRandomXDirection(void)
 {
@@ -1238,7 +1240,7 @@ void SpriteUtilChooseRandomXDirection(void)
 
 /**
  * f880 | 38 | Chooses a random X direction for the current sprite using its room slot
- * 
+ *
  */
 void SpriteUtilChooseRandomXDirectionRoomSlot(u8 roomSlot)
 {
@@ -1250,7 +1252,7 @@ void SpriteUtilChooseRandomXDirectionRoomSlot(u8 roomSlot)
 
 /**
  * f8b0 | 30 | Makes the sprite face samus using X flip
- * 
+ *
  */
 void SpriteUtilMakeSpriteFaceSamusXFlip(void)
 {
@@ -1262,7 +1264,7 @@ void SpriteUtilMakeSpriteFaceSamusXFlip(void)
 
 /**
  * f8e0 | 30 | Makes the sprite face samus using X direction
- * 
+ *
  */
 void SpriteUtilMakeSpriteFaceSamusDirection(void)
 {
@@ -1274,7 +1276,7 @@ void SpriteUtilMakeSpriteFaceSamusDirection(void)
 
 /**
  * f914 | 30 | Makes the sprite face away from samus using X flip
- * 
+ *
  */
 void SpriteUtilMakeSpriteFaceAwayFromSamusXFlip(void)
 {
@@ -1286,7 +1288,7 @@ void SpriteUtilMakeSpriteFaceAwayFromSamusXFlip(void)
 
 /**
  * f944 | 34 | Makes the sprite face away from samus using X direction
- * 
+ *
  */
 void SpriteUtilMakeSpriteFaceAwayFromSamusDirection(void)
 {
@@ -1298,7 +1300,7 @@ void SpriteUtilMakeSpriteFaceAwayFromSamusDirection(void)
 
 /**
  * @brief f978 | 6c | To document
- * 
+ *
  * @param movement Movement
  */
 void unk_f978(s16 movement)
@@ -1327,7 +1329,7 @@ void unk_f978(s16 movement)
 
 /**
  * @brief f9e4 | 98 | To document
- * 
+ *
  * @param movement Movement
  */
 void unk_f9e4(s16 movement)
@@ -1363,7 +1365,7 @@ void unk_f9e4(s16 movement)
 
 /**
  * @brief fa78 | 150 | Calcultes the new oam rotation to rotate a sprite towards a target
- * 
+ *
  * @param rotation Current rotation
  * @param targetY Target Y
  * @param targetX Target X
@@ -1381,7 +1383,7 @@ u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 rotation, s32 targetY, s32 targetX,
     s32 dstX;
     s32 y;
     s32 x;
-    
+
     _rotation = (s16)rotation;
     dstY = (s16)targetY;
     dstX = (s16)targetX;
@@ -1497,7 +1499,7 @@ u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 rotation, s32 targetY, s32 targetX,
 
 /**
  * @brief fbc8 | 38 | Checks if the animation of the current sprite has ended
- * 
+ *
  * @return u32 bool, ended
  */
 u32 SpriteUtilCheckEndCurrentSpriteAnim(void)
@@ -1518,7 +1520,7 @@ u32 SpriteUtilCheckEndCurrentSpriteAnim(void)
 
 /**
  * @brief fc00 | 3c | Checks if the animation of the current sprite has nearly ended
- * 
+ *
  * @return u32 bool, nearly ended
  */
 u32 SpriteUtilCheckNearEndCurrentSpriteAnim(void)
@@ -1540,7 +1542,7 @@ u32 SpriteUtilCheckNearEndCurrentSpriteAnim(void)
 
 /**
  * @brief fc3c | 48 | Checks if the animation of a sprite has ended
- * 
+ *
  * @param ramSlot Sprite slot
  * @return u32 bool, ended
  */
@@ -1562,7 +1564,7 @@ u32 SpriteUtilCheckEndSpriteAnim(u8 ramSlot)
 
 /**
  * @brief fc84 | 4c | Checks if the animation of a sprite has nearly ended
- * 
+ *
  * @param ramSlot Sprite slot
  * @return u32 bool, nearly ended
  */
@@ -1573,10 +1575,10 @@ u32 SpriteUtilCheckNearEndSpriteAnim(u8 ramSlot)
 
     adc = gSpriteData[ramSlot].animationDurationCounter;
     caf = gSpriteData[ramSlot].currentAnimationFrame;
-    
+
     APPLY_DELTA_TIME_INC(adc);
     APPLY_DELTA_TIME_INC(adc);
-    
+
     if (gSpriteData[ramSlot].pOam[caf].timer < adc && gSpriteData[ramSlot].pOam[++caf].timer == 0)
         return TRUE;
     else
@@ -1585,7 +1587,7 @@ u32 SpriteUtilCheckNearEndSpriteAnim(u8 ramSlot)
 
 /**
  * @brief fcd0 | 38 | Checks if the animation of the sub sprite data 1 has ended
- * 
+ *
  * @return u8 bool, ended
  */
 u8 SpriteUtilCheckEndSubSprite1Anim(void)
@@ -1606,7 +1608,7 @@ u8 SpriteUtilCheckEndSubSprite1Anim(void)
 
 /**
  * @brief fd08 | 3c | Checks if the animation of the sub sprite data 1 has nearly ended
- * 
+ *
  * @return u32 bool, nearly ended
  */
 u8 SpriteUtilCheckNearEndSubSprite1Anim(void)
@@ -1628,7 +1630,7 @@ u8 SpriteUtilCheckNearEndSubSprite1Anim(void)
 
 /**
  * @brief fd44 | 38 | Checks if the animation of the sub sprite data 2 has ended
- * 
+ *
  * @return u32 bool, ended
  */
 u32 SpriteUtilCheckEndSubSprite2Anim(void)
@@ -1649,7 +1651,7 @@ u32 SpriteUtilCheckEndSubSprite2Anim(void)
 
 /**
  * @brief fd7c | 34 | Checks if the animation of a sub sprite data has ended
- * 
+ *
  * @param pSub Sub sprite data pointer
  * @return u8 bool, ended
  */
@@ -1671,7 +1673,7 @@ u32 SpriteUtilCheckEndSubSpriteAnim(struct SubSpriteData* pSub)
 
 /**
  * @brief fdac | 34 | Checks if the animation of a sub sprite data has nearly ended
- * 
+ *
  * @param pSub Sub sprite data Pointer
  * @return u32 bool, nearly ended
  */
@@ -1694,7 +1696,7 @@ u8 SpriteUtilCheckNearEndSubSpriteAnim(struct SubSpriteData* pSub)
 
 /**
  * @brief fde0 | 68 | Checks if samus is in range of the current sprite horizontally
- * 
+ *
  * @param yRange Y range
  * @param xRange X range
  * @return u8 Result (NSLR enum)
@@ -1716,7 +1718,7 @@ u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
     // Get sprite position
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    
+
     // Check Y position
     if (spriteY > samusY)
     {
@@ -1730,7 +1732,7 @@ u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
         if (samusY - spriteY >= yRange)
             return NSLR_OUT_OF_RANGE;
     }
-   
+
     // Check X position
     if (spriteX > samusX)
     {
@@ -1750,7 +1752,7 @@ u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
 
 /**
  * @brief fe48 | 68 | Checks if samus is in range of the current sprite vertically
- * 
+ *
  * @param yRange Y range
  * @param xRange X range
  * @return u8 Result (NSLR enum)
@@ -1772,7 +1774,7 @@ u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
     // Get sprite position
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    
+
     // Check X position
     if (spriteX > samusX)
     {
@@ -1786,7 +1788,7 @@ u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
         if (samusX - spriteX >= xRange)
             return NSAB_OUT_OF_RANGE;
     }
-   
+
     // Check Y position
     if (spriteY > samusY)
     {
@@ -1805,8 +1807,8 @@ u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
 }
 
 /**
- * @brief feb0 | b0 | Checks if samus is in front or behind the current sprite 
- * 
+ * @brief feb0 | b0 | Checks if samus is in front or behind the current sprite
+ *
  * @param yRange Y range
  * @param xRangeFront X range (in front)
  * @param xRangeBehind X range (behind)
@@ -1831,7 +1833,7 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
     // Get sprite position
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    
+
     // Check Y position
     if (spriteY > samusY)
     {
@@ -1849,7 +1851,7 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
     // Get is flipped, this assume that when flipped the sprite faced right
     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         xFlip = TRUE;
-    
+
     // Check X position
     if (spriteX > samusX)
     {
@@ -1889,7 +1891,7 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
 
 /**
  * ff60 | 88 | Handles samus standing on a sprite
- * 
+ *
  * @param pSprite Sprite Data Pointer
  */
 void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite)
@@ -1938,7 +1940,7 @@ void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite)
 
 /**
  * ffe8 | 64 | Updates the freeze timer of the current sprite
- * 
+ *
  */
 void SpriteUtilUpdateFreezeTimer(void)
 {
@@ -1948,7 +1950,7 @@ void SpriteUtilUpdateFreezeTimer(void)
         APPLY_DELTA_TIME_DEC(gCurrentSprite.freezeTimer);
 
     freezeTimer = gCurrentSprite.freezeTimer;
-    
+
     if (freezeTimer == 0)
     {
         // Decrement animation timer once the freeze timer is done
@@ -1968,7 +1970,7 @@ void SpriteUtilUpdateFreezeTimer(void)
 
 /**
  * @brief 1004c | 58 | Updates the freeze timer of the current sprite (easy mode)
- * 
+ *
  */
 void SpriteUtilUnfreezeAnimEasy(void)
 {
@@ -1977,7 +1979,7 @@ void SpriteUtilUnfreezeAnimEasy(void)
     APPLY_DELTA_TIME_DEC(gCurrentSprite.freezeTimer);
 
     freezeTimer = gCurrentSprite.freezeTimer;
-    
+
     if (freezeTimer == 0)
     {
         // Decrement animation timer once the freeze timer is done
@@ -1996,7 +1998,7 @@ void SpriteUtilUnfreezeAnimEasy(void)
 
 /**
  * @brief 100a4 | 58 | Updates the freeze timer of the current sprite (metroid)
- * 
+ *
  */
 void SpriteUtilMetroidUnfreezeAnim(void)
 {
@@ -2006,7 +2008,7 @@ void SpriteUtilMetroidUnfreezeAnim(void)
     APPLY_DELTA_TIME_DEC(gCurrentSprite.freezeTimer);
 
     freezeTimer = gCurrentSprite.freezeTimer;
-    
+
     if (freezeTimer == 0)
     {
         // Decrement animation timer once the freeze timer is done
@@ -2025,7 +2027,7 @@ void SpriteUtilMetroidUnfreezeAnim(void)
 
 /**
  * @brief 100fc | 9c | Updates the freeze timer of the secondary sprites of the specified primary sprite
- * 
+ *
  * @param spriteId Sprite id
  * @param ramSlot Primary sprite slot
  */
@@ -2058,7 +2060,7 @@ void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteId, u8 ramSlot
 
 /**
  * @brief 10198 | 5c | Updates the freeze timer of the primary sprite of the current secondary sprite
- * 
+ *
  */
 void SpriteUtilUpdatePrimarySpriteFreezeTimerOfCurrent(void)
 {
@@ -2072,12 +2074,12 @@ void SpriteUtilUpdatePrimarySpriteFreezeTimerOfCurrent(void)
     {
         gSpriteData[ramSlot].freezeTimer = gCurrentSprite.freezeTimer;
         gSpriteData[ramSlot].paletteRow = NBR_OF_PALETTE_ROWS - (gSpriteData[ramSlot].spritesetGfxSlot + gSpriteData[ramSlot].frozenPaletteRowOffset) - SPRITE_FREEZE_PALETTE_OFFSET;
-    } 
+    }
 }
 
 /**
  * @brief 101f4 | 68 | Unfreezes all of the secondary sprites of the specified type
- * 
+ *
  * @param spriteId Sprite ID
  * @param ramSlot Ram slot
  */
@@ -2103,7 +2105,7 @@ void SpriteUtilUnfreezeSecondarySprites(u8 spriteId, u8 ramSlot)
 
 /**
  * @brief 1025c | 44 | Gradual refill of samus' energy
- * 
+ *
  * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillEnergy(void)
@@ -2126,7 +2128,7 @@ u8 SpriteUtilRefillEnergy(void)
         gEquipment.currentEnergy += current;
         if (gEquipment.currentEnergy > gEquipment.maxEnergy)
             gEquipment.currentEnergy = gEquipment.maxEnergy;
-        
+
         return TRUE;
     }
 
@@ -2135,7 +2137,7 @@ u8 SpriteUtilRefillEnergy(void)
 
 /**
  * @brief 102a0 | 44 | Gradual refill of samus' missiles
- * 
+ *
  * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillMissiles(void)
@@ -2158,7 +2160,7 @@ u8 SpriteUtilRefillMissiles(void)
         gEquipment.currentMissiles += current;
         if (gEquipment.currentMissiles > gEquipment.maxMissiles)
             gEquipment.currentMissiles = gEquipment.maxMissiles;
-        
+
         return TRUE;
     }
 
@@ -2167,7 +2169,7 @@ u8 SpriteUtilRefillMissiles(void)
 
 /**
  * @brief 102ea | 44 | Gradual refill of samus' super missiles
- * 
+ *
  * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillSuperMissiles(void)
@@ -2189,7 +2191,7 @@ u8 SpriteUtilRefillSuperMissiles(void)
         gEquipment.currentSuperMissiles += current;
         if (gEquipment.currentSuperMissiles > gEquipment.maxSuperMissiles)
             gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
-        
+
         return TRUE;
     }
 
@@ -2198,7 +2200,7 @@ u8 SpriteUtilRefillSuperMissiles(void)
 
 /**
  * @brief 10328 | 44 | Gradual refill of samus' power bombs
- * 
+ *
  * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillPowerBombs(void)
@@ -2220,7 +2222,7 @@ u8 SpriteUtilRefillPowerBombs(void)
         gEquipment.currentPowerBombs += current;
         if (gEquipment.currentPowerBombs > gEquipment.maxPowerBombs)
             gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
-        
+
         return TRUE;
     }
 
@@ -2229,7 +2231,7 @@ u8 SpriteUtilRefillPowerBombs(void)
 
 /**
  * @brief 1036c | 110 | Checks if samus is crouching or morphed
- * 
+ *
  * @return u8 bool, crouching or morphed
  */
 u8 SpriteUtilCheckCrouchingOrMorphed(void)
@@ -2261,7 +2263,7 @@ u8 SpriteUtilCheckCrouchingOrMorphed(void)
 
 /**
  * @brief 1047c | 2c | Checks if samus is crouching or crawling
- * 
+ *
  * @return u8 bool, crouching or crawling
  */
 u8 SpriteUtilCheckCrouchingOrCrawling(void)
@@ -2287,7 +2289,7 @@ u8 SpriteUtilCheckCrouchingOrCrawling(void)
 
 /**
  * @brief 104a8 | 24 | Checks if samus is morphed
- * 
+ *
  * @return u32 bool, morphed
  */
 u32 SpriteUtilCheckMorphed(void)
@@ -2308,7 +2310,7 @@ u32 SpriteUtilCheckMorphed(void)
 
 /**
  * @brief 104cc | 2c | Checks if samus is in a state that requires sprite behavior to be stopped
- * 
+ *
  * @return u32 bool, stop sprites
  */
 u32 SpriteUtilCheckStopSpritesPose(void)
@@ -2324,13 +2326,13 @@ u32 SpriteUtilCheckStopSpritesPose(void)
         case SPOSE_FACING_THE_FOREGROUND:
             return TRUE;
     }
-    
+
     return FALSE;
 }
 
 /**
  * 104f8 | 1b0 | Handles a sprite taking damage from a contact with samus
- * 
+ *
  * @param pSprite Sprite Data Pointer to the sprite concerned
  * @param pData Samus data pointer
  * @return The damage contact type
@@ -2375,7 +2377,7 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
                 // Screw attacking
                 dct = DCT_SCREW_ATTACK;
                 break;
-            
+
             case SPOSE_STARTING_SPIN_JUMP:
             case SPOSE_SPINNING:
             case SPOSE_STARTING_WALL_JUMP:
@@ -2476,13 +2478,13 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
             dct = DCT_NONE;
         }
     }
-    
+
     return dct;
 }
 
 /**
  * @brief 106a8 | 20 | Checks if samus is pulling herself up
- * 
+ *
  * @return u32 bool, pulling self up
  */
 u32 SpriteUtilCheckPullingSelfUp(void)
@@ -2500,7 +2502,7 @@ u32 SpriteUtilCheckPullingSelfUp(void)
 
 /**
  * @brief 106c8 | 20 | Checks if samus is on a zipline
- * 
+ *
  * @return u32 bool, on zipline
  */
 u32 SpriteUtilCheckOnZipline(void)
@@ -2519,7 +2521,7 @@ u32 SpriteUtilCheckOnZipline(void)
 
 /**
  * @brief 106e8 | 50 | Counts the number of primary sprites
- * 
+ *
  * @param spriteId Sprite ID
  * @return u8 Count
  */
@@ -2541,7 +2543,7 @@ u8 SpriteUtilCountPrimarySprites(u8 spriteId)
 
 /**
  * @brief 10738 | 60 | Counts the number of secondary sprites the current sprite ram slot
- * 
+ *
  * @param spriteId Sprite ID
  * @return u8 Count
  */
@@ -2568,7 +2570,7 @@ u8 SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(u8 spriteId)
 
 /**
  * @brief 10798 | 60 | Counts the number of primary sprites the current sprite ram slot
- * 
+ *
  * @param spriteId Sprite ID
  * @return u8 Count
  */
@@ -2598,7 +2600,7 @@ u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteId)
 
 /**
  * @brief 107f8 | 58 | Finds the ram slot of a primary sprite
- * 
+ *
  * @param spriteId Sprite ID
  * @return u8 Ram slot
  */
@@ -2622,7 +2624,7 @@ u8 SpriteUtilFindPrimary(u8 spriteId)
 
 /**
  * @brief 10850 | 60 | Finds the ram slot of a secondary sprite
- * 
+ *
  * @param spriteId Sprite ID
  * @param roomSlot Room slot/part number
  * @return u8 Ram slot
@@ -2650,7 +2652,7 @@ u8 SpriteUtilFindSecondaryWithRoomSlot(u8 spriteId, u8 roomSlot)
 
 /**
  * @brief 108b0 | 50 | Checks if the current sprite has a drop
- * 
+ *
  * @return u8 bool, has drop
  */
 u8 SpriteUtilCheckHasDrops(void)
@@ -2673,7 +2675,7 @@ u8 SpriteUtilCheckHasDrops(void)
 
 /**
  * @brief 10900 | 44 | Counts the number of drops currently existing
- * 
+ *
  * @return u8 Number of drops
  */
 u8 SpriteUtilCountDrops(void)
@@ -2696,7 +2698,7 @@ u8 SpriteUtilCountDrops(void)
 
 /**
  * @brief 10944 | 254 | Handles a Mecha Ridley missile moving
- * 
+ *
  * @param samusY Samus Y position
  * @param samusX Samus X position
  * @param ySpeed Missile Y speed
@@ -2871,7 +2873,7 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
 }
 /**
  * @brief 10b98 | 158 | Handles a ridley fireball moving (TODO rename to a more general name)
- * 
+ *
  * @param spriteY Destination Y
  * @param samusX Destination X (unused)
  * @param ySpeed Y speed
@@ -2901,7 +2903,7 @@ void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8
     }
 
     flip = FALSE;
-    
+
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.work0 == 0)
@@ -2961,7 +2963,7 @@ void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8
             {
                 updatePos = TRUE;
             }
-            
+
             if (updatePos)
                 gCurrentSprite.yPosition -= (gCurrentSprite.work3 >> speedDivisor);
         }
@@ -2993,7 +2995,7 @@ void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8
 
 /**
  * 10cf0 | 78 | Updates the stun timer of the sprite
- * 
+ *
  * @param pSprite Sprite data pointer
  */
 void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite)
@@ -3027,7 +3029,7 @@ void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite)
 
 /**
  * 10d68 | 126 | Spawns a set of random sprite debris depending on the parameters
- * 
+ *
  * @param cloudType Cloud Type
  * @param number Number Of Debris to spawn
  * @param yPosition Y Position
@@ -3092,7 +3094,7 @@ u8 SpriteUtilGetAmmoDrop(u8 rng)
 
 /**
  * @brief 10eec | 198 | Determines the enemy drop for the current sprite
- * 
+ *
  * @return u8 Drop sprite ID
  */
 u8 SpriteUtilDetermineEnemyDrop(void)
@@ -3291,7 +3293,7 @@ u8 SpriteUtilDetermineEnemyDrop(void)
 
 /**
  * 11084 | 1fc | Handles the death of a sprite, replaces it with a drop if necessary
- * 
+ *
  * @param deathType Death Type (0 spawns a drop)
  * @param yPosition Y Position
  * @param xPosition X Position
@@ -3360,7 +3362,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
 
     drop = SpriteUtilDetermineEnemyDrop();
     if (drop != PSPRITE_UNUSED0)
-    {       
+    {
         if (deathType != DEATH_NORMAL)
         {
             if (deathType != DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP)
@@ -3398,7 +3400,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
 
 /**
  * 11280 | 48 | Checks if the current sprite is stunned
- * 
+ *
  * @return bool, stunned
  */
 u8 SpriteUtilIsSpriteStunned(void)
@@ -3427,7 +3429,7 @@ u8 SpriteUtilIsSpriteStunned(void)
 
 /**
  * 112c8 | 38 | Checks if a sprite should fall
- * 
+ *
  * @return bool, should fall
  */
 u8 SpriteUtilShouldFall(void)
@@ -3441,7 +3443,7 @@ u8 SpriteUtilShouldFall(void)
 
 /**
  * 11300 | 30 | Updates the sub sprite data 1 timer field (used by chozo statues for the echo when sitting)
- * 
+ *
  */
 void SpriteUtilUpdateSubSprite1Timer(void)
 {
@@ -3464,7 +3466,7 @@ void SpriteUtilUpdateSubSprite1Timer(void)
 
 /**
  * @brief 11330 | 3c | Updates the sub sprite data 1 animation
- * 
+ *
  */
 void SpriteUtilUpdateSubSprite1Anim(void)
 {
@@ -3474,7 +3476,7 @@ void SpriteUtilUpdateSubSprite1Anim(void)
     {
         gSubSpriteData1.animationDurationCounter = DELTA_TIME;
         gSubSpriteData1.currentAnimationFrame++;
-        
+
         if (gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].timer == 0)
             gSubSpriteData1.currentAnimationFrame = 0;
     }
@@ -3482,7 +3484,7 @@ void SpriteUtilUpdateSubSprite1Anim(void)
 
 /**
  * 1136c | 44 | Updates the current sprite position with the sub sprite data 1 position and the X/Y position of its OAM data
- * 
+ *
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void)
 {
@@ -3510,7 +3512,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOam(void)
 
 /**
  * @brief 113b0 | 60 | Syncronises the current sprite position with the sub sprite 1 (X/Y coords and X/Y OAM offsets)
- * 
+ *
  */
 void SpriteUtilUpdateSubSprite2Anim(void)
 {
@@ -3520,7 +3522,7 @@ void SpriteUtilUpdateSubSprite2Anim(void)
     {
         gSubSpriteData2.animationDurationCounter = DELTA_TIME;
         gSubSpriteData2.currentAnimationFrame++;
-        
+
         if (gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].timer == 0)
             gSubSpriteData2.currentAnimationFrame = 0;
     }
@@ -3528,7 +3530,7 @@ void SpriteUtilUpdateSubSprite2Anim(void)
 
 /**
  * @brief 1144c | 60 | Syncronises the current sprite position with the sub sprite 2 (X/Y coords and X/Y OAM offsets)
- * 
+ *
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void)
 {
@@ -3546,7 +3548,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void)
 
 /**
  * @brief 114ac | 38 | Updates the animation of a sub sprite data
- * 
+ *
  * @param pSub Sub sprite data pointer
  */
 void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub)
@@ -3565,7 +3567,7 @@ void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub)
 
 /**
  * @brief 114e4 | 3c | Updates the current sprite position with the sub sprite data in parameter position and the X/Y position of its OAM data
- * 
+ *
  * @param pSub Sub Sprite Data Pointer
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteData* pSub)
@@ -3580,7 +3582,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteDa
 
 /**
  * @brief 11520 | 5c | Syncronises the current sprite position with the sub sprite in parameter (X/Y coords and X/Y OAM offsets)
- * 
+ *
  * @param pSub Sub Sprite Data Pointer
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam(struct SubSpriteData* pSub)
@@ -3599,7 +3601,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam(struct SubSp
 
 /**
  * @brief 1157c | a4 | Checks if the current sprite is colliding with Samus visually (using the draw distances)
- * 
+ *
  * @return u8 bool, colliding
  */
 u8 SpriteCheckCollidingWithSamusDrawing(void)
@@ -3641,7 +3643,7 @@ u8 SpriteCheckCollidingWithSamusDrawing(void)
 
 /**
  * 11620 | ac | Sets a sprite splash particle effect depending on the parameters and the current hazard
- * 
+ *
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param size Splash Size
@@ -3668,8 +3670,8 @@ void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size)
             else
                 ParticleSet(yPosition, xPosition, PE_SPRITE_SPLASH_LAVA_HUGE);
             break;
-        
-        case HAZARD_TYPE_ACID:            
+
+        case HAZARD_TYPE_ACID:
             if (size == SPLASH_SMALL)
                 ParticleSet(yPosition, xPosition, PE_SPRITE_SPLASH_ACID_SMALL);
             else if (size == SPLASH_BIG)
@@ -3682,7 +3684,7 @@ void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size)
 
 /**
  * 116cc | 4c | Checks if the sprite is out of the current room effect, if yes sets a splash effect
- * 
+ *
  * @param oldY Old Y position, before movement
  * @param yPosition Current Y position
  * @param xPosition Current X position
@@ -3707,7 +3709,7 @@ u32 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 si
 
 /**
  * 11718 | 4c | Checks if the sprite is in the current room effect, if yes sets a splash effect
- * 
+ *
  * @param oldY Old Y position, before movement
  * @param yPosition Current Y position
  * @param xPosition Current X position
@@ -3732,7 +3734,7 @@ u32 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
 
 /**
  * @brief 1175c | 2c | Gets the current completion percentage
- * 
+ *
  * @return u32 Completion percentage
  */
 u32 SpriteUtilGetFinalCompletionPercentage(void)

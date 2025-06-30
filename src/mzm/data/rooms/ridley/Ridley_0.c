@@ -1,10 +1,12 @@
-#include "data/rooms/ridley_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/ridley_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sRidley_0_Scrolls[SCROLL_DATA_SIZE(1)] = {
 	0, // Room
 	1, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 16, // X bounds
 	12, 31, // Y bounds
@@ -25,4 +27,3 @@ const u8 sRidley_0_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
 };
 
 const u8 sRidley_0_Bg0[82] = INCBIN_U8("data/rooms/ridley/Ridley_0_Bg0.gfx");
-

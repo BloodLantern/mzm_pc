@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "constants/sprite.h"
+#include "mzm/types.h"
+#include "mzm/constants/sprite.h"
 
 // 2b0c94
 

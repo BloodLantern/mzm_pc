@@ -1,5 +1,7 @@
-#include "data/sprite_data.h"
-#include "constants/sprite.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/constants/sprite.h"
+
+#include "mzm_include.h"
 
 const u8 sOamXFlipOffsets[3][4] = {
     { 1, 2, 4, 8 },
@@ -3204,4 +3206,3 @@ const u16 sSecondarySpriteStats[SSPRITE_END][9] = {
         0
     }
 };
-

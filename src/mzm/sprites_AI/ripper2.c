@@ -1,16 +1,18 @@
-#include "sprites_AI/ripper2.h"
-#include "macros.h"
+#include "mzm/sprites_AI/ripper2.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/ripper2.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/ripper2.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define RIPPER2_POSE_MOVING_INIT 0x8
 #define RIPPER2_POSE_MOVING 0x9
@@ -22,7 +24,7 @@
 
 /**
  * @brief 1bfd8 | 7c | Initializes a ripper 2 sprite
- * 
+ *
  */
 static void Ripper2Init(void)
 {
@@ -38,7 +40,7 @@ static void Ripper2Init(void)
     gCurrentSprite.pOam = sRipper2Oam_Moving;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
-    
+
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= EIGHTH_BLOCK_SIZE;
@@ -49,7 +51,7 @@ static void Ripper2Init(void)
 
 /**
  * @brief 1c054 | 20 | Initializes a ripper 2 to be moving
- * 
+ *
  */
 static void Ripper2MovingInit(void)
 {
@@ -62,7 +64,7 @@ static void Ripper2MovingInit(void)
 
 /**
  * @brief 1c074 | 60 | Handles a ripper 2 moving
- * 
+ *
  */
 static void Ripper2Move(void)
 {
@@ -90,7 +92,7 @@ static void Ripper2Move(void)
 
 /**
  * @brief 1c0d4 | 38 | Initializes a ripper 2 to be turning around
- * 
+ *
  */
 static void Ripper2TurnAroundInit(void)
 {
@@ -106,7 +108,7 @@ static void Ripper2TurnAroundInit(void)
 
 /**
  * @brief 1c10c | 38 | Handles the first part of a ripper 2 turning around
- * 
+ *
  */
 static void Ripper2TurnAroundPart1(void)
 {
@@ -123,7 +125,7 @@ static void Ripper2TurnAroundPart1(void)
 
 /**
  * @brief 1c144 | 1c | Handles the second part of a ripper 2 turning around
- * 
+ *
  */
 static void Ripper2TurnAroundPart2(void)
 {
@@ -133,7 +135,7 @@ static void Ripper2TurnAroundPart2(void)
 
 /**
  * @brief 1c160 | d8 | Ripper 2 AI
- * 
+ *
  */
 void Ripper2(void)
 {

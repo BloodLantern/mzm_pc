@@ -1,28 +1,30 @@
-#include "sprites_AI/ridley.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/sprites_AI/ridley.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/frame_data_pointers.h"
-#include "data/sprites/ridley.h"
-#include "data/sprite_data.h"
+#include "mzm/data/frame_data_pointers.h"
+#include "mzm/data/sprites/ridley.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/color_fading.h"
-#include "constants/clipdata.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/connection.h"
-#include "structs/clipdata.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/scroll.h"
-#include "structs/sprite.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/scroll.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define RIDLEY_GROUND_POSITION (BLOCK_SIZE * 18 - ONE_SUB_PIXEL)
 
@@ -131,7 +133,7 @@ enum RidleyFireballType {
 
 /**
  * @brief 31aa4 | 9c | Synchronize the sub sprites of Ridley
- * 
+ *
  */
 static void RidleySyncSubSprites(void)
 {
@@ -140,7 +142,7 @@ static void RidleySyncSubSprites(void)
 
     pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sRidleyFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sRidleyFrameDataPointers[oamIdx];
@@ -164,7 +166,7 @@ static void RidleySyncSubSprites(void)
 
 /**
  * @brief 31b40 | 88 | Synchronize the sub sprites of the Ridley tail
- * 
+ *
  */
 static void RidleyTailSyncSubSprites(void)
 {
@@ -173,7 +175,7 @@ static void RidleyTailSyncSubSprites(void)
 
     pData = gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pData;
     oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
-    
+
     if (gCurrentSprite.pOam != sRidleyFrameDataPointers[oamIdx])
     {
         gCurrentSprite.pOam = sRidleyFrameDataPointers[oamIdx];
@@ -191,7 +193,7 @@ static void RidleyTailSyncSubSprites(void)
 
 /**
  * @brief 31bc8 | 44 | Handles the floating Y movement when idle
- * 
+ *
  */
 static void RidleyIdleYFloatingMovement(void)
 {
@@ -212,7 +214,7 @@ static void RidleyIdleYFloatingMovement(void)
 
 /**
  * @brief 31c0c | 4c | Handles the floating Y movement when spitting fireballs after spawning
- * 
+ *
  */
 static void RidleySpawnSpittingFireballsYFloatingMovement(void)
 {
@@ -236,7 +238,7 @@ static void RidleySpawnSpittingFireballsYFloatingMovement(void)
 
 /**
  * @brief 31c58 | 180 | Updates the health of Ridley
- * 
+ *
  */
 static void RidleyUpdateHealth(void)
 {
@@ -282,7 +284,7 @@ static void RidleyUpdateHealth(void)
 
 /**
  * @brief 31dd8 | 68 | Checks if Ridley is grabbing Samus
- * 
+ *
  * @param yPosition Y position
  * @param xPosition X position
  * @return u8 bool, grabbing
@@ -290,7 +292,7 @@ static void RidleyUpdateHealth(void)
 u32 RidleyCheckGrabbing(u16 yPosition, u16 xPosition)
 {
     u16 xOffset;
-    
+
     yPosition += BLOCK_SIZE * 4;
 
     if (gSamusData.xPosition > xPosition)
@@ -309,7 +311,7 @@ u32 RidleyCheckGrabbing(u16 yPosition, u16 xPosition)
 
 /**
  * @brief 31e40 | 256 | Handles the claw being idle
- * 
+ *
  * @param ramSlot Ridley's ram slot
  */
 static void RidleyPartClawIdle(u8 ramSlot)
@@ -394,7 +396,7 @@ static void RidleyPartClawIdle(u8 ramSlot)
                     else
                         xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 3 - EIGHTH_BLOCK_SIZE);
                     break;
-                
+
                 case 1:
                     yPosition = gCurrentSprite.yPosition + BLOCK_SIZE * 3 + HALF_BLOCK_SIZE - PIXEL_SIZE;
                     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
@@ -402,7 +404,7 @@ static void RidleyPartClawIdle(u8 ramSlot)
                     else
                         xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE);
                     break;
-                
+
                 case 2:
                     yPosition = gCurrentSprite.yPosition + BLOCK_SIZE * 3;
                     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
@@ -410,7 +412,7 @@ static void RidleyPartClawIdle(u8 ramSlot)
                     else
                         xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 3 + THREE_QUARTER_BLOCK_SIZE - PIXEL_SIZE);
                     break;
-                
+
                 case 3:
                     yPosition = gCurrentSprite.yPosition + BLOCK_SIZE * 2 + HALF_BLOCK_SIZE - PIXEL_SIZE;
                     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
@@ -418,7 +420,7 @@ static void RidleyPartClawIdle(u8 ramSlot)
                     else
                         xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE);
                     break;
-                
+
                 case 4:
                     yPosition = gCurrentSprite.yPosition + BLOCK_SIZE * 2 - PIXEL_SIZE;
                     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
@@ -458,12 +460,12 @@ static void RidleyPartClawIdle(u8 ramSlot)
             gBossWork.work3 = 0;
         }
     }
-    
+
 }
 
 /**
  * @brief 320a8 | 30 | Checks if a screen shake should start when Ridley does the vertical tail attack
- * 
+ *
  */
 static void RidleyTailCheckStartScreenShakeVerticalTailAttack(void)
 {
@@ -478,7 +480,7 @@ static void RidleyTailCheckStartScreenShakeVerticalTailAttack(void)
 
 /**
  * @brief 320d8 | b0 | Handles Ridley's X movement when doing a tail attack
- * 
+ *
  * @param movement X Movement
  * @return u8  1 if hitting solid, 0 otherwise
  */
@@ -489,7 +491,7 @@ static u8 RidleyTailAttacksXMove(u16 movement)
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     result = FALSE;
-    
+
     if (gSpriteData[ramSlot].status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check on right
@@ -516,13 +518,13 @@ static u8 RidleyTailAttacksXMove(u16 movement)
     // Check flip
     if (result)
         gSpriteData[ramSlot].status ^= SPRITE_STATUS_FACING_RIGHT;
-    
+
     return result;
 }
 
 /**
  * @brief 32188 | 44 | Handles Ridley's Y movement when doing a tail attack
- * 
+ *
  * @param movement Y Movement
  */
 static void RidleyTailAttacksYMove(u16 movement)
@@ -537,7 +539,7 @@ static void RidleyTailAttacksYMove(u16 movement)
 
 /**
  * @brief 321cc | 58 | Spawns an ascending fireball
- * 
+ *
  * @param timer Influences room slot
  */
 static void RidleySpawnAscendingFireball(u16 timer)
@@ -564,7 +566,7 @@ static void RidleySpawnAscendingFireball(u16 timer)
 
 /**
  * @brief 32224 | 284 | Initializes Ridley
- * 
+ *
  */
 static void RidleyInit(void)
 {
@@ -600,7 +602,7 @@ static void RidleyInit(void)
         gCurrentSprite.status = 0;
         return;
     }
-    
+
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_GRAVITY_SUIT_OBTAINED))
     {
         // Has gravity
@@ -620,7 +622,7 @@ static void RidleyInit(void)
 
     gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
     gCurrentSprite.hitboxBottom = BLOCK_SIZE * 2;
-    
+
     // Move in ceiling
     gCurrentSprite.yPosition -= BLOCK_SIZE * 8;
     gCurrentSprite.xPosition -= BLOCK_SIZE;
@@ -695,7 +697,7 @@ static void RidleyInit(void)
 
 /**
  * @brief 324a8 | b4 | Checks if the cutscene should play
- * 
+ *
  */
 static void RidleyCheckPlayCutscene(void)
 {
@@ -746,7 +748,7 @@ static void RidleyCheckPlayCutscene(void)
 
 /**
  * @brief 3255c | 6e4 | Handles Ridley spawning
- * 
+ *
  */
 static void RidleySpawning(void)
 {
@@ -784,11 +786,11 @@ static void RidleySpawning(void)
 
                     gCurrentClipdataAffectingAction = turning;
                     ClipdataProcess(yPosition, xPosition - BLOCK_SIZE * 5);
-                    
+
                     // Right blocks
                     gCurrentClipdataAffectingAction = turning;
                     ClipdataProcess(yPosition, xPosition + BLOCK_SIZE * 6);
-                    
+
                     gCurrentClipdataAffectingAction = turning;
                     ClipdataProcess(yPosition, xPosition + BLOCK_SIZE * 7);
 
@@ -868,7 +870,7 @@ static void RidleySpawning(void)
                 if (!turning)
                     break;
             }
-            
+
             gSpriteData[gSubSpriteData1.workVariable4].pOam = sRidleyPartOam_OpeningMouth;
             gSpriteData[gSubSpriteData1.workVariable4].animationDurationCounter = 0;
             gSpriteData[gSubSpriteData1.workVariable4].currentAnimationFrame = 0;
@@ -940,7 +942,7 @@ static void RidleySpawning(void)
                 gCurrentSprite.work1++;
             }
             break;
-            
+
         case RIDLEY_SPAWNING_ACTION_TURNING_AROUND_FIRST_PART:
             if (SpriteUtilCheckEndSubSprite1Anim())
             {
@@ -961,7 +963,7 @@ static void RidleySpawning(void)
                     gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
             }
             break;
-            
+
         case RIDLEY_SPAWNING_ACTION_TURNING_AROUND_SECOND_PART:
             if (SpriteUtilCheckEndSubSprite1Anim())
             {
@@ -1040,20 +1042,20 @@ static void RidleySpawning(void)
                     gCurrentSprite.status |= (SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT);
                 else
                     gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT);
-                
+
                 gCurrentSprite.work1 = RIDLEY_SPAWNING_ACTION_GOING_DOWN;
             }
 
         default:
             return;
     }
-    
+
     RidleySpawnSpittingFireballsYFloatingMovement();
 }
 
 /**
  * @brief 32c40 | b8 | Initializes Ridley to be idle
- * 
+ *
  */
 static void RidleyIdleInit(void)
 {
@@ -1097,7 +1099,7 @@ static void RidleyIdleInit(void)
 
 /**
  * @brief 32cf8 | 5fc | Handles Ridley being idle
- * 
+ *
  */
 static void RidleyIdle(void)
 {
@@ -1127,7 +1129,7 @@ static void RidleyIdle(void)
             gSpriteData[clawSlot].animationDurationCounter = 0;
             gSpriteData[clawSlot].currentAnimationFrame = 0;
             gSpriteData[clawSlot].drawOrder = 8;
-            
+
             gSpriteData[clawSlot].work1 = RIDLEY_SAMUS_GRABBED_ACTION_CARRYING_SAMUS;
             gSpriteData[clawSlot].work0 = ONE_THIRD_SECOND;
         }
@@ -1153,7 +1155,7 @@ static void RidleyIdle(void)
                 gSpriteData[clawSlot].pOam = sRidleyPartOam_ClawSamusLifted;
                 gSpriteData[clawSlot].animationDurationCounter = 0;
                 gSpriteData[clawSlot].currentAnimationFrame = 0;
-                
+
                 gSpriteData[clawSlot].work1 = RIDLEY_SAMUS_GRABBED_ACTION_SAMUS_LIFTED;
                 gSpriteData[clawSlot].work0 = ONE_THIRD_SECOND;
             }
@@ -1166,7 +1168,7 @@ static void RidleyIdle(void)
                 gSpriteData[gSubSpriteData1.workVariable4].pOam = sRidleyPartOam_OpeningMouth;
                 gSpriteData[gSubSpriteData1.workVariable4].animationDurationCounter = 0;
                 gSpriteData[gSubSpriteData1.workVariable4].currentAnimationFrame = 0;
-                
+
                 SoundPlay(SOUND_RIDLEY_OPENING_MOUTH);
                 gSpriteData[clawSlot].work1 = RIDLEY_SAMUS_GRABBED_ACTION_OPENING_MOUTH;
                 gSpriteData[clawSlot].work0 = CONVERT_SECONDS(1.f / 12);
@@ -1184,7 +1186,7 @@ static void RidleyIdle(void)
                 gSpriteData[gSubSpriteData1.workVariable4].pOam = sRidleyPartOam_MouthOpened;
                 gSpriteData[gSubSpriteData1.workVariable4].animationDurationCounter = 0;
                 gSpriteData[gSubSpriteData1.workVariable4].currentAnimationFrame = 0;
-                
+
                 gSpriteData[clawSlot].work1 = RIDLEY_SAMUS_GRABBED_ACTION_SPITTING_FIREBALLS;
                 gSpriteData[clawSlot].work0 = 0;
                 gSpriteData[clawSlot].work2 = 0;
@@ -1294,7 +1296,7 @@ static void RidleyIdle(void)
                     }
                 }
             }
-            
+
             // Check start big fireballs attack
             if (MOD_AND(gFrameCounter8Bit, 16) == 0 && gSpriteRng > 8 && gCurrentSprite.work0 <= CONVERT_SECONDS(.15f))
             {
@@ -1356,7 +1358,7 @@ static void RidleyIdle(void)
                     }
                 }
             }
-            
+
             if ((gCurrentSprite.work1 > CONVERT_SECONDS(.25f + 1.f / 60) && !startSlide) || samusGrabbed)
             {
                 gCurrentSprite.work1 = 0;
@@ -1401,7 +1403,7 @@ static void RidleyIdle(void)
             if (startSlide)
                 xMovement = EIGHTH_BLOCK_SIZE;
             else
-                xMovement = PIXEL_SIZE / 2;            
+                xMovement = PIXEL_SIZE / 2;
         }
         else
         {
@@ -1446,7 +1448,7 @@ static void RidleyIdle(void)
 
 /**
  * @brief 332f4 | 88 | Initializes Ridley to be turning around
- * 
+ *
  */
 static void RidleyTurningAroundInit(void)
 {
@@ -1470,7 +1472,7 @@ static void RidleyTurningAroundInit(void)
 
 /**
  * @brief 3337c | 94 | Handles the first part of Ridley turning around
- * 
+ *
  */
 static void RidleyTurningAroundFirstPart(void)
 {
@@ -1501,7 +1503,7 @@ static void RidleyTurningAroundFirstPart(void)
 
 /**
  * @brief 33410 | 94 | Handles the second part of Ridley turning around
- * 
+ *
  */
 static void RidleyTurningAroundSecondPart(void)
 {
@@ -1511,7 +1513,7 @@ static void RidleyTurningAroundSecondPart(void)
     {
         // Set idle
         gCurrentSprite.pose = RIDLEY_POSE_IDLE;
-        
+
         // Update multi sprite data
         gSubSpriteData1.pMultiOam = sRidleyMultiSpriteData_Idle;
         gSubSpriteData1.animationDurationCounter = 0;
@@ -1531,7 +1533,7 @@ static void RidleyTurningAroundSecondPart(void)
 
 /**
  * @brief 334a4 | 68 | Initializes Ridley for the small fireball attack
- * 
+ *
  */
 static void RidleySmallFireballsAttackInit(void)
 {
@@ -1556,7 +1558,7 @@ static void RidleySmallFireballsAttackInit(void)
 
 /**
  * @brief 3350c | 330 | Handles ridley doing the small fireballs attack
- * 
+ *
  */
 static void RidleySmallFireballsAttack(void)
 {
@@ -1713,7 +1715,7 @@ static void RidleySmallFireballsAttack(void)
 
 /**
  * @brief 3383c | 78 | Initializes Ridley for any tail attack
- * 
+ *
  */
 static void RidleyTailAttacksInit(void)
 {
@@ -1736,7 +1738,7 @@ static void RidleyTailAttacksInit(void)
 
 /**
  * @brief 338b4 | 4 | Empty function (tail attacks)
- * 
+ *
  */
 static void Ridley_Empty(void)
 {
@@ -1745,7 +1747,7 @@ static void Ridley_Empty(void)
 
 /**
  * @brief 338b8 | 11c | Initializes Ridley for the big fireballs attack
- * 
+ *
  */
 static void RidleyBigFireballsAttackInit(void)
 {
@@ -1805,7 +1807,7 @@ static void RidleyBigFireballsAttackInit(void)
 
 /**
  * @brief 339d4 | 12c | Handles ridley doing the big fireballs attack
- * 
+ *
  */
 static void RidleyBigFireballsAttack(void)
 {
@@ -1867,7 +1869,7 @@ static void RidleyBigFireballsAttack(void)
 
 /**
  * @brief 33b00 | 214 | Handles ridley dying
- * 
+ *
  */
 static void RidleyDying(void)
 {
@@ -1989,7 +1991,7 @@ static void RidleyDying(void)
 
 /**
  * @brief 33d14 | 148 | Initializes a Ridley part sprite
- * 
+ *
  */
 static void RidleyPartInit(void)
 {
@@ -2000,7 +2002,7 @@ static void RidleyPartInit(void)
     {
         case RIDLEY_PART_LEFT_WING:
             gCurrentSprite.drawOrder = 6;
-            
+
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
@@ -2061,7 +2063,7 @@ static void RidleyPartInit(void)
 
         case RIDLEY_PART_RIGHT_WING:
             gCurrentSprite.drawOrder = 10;
-            
+
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
@@ -2083,7 +2085,7 @@ static void RidleyPartInit(void)
 
 /**
  * @brief 33e5c | 70 | Plays the wing flapping sound
- * 
+ *
  * @param ramSlot Ridley's ram slot
  */
 static void RidleyPartWingPlaySound(u8 ramSlot)
@@ -2105,7 +2107,7 @@ static void RidleyPartWingPlaySound(u8 ramSlot)
 
 /**
  * @brief 33ecc | 38 | Updates the frozen palette offset of a wing
- * 
+ *
  */
 static void RidleyPartWingSetPaletteOffset(void)
 {
@@ -2115,7 +2117,7 @@ static void RidleyPartWingSetPaletteOffset(void)
     part = gCurrentSprite.pOam[gCurrentSprite.currentAnimationFrame].pFrame[3];
     // Mask for the palette number in the oam
     flag = 0xF << 12;
-    
+
     if ((part & flag) == 1 << 15)
         gCurrentSprite.frozenPaletteRowOffset = 0;
     else
@@ -2124,7 +2126,7 @@ static void RidleyPartWingSetPaletteOffset(void)
 
 /**
  * @brief 33f04 | Synchronizes the palette of a Ridley part with Ridley
- * 
+ *
  * @param ramSlot Ridley's RAM slot
  */
 static void RidleyPartSyncPalette(u8 ramSlot)
@@ -2137,7 +2139,7 @@ static void RidleyPartSyncPalette(u8 ramSlot)
 
 /**
  * @brief 33f48 | 2c | Updates the side hitboxes of the claw
- * 
+ *
  */
 static void RidleyPartClawUpdateSidesHitbox(void)
 {
@@ -2155,7 +2157,7 @@ static void RidleyPartClawUpdateSidesHitbox(void)
 
 /**
  * @brief 33f74 | 146 | Handles a Ridley tail dying
- * 
+ *
  */
 static void RidleyTailDead(void)
 {
@@ -2212,7 +2214,7 @@ static void RidleyTailDead(void)
 
 /**
  * @brief 340b8 | 9c | Initializes a Ridley tail sprite
- * 
+ *
  */
 static void RidleyTailInit(void)
 {
@@ -2258,7 +2260,7 @@ static void RidleyTailInit(void)
 
 /**
  * @brief 34154 | 74 | Handles a Ridley tail being idle
- * 
+ *
  */
 static void RidleyTailIdle(void)
 {
@@ -2272,7 +2274,7 @@ static void RidleyTailIdle(void)
         gSubSpriteData2.animationDurationCounter = 0;
         gSubSpriteData2.currentAnimationFrame = 0;
     }
-    
+
     if (gSpriteData[ramSlot].pose == RIDLEY_POSE_TAIL_ATTACKS_INIT)
     {
         gCurrentSprite.pose = RIDLEY_TAIL_POSE_MOVE_TO_ATTACK;
@@ -2285,7 +2287,7 @@ static void RidleyTailIdle(void)
 
 /**
  * @brief 341c8 | 30 | Checks if the moving tail to attack animation ended
- * 
+ *
  */
 static void RidleyTailCheckMovingToAttackAnimEnded(void)
 {
@@ -2301,7 +2303,7 @@ static void RidleyTailCheckMovingToAttackAnimEnded(void)
 
 /**
  * @brief 341f8 | 80 | Handles the tail setting up an attack
- * 
+ *
  */
 static void RidleyTailSettingUpAttack(void)
 {
@@ -2329,7 +2331,7 @@ static void RidleyTailSettingUpAttack(void)
 
 /**
  * @brief 34278 | 128 | Handles the Ridley tail charging the attack
- * 
+ *
  */
 static void RidleyTailChargingAttack(void)
 {
@@ -2404,7 +2406,7 @@ static void RidleyTailChargingAttack(void)
 
 /**
  * @brief 343a0 | 80 | Handles the first vertical attack
- * 
+ *
  */
 static void RidleyTailFirstVerticalAttack(void)
 {
@@ -2432,7 +2434,7 @@ static void RidleyTailFirstVerticalAttack(void)
 
 /**
  * @brief 34420 | ec | Handles the Ridley tail doing the vertical attack
- * 
+ *
  */
 static void RidleyTailVerticalAttack(void)
 {
@@ -2478,7 +2480,7 @@ static void RidleyTailVerticalAttack(void)
             return;
         }
     }
-    
+
     if (gSubSpriteData2.currentAnimationFrame < 5)
         RidleyTailAttacksYMove(QUARTER_BLOCK_SIZE - PIXEL_SIZE);
     else if (gSubSpriteData1.yPosition > (RIDLEY_GROUND_POSITION - BLOCK_SIZE * 8))
@@ -2490,7 +2492,7 @@ static void RidleyTailVerticalAttack(void)
 
 /**
  * @brief 3450c | a8 | Handles the last vertical attack
- * 
+ *
  */
 static void RidleyTailLastVerticalAttack(void)
 {
@@ -2530,7 +2532,7 @@ static void RidleyTailLastVerticalAttack(void)
 
 /**
  * @brief 345b4 | 88 | Handles the Ridley tail doing the diagonal attack
- * 
+ *
  */
 static void RidleyTailDiagonalAttack(void)
 {
@@ -2570,7 +2572,7 @@ static void RidleyTailDiagonalAttack(void)
 
 /**
  * @brief 3463c | 84 | Checks if the back to idle animation ended
- * 
+ *
  */
 static void RidleyTailCheckBackToIdleAnimEnded(void)
 {
@@ -2601,7 +2603,7 @@ static void RidleyTailCheckBackToIdleAnimEnded(void)
 
 /**
  * @brief 346c0 | 50 | Checks if a Ridley fireball should slide off a wall
- * 
+ *
  */
 static void RidleyFireballCheckSlideOnWall(void)
 {
@@ -2634,7 +2636,7 @@ static void RidleyFireballCheckSlideOnWall(void)
 
 /**
  * @brief 34710 | 14c | Initializes a Ridley fireball sprite
- * 
+ *
  */
 static void RidleyFireballInit(void)
 {
@@ -2644,7 +2646,7 @@ static void RidleyFireballInit(void)
 
     gCurrentSprite.bgPriority = BGCNT_GET_PRIORITY(gIoRegistersBackup.BG1CNT);
     gCurrentSprite.drawOrder = 2;
-    
+
     if (gCurrentSprite.spriteId == SSPRITE_RIDLEY_BIG_FIREBALL)
     {
         // Big fireball
@@ -2673,7 +2675,7 @@ static void RidleyFireballInit(void)
 
         gCurrentSprite.pOam = sRidleyFireballOam_Small;
     }
-    
+
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
@@ -2716,7 +2718,7 @@ static void RidleyFireballInit(void)
 
 /**
  * @brief 3485c | 50 | Handles a Ridley fireball moving in a diagonal pattern
- * 
+ *
  */
 static void RidleyFireballMoveDiagonalPattern(void)
 {
@@ -2741,12 +2743,12 @@ static void RidleyFireballMoveDiagonalPattern(void)
 
 /**
  * @brief 348b4 | 6c | Handles a Ridley fireball moving in a floating pattern
- * 
+ *
  */
 static void RidleyFireballMoveFloatingPattern(void)
 {
     u8 part;
-    
+
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         gCurrentSprite.xPosition += PIXEL_SIZE;
     else
@@ -2777,12 +2779,12 @@ static void RidleyFireballMoveFloatingPattern(void)
 
 /**
  * @brief 34920 | 74 | Handles a Ridley fireball moving in a descending pattern
- * 
+ *
  */
 static void RidleyFireballMoveDescendingPattern(void)
 {
     u16 movement;
-    
+
     movement = gCurrentSprite.work2++;
 
     if (gCurrentSprite.scaling < Q_8_8(.94f))
@@ -2808,7 +2810,7 @@ static void RidleyFireballMoveDescendingPattern(void)
 
 /**
  * @brief 34994 | 50 | Handles a Ridley fireball moving in an ascending pattern
- * 
+ *
  */
 static void RidleyFireballMoveAscendingPattern(void)
 {
@@ -2831,7 +2833,7 @@ static void RidleyFireballMoveAscendingPattern(void)
 
 /**
  * @brief 349e4 | 18 | Initializes a Ridley fireball to be sliding on a wall
- * 
+ *
  */
 static void RidleyFireballSlideOnWallInit(void)
 {
@@ -2841,14 +2843,14 @@ static void RidleyFireballSlideOnWallInit(void)
 
 /**
  * @brief 349fc | 3c | Handles a Ridley fireball sliding on a wall
- * 
+ *
  */
 static void RidleyFireballSlideOnWall(void)
 {
     u16 movement;
 
     movement = gCurrentSprite.work3 / 4;
-    
+
     if (movement < QUARTER_BLOCK_SIZE + PIXEL_SIZE)
         gCurrentSprite.work3 += ONE_SUB_PIXEL;
 
@@ -2859,7 +2861,7 @@ static void RidleyFireballSlideOnWall(void)
 
 /**
  * @brief 34a38 | 2ec | Ridley AI
- * 
+ *
  */
 void Ridley(void)
 {
@@ -2874,14 +2876,14 @@ void Ridley(void)
         case RIDLEY_POSE_CHECK_PLAY_CUTSCENE:
             RidleyCheckPlayCutscene();
             break;
-        
+
         case RIDLEY_POSE_SPAWNING:
             RidleySpawning();
             break;
 
         case RIDLEY_POSE_IDLE_INIT:
             RidleyIdleInit();
-        
+
         case RIDLEY_POSE_IDLE:
             RidleyIdle();
             break;
@@ -2975,7 +2977,7 @@ void Ridley(void)
 
 /**
  * @brief 34d24 | 310 | Ridley tail AI
- * 
+ *
  */
 void RidleyTail(void)
 {
@@ -3027,7 +3029,7 @@ void RidleyTail(void)
                 return;
             }
         }
-        
+
         RidleyTailSyncSubSprites();
     }
     else
@@ -3073,7 +3075,7 @@ void RidleyTail(void)
             case RIDLEY_TAIL_POSE_BACK_TO_IDLE:
                 RidleyTailCheckBackToIdleAnimEnded();
                 break;
-            
+
             default:
                 if (gSpriteData[ramSlot].status & SPRITE_STATUS_NOT_DRAWN)
                     gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
@@ -3094,7 +3096,7 @@ void RidleyTail(void)
 
 /**
  * @brief 35034 | 168 | Ridley part AI
- * 
+ *
  */
 void RidleyPart(void)
 {
@@ -3179,7 +3181,7 @@ void RidleyPart(void)
 
 /**
  * @brief 35034 | 168 | Ridley fireball AI
- * 
+ *
  */
 void RidleyFireball(void)
 {
@@ -3207,7 +3209,7 @@ void RidleyFireball(void)
 
         case RIDLEY_FIREBALL_POSE_SLIDE_ON_WALL_INIT:
             RidleyFireballSlideOnWallInit();
-        
+
         case RIDLEY_FIREBALL_POSE_SLIDE_ON_WALL:
             RidleyFireballSlideOnWall();
             break;

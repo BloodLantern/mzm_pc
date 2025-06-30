@@ -1,16 +1,18 @@
-#include "sprites_AI/geega.h"
-#include "macros.h"
+#include "mzm/sprites_AI/geega.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/geega.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/geega.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define GEEGA_POSE_IDLE_INIT 0x8
 #define GEEGA_POSE_IDLE 0x9
@@ -19,7 +21,7 @@
 
 /**
  * @brief 40230 | 60 | Initializes a geega sprite
- * 
+ *
  */
 static void GeegaInit(void)
 {
@@ -44,7 +46,7 @@ static void GeegaInit(void)
 
 /**
  * @brief 40290 | 3c | Initializes a geega to be idle
- * 
+ *
  */
 static void GeegaIdleInit(void)
 {
@@ -61,7 +63,7 @@ static void GeegaIdleInit(void)
 
 /**
  * @brief 402cc | 118 | Handles a geega being idle
- * 
+ *
  */
 static void GeegaIdle(void)
 {
@@ -105,7 +107,7 @@ static void GeegaIdle(void)
 
     if (ABS_DIFF(spriteX, samusX) <= (HALF_BLOCK_SIZE + PIXEL_SIZE))
         return;
-        
+
     if (SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 5, BLOCK_SIZE * 5) != NSAB_ABOVE)
         return;
 
@@ -138,7 +140,7 @@ static void GeegaIdle(void)
 
 /**
  * @brief 403e4 | 80 | Handles a geega going up
- * 
+ *
  */
 static void GeegaGoingUp(void)
 {
@@ -174,7 +176,7 @@ static void GeegaGoingUp(void)
 
 /**
  * @brief 40464 | 94 | Handles a geega respawning
- * 
+ *
  */
 static void GeegaRespawn(void)
 {
@@ -202,7 +204,7 @@ static void GeegaRespawn(void)
 
 /**
  * @brief 404c8 | c8 | Handles a geega moving
- * 
+ *
  */
 static void GeegaMove(void)
 {
@@ -251,7 +253,7 @@ static void GeegaMove(void)
 
 /**
  * @brief 4058c | 13c | Geega AI
- * 
+ *
  */
 void Geega(void)
 {

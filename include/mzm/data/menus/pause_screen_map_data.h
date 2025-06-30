@@ -6,10 +6,10 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
-#include "structs/menus/pause_screen.h"
-#include "connection.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/menus/pause_screen.h"
+#include "mzm/connection.h"
 
 extern const u8 sMinimapTilesGfx[5120];
 extern const u32 sPauseScreen_40f4c4[1792];

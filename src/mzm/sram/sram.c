@@ -1,7 +1,9 @@
-#include "sram/sram.h"
+#include "mzm/sram/sram.h"
 
-#include "gba.h"
-#include "io.h"
+#include "mzm/gba.h"
+#include "mzm/io.h"
+
+#include "mzm_include.h"
 
 static const char sSramVersion[] = "SRAM_V113";
 

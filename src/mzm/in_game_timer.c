@@ -1,9 +1,11 @@
-#include "types.h"
-#include "structs/in_game_timer.h"
+#include "mzm/types.h"
+#include "mzm/structs/in_game_timer.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 579b8 | 6c | Updates the in game timer
- * 
+ *
  */
 void InGameTimerUpdate(void)
 {
@@ -27,7 +29,7 @@ void InGameTimerUpdate(void)
             }
         }
     }
-                
+
     if (gInGameTimer.hours > 99)
     {
         gMaxInGameTimerFlag = TRUE;

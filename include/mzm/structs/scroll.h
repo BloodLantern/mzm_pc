@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/macros.h"
 
 enum ScrollSubData {
     // Left bound
@@ -22,7 +22,7 @@ enum ScrollSubData {
     SCROLL_SUB_DATA_BREAKABLE_X,
     // Breakable block Y position
     SCROLL_SUB_DATA_BREAKABLE_Y,
-    // Which direction 
+    // Which direction
     SCROLL_SUB_DATA_EXTENDED_DIRECTION,
     SCROLL_SUB_DATA_EXTENDED_VALUE,
 

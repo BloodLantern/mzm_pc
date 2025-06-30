@@ -1,4 +1,6 @@
-#include "data/tourian_escape_data.h"
+#include "mzm/data/tourian_escape_data.h"
+
+#include "mzm_include.h"
 
 const u16 sTourianEscapeExplodingPal[9 * 16] = INCBIN_U16("data/tourian_escape/Exploding.pal");
 const u16 sMotherShipBlowingUpExplosionsPal[6 * 16] = INCBIN_U16("data/tourian_escape/BlowingUpExplosions.pal");
@@ -3256,4 +3258,3 @@ const u32 sTourianEscapeSamusLookingAtMotherShipGfx[2153] = INCBIN_U32("data/tou
 const u32 sTourianEscapeSamusLookingAtMotherShipTileTable[577] = INCBIN_U32("data/tourian_escape/SamusLookingAtMotherShip.tt");
 const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipGfx[3112] = INCBIN_U32("data/tourian_escape/SamusLookingAtMotherShipMotherShip.gfx.lz");
 const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipTileTable[577] = INCBIN_U32("data/tourian_escape/SamusLookingAtMotherShipMotherShip.tt");
-

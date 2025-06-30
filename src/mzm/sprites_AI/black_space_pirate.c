@@ -1,27 +1,29 @@
-#include "sprites_AI/black_space_pirate.h"
-#include "sprites_AI/space_pirate.h"
-#include "macros.h"
+#include "mzm/sprites_AI/black_space_pirate.h"
+#include "mzm/sprites_AI/space_pirate.h"
+#include "mzm/macros.h"
 
-#include "data/sprite_data.h"
-#include "data/sprites/space_pirate.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/sprites/space_pirate.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
-#include "constants/samus.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/projectile.h"
+#include "mzm/constants/samus.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/projectile.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/projectile.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define BLACK_SPACE_PIRATE_POSE_INACTIVE 0x1
 
 /**
  * @brief 2cb68 | 268 | Handles black space pirate/projectile collision
- * 
+ *
  */
 void BlackSpacePirateProjectileCollision(void)
 {
@@ -202,7 +204,7 @@ void BlackSpacePirateProjectileCollision(void)
                 case PROJ_TYPE_MISSILE:
                     ProjectileMissileHitSprite(pSprite, pProj, projY, projX);
                     break;
-                
+
                 case PROJ_TYPE_SUPER_MISSILE:
                     ProjectileSuperMissileHitSprite(pSprite, pProj, projY, projX);
                     break;
@@ -217,7 +219,7 @@ void BlackSpacePirateProjectileCollision(void)
 
 /**
  * @brief 2cdd0 | e0 | Checks if a black space pirate is colliding with a laser
- * 
+ *
  */
 static void BlackSpacePirateCollidingWithLaser(void)
 {
@@ -228,7 +230,7 @@ static void BlackSpacePirateCollidingWithLaser(void)
     u16 pirateBottom;
     u16 pirateRight;
     u16 laserSize;
-    
+
     u16 laserY;
     u16 laserX;
     u16 laserTop;
@@ -273,7 +275,7 @@ static void BlackSpacePirateCollidingWithLaser(void)
 
 /**
  * @brief 2ceb0 | e4 | Initializes a black space pirate sprite
- * 
+ *
  */
 static void BlackSpacePirateInit(void)
 {
@@ -325,7 +327,7 @@ static void BlackSpacePirateInit(void)
 
 /**
  * @brief 2cf94 | 20 | Checks if a black space pirate should start acting
- * 
+ *
  */
 static void BlackSpacePirateCheckStartActing(void)
 {
@@ -335,13 +337,13 @@ static void BlackSpacePirateCheckStartActing(void)
 
 /**
  * @brief 2cfb4 | 50 | Initializes a black space pirate to be charging a laser
- * 
+ *
  */
 static void BlackSpacePirateChargingLaserInit(void)
 {
     gCurrentSprite.pose = SPACE_PIRATE_POSE_CHARGING_LASER;
     gCurrentSprite.work0 = CONVERT_SECONDS(0.2f);
-    
+
     if (gCurrentSprite.work1 == SPACE_PIRATE_AIM_DIAGONALLY_UP)
         gCurrentSprite.pOam = sSpacePirateOam_ChargingLaserDiagonallyUp;
     else if (gCurrentSprite.work1 == SPACE_PIRATE_AIM_DIAGONALLY_DOWN)
@@ -356,7 +358,7 @@ static void BlackSpacePirateChargingLaserInit(void)
 
 /**
  * @brief 2d004 | 44 | Handles a black space pirate charging a laser
- * 
+ *
  */
 static void BlackSpacePirateChargingLaser(void)
 {
@@ -374,12 +376,12 @@ static void BlackSpacePirateChargingLaser(void)
 
 /**
  * @brief 2d048 | 44 | Initializes a black space pirate to be shooting
- * 
+ *
  */
 static void BlackSpacePirateShootingInit(void)
 {
     gCurrentSprite.pose = SPACE_PIRATE_POSE_SHOOTING_LASER;
-    
+
     if (gCurrentSprite.work1 == SPACE_PIRATE_AIM_DIAGONALLY_UP)
         gCurrentSprite.pOam = sSpacePirateOam_ShootingDiagonallyUp;
     else if (gCurrentSprite.work1 == SPACE_PIRATE_AIM_DIAGONALLY_DOWN)
@@ -393,7 +395,7 @@ static void BlackSpacePirateShootingInit(void)
 
 /**
  * @brief 2d08c | f4 | Handles a black space pirate shooting
- * 
+ *
  */
 static void BlackSpacePirateShooting(void)
 {
@@ -469,7 +471,7 @@ static void BlackSpacePirateShooting(void)
 
 /**
  * @brief 2d180 | 45c | Handles a black space pirate jumping
- * 
+ *
  */
 static void BlackSpacePirateJumping(void)
 {
@@ -619,7 +621,7 @@ static void BlackSpacePirateJumping(void)
             }
         }
     }
-    
+
     if (collisions != 0)
     {
         if (collisions > 2)
@@ -754,7 +756,7 @@ static void BlackSpacePirateJumping(void)
 
 /**
  * @brief 2d5dc | 17c | Handles a black space pirate moving while alerted
- * 
+ *
  */
 static void BlackSpacePirateWalkingAlerted(void)
 {
@@ -854,7 +856,7 @@ static void BlackSpacePirateWalkingAlerted(void)
 
 /**
  * @brief 2d758 | 3c | Handles the death of a black space pirate
- * 
+ *
  * @param playSound Play sound flag
  */
 static void BlackSpacePirateDeath(u8 playSound)
@@ -868,7 +870,7 @@ static void BlackSpacePirateDeath(u8 playSound)
 
 /**
  * @brief 2d794 | 48 | Initializes a black space pirate have been hit by a laser
- * 
+ *
  */
 static void BlackSpacePirateHitByLaserInit(void)
 {
@@ -885,7 +887,7 @@ static void BlackSpacePirateHitByLaserInit(void)
 
 /**
  * @brief 2d7dc | 64 | Handles a black space pirate to have been hit by a laser
- * 
+ *
  */
 static void BlackSpacePirateHitByLaser(void)
 {
@@ -914,7 +916,7 @@ static void BlackSpacePirateHitByLaser(void)
 
 /**
  * @brief 2d840 | 438 | Black space pirate AI
- * 
+ *
  */
 void BlackSpacePirate(void)
 {
@@ -1003,16 +1005,16 @@ void BlackSpacePirate(void)
 
         case 0xE:
             unk_2a768();
-        
+
         case 0xF:
             unk_2a7c0();
             break;
-        
+
         case 0x1C:
             unk_2ab34();
             unk_2ab58();
             break;
-        
+
         case 0x11:
             unk_2ab58();
             break;
@@ -1029,7 +1031,7 @@ void BlackSpacePirate(void)
 
         case SPACE_PIRATE_POSE_TURNING_AROUND_INIT:
             SpacePirateTurningAroundInit();
-        
+
         case SPACE_PIRATE_POSE_TURNING_AROUND_FIRST_PART:
             SpacePirateTurningAroundFirstPart();
             break;

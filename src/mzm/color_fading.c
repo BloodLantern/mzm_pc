@@ -1,40 +1,42 @@
-#include "color_fading.h"
-#include "dma.h"
-#include "gba.h"
-#include "color_effects.h"
-#include "sprites_AI/ruins_test.h"
+#include "mzm/color_fading.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/color_effects.h"
+#include "mzm/sprites_AI/ruins_test.h"
 
-#include "data/engine_pointers.h"
-#include "data/color_fading_data.h"
-#include "data/common_pals.h"
+#include "mzm/data/engine_pointers.h"
+#include "mzm/data/color_fading_data.h"
+#include "mzm/data/common_pals.h"
 
-#include "constants/audio.h"
-#include "constants/animated_graphics.h"
-#include "constants/connection.h"
-#include "constants/color_fading.h"
-#include "constants/cutscene.h"
-#include "constants/event.h"
-#include "constants/haze.h"
-#include "constants/game_state.h"
-#include "constants/room.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/animated_graphics.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/color_fading.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/haze.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/room.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/audio.h"
-#include "structs/bg_clip.h"
-#include "structs/color_effects.h"
-#include "structs/cutscene.h"
-#include "structs/demo.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/haze.h"
-#include "structs/save_file.h"
-#include "structs/sprite.h"
-#include "structs/visual_effects.h"
-#include "structs/room.h"
+#include "mzm/structs/audio.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/color_effects.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/haze.h"
+#include "mzm/structs/save_file.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/visual_effects.h"
+#include "mzm/structs/room.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 5bcb0 | a8 | Processes the current color fading effect, visually
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingUpdate(void)
@@ -81,7 +83,7 @@ u8 ColorFadingUpdate(void)
 
 /**
  * @brief 5bd58 | 70 | To document
- * 
+ *
  * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
@@ -116,7 +118,7 @@ u8 unk_5bd58(u8 stage, u8 color)
 
 /**
  * @brief 5bdc8 | b4 | To document
- * 
+ *
  * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
@@ -164,7 +166,7 @@ u8 unk_5bdc8(u8 stage, u8 color)
 
 /**
  * @brief 5be7c | 4c | To document
- * 
+ *
  * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
@@ -191,7 +193,7 @@ u8 unk_5be7c(u8 stage, u8 color)
 
 /**
  * @brief 5bec8 | 4 | Empty fading subroutine
- * 
+ *
  * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
@@ -203,7 +205,7 @@ u8 ColorFadingSubroutine_Empty(u8 stage, u8 color)
 
 /**
  * @brief 5becc | 108 | Transfers the faded palette during a transition
- * 
+ *
  */
 void ColorFadingTransferPaletteOnTransition(void)
 {
@@ -241,7 +243,7 @@ void ColorFadingTransferPaletteOnTransition(void)
 
 /**
  * @brief 5bfd4 | a0 | Starts either a color fade or a background effect for a cutscene
- * 
+ *
  * @param request Request
  */
 void StartEffectForCutscene(u8 request)
@@ -298,7 +300,7 @@ void StartEffectForCutscene(u8 request)
 
 /**
  * @brief 5c074 | 18 | Starts a color fading
- * 
+ *
  * @param type Type
  */
 void ColorFadingStart(u8 type)
@@ -314,7 +316,7 @@ void ColorFadingStart(u8 type)
 
 /**
  * @brief 5c08c | cc | Hides the screen during a load if necessary
- * 
+ *
  */
 void ColorFadingHideScreenDuringLoad(void)
 {
@@ -351,7 +353,7 @@ void ColorFadingHideScreenDuringLoad(void)
 
 /**
  * @brief 5c158 | 38 | Sets BG3 position to BG3 or BG4
- * 
+ *
  */
 void ColorFadingSetBg3Position(void)
 {
@@ -363,7 +365,7 @@ void ColorFadingSetBg3Position(void)
 
 /**
  * @brief 5c190 | 90 | Starts a default fade
- * 
+ *
  */
 void ColorFadingStartDefault(void)
 {
@@ -388,8 +390,8 @@ void ColorFadingStartDefault(void)
 }
 
 /**
- * @brief 5c220 | 5c | Starts a door transition fade | FIXME verify this function 
- * 
+ * @brief 5c220 | 5c | Starts a door transition fade | FIXME verify this function
+ *
  */
 void ColorFadingStartDoorTransition(void)
 {
@@ -414,7 +416,7 @@ void ColorFadingStartDoorTransition(void)
 
 /**
  * @brief 5c27c | 70 | Handles fading for BG2 and BG3 gradient except on delay frames
- * 
+ *
  * @param delay Delay
  */
 void ColorFadingGradients(u8 delay)
@@ -432,21 +434,21 @@ void ColorFadingGradients(u8 delay)
 
         if (gWrittenToBLDALPHA_L != 0)
             gWrittenToBLDALPHA_L--;
-        
+
         gWrittenToBLDALPHA = gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L;
     }
 }
 
 /**
  * @brief 5c2ec | c0 | Finishes a door fade and sets up door transition drawing
- * 
+ *
  */
 void ColorFadingFinishDoorFade(void)
 {
     unk_5d09c();
     SET_BACKDROP_COLOR(COLOR_BLACK);
     write16(REG_DISPCNT, read16(REG_DISPCNT) & ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3));
-    
+
     // Decompress and write the door transition tilemap to BG3
     RoomRleDecompress(FALSE, sDoorTransitionTilemap, gDecompBg3Map);
     DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, sizeof(gDecompBg3Map), 16);
@@ -470,7 +472,7 @@ void ColorFadingFinishDoorFade(void)
 
 /**
  * @brief 5c3ac | b4 | Handle door transition update and ending
- * 
+ *
  * @return u32 bool, finished
  */
 u32 ColorFadingFinishDoorTransition(void)
@@ -509,7 +511,7 @@ u32 ColorFadingFinishDoorTransition(void)
 
 /**
  * @brief 5c460 | 60 | Processes the current color fading effect
- * 
+ *
  * @return u32 bool, ended
  */
 u32 ColorFadingProcess(void)
@@ -533,7 +535,7 @@ u32 ColorFadingProcess(void)
 
 /**
  * @brief 5c4c0 | 268 | Door transition fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_DoorTransition(void)
@@ -581,7 +583,7 @@ u8 ColorFadingProcess_DoorTransition(void)
         case 3:
             RoomRleDecompress(FALSE, sDoorTransitionTilemap, gDecompBg3Map);
             DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, sizeof(gDecompBg3Map), 16);
-            
+
             if (gDoorPositionStart.x != 0)
                 gBackgroundPositions.doorTransition.x = BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE;
             else
@@ -649,7 +651,7 @@ u8 ColorFadingProcess_DoorTransition(void)
 
 /**
  * @brief 5c728 | 54 | Default subroutine for a color fading
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_Default(void)
@@ -678,7 +680,7 @@ u8 ColorFadingProcess_Default(void)
 
 /**
  * @brief 5c77c | 98 | Escape failed fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_EscapeFailed(void)
@@ -720,7 +722,7 @@ u8 ColorFadingProcess_EscapeFailed(void)
 
 /**
  * @brief 5c814 | 98 | Before chozodia escape fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_ChozodiaEscape(void)
@@ -765,7 +767,7 @@ u8 ColorFadingProcess_ChozodiaEscape(void)
 
 /**
  * @brief 5c8ac | 78 | Before demo end fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_BeforeDemoEnding(void)
@@ -801,7 +803,7 @@ u8 ColorFadingProcess_BeforeDemoEnding(void)
 
 /**
  * @brief 5c924 | 78 | Before tourian escape fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_TourianEscape(void)
@@ -839,7 +841,7 @@ u8 ColorFadingProcess_TourianEscape(void)
 
 /**
  * @brief 5c99c | bc | Before getting fully powered suit cutscene fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_GettingFullyPowered(void)
@@ -891,7 +893,7 @@ u8 ColorFadingProcess_GettingFullyPowered(void)
 
 /**
  * @brief 5ca58 | 80 | Before ridley spawn cutscene fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_BeforeRidleySpawn(void)
@@ -932,7 +934,7 @@ u8 ColorFadingProcess_BeforeRidleySpawn(void)
 
 /**
  * @brief 5cad8 | a0 | Before statue opening cutscene fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_StatueOpening(void)
@@ -974,7 +976,7 @@ u8 ColorFadingProcess_StatueOpening(void)
 
 /**
  * @brief 5cb78 | a4 | Before intro text cutscene fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_BeforeIntroText(void)
@@ -1028,7 +1030,7 @@ u8 ColorFadingProcess_BeforeIntroText(void)
 
 /**
  * @brief 5cc1c | 78 | Before samus in blue ship cutscene fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_BeforeBlueShip(void)
@@ -1068,7 +1070,7 @@ u8 ColorFadingProcess_BeforeBlueShip(void)
 
 /**
  * @brief 5cc94 | 5c | Before ship landing sequence fade subroutine
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingProcess_BeforeLandingShip(void)
@@ -1108,7 +1110,7 @@ u8 ColorFadingProcess_BeforeLandingShip(void)
 
 /**
  * @brief 5ccf0 | 34 | Default behavior for a fade
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingUpdate_Default(void)
@@ -1133,7 +1135,7 @@ u8 ColorFadingUpdate_Default(void)
 
 /**
  * @brief 5cd24 | 228 | Updates a door transition
- * 
+ *
  * @return u8 bool, ended
  */
 u8 ColorFadingUpdate_DoorTransition(void)
@@ -1248,7 +1250,7 @@ u8 ColorFadingUpdate_DoorTransition(void)
 
 /**
  * @brief 5cf4c | 94 | Applies the monochrome background fading
- * 
+ *
  */
 void ColorFadingApplyMonochrome(void)
 {

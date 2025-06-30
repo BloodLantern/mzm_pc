@@ -1,17 +1,19 @@
-#include "sprites_AI/sova.h"
-#include "macros.h"
+#include "mzm/sprites_AI/sova.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/sova.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/sova.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/game_state.h"
-#include "structs/sprite.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 enum SovaTurningDirection {
     SOVA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER,
@@ -40,7 +42,7 @@ enum SovaTurningDirection {
 
 /**
  * @brief 1da24 | b8 | Checks if a sova is colliding with air
- * 
+ *
  * @return u8 1 if colliding with air, 0 otherwise
  */
 static u8 SovaCheckCollidingWithAir(void)
@@ -101,7 +103,7 @@ static u8 SovaCheckCollidingWithAir(void)
 
 /**
  * @brief 1dadc | 80 | Updates the hitbox of a Sova
- * 
+ *
  */
 static void SovaUpdateHitbox(void)
 {
@@ -143,7 +145,7 @@ static void SovaUpdateHitbox(void)
 
 /**
  * @brief 1db5c | 78 | Sets the crawling OAM for a sova
- * 
+ *
  */
 static void SovaSetCrawlingOam(void)
 {
@@ -160,7 +162,7 @@ static void SovaSetCrawlingOam(void)
             gCurrentSprite.pOam = sSovaOam_WalkingOnCeiling;
         else
             gCurrentSprite.pOam = sSovaOam_OnGround;
-        
+
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
         else
@@ -173,7 +175,7 @@ static void SovaSetCrawlingOam(void)
 
 /**
  * @brief 1dbd4 | 150 | Initializes a sova
- * 
+ *
  */
 static void SovaInit(void)
 {
@@ -251,7 +253,7 @@ static void SovaInit(void)
 
 /**
  * @brief 1dd24 | 14 | Initializes a Sova to be idle
- * 
+ *
  */
 static void SovaIdleInit(void)
 {
@@ -261,7 +263,7 @@ static void SovaIdleInit(void)
 
 /**
  * @brief 1dd3c | 4b0 | Handles a sova moving
- * 
+ *
  */
 static void SovaMove(void)
 {
@@ -597,7 +599,7 @@ static void SovaMove(void)
 
 /**
  * @brief 1e1ec | 194 | Initializes a sova to be turning around
- * 
+ *
  */
 static void SovaTurningAroundInit(void)
 {
@@ -646,7 +648,7 @@ static void SovaTurningAroundInit(void)
             gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
             gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             break;
-        
+
         case SOVA_TURNING_DIRECTION_TOP_LEFT_EDGE:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 gCurrentSprite.pOam = sSovaOam_TurningCornerLeft;
@@ -694,7 +696,7 @@ static void SovaTurningAroundInit(void)
 
 /**
  * @brief 1e380 | 1f0 | Handles a sova turning around
- * 
+ *
  */
 static void SovaTurningAround(void)
 {
@@ -769,7 +771,7 @@ static void SovaTurningAround(void)
 
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
-        
+
         case SOVA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
             {
@@ -800,7 +802,7 @@ static void SovaTurningAround(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             gCurrentSprite.work2 = TRUE;
             break;
-        
+
         case SOVA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
             {
@@ -825,7 +827,7 @@ static void SovaTurningAround(void)
 
 /**
  * @brief 1e570 | 44 | Initializes a sova to be landing
- * 
+ *
  */
 static void SovaLandingInit(void)
 {
@@ -845,7 +847,7 @@ static void SovaLandingInit(void)
 
 /**
  * @brief 1e5b4 | 30 | Handles a sova landing
- * 
+ *
  */
 static void SovaLanding(void)
 {
@@ -857,7 +859,7 @@ static void SovaLanding(void)
 
 /**
  * @brief 1e5e4 | 78 | Initializes a sova to be falling
- * 
+ *
  */
 static void SovaFallingInit(void)
 {
@@ -873,7 +875,7 @@ static void SovaFallingInit(void)
         if (gCurrentSprite.work2 != 0)
             gCurrentSprite.yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     }
-    
+
     gCurrentSprite.pose = SOVA_POSE_FALLING;
     gCurrentSprite.work3 = 0;
     gCurrentSprite.work2 = 0;
@@ -888,7 +890,7 @@ static void SovaFallingInit(void)
 
 /**
  * @brief 1e65c | 7c | Handles a sova falling
- * 
+ *
  */
 static void SovaFalling(void)
 {
@@ -927,7 +929,7 @@ static void SovaFalling(void)
 
 /**
  * @brief 1e6d8 | 60 | Handles the death of a sova
- * 
+ *
  */
 static void SovaDeath(void)
 {
@@ -957,7 +959,7 @@ static void SovaDeath(void)
 
 /**
  * @brief 1e738 | 11c | Sova AI
- * 
+ *
  */
 void Sova(void)
 {

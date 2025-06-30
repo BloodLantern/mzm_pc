@@ -1,17 +1,19 @@
-#include "sprites_AI/holtz.h"
-#include "macros.h"
+#include "mzm/sprites_AI/holtz.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/holtz.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/holtz.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/sprite.h"
-#include "structs/samus.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define HOLTZ_POSE_IDLE_INIT 0x8
 #define HOLTZ_POSE_IDLE 0x9
@@ -26,7 +28,7 @@
 
 /**
  * @brief 3830c | cc | Handles the Y movement of a holtz
- * 
+ *
  * @param movement Y movement
  * @return u8 1 if colliding with solid, 0 otherwise
  */
@@ -85,7 +87,7 @@ static u8 HoltzYMovement(u16 movement)
 
 /**
  * @brief 383d8 | 8c | Handles the X movement of a holtz
- * 
+ *
  * @param movement X movement
  * @return u8 1 if colliding with solid, 0 otherwise
  */
@@ -115,7 +117,7 @@ static u8 HoltzXMovement(u16 movement)
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - BLOCK_SIZE);
         if (gPreviousCollisionCheck != COLLISION_SOLID)
         {
-            gCurrentSprite.xPosition -= movement;            
+            gCurrentSprite.xPosition -= movement;
             return FALSE;
         }
         else
@@ -125,7 +127,7 @@ static u8 HoltzXMovement(u16 movement)
 
 /**
  * @brief 38464 | 70 | Initializes a holtz sprite
- * 
+ *
  */
 static void HoltzInit(void)
 {
@@ -151,7 +153,7 @@ static void HoltzInit(void)
 
 /**
  * @brief 384dc | 3c | Initializes a holtz to be idle
- * 
+ *
  */
 static void HoltzIdleInit(void)
 {
@@ -168,7 +170,7 @@ static void HoltzIdleInit(void)
 
 /**
  * @brief 38518 | 70 | Handles a holtz being idle
- * 
+ *
  */
 static void HoltzIdle(void)
 {
@@ -198,7 +200,7 @@ static void HoltzIdle(void)
 
 /**
  * @brief 38588 | 20 | Initializes a holtz to do the warning
- * 
+ *
  */
 static void HoltzWarningInit(void)
 {
@@ -210,7 +212,7 @@ static void HoltzWarningInit(void)
 
 /**
  * @brief 385a8 | 90 | Checks if the warning animation has ended
- * 
+ *
  */
 static void HoltzCheckWarningAnimEnded(void)
 {
@@ -251,7 +253,7 @@ static void HoltzCheckWarningAnimEnded(void)
 
 /**
  * @brief 38638 | 60 | Handles the holtz going down
- * 
+ *
  */
 static void HoltzGoingDownMove(void)
 {
@@ -275,7 +277,7 @@ static void HoltzGoingDownMove(void)
 
 /**
  * @brief 38698 | 4c | Handles the holtz sliding on the ground
- * 
+ *
  */
 static void HoltzSlidingMove(void)
 {
@@ -298,7 +300,7 @@ static void HoltzSlidingMove(void)
 
 /**
  * @brief 386e4 | 9c | Handles the holtz moving up
- * 
+ *
  */
 static void HoltzGoingUpMove(void)
 {
@@ -332,7 +334,7 @@ static void HoltzGoingUpMove(void)
 
 /**
  * @brief 38780 | 50 | Handles the holtz being back on the ceiling
- * 
+ *
  */
 static void HoltzBackToCeiling(void)
 {
@@ -356,7 +358,7 @@ static void HoltzBackToCeiling(void)
 
 /**
  * @brief 387d0 | 1ac | Holtz AI
- * 
+ *
  */
 void Holtz(void)
 {
@@ -392,7 +394,7 @@ void Holtz(void)
 
         case HOLTZ_POSE_WARNING_INIT:
             HoltzWarningInit();
-        
+
         case HOLTZ_POSE_WARNING:
             HoltzCheckWarningAnimEnded();
             break;

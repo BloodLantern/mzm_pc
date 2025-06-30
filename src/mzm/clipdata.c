@@ -1,23 +1,25 @@
-#include "gba.h"
-#include "clipdata.h"
-#include "macros.h"
-#include "block.h"
-#include "temp_globals.h"
+#include "mzm/gba.h"
+#include "mzm/clipdata.h"
+#include "mzm/macros.h"
+#include "mzm/block.h"
+#include "mzm/temp_globals.h"
 
-#include "data/clipdata_data.h"
+#include "mzm/data/clipdata_data.h"
 
-#include "constants/clipdata.h"
-#include "constants/connection.h"
-#include "constants/event.h"
-#include "constants/samus.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/event.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/bg_clip.h"
-#include "structs/room.h"
-#include "structs/samus.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 57dcc | 2c | Transfers the clipdata code to RAM and sets the pointer to it
- * 
+ *
  */
 void ClipdataSetupCode(void)
 {
@@ -30,7 +32,7 @@ void ClipdataSetupCode(void)
 
 /**
  * @brief Gets information on the clipdata block at the position in parameters, only used for samus
- * 
+ *
  * @param yPosition Y position (in sub-pixels)
  * @param xPosition X position (in sub-pixels)
  * @return u32 Clipdata type (including solid flag)
@@ -49,7 +51,7 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
         result = CLIPDATA_TYPE_SOLID_FLAG | CLIPDATA_TYPE_SOLID;
     }
     else
-    {        
+    {
         if (collision.tileY < gBgPointersAndDimensions.clipdataHeight)
         {
             // Get clip type at position
@@ -75,7 +77,7 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
 
 /**
  * @brief 57e7c | 100 | Processes the clipdata at the position (hazard, movement, destruction, modification...) and gets the type of said clipdata
- * 
+ *
  * @param yPosition Y Position (subpixels)
  * @param xPosition X Position (subpixels)
  * @return u32 Clipdata type (including solid flag)
@@ -137,7 +139,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
 
 /**
  * @brief 57f7c | 104 | Returns the collision type for the current position
- * 
+ *
  * @param pCollision Pointer to a collision data structure
  * @return u32 Clipdata type (including solid flag)
  */
@@ -164,7 +166,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
             else
                 result = pCollision->clipdataType;
             break;
-            
+
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic, however since the slope is "flipped" in regards to the coordinates, we substract the X to 3F
@@ -266,7 +268,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
                 result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             }
             break;
-        
+
         default:
             break;
     }
@@ -276,7 +278,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
 
 /**
  * @brief 58080 | 40 | Checks for the current affecting clipdata (movement and hazard) at the position
- * 
+ *
  * @param yPosition Y Position (subpixels)
  * @param xPosition X Position (subpixels)
  * @return u32 Affecting clipdata (movement << 16 | hazard)
@@ -302,7 +304,7 @@ s32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
 
 /**
  * @brief 580c0 | dc | Checks for the current affecting clipdata
- * 
+ *
  * @param yPosition Y position
  * @param tileY Tile Y position
  * @param tileX Tile X position
@@ -380,7 +382,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
 
 /**
  * @brief 5819c | c4 | Checks if Samus can or can't use the current elevator
- * 
+ *
  * @param movementClip Movement clipdata (unused)
  * @return u32 TRUE if can't use, FALSE otherwise
  */
@@ -394,7 +396,7 @@ u32 ClipdataCheckCantUseElevator(u32 movementClip)
     gLastElevatorUsed.direction = 0;
 
     direction = 0;
-    
+
     for (i = 8; i > 0; i--)
     {
         // Get direction
@@ -431,7 +433,7 @@ u32 ClipdataCheckCantUseElevator(u32 movementClip)
 
 /**
  * @brief 58260 | 64 | Gets the ground effect clipdata at the position
- * 
+ *
  * @param yPosition Y Position (subpixels)
  * @param xPosition X Position (subpixels)
  * @return s32 Ground Effect Clipdata
@@ -458,6 +460,6 @@ u32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
         clipdata = sGroundEffectsClipdataValues[BEHAVIOR_TO_GROUND_EFFECT(clipdata)];
     else
         clipdata = GROUND_EFFECT_NONE;
-    
+
     return clipdata;
 }

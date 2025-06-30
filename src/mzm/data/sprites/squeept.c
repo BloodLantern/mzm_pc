@@ -1,5 +1,7 @@
-#include "data/sprites/squeept.h"
-#include "macros.h"
+#include "mzm/data/sprites/squeept.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sSqueeptRisingMovement[65] = {
     -18, -18, -18, -18, -16, -16, -16, -16, -14,

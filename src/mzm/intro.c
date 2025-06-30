@@ -1,25 +1,27 @@
-#include "intro.h"
-#include "callbacks.h"
-#include "macros.h"
-#include "complex_oam.h" // Required
+#include "mzm/intro.h"
+#include "mzm/callbacks.h"
+#include "mzm/macros.h"
+#include "mzm/complex_oam.h" // Required
 
-#include "data/shortcut_pointers.h"
-#include "data/intro_data.h"
-#include "data/internal_intro_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/intro_data.h"
+#include "mzm/data/internal_intro_data.h"
 
-#include "constants/audio.h"
-#include "constants/game_state.h"
-#include "constants/intro.h"
-#include "constants/text.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/intro.h"
+#include "mzm/constants/text.h"
 
-#include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/intro.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/intro.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 800f4 | 90 | V-blank code for the intro
- * 
+ *
  */
 void IntroVBlank(void)
 {
@@ -36,7 +38,7 @@ void IntroVBlank(void)
 
 /**
  * @brief 80184 | 58 | V-blank code for the intro fuzz
- * 
+ *
  */
 void IntroFuzzVBlank(void)
 {
@@ -50,7 +52,7 @@ void IntroFuzzVBlank(void)
 
 /**
  * @brief 801dc | 1d4 | Initializes the intro
- * 
+ *
  */
 void IntroInit(void)
 {
@@ -160,7 +162,7 @@ void IntroTextProcessOam(void)
         for (; i < partCount; i++)
         {
             // Brackets are necesary
-            if (i >= INTRO_DATA.finalCharacter) 
+            if (i >= INTRO_DATA.finalCharacter)
             {
                 break;
             }
@@ -214,7 +216,7 @@ void IntroTextProcessOam(void)
 
 /**
  * @brief 80550 | 180 | Processes the intro text
- * 
+ *
  * @param action Text action
  * @param indent Indent
  * @return u8 To document
@@ -325,13 +327,13 @@ u8 IntroProcessText(u8 action, u16 indent)
 
     if (flag_unk3 != 0)
         return 1;
-    
+
     return 0;
 }
 
 /**
  * @brief 806d0 | e8 | Handles the "Emergency order" text part of the intro
- * 
+ *
  * @return u8 FALSE
  */
 u8 IntroEmergencyOrder(void)
@@ -382,7 +384,7 @@ u8 IntroEmergencyOrder(void)
 
 /**
  * @brief 807b8 | 134 | Processes the OAM for the ship flying towards the camera
- * 
+ *
  */
 void IntroShipFlyingTowardsCameraProcessOam(void)
 {
@@ -443,7 +445,7 @@ void IntroShipFlyingTowardsCameraProcessOam(void)
 
 /**
  * @brief 808ec | 9c | Handles the ship flying towards camera part of the intro
- * 
+ *
  * @return u8 FALSE
  */
 u8 IntroShipFlyingTowardsCamera(void)
@@ -484,7 +486,7 @@ u8 IntroShipFlyingTowardsCamera(void)
 
 /**
  * @brief 80988 | 100 | Handles the samus in her ship part of the intro
- * 
+ *
  * @return u8 FALSE
  */
 u8 IntroSamusInHerShip(void)
@@ -546,8 +548,8 @@ u8 IntroSamusInHerShip(void)
 
 /**
  * @brief 80a88 | f0 | Handles the "Exterminate..." text part of the intro
- * 
- * @return u8 
+ *
+ * @return u8
  */
 u8 IntroExterminate(void)
 {
@@ -597,7 +599,7 @@ u8 IntroExterminate(void)
 
 /**
  * @brief 80b78 | 154 | Processes the OAM for the view of zebes part of the intro
- * 
+ *
  */
 void IntroViewOfZebesProcessOAM(void)
 {
@@ -673,7 +675,7 @@ void IntroViewOfZebesProcessOAM(void)
 
 /**
  * @brief 80ccc | 12c | Handles the view of zebes part of the intro
- * 
+ *
  * @return u8 FALSE
  */
 u8 IntroViewOfZebes(void)
@@ -735,7 +737,7 @@ u8 IntroViewOfZebes(void)
 
 /**
  * @brief 80df8 | 100 | Handles the "Defeat..." text part of the intro
- * 
+ *
  * @return u8 FALSE
  */
 u8 IntroDefeat(void)
@@ -788,7 +790,7 @@ u8 IntroDefeat(void)
 
 /**
  * @brief 80ef8 | 120 | Handles the mother brain part of the intro
- * 
+ *
  * @return u8 FALSE
  */
 u8 IntroMotherBrain(void)
@@ -844,7 +846,7 @@ u8 IntroMotherBrain(void)
 
 /**
  * @brief 81018 | 88 | Processes the OAM for the intro fuzz
- * 
+ *
  */
 void IntroFuzzProcessOAM(void)
 {
@@ -880,7 +882,7 @@ void IntroFuzzProcessOAM(void)
 
 /**
  * @brief 810a0 | dc | Handles the fuzz part of the intro
- * 
+ *
  * @return u8 bool, ended
  */
 u8 IntroFuzz(void)
@@ -928,7 +930,7 @@ u8 IntroFuzz(void)
 
 /**
  * @brief 8117c | cc | Subroutine for the intro
- * 
+ *
  * @return u32 bool, ended
  */
 u32 IntroSubroutine(void)
@@ -951,7 +953,7 @@ u32 IntroSubroutine(void)
                 gWrittenToBLDY_NonGameplay--;
                 break;
             }
-            
+
             INTRO_DATA.bldcnt = 0;
             gGameModeSub1++;
             break;
@@ -972,7 +974,7 @@ u32 IntroSubroutine(void)
 
             ResetFreeOam();
             break;
-    
+
         case 3:
             ended = TRUE;
     }

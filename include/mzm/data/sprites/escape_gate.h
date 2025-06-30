@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "oam.h"
+#include "mzm/types.h"
+#include "mzm/oam.h"
 
 extern const u8 sEscapeGateAndTimerGfx[2048];
 extern const u16 sEscapeGateAndTimerPal[16];

@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
 
 extern const u16 sMotherBrainCloseUpLookingAtSamusTimers[2];
 extern const u16 sMotherBrainCloseUpEyeOpeningTimers[4];

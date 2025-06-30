@@ -1,20 +1,22 @@
-#include "cutscenes/mother_brain_close_up.h"
-#include "cutscenes/cutscene_utils.h"
-#include "dma.h"
-#include "temp_globals.h"
+#include "mzm/cutscenes/mother_brain_close_up.h"
+#include "mzm/cutscenes/cutscene_utils.h"
+#include "mzm/dma.h"
+#include "mzm/temp_globals.h"
 
-#include "data/shortcut_pointers.h"
-#include "data/cutscenes/cutscenes_data.h"
-#include "data/cutscenes/mother_brain_close_up_data.h"
-#include "data/cutscenes/internal_mother_brain_close_up_data.h"
+#include "mzm/data/shortcut_pointers.h"
+#include "mzm/data/cutscenes/cutscenes_data.h"
+#include "mzm/data/cutscenes/mother_brain_close_up_data.h"
+#include "mzm/data/cutscenes/internal_mother_brain_close_up_data.h"
 
-#include "constants/audio.h"
-#include "constants/cutscene.h"
-#include "constants/samus.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/cutscene.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+
+#include "mzm_include.h"
 
 #define OAM_BUBBLES_COUNT 6
 
@@ -27,7 +29,7 @@
 
 /**
  * @brief 63008 | 234 | Handles the looking at samus part
- * 
+ *
  * @return u8 FALSE
  */
 u8 MotherBrainCloseUpLookingAtSamus(void)
@@ -135,7 +137,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
 
 /**
  * @brief 6323c | 48 | Updates the elevator reflection object
- * 
+ *
  * @param pOam Cutscene OAM data pointer
  */
 void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
@@ -174,7 +176,7 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
 
 /**
  * @brief 63284 | 23c | Handles the eye opening part
- * 
+ *
  * @return u8 FALSE
  */
 u8 MotherBrainCloseUpEyeOpening(void)
@@ -229,7 +231,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-            
+
         case 2:
             if (CUTSCENE_DATA.timeInfo.timer > sMotherBrainCloseUpEyeOpeningTimers[1])
             {
@@ -239,7 +241,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-            
+
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer > sMotherBrainCloseUpEyeOpeningTimers[2])
             {
@@ -250,7 +252,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-            
+
         case 4:
             // Wait for eye opening animation to end
             if (CUTSCENE_DATA.oam[7].ended)
@@ -259,7 +261,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-            
+
         case 5:
             // Simply wait
             if (CUTSCENE_DATA.timeInfo.timer > sMotherBrainCloseUpEyeOpeningTimers[3])
@@ -268,7 +270,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
-            
+
         case 6:
             CutsceneFadeScreenToBlack();
             CUTSCENE_DATA.timeInfo.stage++;
@@ -296,7 +298,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
 
 /**
  * @brief 634c0 | c4 | Handles the tank view part of the cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 MotherBrainCloseUpTankView(void)
@@ -356,7 +358,7 @@ u8 MotherBrainCloseUpTankView(void)
 
 /**
  * @brief 63584 | b8 | Initializes the mother brain close up cutscene
- * 
+ *
  * @return u8 FALSE
  */
 u8 MotherBrainCloseUpInit(void)
@@ -393,7 +395,7 @@ u8 MotherBrainCloseUpInit(void)
 
 /**
  * @brief 6363c | 34 | Subroutine for the mother brain close up cutscene
- * 
+ *
  * @return u8 bool, ended
  */
 u8 MotherBrainCloseUpSubroutine(void)
@@ -409,7 +411,7 @@ u8 MotherBrainCloseUpSubroutine(void)
 
 /**
  * @brief 63670 | 38 | Processes the OAM
- * 
+ *
  */
 void MotherBrainCloseUpProcessOAM(void)
 {
@@ -420,7 +422,7 @@ void MotherBrainCloseUpProcessOAM(void)
 
 /**
  * @brief 636a8 | 108 | Updates the eye OAM object
- * 
+ *
  * @param lookingAtSamus bool, looking at samus
  */
 void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
@@ -429,7 +431,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
     struct CutsceneOamData* pEye;
 
     pOam = CUTSCENE_DATA.oam;
-    
+
     if (!lookingAtSamus)
     {
         // Setup eye opening
@@ -457,7 +459,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
 
         // Setup eye pupil
         UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[OAM_SLOT_EYE_PUPIL], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_OPENED);
-        
+
         // Place at the center of the screen
         pOam[OAM_SLOT_EYE_PUPIL].xPosition = SCREEN_SIZE_X_SUB_PIXEL / 2;
         pOam[OAM_SLOT_EYE_PUPIL].yPosition = SCREEN_SIZE_Y_SUB_PIXEL / 2 + PIXEL_SIZE;
@@ -471,7 +473,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
 
 /**
  * @brief 637b0 | 5c | Updates a bubble
- * 
+ *
  * @param pOam Cutscene oam data pointer
  */
 void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
@@ -509,7 +511,7 @@ void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
 
 /**
  * @brief 6380c | 78 | Initializes all the bubbles
- * 
+ *
  * @param packId Bubble pack ID
  * @return u8 bool, couldn't initialize
  */
@@ -533,4 +535,3 @@ u8 MotherBrainCloseUpInitBubbles(u8 packId)
 
     return TRUE;
 }
-

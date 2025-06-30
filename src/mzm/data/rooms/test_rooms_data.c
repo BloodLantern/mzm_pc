@@ -1,5 +1,7 @@
-#include "data/rooms/test_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/test_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sTileset_0_Gfx[445] = INCBIN_U32("data/rooms/test/Tileset0_Tiles.gfx.lz");
 const u8 sTileset_0_Tilemap[1410] = INCBIN_U8("data/rooms/test/Tileset0.tm");
@@ -90,4 +92,3 @@ const u8 sTest3_3_SpriteData[3 * 3] = {
     ROOM_SPRITE_DATA_TERMINATOR,
     ROOM_SPRITE_DATA_TERMINATOR,
 };
-

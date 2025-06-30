@@ -6,11 +6,11 @@ extern "C"
 {
 #endif
 
-#include "types.h"
-#include "structs/cutscene.h"
-#include "macros.h"
+#include "mzm/types.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/macros.h"
 
-#include "data/cutscenes/before_charlie_data.h"
+#include "mzm/data/cutscenes/before_charlie_data.h"
 
 struct BeforeCharlieEwramData {
     u16 wallPal[ARRAY_SIZE(sBeforeCharlieChozoWallPal)];
@@ -18,7 +18,7 @@ struct BeforeCharlieEwramData {
     u8 padding_100[0x300];
 
     u16 wallPalMonochromeTransition[ARRAY_SIZE(sBeforeCharlieChozoWallPal) * 2];
-    
+
     u8 padding_500[0x3200];
 
     u16 wallPalMonochrome[ARRAY_SIZE(sBeforeCharlieChozoWallPal)];

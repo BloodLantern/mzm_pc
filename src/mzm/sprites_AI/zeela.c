@@ -1,17 +1,19 @@
-#include "sprites_AI/zeela.h"
-#include "macros.h"
+#include "mzm/sprites_AI/zeela.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/zeela.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/zeela.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/particle.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/particle.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/game_state.h"
-#include "structs/sprite.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER 0x0
 #define ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE 0x1
@@ -48,7 +50,7 @@ enum ZeelaEyesPart {
 
 /**
  * @brief 17328 | 118 | Spawns the dead zeela eyes
- * 
+ *
  */
 static void ZeelaSpawnEyes(void)
 {
@@ -102,7 +104,7 @@ static void ZeelaSpawnEyes(void)
 
 /**
  * @brief 17440 | b8 | Checks if a zeela is colliding with air
- * 
+ *
  * @return u8 bool, colliding with air
  */
 static u8 ZeelaCheckCollidingWithAir(void)
@@ -161,7 +163,7 @@ static u8 ZeelaCheckCollidingWithAir(void)
 
 /**
  * @brief 174f8 | 80 | Updates the hitbox of a zeela
- * 
+ *
  */
 static void ZeelaUpdateHitbox(void)
 {
@@ -207,7 +209,7 @@ static void ZeelaUpdateHitbox(void)
 
 /**
  * @brief 17578 | 48 | Sets the crawling OAM for a zeela
- * 
+ *
  */
 static void ZeelaSetCrawlingOam(void)
 {
@@ -231,7 +233,7 @@ static void ZeelaSetCrawlingOam(void)
 
 /**
  * @brief 175c0 | 30 | Sets the falling OAM for a zeela
- * 
+ *
  */
 static void ZeelaSetFallingOam(void)
 {
@@ -246,7 +248,7 @@ static void ZeelaSetFallingOam(void)
 
 /**
  * @brief 175f0 | 128 | Initializes a zeela sprite
- * 
+ *
  */
 static void ZeelaInit(void)
 {
@@ -317,7 +319,7 @@ static void ZeelaInit(void)
 
 /**
  * @brief 17718 | 18 | Initializes a zeela to be idle
- * 
+ *
  */
 static void ZeelaIdleInit(void)
 {
@@ -327,7 +329,7 @@ static void ZeelaIdleInit(void)
 
 /**
  * @brief 17730 | 418 | Handles a zeela moving
- * 
+ *
  */
 static void ZeelaMove(void)
 {
@@ -638,7 +640,7 @@ static void ZeelaMove(void)
 
 /**
  * @brief 17b48 | 194 | Initializes a zeela to be turning around
- * 
+ *
  */
 static void ZeelaTurningAroundInit(void)
 {
@@ -687,7 +689,7 @@ static void ZeelaTurningAroundInit(void)
             gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
             gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             break;
-        
+
         case ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 gCurrentSprite.pOam = sZeelaOam_TurningCornerLeft;
@@ -735,7 +737,7 @@ static void ZeelaTurningAroundInit(void)
 
 /**
  * @brief 17cdc | 1cc | Handles a zeela turning
- * 
+ *
  */
 static void ZeelaTurning(void)
 {
@@ -805,7 +807,7 @@ static void ZeelaTurning(void)
             gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_Y_FLIP);
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
-        
+
         case ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
             {
@@ -830,7 +832,7 @@ static void ZeelaTurning(void)
             gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
-        
+
         case ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
             {
@@ -852,7 +854,7 @@ static void ZeelaTurning(void)
 
 /**
  * @brief 17ea8 | 18 | Initializes a zeela to be landing, unused
- * 
+ *
  */
 static void ZeelaLandingInit_Unused(void)
 {
@@ -862,14 +864,14 @@ static void ZeelaLandingInit_Unused(void)
 
 /**
  * @brief 17ec0 | 38 | Handles a zeela landing
- * 
+ *
  */
 static void ZeelaLanding(void)
 {
     // Triple the animation speed
     APPLY_DELTA_TIME_INC(gCurrentSprite.animationDurationCounter);
     APPLY_DELTA_TIME_INC(gCurrentSprite.animationDurationCounter);
-    
+
     if (ZeelaCheckCollidingWithAir())
         gCurrentSprite.pose = ZEELA_POSE_FALLING_INIT;
     else if (SpriteUtilCheckNearEndCurrentSpriteAnim())
@@ -878,7 +880,7 @@ static void ZeelaLanding(void)
 
 /**
  * @brief 17ef8 | 68 | Initializes a zeela to be falling
- * 
+ *
  */
 static void ZeelaFallingInit(void)
 {
@@ -894,7 +896,7 @@ static void ZeelaFallingInit(void)
         if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
             gCurrentSprite.yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     }
-   
+
     gCurrentSprite.pose = ZEELA_POSE_FALLING;
     gCurrentSprite.work3 = 0;
     gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_Y_FLIP | SPRITE_STATUS_FACING_DOWN);
@@ -905,7 +907,7 @@ static void ZeelaFallingInit(void)
 
 /**
  * @brief 17f60 | 88 | Handles a zeela falling
- * 
+ *
  */
 static void ZeelaFalling(void)
 {
@@ -920,7 +922,7 @@ static void ZeelaFalling(void)
 
     offset = gCurrentSprite.work3;
     movement = sSpritesFallingSpeed[offset];
-    
+
     if (movement == SHORT_MAX)
     {
         newMovement = sSpritesFallingSpeed[offset - 1];
@@ -947,7 +949,7 @@ static void ZeelaFalling(void)
 
 /**
  * @brief 17fe8 | 6c | Handles a zeela dying
- * 
+ *
  */
 static void ZeelaDeath(void)
 {
@@ -980,7 +982,7 @@ static void ZeelaDeath(void)
 
 /**
  * @brief 18054 | ac | Initializes a Zeela eyes sprite
- * 
+ *
  */
 static void ZeelaEyesInit(void)
 {
@@ -1023,7 +1025,7 @@ static void ZeelaEyesInit(void)
 
 /**
  * @brief 18100 | 134 | Handles a zeela eyes moving
- * 
+ *
  */
 static void ZeelaEyesMove(void)
 {
@@ -1105,7 +1107,7 @@ static void ZeelaEyesMove(void)
 
 /**
  * @brief 18234 | 2c | Initializes a zeela eye to be exploding
- * 
+ *
  */
 static void ZeelaEyesExplodingInit(void)
 {
@@ -1121,7 +1123,7 @@ static void ZeelaEyesExplodingInit(void)
 
 /**
  * @brief 18260 | 24 | Handles a zeela eye exploding
- * 
+ *
  */
 static void ZeelaEyesExploding(void)
 {
@@ -1133,7 +1135,7 @@ static void ZeelaEyesExploding(void)
 
 /**
  * @brief 18284 | 11c | Zeela AI
- * 
+ *
  */
 void Zeela(void)
 {
@@ -1168,7 +1170,7 @@ void Zeela(void)
 
         case ZEELA_POSE_TURNING_AROUND_INIT:
             ZeelaTurningAroundInit();
-            
+
         case ZEELA_POSE_TURNING_AROUND:
             ZeelaTurning();
             break;
@@ -1194,7 +1196,7 @@ void Zeela(void)
 
 /**
  * @brief 183a0 | 38 | Zeela eyes AI
- * 
+ *
  */
 void ZeelaEyes(void)
 {
@@ -1202,7 +1204,7 @@ void ZeelaEyes(void)
     {
         case SPRITE_POSE_UNINITIALIZED:
             ZeelaEyesInit();
-            
+
         case ZEELA_EYES_POSE_MOVING:
             ZeelaEyesMove();
             break;

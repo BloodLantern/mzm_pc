@@ -1,19 +1,21 @@
-#include "sprites_AI/steam.h"
-#include "macros.h"
+#include "mzm/sprites_AI/steam.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/steam.h"
+#include "mzm/data/sprites/steam.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define STEAM_POSE_IDLE 9
 
 /**
  * @brief 4a5e4 | 208 | Steam AI
- * 
+ *
  */
 void Steam(void)
 {
@@ -143,7 +145,7 @@ void Steam(void)
         // Animation starts at a random frame
         // desyncs the steams and allows them to be already blowing on room load
         gCurrentSprite.currentAnimationFrame = MOD_AND(gSpriteRng, 8);
-        
+
         gCurrentSprite.hitboxTop = 0;
         gCurrentSprite.hitboxBottom = 0;
         gCurrentSprite.hitboxLeft = 0;
@@ -166,7 +168,7 @@ void Steam(void)
 
 /**
  * @brief 4a7ec | 144 | Steam (diagonal) AI
- * 
+ *
  */
 void SteamDiagonal(void)
 {

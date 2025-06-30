@@ -1,5 +1,7 @@
-#include "data/sprites/unused_sprites.h"
-#include "macros.h"
+#include "mzm/data/sprites/unused_sprites.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 static const u16 sUnusedSpritesOam_Idle_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,

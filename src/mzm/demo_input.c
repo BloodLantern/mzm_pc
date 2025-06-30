@@ -1,14 +1,16 @@
-#include "demo_input.h"
-#include "gba.h"
+#include "mzm/demo_input.h"
+#include "mzm/gba.h"
 
-#include "constants/demo.h"
+#include "mzm/constants/demo.h"
 
-#include "structs/demo.h"
-#include "structs/game_state.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief c2d8 | 24 | Main loop for a demo
- * 
+ *
  */
 void DemoMainLoop(void)
 {
@@ -23,7 +25,7 @@ void DemoMainLoop(void)
 
 /**
  * @brief c2fc | 88 | Handles a demo being recorded
- * 
+ *
  */
 void RecordDemo(void)
 {
@@ -58,7 +60,7 @@ void RecordDemo(void)
 
 /**
  * @brief c384 | 90 | Updates the demo input
- * 
+ *
  */
 void UpdateDemoInput(void)
 {
@@ -91,7 +93,7 @@ void UpdateDemoInput(void)
 
 /**
  * @brief c414 | 34 | Copies the demo input
- * 
+ *
  */
 void CopyDemoInput(void)
 {
@@ -105,14 +107,14 @@ void CopyDemoInput(void)
 
 /**
  * @brief c448 | 6c | Resets a demo (input and duration)
- * 
+ *
  */
 void DemoResetInputAndDuration(void)
 {
     s32 i;
     if (gDemoState == DEMO_STATE_RECORDING_DEBUG)
     {
-        // Clear both input and duration to leave space to record 
+        // Clear both input and duration to leave space to record
         for (i = 0; i < DEMO_MAX_DURATION; i++)
         {
             gDemoInputData[i] = KEY_NONE;

@@ -1,5 +1,7 @@
-#include "data/sprites/waver.h"
-#include "macros.h"
+#include "mzm/data/sprites/waver.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u32 sWaverGfx[289] = INCBIN_U32("data/sprites/Waver.gfx.lz");
 const u16 sWaverPal[16] = INCBIN_U16("data/sprites/Waver.pal");

@@ -1,17 +1,19 @@
-#include "sprites_AI/sidehopper.h"
-#include "macros.h"
+#include "mzm/sprites_AI/sidehopper.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/sidehopper.h"
-#include "data/sprite_data.h"
-#include "data/sprite_data.h"
+#include "mzm/data/sprites/sidehopper.h"
+#include "mzm/data/sprite_data.h"
+#include "mzm/data/sprite_data.h"
 
-#include "constants/audio.h"
-#include "constants/clipdata.h"
-#include "constants/sprite.h"
-#include "constants/sprite_util.h"
-#include "constants/particle.h"
+#include "mzm/constants/audio.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/sprite.h"
+#include "mzm/constants/sprite_util.h"
+#include "mzm/constants/particle.h"
 
-#include "structs/sprite.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 #define SIDEHOPPER_POSE_JUMP_WARNING_INIT 0x8
 #define SIDEHOPPER_POSE_JUMP_WARNING 0x9
@@ -27,7 +29,7 @@
 
 /**
  * @brief 3f684 | 20 | Checks if samus is near the dessgeega on the sides in a 5 block range
- * 
+ *
  * @return u8 1 if near, 0 otherwise
  */
 static u8 SidehopperCheckSamusNearLeftRight(void)
@@ -46,7 +48,7 @@ static u8 SidehopperCheckSamusNearLeftRight(void)
 
 /**
  * @brief 3f6a4 | d0 | Initializes a sidehopper sprite
- * 
+ *
  */
 static void SidehopperInit(void)
 {
@@ -93,7 +95,7 @@ static void SidehopperInit(void)
 
 /**
  * @brief 3f774 | 50 | Initializes a sidehopper to do the jump warning
- * 
+ *
  */
 static void SidehopperJumpWarningInit(void)
 {
@@ -106,7 +108,7 @@ static void SidehopperJumpWarningInit(void)
 
 /**
  * @brief 3f794 | 80 | Initializes a sidehopper to jump
- * 
+ *
  */
 static void SidehopperJumpingInit(void)
 {
@@ -133,7 +135,7 @@ static void SidehopperJumpingInit(void)
 
 /**
  * @brief 3f814 | 50 | Initializes a sidehopper to land
- * 
+ *
  */
 static void SidehopperLandingInit(void)
 {
@@ -154,7 +156,7 @@ static void SidehopperLandingInit(void)
 
 /**
  * @brief 3f864 | 74 | Initializes a sidehopper to be idle
- * 
+ *
  */
 static void SidehopperIdleInit(void)
 {
@@ -185,7 +187,7 @@ static void SidehopperIdleInit(void)
 
 /**
  * @brief 3f8d8 | 24 | Initializes a sidehopper to be falling
- * 
+ *
  */
 static void SidehopperFallingInit(void)
 {
@@ -198,7 +200,7 @@ static void SidehopperFallingInit(void)
 
 /**
  * @brief 3f8fc | 5c | Handles a sidehopper doing the jump warning when on the ground
- * 
+ *
  */
 static void SidehopperJumpWarningGround(void)
 {
@@ -215,14 +217,14 @@ static void SidehopperJumpWarningGround(void)
             }
         }
     }
-    
+
     if (SpriteUtilCheckEndCurrentSpriteAnim())
         SidehopperJumpingInit();
 }
 
 /**
  * @brief 3f958 | 14 | Handles a sidehopper doing the jump warning when on the ceiling
- * 
+ *
  */
 static void SidehopperJumpWarningCeiling(void)
 {
@@ -232,7 +234,7 @@ static void SidehopperJumpWarningCeiling(void)
 
 /**
  * @brief 3f96c | 1e8 | Handles a sidehopper jumping when on the ground
- * 
+ *
  */
 static void SidehopperJumpingGround(void)
 {
@@ -315,7 +317,7 @@ static void SidehopperJumpingGround(void)
                 if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                     colliding++;
             }
-    
+
             if (colliding)
             {
                 gCurrentSprite.yPosition = blockTop;
@@ -357,7 +359,7 @@ static void SidehopperJumpingGround(void)
 
 /**
  * @brief 3fb54 | 1fc | Handles a sidehopper jumping when on the ceiling
- * 
+ *
  */
 static void SidehopperJumpingCeiling(void)
 {
@@ -472,7 +474,7 @@ static void SidehopperJumpingCeiling(void)
                 if (gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F)
                     colliding++;
             }
-    
+
             if (colliding)
             {
                 gCurrentSprite.yPosition = blockTop + BLOCK_SIZE;
@@ -484,7 +486,7 @@ static void SidehopperJumpingCeiling(void)
 
 /**
  * @brief 3fd50 | 14 | Checks if the landing animation as ended
- * 
+ *
  */
 static void SidehopperCheckLandingAnimEnded(void)
 {
@@ -494,7 +496,7 @@ static void SidehopperCheckLandingAnimEnded(void)
 
 /**
  * @brief 3fd64 | a4 | Handles a dessgeega falling from the ground
- * 
+ *
  */
 static void SidehopperFallingGround(void)
 {
@@ -552,7 +554,7 @@ static void SidehopperFallingGround(void)
 
 /**
  * @brief 3fe08 | a8 | Handles a dessgeega falling from the ceiling
- * 
+ *
  */
 static void SidehopperFallingCeiling(void)
 {
@@ -610,7 +612,7 @@ static void SidehopperFallingCeiling(void)
 
 /**
  * @brief 3feb0 | 9c | Handles a sidehopper being idle on the ground
- * 
+ *
  */
 static void SidehopperIdleGround(void)
 {
@@ -647,7 +649,7 @@ static void SidehopperIdleGround(void)
 
 /**
  * @brief 3ff4c | 5c | Handles a sidehopper being idle on the ceiling
- * 
+ *
  */
 static void SidehopperIdleCeiling(void)
 {
@@ -673,7 +675,7 @@ static void SidehopperIdleCeiling(void)
 
 /**
  * @brief 3ffa8 | 38 | Handles the death of a sidehopper
- * 
+ *
  */
 static void SidehopperDeath(void)
 {
@@ -689,7 +691,7 @@ static void SidehopperDeath(void)
 
 /**
  * @brief 3ffe0 | 198 | Sidehopper AI
- * 
+ *
  */
 void Sidehopper(void)
 {

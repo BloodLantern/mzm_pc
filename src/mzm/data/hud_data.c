@@ -1,5 +1,7 @@
-#include "data/hud_data.h"
-#include "macros.h"
+#include "mzm/data/hud_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 // 32ba08
 

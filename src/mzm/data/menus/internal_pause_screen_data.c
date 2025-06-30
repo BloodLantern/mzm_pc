@@ -1,12 +1,14 @@
-#include "data/menus/internal_pause_screen_data.h"
-#include "data/menus/pause_screen_data.h"
-#include "macros.h"
-#include "gba.h"
-#include "minimap.h"
+#include "mzm/data/menus/internal_pause_screen_data.h"
+#include "mzm/data/menus/pause_screen_data.h"
+#include "mzm/macros.h"
+#include "mzm/gba.h"
+#include "mzm/minimap.h"
 
-#include "constants/connection.h"
-#include "constants/menus/status_screen.h"
-#include "constants/menus/pause_screen.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/menus/status_screen.h"
+#include "mzm/constants/menus/pause_screen.h"
+
+#include "mzm_include.h"
 
 const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty = {
     .currentSubroutine = PAUSE_SCREEN_SUBROUTINE_MAP_SCREEN,
@@ -121,7 +123,7 @@ static const u8 sUnused_7601cc[16] = {
     0x14, 0x0, 0x20, 0x1,
     0x34, 0x0, 0x12, 0x0,
     0x16, 0x0, 0x78, 0x1,
-    0x34, 0x0, 0x0, 0x0 
+    0x34, 0x0, 0x0, 0x0
 };
 
 const u8* const sStatusScreenFlagsOrderPointers[4] = {

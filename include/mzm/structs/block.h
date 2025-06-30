@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 #define MAX_AMOUNT_OF_MAKE_SOLID_BLOCKS 64
 #define MAX_AMOUNT_OF_BROKEN_BLOCKS 48
@@ -32,7 +32,7 @@ struct ClipdataBlockData {
 
 struct BombChain {
     u8 currentOffset;
-    u8 srcXPosition; 
+    u8 srcXPosition;
     u8 srcYPosition;
     u8 type:3;
     u8 padding:3;

@@ -1,19 +1,21 @@
-#include "location_text.h"
-#include "gba.h"
-#include "macros.h"
+#include "mzm/location_text.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
 
-#include "data/sprites/area_banner.h"
+#include "mzm/data/sprites/area_banner.h"
 
-#include "constants/connection.h"
-#include "constants/sprite.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/sprite.h"
 
-#include "structs/connection.h"
-#include "structs/sprite.h"
-#include "structs/room.h"
+#include "mzm/structs/connection.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/room.h"
+
+#include "mzm_include.h"
 
 /**
- * @brief 11ed8 | b8 | Gets the location text of the current room for brinstar 
- * 
+ * @brief 11ed8 | b8 | Gets the location text of the current room for brinstar
+ *
  * @return u8 Location text
  */
 u8 LocationTextGetBrinstar(void)
@@ -29,7 +31,7 @@ u8 LocationTextGetBrinstar(void)
         case 26: // Elevator to norfair room
         // Useless cases, since the spriteset is checked before and those rooms have a spriteset that result in the save room text
         // Thus this function isn't even called
-        case 33: // Save room 1 
+        case 33: // Save room 1
         case 34: // Save room 2
             lt = LT_BRINSTAR;
             break;
@@ -42,8 +44,8 @@ u8 LocationTextGetBrinstar(void)
 }
 
 /**
- * @brief 11f90 | d0 | Gets the location text of the current room for kraid 
- * 
+ * @brief 11f90 | d0 | Gets the location text of the current room for kraid
+ *
  * @return u8 Location text
  */
 u8 LocationTextGetKraid(void)
@@ -73,8 +75,8 @@ u8 LocationTextGetKraid(void)
 }
 
 /**
- * @brief 12060 | 7c | Gets the location text of the current room for crateria 
- * 
+ * @brief 12060 | 7c | Gets the location text of the current room for crateria
+ *
  * @return u8 Location text
  */
 u8 LocationTextGetCrateria(void)
@@ -111,8 +113,8 @@ u8 LocationTextGetCrateria(void)
 }
 
 /**
- * @brief 120dc | e8 | Gets the location text of the current room for norfair 
- * 
+ * @brief 120dc | e8 | Gets the location text of the current room for norfair
+ *
  * @return u8 Location text
  */
 u8 LocationTextGetNorfair(void)
@@ -145,8 +147,8 @@ u8 LocationTextGetNorfair(void)
 }
 
 /**
- * @brief 121c4 | 98 | Gets the location text of the current room for ridley 
- * 
+ * @brief 121c4 | 98 | Gets the location text of the current room for ridley
+ *
  * @return u8 Location text
  */
 u8 LocationTextGetRidley(void)
@@ -165,7 +167,7 @@ u8 LocationTextGetRidley(void)
 
         case 21: // Map room
             lt = LT_MAP_ROOM;
-            break; 
+            break;
 
         case 0: // Elevator to norfair room
         case 2: // Imago cocoon tunnel room
@@ -176,8 +178,8 @@ u8 LocationTextGetRidley(void)
 }
 
 /**
- * @brief 1225c | 1a8 | Gets the location text of the current room for chozodia 
- * 
+ * @brief 1225c | 1a8 | Gets the location text of the current room for chozodia
+ *
  * @return u8 Location text
  */
 u8 LocationTextGetChozodia(void)
@@ -186,7 +188,7 @@ u8 LocationTextGetChozodia(void)
 
     lt = LT_INVALID;
     switch (gCurrentRoom)
-    {        
+    {
         case 0: // Suitless spawn room
         case 34: // Crateria passage with missile tank room
         case 68: // Crateria passage without missile tank room
@@ -211,8 +213,8 @@ u8 LocationTextGetChozodia(void)
 }
 
 /**
- * @brief 12404 | 80 | Gets the location text of the current room for tourian 
- * 
+ * @brief 12404 | 80 | Gets the location text of the current room for tourian
+ *
  * @return u8 Location text
  */
 u8 LocationTextGetTourian(void)
@@ -239,7 +241,7 @@ u8 LocationTextGetTourian(void)
 
 /**
  * @brief 12484 | 58 | Loads area banner graphics and palette
- * 
+ *
  * @return u8 Gfx Slot
  */
 u8 LocationTextLoadAreaBannerGfx(void)
@@ -273,10 +275,10 @@ u8 LocationTextLoadAreaBannerGfx(void)
 }
 
 /**
- * 124dc | 10c | 
- * Gets the current area location text number and returns the Gfx slot for it, also does some part of the area banner sprite setup 
- * 
- * @return The Gfx Slot 
+ * 124dc | 10c |
+ * Gets the current area location text number and returns the Gfx slot for it, also does some part of the area banner sprite setup
+ *
+ * @return The Gfx Slot
  */
 u8 LocationTextGetGfxSlot(void)
 {

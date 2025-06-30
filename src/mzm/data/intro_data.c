@@ -1,8 +1,10 @@
-#include "data/intro_data.h"
+#include "mzm/data/intro_data.h"
 
-#include "oam.h"
-#include "macros.h"
-#include "constants/intro.h"
+#include "mzm/oam.h"
+#include "mzm/macros.h"
+#include "mzm/constants/intro.h"
+
+#include "mzm_include.h"
 
 const u16 sIntroEmergencyOrderTextOAM[OAM_DATA_SIZE(17)] = {
     0x11,
@@ -191,7 +193,7 @@ const u16 sIntroViewOfZebesHeatOAM_2[OAM_DATA_SIZE(12)] = {
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_SIZE_32x16 | 0x20, 0x41d4,
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_SIZE_32x16 | 0x40, 0x41d8,
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_SIZE_32x16 | 0x60, 0x41dc
-    
+
 };
 
 const u16 sIntroViewOfZebesHeatOAM_1[OAM_DATA_SIZE(24)] = {
@@ -330,7 +332,7 @@ const u8 sIntroEmergencyOrderActions[16] = {
     INTRO_TEXT_ACTION_NONE,            // N
     INTRO_TEXT_ACTION_NONE,            // C
     INTRO_TEXT_ACTION_NONE,            // Y
-    INTRO_TEXT_ACTION_SPACE,           // 
+    INTRO_TEXT_ACTION_SPACE,           //
     INTRO_TEXT_ACTION_NONE,            // O
     INTRO_TEXT_ACTION_NONE,            // R
     INTRO_TEXT_ACTION_NONE,            // D
@@ -351,11 +353,11 @@ const u8 sIntroExterminateAllActions[52] = {
     INTRO_TEXT_ACTION_NONE,             // A
     INTRO_TEXT_ACTION_NONE,             // T
     INTRO_TEXT_ACTION_NONE,             // E
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // A
     INTRO_TEXT_ACTION_NONE,             // L
     INTRO_TEXT_ACTION_NONE,             // L
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // M
     INTRO_TEXT_ACTION_NONE,             // E
     INTRO_TEXT_ACTION_NONE,             // T
@@ -372,17 +374,17 @@ const u8 sIntroExterminateAllActions[52] = {
     INTRO_TEXT_ACTION_NONE,             // S
     INTRO_TEXT_ACTION_NONE,             // M
     INTRO_TEXT_ACTION_NONE,             // S
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // O
     INTRO_TEXT_ACTION_NONE,             // N
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // P
     INTRO_TEXT_ACTION_NONE,             // L
     INTRO_TEXT_ACTION_NONE,             // A
     INTRO_TEXT_ACTION_NONE,             // N
     INTRO_TEXT_ACTION_NONE,             // E
     INTRO_TEXT_ACTION_NONE,             // T
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // Z
     INTRO_TEXT_ACTION_NONE,             // E
     INTRO_TEXT_ACTION_NONE,             // B
@@ -398,18 +400,18 @@ const u8 sIntroDefeatTheActions[50] = {
     INTRO_TEXT_ACTION_NONE,             // A
     INTRO_TEXT_ACTION_NONE,             // N
     INTRO_TEXT_ACTION_NONE,             // D
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // D
     INTRO_TEXT_ACTION_NONE,             // E
     INTRO_TEXT_ACTION_NONE,             // F
     INTRO_TEXT_ACTION_NONE,             // E
     INTRO_TEXT_ACTION_NONE,             // A
     INTRO_TEXT_ACTION_NONE,             // T
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // T
     INTRO_TEXT_ACTION_NONE,             // H
     INTRO_TEXT_ACTION_NONE,             // E
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // M
     INTRO_TEXT_ACTION_NONE,             // E
     INTRO_TEXT_ACTION_NONE,             // C
@@ -419,7 +421,7 @@ const u8 sIntroDefeatTheActions[50] = {
     INTRO_TEXT_ACTION_NONE,             // I
     INTRO_TEXT_ACTION_NONE,             // C
     INTRO_TEXT_ACTION_SKIP_CHARACTER,   // A
-    INTRO_TEXT_ACTION_NEW_LINE,         // 
+    INTRO_TEXT_ACTION_NEW_LINE,         //
     INTRO_TEXT_ACTION_NONE,             // L
     INTRO_TEXT_ACTION_NONE,             // I
     INTRO_TEXT_ACTION_NONE,             // F
@@ -430,14 +432,14 @@ const u8 sIntroDefeatTheActions[50] = {
     INTRO_TEXT_ACTION_NONE,             // R
     INTRO_TEXT_ACTION_NONE,             // M
     INTRO_TEXT_ACTION_NONE,             // ,
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // M
     INTRO_TEXT_ACTION_NONE,             // O
     INTRO_TEXT_ACTION_NONE,             // T
     INTRO_TEXT_ACTION_NONE,             // H
     INTRO_TEXT_ACTION_NONE,             // E
     INTRO_TEXT_ACTION_NONE,             // R
-    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_SPACE,            //
     INTRO_TEXT_ACTION_NONE,             // B
     INTRO_TEXT_ACTION_NONE,             // R
     INTRO_TEXT_ACTION_NONE,             // A
@@ -459,4 +461,3 @@ const u32 sIntroMotherBrainGfx[5004] = INCBIN_U32("data/intro/MotherBrain.gfx.lz
 const u32 sIntroMotherBrainTileTable[577] = INCBIN_U32("data/intro/MotherBrain.tt");
 const u32 sIntroFuzzGfx[5224] = INCBIN_U32("data/intro/Fuzz.gfx.lz");
 const u32 sIntro_47920c[125] = INCBIN_U32("data/intro/47920c.tt");
-

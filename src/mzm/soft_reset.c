@@ -1,18 +1,20 @@
-#include "soft_reset.h"
-#include "gba.h"
-#include "callbacks.h"
+#include "mzm/soft_reset.h"
+#include "mzm/gba.h"
+#include "mzm/callbacks.h"
 
-#include "data/shortcut_pointers.h"
+#include "mzm/data/shortcut_pointers.h"
 
-#include "constants/cutscene.h"
+#include "mzm/constants/cutscene.h"
 
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/cutscene.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/cutscene.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief 7ef9c | 54 | Subroutine for a soft reset
- * 
+ *
  * @return u32 bool, ended
  */
 u32 SoftResetSubroutine(void)
@@ -29,7 +31,7 @@ u32 SoftResetSubroutine(void)
                 gWrittenToBLDY_NonGameplay = 0;
             else
                 gWrittenToBLDY_NonGameplay -= 4;
-            
+
             if (gWrittenToBLDY_NonGameplay == 0)
                 gGameModeSub1++;
             break;
@@ -43,7 +45,7 @@ u32 SoftResetSubroutine(void)
 
 /**
  * @brief 7eff0 | 110 | Initializes a soft reset
- * 
+ *
  */
 void SoftResetInit(void)
 {
@@ -52,9 +54,9 @@ void SoftResetInit(void)
     u32 buffer;
 
     CallbackSetVBlank(SoftResetVBlank_Empty);
-    
+
     buffer = 0;
-    DMA_SET(3, &buffer, &gNonGameplayRam, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRam) / sizeof(u32)));    
+    DMA_SET(3, &buffer, &gNonGameplayRam, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRam) / sizeof(u32)));
 
     write16(REG_BLDCNT, CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
@@ -82,7 +84,7 @@ void SoftResetInit(void)
     write16(REG_BG2VOFS, 0);
     write16(REG_BG3HOFS, 0);
     write16(REG_BG3VOFS, 0);
-    
+
     write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
 
     CallbackSetVBlank(SoftResetVBlank);
@@ -90,7 +92,7 @@ void SoftResetInit(void)
 
 /**
  * @brief 7f100 | 14 | V-blank code for a soft reset
- * 
+ *
  */
 void SoftResetVBlank(void)
 {
@@ -99,7 +101,7 @@ void SoftResetVBlank(void)
 
 /**
  * @brief 7f114 | c | Empty v-blank for a soft reset
- * 
+ *
  */
 void SoftResetVBlank_Empty(void)
 {

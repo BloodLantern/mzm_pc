@@ -6,9 +6,9 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
-#include "structs/text.h"
+#include "mzm/structs/text.h"
 
 extern const u8 sCharactersGfx[176 * 1024];
 

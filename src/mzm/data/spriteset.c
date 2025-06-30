@@ -1,5 +1,7 @@
-#include "data/spriteset.h"
-#include "constants/sprite.h"
+#include "mzm/data/spriteset.h"
+#include "mzm/constants/sprite.h"
+
+#include "mzm_include.h"
 
 #define SPRITESET_EMPTY 0, 0
 
@@ -864,7 +866,7 @@ const s16 sDebris6YVelocity[9] = {
 };
 
 const s16 sDebris7YVelocity[9] = {
-    2, 4, 6, 8, 10, 12, 14, 16, 16, 
+    2, 4, 6, 8, 10, 12, 14, 16, 16,
 };
 
 const s16 sDebris8YVelocity[9] = {

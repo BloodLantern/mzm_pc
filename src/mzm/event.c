@@ -1,9 +1,11 @@
-#include "event.h"
-#include "constants/event.h"
+#include "mzm/event.h"
+#include "mzm/constants/event.h"
+
+#include "mzm_include.h"
 
 /**
  * 608bc | 6c | Function used to manipulate the events
- * 
+ *
  * @param action Action to do with the event
  * @param event Event concerned
  * @return 1 if the event is set, 0 otherwise

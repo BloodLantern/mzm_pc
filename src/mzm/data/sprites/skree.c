@@ -1,5 +1,7 @@
-#include "data/sprites/skree.h"
-#include "macros.h"
+#include "mzm/data/sprites/skree.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const s16 sSkreeFallingSpeed[8] = {
     PIXEL_SIZE / 2 * 1,

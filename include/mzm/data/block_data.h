@@ -6,15 +6,15 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
-#include "constants/block.h"
-#include "constants/clipdata.h"
-#include "constants/connection.h"
-#include "constants/game_state.h"
+#include "mzm/constants/block.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/connection.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/block.h"
-#include "structs/connection.h"
+#include "mzm/structs/block.h"
+#include "mzm/structs/connection.h"
 
 extern const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS];
 

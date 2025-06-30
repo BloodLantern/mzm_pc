@@ -1,21 +1,23 @@
-#include "oam.h"
-#include "sprite_debris.h"
-#include "data/particle_data.h"
-#include "data/spriteset.h"
+#include "mzm/oam.h"
+#include "mzm/sprite_debris.h"
+#include "mzm/data/particle_data.h"
+#include "mzm/data/spriteset.h"
 
-#include "constants/clipdata.h"
-#include "constants/game_state.h"
-#include "constants/sprite_util.h"
+#include "mzm/constants/clipdata.h"
+#include "mzm/constants/game_state.h"
+#include "mzm/constants/sprite_util.h"
 
-#include "structs/bg_clip.h"
-#include "structs/clipdata.h"
-#include "structs/game_state.h"
-#include "structs/samus.h"
-#include "structs/sprite.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/clipdata.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/sprite.h"
+
+#include "mzm_include.h"
 
 /**
  * 11788 | 2c | Checks if a sprite debris is in a liquid, if yes sets a small splash effect
- * 
+ *
  * @param oldY Old Y Position
  * @param yPosition Current Y Position
  * @param xPosition X Position
@@ -28,7 +30,7 @@ void SpriteDebrisSetSplash(u16 oldY, u16 yPosition, u16 xPosition)
 
 /**
  * 117b4 | 4d4 | Processes a sprite debris (handles movement and checks if it should despawn)
- * 
+ *
  * @param pDebris Sprite Debris Pointer
  */
 void SpriteDebrisProcess(struct SpriteDebris* pDebris)
@@ -246,7 +248,7 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
 
 /**
  * 11c88 | 6c | Loops on all the sprite debris and calls SpriteDebrisProcess, also updates the animation
- * 
+ *
  */
 void SpriteDebrisProcessAll(void)
 {
@@ -280,7 +282,7 @@ void SpriteDebrisProcessAll(void)
 
 /**
  * 11cf4 | 110 | Draws a sprite debris
- * 
+ *
  * @param pDebris Sprite Debris Pointer
  */
 void SpriteDebrisDraw(struct SpriteDebris* pDebris)
@@ -342,7 +344,7 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 
 /**
  * 11e04 | 44 | Loops on the sprite debris and calls the draw function
- * 
+ *
  */
 void SpriteDebrisDrawAll(void)
 {
@@ -360,7 +362,7 @@ void SpriteDebrisDrawAll(void)
 
 /**
  * 11e48 | 90 | Initializes a sprite debris at the given parameters
- * 
+ *
  * @param cloudType Unused
  * @param debrisType Type of the debris
  * @param yPosition Y Position

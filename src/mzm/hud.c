@@ -1,17 +1,19 @@
-#include "hud.h"
-#include "gba.h"
-#include "macros.h"
-#include "oam.h"
+#include "mzm/hud.h"
+#include "mzm/gba.h"
+#include "mzm/macros.h"
+#include "mzm/oam.h"
 
-#include "data/hud_data.h"
+#include "mzm/data/hud_data.h"
 
-#include "constants/minimap.h"
-#include "constants/samus.h"
+#include "mzm/constants/minimap.h"
+#include "mzm/constants/samus.h"
 
-#include "structs/hud.h"
-#include "structs/minimap.h"
-#include "structs/samus.h"
-#include "structs/game_state.h"
+#include "mzm/structs/hud.h"
+#include "mzm/structs/minimap.h"
+#include "mzm/structs/samus.h"
+#include "mzm/structs/game_state.h"
+
+#include "mzm_include.h"
 
 #define HUD_HEALTH_BAR_Y (SUB_PIXEL_TO_PIXEL(EIGHTH_BLOCK_SIZE))
 #define HUD_HEALTH_BAR_X (SUB_PIXEL_TO_PIXEL(0))
@@ -36,14 +38,14 @@
 
 /**
  * @brief 52308 | 35c | Updates the OAM of the HUD
- * 
+ *
  */
 void HudUpdateOam(void)
 {
     u32 oamSlot;
     u16* dst;
     struct Equipment* pEquipment = &gEquipment;
-    
+
     oamSlot = 0;
 
     if (!gHideHud)
@@ -58,7 +60,7 @@ void HudUpdateOam(void)
         *dst++ = 0;
         gOamData[oamSlot].split.x = HUD_HEALTH_BAR_X;
         gOamData[oamSlot].split.size = OAM_SIZE_H_32x8;
-        
+
         *dst++ = 0;
         gOamData[oamSlot].split.tileNum = 0x20 * 2 + 0x10;
         gOamData[oamSlot].split.paletteNum = 4;
@@ -74,7 +76,7 @@ void HudUpdateOam(void)
         *dst++ = 0;
         gOamData[oamSlot].split.x = HUD_HEALTH_BAR_X + 32;
         gOamData[oamSlot].split.size = OAM_SIZE_H_32x8;
-        
+
         *dst++ = 0;
         gOamData[oamSlot].split.tileNum = 0x20 * 2 + 0x14;
         gOamData[oamSlot].split.paletteNum = 4;
@@ -88,27 +90,27 @@ void HudUpdateOam(void)
             *dst++ = 0;
             gOamData[oamSlot].split.y = HUD_CHARGE_BAR_Y;
             gOamData[oamSlot].split.shape = OAM_SHAPE_HORIZONTAL;
-            
+
             *dst++ = 0;
             gOamData[oamSlot].split.x = HUD_CHARGE_BAR_X;
             gOamData[oamSlot].split.size = OAM_SIZE_H_32x8;
-            
+
             *dst++ = 0;
             gOamData[oamSlot].split.tileNum = 0x20 * 4 + 0x8;
             gOamData[oamSlot].split.paletteNum = 4;
 
             dst++;
             oamSlot++;
-            
+
             // Right part of charge bar
             *dst++ = 0;
             gOamData[oamSlot].split.y = HUD_CHARGE_BAR_Y;
             gOamData[oamSlot].split.shape = OAM_SHAPE_HORIZONTAL;
-            
+
             *dst++ = 0;
             gOamData[oamSlot].split.x = HUD_CHARGE_BAR_X + 32;
             gOamData[oamSlot].split.size = OAM_SIZE_H_32x8;
-            
+
             *dst++ = 0;
             gOamData[oamSlot].split.tileNum = 0x20 * 4 + 0xC;
             gOamData[oamSlot].split.paletteNum = 4;
@@ -121,7 +123,7 @@ void HudUpdateOam(void)
             if (pEquipment->maxMissiles != 0)
             {
                 // Missile digits
-                
+
                 *dst++ = 0;
                 gOamData[oamSlot].split.y = HUD_MISSILES_Y;
                 gOamData[oamSlot].split.shape = OAM_SHAPE_HORIZONTAL;
@@ -212,7 +214,7 @@ void HudUpdateOam(void)
         *dst = 0;
         gOamData[oamSlot].split.tileNum = 0x20 * 6 + 0x1C;
         gOamData[oamSlot].split.paletteNum = 5;
-        
+
         oamSlot++;
     }
 
@@ -221,7 +223,7 @@ void HudUpdateOam(void)
 
 /**
  * @brief 52664 | 70 | Updates the energy tanks on the HUD
- * 
+ *
  * @param pDst Destination Address
  * @param pSrcNormal Source Address (normal graphics)
  * @param pSrcRefill Source Address (refill graphics)
@@ -250,7 +252,7 @@ void HudUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, 
 
 /**
  * @brief 526d4 | 598 | Updates the energy HUD
- * 
+ *
  * @param fileNumber File number
  */
 void HudDrawEnergy(u8 fileNumber)
@@ -368,47 +370,47 @@ void HudDrawEnergy(u8 fileNumber)
             case 1:
                 DMA_SET(3, (sEnergyTanksGfx_One + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 2:
                 DMA_SET(3, (sEnergyTanksGfx_Two + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 3:
                 DMA_SET(3, (sEnergyTanksGfx_Three + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 4:
                 DMA_SET(3, (sEnergyTanksGfx_Four + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 5:
                 DMA_SET(3, (sEnergyTanksGfx_Five + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 6:
                 DMA_SET(3, (sEnergyTanksGfx_Six + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 7:
                 DMA_SET(3, (sEnergyTanksGfx_Seven + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 8:
                 DMA_SET(3, (sEnergyTanksGfx_Eight + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 9:
                 DMA_SET(3, (sEnergyTanksGfx_Nine + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 10:
                 DMA_SET(3, (sEnergyTanksGfx_Ten + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 11:
                 DMA_SET(3, (sEnergyTanksGfx_Eleven + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
-                
+
             case 12:
                 DMA_SET(3, (sEnergyTanksGfx_Twelve + (maxEnergy * 160)), dst + 64, C_32_2_16(DMA_ENABLE, 80));
                 break;
@@ -448,47 +450,47 @@ void HudDrawEnergy(u8 fileNumber)
             case 1:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_One, sEnergyTanksRefillGfx_One, nbrTanks, needUpdate);
                 break;
-    
+
             case 2:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Two, sEnergyTanksRefillGfx_Two, nbrTanks, needUpdate);
                 break;
-    
+
             case 3:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Three, sEnergyTanksRefillGfx_Three, nbrTanks, needUpdate);
                 break;
-    
+
             case 4:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Four, sEnergyTanksRefillGfx_Four, nbrTanks, needUpdate);
                 break;
-    
+
             case 5:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Five, sEnergyTanksRefillGfx_Five, nbrTanks, needUpdate);
                 break;
-    
+
             case 6:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Six, sEnergyTanksRefillGfx_Six, nbrTanks, needUpdate);
                 break;
-    
+
             case 7:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Seven, sEnergyTanksRefillGfx_Seven, nbrTanks, needUpdate);
                 break;
-    
+
             case 8:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Eight, sEnergyTanksRefillGfx_Eight, nbrTanks, needUpdate);
                 break;
-    
+
             case 9:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Nine, sEnergyTanksRefillGfx_Nine, nbrTanks, needUpdate);
                 break;
-    
+
             case 10:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Ten, sEnergyTanksRefillGfx_Ten, nbrTanks, needUpdate);
                 break;
-    
+
             case 11:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Eleven, sEnergyTanksRefillGfx_Eleven, nbrTanks, needUpdate);
                 break;
-    
+
             case 12:
                 HudUpdateEnergyTanks(dst, sEnergyTanksGfx_Twelve, sEnergyTanksRefillGfx_Twelve, nbrTanks, needUpdate);
                 break;
@@ -498,7 +500,7 @@ void HudDrawEnergy(u8 fileNumber)
 
 /**
  * @brief 52c6c | 100 | Draws the missile digits to the ammo digits
- * 
+ *
  * @param hundreds Hundreds
  * @param tens Tens
  * @param ones Ones
@@ -546,7 +548,7 @@ void HudDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus)
 
 /**
  * @brief 52d6c | d8 | Draws the super missile digits to the ammo digits
- * 
+ *
  * @param tens Tens
  * @param ones Ones
  * @param highlightStatus Highlight status
@@ -591,7 +593,7 @@ void HudDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus)
 
 /**
  * @brief 52e44 | d8 | Draws the power bomb digits to the ammo digits
- * 
+ *
  * @param tens Tens
  * @param ones Ones
  * @param highlightStatus Highlight status
@@ -636,7 +638,7 @@ void HudDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus)
 
 /**
  * @brief 52f1c | 220 | Updates the missile HUD
- * 
+ *
  * @param updateHighlight Update highlight flag
  */
 void HudDrawMissiles(u8 updateHighlight)
@@ -703,13 +705,13 @@ void HudDrawMissiles(u8 updateHighlight)
         ones *= 32;
 
         missiles = gMissileHighlightStatus * 384;
-        
+
         // Offset depending on highlight
         hundreds += missiles;
         tens += missiles;
         ones += missiles;
         refillStage = missiles + 352;
-        
+
         // Update Gfx
         HudDrawMissileDigits(hundreds, tens, ones, refillStage);
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10E40, C_32_2_16(DMA_ENABLE, 32));
@@ -733,7 +735,7 @@ void HudDrawMissiles(u8 updateHighlight)
         ones *= 32;
 
         refillStage = 352;
-        
+
         // Update missile symbol for refill
         if (gMissileRefillAnimation == 13)
         {
@@ -771,7 +773,7 @@ void HudDrawMissiles(u8 updateHighlight)
 
 /**
  * @brief 5313c | 1f8 | Updates the power bomb HUD
- * 
+ *
  * @param updateHighlight Update highlight flag
  */
 void HudDrawPowerBomb(u8 updateHighlight)
@@ -837,12 +839,12 @@ void HudDrawPowerBomb(u8 updateHighlight)
         ones *= 32;
 
         powerBombs = gPowerBombHighlightStatus * 384;
-        
+
         // Offset depending on highlight
         tens += powerBombs;
         ones += powerBombs;
         refillStage = powerBombs + 352;
-        
+
         // Update Gfx
         HudDrawPowerBombDigits(tens, ones, refillStage);
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10B40, C_32_2_16(DMA_ENABLE, 32));
@@ -865,7 +867,7 @@ void HudDrawPowerBomb(u8 updateHighlight)
         ones *= 32;
 
         refillStage = 352;
-        
+
         // Update power bomb symbol for refill
         if (gPowerBombRefillAnimation == 0xD)
         {
@@ -902,7 +904,7 @@ void HudDrawPowerBomb(u8 updateHighlight)
 
 /**
  * @brief 53334 | 1f8 | Updates the super missile HUD
- * 
+ *
  * @param updateHighlight Update highlight flag
  */
 void HudDrawSuperMissiles(u8 updateHighlight)
@@ -968,12 +970,12 @@ void HudDrawSuperMissiles(u8 updateHighlight)
         ones *= 32;
 
         superMissiles = gSuperMissileHighlightStatus * 384;
-        
+
         // Offset depending on highlight
         tens += superMissiles;
         ones += superMissiles;
         refillStage = superMissiles + 352;
-        
+
         // Update Gfx
         HudDrawSuperMissileDigits(tens, ones, refillStage);
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10EC0, C_32_2_16(DMA_ENABLE, 32));
@@ -996,7 +998,7 @@ void HudDrawSuperMissiles(u8 updateHighlight)
         ones *= 32;
 
         refillStage = 352;
-        
+
         // Update power bomb symbol for refill
         if (gSuperMissileRefillAnimation == 0xD)
         {
@@ -1033,7 +1035,7 @@ void HudDrawSuperMissiles(u8 updateHighlight)
 
 /**
  * @brief 5352c | 3bc | Updates the Gfx of the HUD
- * 
+ *
  */
 void HudUpdateGfx(void)
 {
@@ -1072,7 +1074,7 @@ void HudUpdateGfx(void)
         {
             DMA_SET(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, C_32_2_16(DMA_ENABLE, 32));
             gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
-            
+
             HudDrawMissiles(TRUE);
         }
     }
@@ -1082,7 +1084,7 @@ void HudUpdateGfx(void)
         {
             DMA_SET(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, C_32_2_16(DMA_ENABLE, 32));
             gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
-                
+
             HudDrawMissiles(TRUE);
         }
         else
@@ -1091,7 +1093,7 @@ void HudUpdateGfx(void)
             {
                 DMA_SET(3, sMissileHUDGfx_Selected, VRAM_BASE + 0x10E00, C_32_2_16(DMA_ENABLE, 32));
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
-                
+
                 HudDrawMissiles(TRUE);
             }
         }
@@ -1116,7 +1118,7 @@ void HudUpdateGfx(void)
             HudDrawPowerBomb(TRUE);
         }
     }
-    
+
     if (gPowerBombHighlightStatus == HIGHLIGHT_STATUS_SELECTED)
     {
         if (!(gSamusWeaponInfo.weaponHighlighted & WH_POWER_BOMB))
@@ -1125,7 +1127,7 @@ void HudUpdateGfx(void)
             {
                 DMA_SET(3, sPowerBombHUDGfx_Inactive, VRAM_BASE + 0x10B00, C_32_2_16(DMA_ENABLE, 32));
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
-                
+
                 HudDrawPowerBomb(TRUE);
             }
         }
@@ -1133,7 +1135,7 @@ void HudUpdateGfx(void)
         {
             DMA_SET(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, C_32_2_16(DMA_ENABLE, 32));
             gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
-            
+
             HudDrawPowerBomb(TRUE);
         }
     }
@@ -1143,7 +1145,7 @@ void HudUpdateGfx(void)
         {
             DMA_SET(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, C_32_2_16(DMA_ENABLE, 32));
             gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
-                
+
             HudDrawPowerBomb(TRUE);
         }
         else
@@ -1152,7 +1154,7 @@ void HudUpdateGfx(void)
             {
                 DMA_SET(3, sPowerBombHUDGfx_Selected, VRAM_BASE + 0x10B00, C_32_2_16(DMA_ENABLE, 32));
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
-                
+
                 HudDrawPowerBomb(TRUE);
             }
         }
@@ -1185,7 +1187,7 @@ void HudUpdateGfx(void)
             {
                 DMA_SET(3, sSuperMissileHUDGfx_Inactive, VRAM_BASE + 0x10E80, C_32_2_16(DMA_ENABLE, 32));
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
-                
+
                 HudDrawSuperMissiles(TRUE);
             }
         }
@@ -1193,7 +1195,7 @@ void HudUpdateGfx(void)
         {
             DMA_SET(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, C_32_2_16(DMA_ENABLE, 32));
             gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
-        
+
             HudDrawSuperMissiles(TRUE);
         }
     }
@@ -1203,7 +1205,7 @@ void HudUpdateGfx(void)
         {
             DMA_SET(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, C_32_2_16(DMA_ENABLE, 32));
             gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
-                
+
             HudDrawSuperMissiles(TRUE);
         }
         else
@@ -1212,7 +1214,7 @@ void HudUpdateGfx(void)
             {
                 DMA_SET(3, sSuperMissileHUDGfx_Selected, VRAM_BASE + 0x10E80, C_32_2_16(DMA_ENABLE, 32));
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
-                
+
                 HudDrawSuperMissiles(TRUE);
             }
         }
@@ -1228,7 +1230,7 @@ void HudUpdateGfx(void)
 
 /**
  * @brief 538e8 | 48 | Draws the HUD (for suitless)
- * 
+ *
  */
 void HudDrawSuitless(void)
 {
@@ -1259,7 +1261,7 @@ void HudDrawSuitless(void)
 
 /**
  * 53930 | 38 | Main function that draws the HUD
- * 
+ *
  */
 void HudDraw(void)
 {

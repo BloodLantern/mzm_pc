@@ -6,8 +6,8 @@ extern "C"
 {
 #endif
 
-#include "gba/memory.h"
-#include "types.h"
+#include "mzm/gba/memory.h"
+#include "mzm/types.h"
 
 #define REG_DMA0 (REG_BASE + 0x0b0)
 #define REG_DMA1 (REG_BASE + 0x0bc)

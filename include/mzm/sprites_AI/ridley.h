@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "types.h"
+#include "mzm/types.h"
 
 enum RidleyPart {
     RIDLEY_PART_LEFT_WING,

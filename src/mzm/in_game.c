@@ -1,38 +1,40 @@
-#include "in_game.h"
-#include "dma.h"
-#include "gba.h"
-#include "callbacks.h"
-#include "oam.h"
-#include "projectile.h"
-#include "samus.h"
-#include "sprite.h"
-#include "demo_input.h"
-#include "particle.h"
-#include "room.h"
-#include "scroll.h"
-#include "init_helpers.h"
-#include "hud_generic.h"
-#include "display.h"
+#include "mzm/in_game.h"
+#include "mzm/dma.h"
+#include "mzm/gba.h"
+#include "mzm/callbacks.h"
+#include "mzm/oam.h"
+#include "mzm/projectile.h"
+#include "mzm/samus.h"
+#include "mzm/sprite.h"
+#include "mzm/demo_input.h"
+#include "mzm/particle.h"
+#include "mzm/room.h"
+#include "mzm/scroll.h"
+#include "mzm/init_helpers.h"
+#include "mzm/hud_generic.h"
+#include "mzm/display.h"
 
-#include "data/hud_data.h"
+#include "mzm/data/hud_data.h"
 
-#include "constants/demo.h"
-#include "constants/haze.h"
-#include "constants/game_state.h"
+#include "mzm/constants/demo.h"
+#include "mzm/constants/haze.h"
+#include "mzm/constants/game_state.h"
 
-#include "structs/bg_clip.h"
-#include "structs/haze.h"
-#include "structs/cutscene.h"
-#include "structs/demo.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
-#include "structs/room.h"
-#include "structs/sprite.h"
-#include "structs/connection.h"
+#include "mzm/structs/bg_clip.h"
+#include "mzm/structs/haze.h"
+#include "mzm/structs/cutscene.h"
+#include "mzm/structs/demo.h"
+#include "mzm/structs/display.h"
+#include "mzm/structs/game_state.h"
+#include "mzm/structs/room.h"
+#include "mzm/structs/sprite.h"
+#include "mzm/structs/connection.h"
+
+#include "mzm_include.h"
 
 /**
  * @brief c4b4 | 244 | Main loop in game
- * 
+ *
  * @return u32 bool, changing game mode
  */
 u32 InGameMainLoop(void)
@@ -85,15 +87,15 @@ u32 InGameMainLoop(void)
             {
                 if ((gChangedInput & gButtonAssignments.pause || gPauseScreenFlag != PAUSE_SCREEN_NONE) && ProcessPauseButtonPress())
                     gGameModeSub1++;
-    
+
                 if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
                 {
                     gPreviousXPosition = gSamusData.xPosition;
                     gPreviousYPosition = gSamusData.yPosition;
-    
+
                     if (!(gButtonInput & KEY_UP))
                         gNotPressingUp = TRUE;
-    
+
                     if (gPreventMovementTimer != 0)
                         APPLY_DELTA_TIME_DEC(gPreventMovementTimer);
                     else
@@ -101,10 +103,10 @@ u32 InGameMainLoop(void)
                         SamusUpdate();
                         SamusUpdateHitboxMovingDirection();
                     }
-    
+
                     InGameTimerUpdate();
                 }
-    
+
                 RoomUpdateGfxInfo();
             }
             break;
@@ -142,7 +144,7 @@ u32 InGameMainLoop(void)
     {
         RoomUpdateAnimatedGraphicsAndPalettes();
         SpriteUpdate();
-    
+
         if (!gDisableDrawingSamusAndScrolling)
         {
             ScrollProcessGeneral();
@@ -150,26 +152,26 @@ u32 InGameMainLoop(void)
         }
         else if (gDisableScrolling == 2)
             ScrollProcessGeneral();
-    
+
         ProjectileUpdate();
         HudDraw();
-    
+
         SpriteDrawAll_2();
         ParticleProcessAll();
         ProjectileDrawAllStatusFalse();
-    
+
         if (!gDisableDrawingSprites)
             SpriteDrawAll();
-    
+
         if (!gDisableDrawingSamusAndScrolling)
             SamusDraw();
-    
+
         SpriteDrawAll_Upper();
         ProjectileDrawAllStatusTrue();
-        
+
         ResetFreeOam();
         RoomUpdate();
-    
+
         if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
             SamusCallCheckLowHealth();
     }
@@ -187,7 +189,7 @@ u32 InGameMainLoop(void)
         if (gDebugVCount_AudioMax <= gOamData[0x7E].split.y)
             gDebugVCount_AudioMax = gOamData[0x7E].split.y;
 
-        gOamData[0x7D].split.y = gDebugVCount_AudioMax; 
+        gOamData[0x7D].split.y = gDebugVCount_AudioMax;
         gOamData[0x7D].split.x = 234;
         gOamData[0x7D].split.tileNum = 0x76;
         gOamData[0x7D].split.paletteNum = 4;
@@ -206,7 +208,7 @@ u32 InGameMainLoop(void)
 
 /**
  * @brief c6f8 | 3c | Sets the V-blank code depending on the sub game mode
- * 
+ *
  */
 void SetVBlankCodeInGame(void)
 {
@@ -226,7 +228,7 @@ void SetVBlankCodeInGame(void)
 
 /**
  * @brief c734 | 160 | Transfers Samus's graphics/palette to VRAM
- * 
+ *
  * @param updatePalette Transfer palette flag
  * @param pPhysics Samus Physics Pointer
  */
@@ -265,7 +267,7 @@ void TransferSamusGraphics(u32 updatePalette, struct SamusPhysics* pPhysics)
 
 /**
  * @brief c894 | 158 | V-blank code for the in game loads
- * 
+ *
  */
 void VBlankCodeInGameLoad(void)
 {
@@ -276,16 +278,16 @@ void VBlankCodeInGameLoad(void)
     if (gHazeInfo.active)
     {
         DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16((DMA_ENABLE | DMA_DEST_RELOAD), gHazeInfo.size / sizeof(u16)));
-        
+
         buffer = 0;
         buffer = 0;
         buffer = 0;
         buffer = 0;
-        
+
         DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16(DMA_DEST_RELOAD, gHazeInfo.size / sizeof(u16)));
 
         buffer = 0;
-        
+
         if (!(gVBlankRequestFlag & 1))
         {
             buffer = 0;
@@ -326,7 +328,7 @@ void VBlankCodeInGameLoad(void)
 
 /**
  * @brief c9ec | 80 | Transfer Samus and background graphics to VRAM
- * 
+ *
  */
 void TransferSamusAndBgGraphics(void)
 {
@@ -348,7 +350,7 @@ void TransferSamusAndBgGraphics(void)
 
 /**
  * @brief ca6c | 134 | V-blank code when in game
- * 
+ *
  */
 void VBlankCodeInGame(void)
 {
@@ -359,16 +361,16 @@ void VBlankCodeInGame(void)
     if (gHazeInfo.active)
     {
         DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16((DMA_ENABLE | DMA_DEST_RELOAD), gHazeInfo.size / sizeof(u16)));
-        
+
         buffer = 0;
         buffer = 0;
         buffer = 0;
         buffer = 0;
-        
+
         DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16(DMA_DEST_RELOAD, gHazeInfo.size / sizeof(u16)));
 
         buffer = 0;
-        
+
         if (!(gVBlankRequestFlag & 1))
         {
             buffer = 0;
@@ -403,7 +405,7 @@ void VBlankCodeInGame(void)
 
 /**
  * @brief cba0 | c | Empty V-blank code
- * 
+ *
  */
 void VBlankInGame_Empty(void)
 {
@@ -412,7 +414,7 @@ void VBlankInGame_Empty(void)
 
 /**
  * @brief cbac | 23c | Loads/initializes generic data
- * 
+ *
  */
 void InitAndLoadGenerics(void)
 {

@@ -1,10 +1,12 @@
-#include "data/rooms/chozodia_rooms_data.h"
-#include "macros.h"
+#include "mzm/data/rooms/chozodia_rooms_data.h"
+#include "mzm/macros.h"
+
+#include "mzm_include.h"
 
 const u8 sChozodia_6_Scrolls[SCROLL_DATA_SIZE(2)] = {
 	10, // Room
 	2, // Number of scrolls
-	
+
 	// Scroll 0
 	2, 31, // X bounds
 	4, 14, // Y bounds

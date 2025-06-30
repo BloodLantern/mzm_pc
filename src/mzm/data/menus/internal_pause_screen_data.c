@@ -91,8 +91,7 @@ const u32* const sMapScreenMenuNamesGfxPointers[LANGUAGE_END] = {
 };
 
 
-FORCE_RODATA
-u16 sPauseScreenCompletionInfoOamData[6][5] = {
+const u16 sPauseScreenCompletionInfoOamData[6][5] = {
     {
         10, MISC_OAM_ID_IN_GAME_TIMER, HALF_BLOCK_SIZE, BLOCK_SIZE * 8 + HALF_BLOCK_SIZE,
         0
@@ -164,15 +163,12 @@ const MinimapFunc_T sMinimapTilesCopyGfxFunctionPointers[4] = {
     MinimapCopyTileXYFlippedGfx,
 };
 
-FORCE_RODATA
-u32* sPauseScreen_7602a8 = VRAM_BASE + 0xBC00;
+u32* const sPauseScreen_7602a8 = VRAM_BASE + 0xBC00;
 
-FORCE_RODATA
-u8 sMapDownloadLineTrailOamOffsets[4] = {
+const u8 sMapDownloadLineTrailOamOffsets[4] = {
     3, 4, 5, 6
 };
 
-FORCE_RODATA
 const u32 sPauseScreen_7602b0[9] = {
     0xFFFFFFFF,
     0xFFFFFFFF ^ 0xF,

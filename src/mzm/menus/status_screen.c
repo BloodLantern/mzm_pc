@@ -134,11 +134,11 @@ void PauseDebugUpdateMapOverlay(u8 param_0, u8 area)
     switch (param_0)
     {
         case 1:
-            CallLZ77UncompWram(sMapScreenOverlayTilemap, (void*)sEwramPointer + 0x9800);
-            CallLZ77UncompWram(sWorldMapOverlayTilemap, (void*)sEwramPointer + 0xA000);
+            CallLZ77UncompWram(sMapScreenOverlayTilemap, (u8*)sEwramPointer + 0x9800);
+            CallLZ77UncompWram(sWorldMapOverlayTilemap, (u8*)sEwramPointer + 0xA000);
             PauseScreenDetermineMapsViewable();
             LoadPauseScreenBgPalette();
-            DmaTransfer(3, (void*)sEwramPointer + 0x9800, VRAM_BASE + 0xD000, 0x800, 16);
+            DmaTransfer(3, (u8*)sEwramPointer + 0x9800, VRAM_BASE + 0xD000, 0x800, 16);
             PauseScreenGetAllMinimapData(area);
 
             if (PAUSE_SCREEN_DATA.currentArea == area)
@@ -152,12 +152,12 @@ void PauseDebugUpdateMapOverlay(u8 param_0, u8 area)
         case 0:
         case 2:
             ChozoStatueHintDeterminePath(0);
-            CallLZ77UncompWram(sMapScreenOverlayTilemap, (void*)sEwramPointer + 0x9800);
-            CallLZ77UncompWram(sWorldMapOverlayTilemap, (void*)sEwramPointer + 0xA000);
+            CallLZ77UncompWram(sMapScreenOverlayTilemap, (u8*)sEwramPointer + 0x9800);
+            CallLZ77UncompWram(sWorldMapOverlayTilemap, (u8*)sEwramPointer + 0xA000);
             PauseScreenCheckAreasWithTargets();
             PauseScreenDetermineMapsViewable();
             LoadPauseScreenBgPalette();
-            DmaTransfer(3, (void*)sEwramPointer + 0x9800, VRAM_BASE + 0xD000, 0x800, 16);
+            DmaTransfer(3, (u8*)sEwramPointer + 0x9800, VRAM_BASE + 0xD000, 0x800, 16);
 
             PauseScreenMapSetSpawnPosition(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);
             PauseScreenUpdateWorldMap(2);
@@ -1367,7 +1367,7 @@ void PauseDebugDrawEventList(void)
     s32 i;
 
     for (i = 0; i < 32; i++)
-        PauseDebugDrawEventName(i, (void*)sEwramPointer + 0xD000);
+        PauseDebugDrawEventName(i, (u8*)sEwramPointer + 0xD000);
 }
 
 /**
@@ -1387,8 +1387,8 @@ void PauseDebugEventList(void)
         case 1:
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0xB);
             PAUSE_SCREEN_DATA.debugEventCursorX = 15;
-            DmaTransfer(3, VRAM_BASE + 0xB000, (void*)sEwramPointer + 0xC800, 0x800, 16);
-            DmaTransfer(3, (void*)sEwramPointer + 0xD000, VRAM_BASE + 0xB000, 0x800, 16);
+            DmaTransfer(3, VRAM_BASE + 0xB000, (u8*)sEwramPointer + 0xC800, 0x800, 16);
+            DmaTransfer(3, (u8*)sEwramPointer + 0xD000, VRAM_BASE + 0xB000, 0x800, 16);
             CallLZ77UncompVram(sPauseDebugEventListTextGfx, VRAM_BASE + 0x8000);
             DMA_SET(3, sPauseDebugEventListBgPalette, PALRAM_BASE + 0x1C0, C_32_2_16(DMA_ENABLE, 0x20));
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_7A;
@@ -1416,8 +1416,8 @@ void PauseDebugEventList(void)
 
         case 5:
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0x35);
-            DmaTransfer(3, VRAM_BASE + 0xB000, (void*)sEwramPointer + 0xD000, 0x800, 16);
-            DmaTransfer(3, (void*)sEwramPointer + 0xC800, VRAM_BASE + 0xB000, 0x800, 16);
+            DmaTransfer(3, VRAM_BASE + 0xB000, (u8*)sEwramPointer + 0xD000, 0x800, 16);
+            DmaTransfer(3, (u8*)sEwramPointer + 0xC800, VRAM_BASE + 0xB000, 0x800, 16);
             DmaTransfer(3, sMinimapTilesGfx, VRAM_BASE + 0x8000, 0x1C00, 16);
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_78;
             DmaTransfer(3, sPauseScreen_3fcef0 + PAL_ROW * 9, PALRAM_BASE + PAL_ROW_SIZE * 14, PAL_ROW_SIZE * 2, 16);
@@ -1709,8 +1709,8 @@ u32 StatusScreenDrawItems(u8 row)
  */
 u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
 {
-    u8* pActivation;
-    u8* pStatusActivation;
+    u8* pActivation = NULL;
+    u8* pStatusActivation = NULL;
     u8 slot;
     u8 flag;
     s32 i;
@@ -1996,7 +1996,7 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
     u32 dstPosition;
     s32 tmp;
     u8* pVisibility;
-    u8* ptr;
+    u8* ptr = NULL;
     s32 size;
 
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
@@ -2083,7 +2083,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
     u32 dstPosition;
     s32 tmp;
     u8* pVisibility;
-    u8* ptr;
+    u8* ptr = NULL;
     s32 size;
 
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.suitActivation;
@@ -2469,7 +2469,7 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 drawUpdate)
     // Weird pointer/array access? this is just PAUSE_SCREEN_EWRAM.statusScreenTilemap[position + 1];
     pEwram = (u16*)&PAUSE_SCREEN_EWRAM;
     pTilemap = &pEwram[position + 1];
-    pTilemap = (u16*)((void*)sEwramPointer + 0x7000) + position + 1;
+    pTilemap = (u16*)((u8*)sEwramPointer + 0x7000) + position + 1;
 
     for (i = 1; i < size; i++, pTilemap++)
     {
@@ -3372,7 +3372,7 @@ u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot)
 u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
 {
     u32 flag;
-    u8* pActivation;
+    u8* pActivation = NULL;
     u8 oamId;
     u8 i;
     u8 isActivated;

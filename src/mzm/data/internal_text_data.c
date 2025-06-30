@@ -21,8 +21,7 @@ const u16* const * const sDescriptionTextPointers[LANGUAGE_END] = {
     #endif // REGION_US_BETA
 };
 
-FORCE_RODATA
-u32 sArray_7602f0[9] = {
+const u32 sArray_7602f0[9] = {
     [0] = UINT_MAX ^ (UINT_MAX << 0 * sizeof(u32)),
     [1] = UINT_MAX ^ (UINT_MAX << 1 * sizeof(u32)),
     [2] = UINT_MAX ^ (UINT_MAX << 2 * sizeof(u32)),
@@ -34,8 +33,7 @@ u32 sArray_7602f0[9] = {
     [8] = UINT_MAX
 };
 
-FORCE_RODATA
-u32 sArray_760314[9] = {
+const u32 sArray_760314[9] = {
     [0] = UINT_MAX ^ (UINT_MAX >> 0 * sizeof(u32)),
     [1] = UINT_MAX ^ (UINT_MAX >> 1 * sizeof(u32)),
     [2] = UINT_MAX ^ (UINT_MAX >> 2 * sizeof(u32)),
@@ -47,8 +45,7 @@ u32 sArray_760314[9] = {
     [8] = UINT_MAX
 };
 
-FORCE_RODATA
-u32 sArray_760338[8] = {
+const u32 sArray_760338[8] = {
     [0] = 15 << 0 * sizeof(u32),
     [1] = 15 << 1 * sizeof(u32),
     [2] = 15 << 2 * sizeof(u32),
@@ -81,8 +78,7 @@ const u32 sArray_760378[8] = {
     [7] = 1 << 7 * sizeof(u32)
 };
 
-FORCE_RODATA
-u32 sArray_760398[8] = {
+const u32 sArray_760398[8] = {
     [0] = 4 << 0 * sizeof(u32),
     [1] = 4 << 1 * sizeof(u32),
     [2] = 4 << 2 * sizeof(u32),
@@ -93,8 +89,7 @@ u32 sArray_760398[8] = {
     [7] = 4 << 7 * sizeof(u32)
 };
 
-FORCE_RODATA
-u32 sArray_7603b8[8] = {
+const u32 sArray_7603b8[8] = {
     [0] = 15 << 0 * sizeof(u32),
     [1] = 15 << 1 * sizeof(u32),
     [2] = 15 << 2 * sizeof(u32),

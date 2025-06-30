@@ -21,14 +21,9 @@ extern "C"
 #define REG_DMA2_DST (REG_DMA2 + 4)
 #define REG_DMA2_CNT (REG_DMA2 + 8)
 
-#define DMA_SET(channel, src, dst, cnt)                                        \
-    {                                                                          \
-        vu32 *dma_ = (vu32 *)REG_DMA##channel;                                 \
-        dma_[0]    = (vu32)src;                                                \
-        dma_[1]    = (vu32)dst;                                                \
-        dma_[2]    = (vu32)cnt;                                                \
-        dma_[2];                                                               \
-    }
+#define DMA_SET(...) DmaSet(__VA_ARGS__);
+
+void DmaSet(u8 channel, void *src, void *dst, u32 cnt);
 
 #define dma_fill(channel, val, dst, size, bit)                                 \
     {                                                                          \

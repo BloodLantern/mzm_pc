@@ -311,7 +311,7 @@ u8 StoryTextCutsceneEnd(void)
 
     // Stil has some text to process, clear graphics
     dst = VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000;
-    BitFill(3, 0, dst + CUTSCENE_DATA.timeInfo.subStage * 0x1000, 0x1000, 32);
+    BitFill(3, 0, (u8*)dst + CUTSCENE_DATA.timeInfo.subStage * 0x1000, 0x1000, 32);
 
     CUTSCENE_DATA.timeInfo.subStage++;
     if (CUTSCENE_DATA.timeInfo.subStage > 4)

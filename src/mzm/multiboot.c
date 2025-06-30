@@ -625,43 +625,8 @@ static u32 MultiBootHandshake(struct MultiBootData* pMultiBoot)
  *
  * @param cycles Cycles to wait
  */
-NAKED_FUNCTION
 static void MultiBootWaitCycles(s32 cycles)
 {
-    // Assumed to be hand written due to the use of PC and no cmp before the bgt
-    // Closest approximation: https://decomp.me/scratch/4CRCE
-
-    /* Depending on if this is in CPU internal working, CPU external
-     * working, ROM, the CPU cycles used for one of this function's wait
-     * loops is different.
-     * CPU External Working (0x02XXXXXX) ... 12 cycles/loop
-     * ROM        (0x08XXXXXX) ... 13 cycles/loop
-     *            (Have prefetch  Setup maximum speed)
-     * CPU Internal Working (0x03XXXXXX) ... 4  cycles/loop
-     * If address area other than above, temporarily use 4 cycles/loop.
-     * If set up lower cycles/loop than actual,
-     * can get specified cycle number wait.
-     *
-     * Use AGB system clock 16.78MHz as hint for argument, cycles.
-     * If use 0x1000000 (16777216) with cycles approximately 1 second wait.
-     * (If V blank interrupt is processed during this, actual wait is longer)
-     */
-
-    asm("                            \n\
-        mov r2, pc                   \n\
-        lsr r2, r2, #0x18            \n\
-        movs r1, #0xc                \n\
-        cmp r2, #2                   \n\
-        beq MultiBootWaitCyclesLoop  \n\
-        mov r1, #0xd                 \n\
-        cmp r2, #8                   \n\
-        beq MultiBootWaitCyclesLoop  \n\
-        mov r1, #4                   \n\
-    MultiBootWaitCyclesLoop:         \n\
-        sub r0, r0, r1               \n\
-        bgt MultiBootWaitCyclesLoop  \n\
-        bx lr                        \n\
-    ");
 }
 
 /**

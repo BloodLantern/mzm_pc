@@ -24,11 +24,6 @@
 
 #include "mzm_include.h"
 
-// FIXME, find a better solution
-void BlockApplyCcaa(s32, s32, u16); // From block.h
-// block.h must not be included, as declaring the correct signature for this
-// function produces non-matching code here.
-
 static void PowerBombExplosion(void);
 static void PowerBombExplosionSet0x12To0(void);
 static void PowerBombExplosionBegin(void);

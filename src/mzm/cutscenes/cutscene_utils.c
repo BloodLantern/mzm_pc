@@ -25,8 +25,8 @@
 
 #include "mzm_include.h"
 
-#define PAL_TO_FADE ((void*)(sEwramPointer))
-#define PAL_WITH_FADE ((void*)sEwramPointer + PALRAM_SIZE)
+#define PAL_TO_FADE ((u8*)(sEwramPointer))
+#define PAL_WITH_FADE ((u8*)sEwramPointer + PALRAM_SIZE)
 
 /**
  * @brief 60e28 | 4 | Default subroutine for cutscenes that don't have any

@@ -6602,7 +6602,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
     struct ScrewSpeedAnimation* pScrew;
     const struct SamusAnimationData* pAnim;
     const struct ArmCannonAnimationData* pArmCannonAnim;
-    const struct SamusEffectAnimationData* pEffectAnim;
+    const struct SamusEffectAnimationData* pEffectAnim = NULL;
     const u8* pGraphics;
     u8 pose;
     u8 acd;

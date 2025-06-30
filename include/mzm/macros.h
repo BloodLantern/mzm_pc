@@ -15,7 +15,7 @@
 
 /**
  * @brief Constructs an uint from 2 ushorts (high << 16 | low)
- * 
+ *
  * @param high High
  * @param low Low
  */
@@ -23,7 +23,7 @@
 
 /**
  * @brief Constructs an ushort from 2 bytes (high << 8 | low)
- * 
+ *
  * @param high High
  * @param low Low
  */
@@ -31,7 +31,7 @@
 
 /**
  * @brief Constructs an ushort from 2 bytes (low | high << 8)
- * 
+ *
  * @param high High
  * @param low Low
  */
@@ -88,7 +88,7 @@
 
 /**
  * @brief Generic Dma transfer to send palette to pal
- * 
+ *
  * @param pal Palette data
  * @param dst Destination address in palram
  */
@@ -127,7 +127,7 @@
 
 /**
  * @brief Performs a modulo (value % mod) operation on a value using the and operation (WARNING only use a value for mod that is a power of 2)
- * 
+ *
  * @param value Value
  * @param mod Modulo
  */
@@ -135,7 +135,7 @@
 
 /**
  * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is a power of 2 and <= 1024)
- * 
+ *
  * @param value Value
  * @param div Divisor
  */
@@ -143,7 +143,7 @@
 
 /**
  * @brief Performs a multiplaction (value * mul) operation on a value using the left shift operation (WARNING only use a value for div that is a power of 2 and <= 256)
- * 
+ *
  * @param value Value
  * @param mul Multiplier
  */
@@ -151,7 +151,7 @@
 
 /**
  * @brief Multiplies a number by a fraction (num/den)
- * 
+ *
  * @param value Value
  * @param num Numerator
  * @param den Denominator
@@ -160,10 +160,10 @@
 
 /**
  * @brief Multiplies a number by a floating point using a fraction. The float value must only have one floating digit.
- * 
+ *
  * @param value Value
  * @param f Floating point value
- * 
+ *
  */
 #define FLOAT_MUL(value, f) ((value) * ((s32)((f) * 10)) / 10)
 
@@ -171,7 +171,7 @@
  * @brief Performs a semi-modulo (value & mod) operation on a value using the and operation (WARNING only use a value for mod that is a power of 2)
  * This creates a cyclic value of the modulo, that swaps every "mod" times.
  * e.g., with mod = 4, and value starting from 0 and incremeting, the macro will yield 0, 4 times, then 4, 4 times, then 0 again 4 times...
- * 
+ *
  * @param value Value
  * @param mod Modulo
  */

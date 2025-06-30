@@ -23,7 +23,7 @@ extern const u32* const sMapScreenUnknownItemsNamesGfxPointers[LANGUAGE_END];
 extern const u32* const sMapScreenEquipmentNamesGfxPointers[LANGUAGE_END];
 extern const u32* const sMapScreenMenuNamesGfxPointers[LANGUAGE_END];
 
-extern u16 sPauseScreenCompletionInfoOamData[6][5];
+extern const u16 sPauseScreenCompletionInfoOamData[6][5];
 
 extern const u8* const sStatusScreenFlagsOrderPointers[4];
 
@@ -32,9 +32,9 @@ extern const u32* const sMinimapDataPointers[AREA_COUNT];
 extern const u32 sExploredMinimapBitFlags[32];
 extern const MinimapFunc_T sMinimapTilesCopyGfxFunctionPointers[4];
 
-extern u32* sPauseScreen_7602a8;
+extern u32* const sPauseScreen_7602a8;
 
-extern u8 sMapDownloadLineTrailOamOffsets[4];
+extern const u8 sMapDownloadLineTrailOamOffsets[4];
 
 extern const u32 sPauseScreen_7602b0[9];
 

@@ -274,10 +274,10 @@ extern struct MusicTrackInfo gMusicTrackInfo;
 extern struct MusicInfo gMusicInfo;
 
 // Linker variables
-extern char gNumMusicPlayers[];
-extern char gUnk_Audio0x64[];
-extern char gUnk_Audio0x194F700[];
-extern char gUnk_Audio0x50[];
+extern u16 gNumMusicPlayers;
+extern u16 gUnk_Audio0x64;
+extern u32 gUnk_Audio0x194F700;
+extern u16 gUnk_Audio0x50;
 
 extern struct TrackData gTrackData0;
 extern struct TrackData gTrackData1;

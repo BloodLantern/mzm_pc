@@ -10,7 +10,7 @@ extern "C"
 
 // Structs
 
-struct __attribute__((packed)) EscapeDigits {
+struct EscapeDigits {
     u8 hundredths;
     u8 tenths;
     u8 secondsOnes;

@@ -313,17 +313,15 @@ void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
     u32 value;
     s32 i;
 
-    // FIXME use symbol
-    BitFill(3, 0, (void*)0x2027700, sizeof(gCurrentCharacterGfx), 16); // gCurrentCharacterGfx
+    BitFill(3, 0, (void*)gCurrentCharacterGfx, sizeof(gCurrentCharacterGfx), 16);
     width = TextGetCharacterWidth(charID);
 
     for (pass = 0; pass < 2; pass++)
     {
-        // FIXME use symbol
         if (pass != 0)
-            dstGfx = ((u32*)0x2027700) + 16; // gCurrentCharacterGfx
+            dstGfx = ((u32*)gCurrentCharacterGfx) + 16;
         else
-            dstGfx = ((u32*)0x2027700); // gCurrentCharacterGfx
+            dstGfx = ((u32*)gCurrentCharacterGfx);
 
         pixelDst = charID * 0x20 + pass * 0x400;
         srcGfx = (const u32*)&sCharactersGfx[pixelDst];
@@ -855,7 +853,7 @@ void TextStartStory(u8 textID)
 u8 TextProcessStory(void)
 {
     s32 i;
-    u32* dst;
+    u32* dst = NULL;
     s32 flag;
     s32 maxLine;
     s32 state;

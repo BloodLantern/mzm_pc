@@ -8,7 +8,7 @@ extern "C"
 
 #include "mzm/types.h"
 
-#define SYSCALL(num) asm("svc " #num)
+#define SYSCALL(num)
 
 #define SYSCALL_SoftReset 0
 #define SYSCALL_RegisterRamReset 1

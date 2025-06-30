@@ -22,7 +22,7 @@ struct StatusScreenItemAcquisitionData {
     u8 statusSlot;
 };
 
-struct __attribute__((packed)) StatusScreenGroupPositions {
+struct StatusScreenGroupPositions {
     u8 top;
     u8 bottom;
     u8 left;

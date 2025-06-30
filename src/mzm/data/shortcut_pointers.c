@@ -41,17 +41,10 @@ static const u8 sBuffer_754ab4[256] = {
     UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
 };
 
-FORCE_RODATA
-union EwramData* sEwramPointer = (union EwramData*)EWRAM_BASE;
-FORCE_RODATA
-u16* sBgPalramPointer = PALRAM_BASE;
-FORCE_RODATA
-u16* sObjPalramPointer = PALRAM_OBJ;
-FORCE_RODATA
-u32* sVisitedMinimapTilesPointer = gVisitedMinimapTiles;
-FORCE_RODATA
-union NonGameplayRAM* sNonGameplayRamPointer = &gNonGameplayRam;
-FORCE_RODATA
-struct Sram* sSramEwramPointer = EWRAM_BASE + 0x38000;
-FORCE_RODATA
-struct Sram* sSramFlashPointer = SRAM_BASE;
+union EwramData* const sEwramPointer = (union EwramData*)EWRAM_BASE;
+u16* const sBgPalramPointer = PALRAM_BASE;
+u16* const sObjPalramPointer = PALRAM_OBJ;
+u32* const sVisitedMinimapTilesPointer = gVisitedMinimapTiles;
+union NonGameplayRAM* const sNonGameplayRamPointer = &gNonGameplayRam;
+struct Sram* const sSramEwramPointer = &gSram;
+struct Sram* const sSramFlashPointer = SRAM_BASE;

@@ -10,13 +10,13 @@ extern "C"
 #include "mzm/temp_globals.h"
 #include "mzm/structs/save_file.h"
 
-extern union EwramData* sEwramPointer;
-extern u16* sBgPalramPointer;
-extern u16* sObjPalramPointer;
-extern u32* sVisitedMinimapTilesPointer;
-extern union NonGameplayRAM* sNonGameplayRamPointer;
-extern struct Sram* sSramEwramPointer;
-extern struct Sram* sSramFlashPointer;
+extern union EwramData* const sEwramPointer;
+extern u16* const sBgPalramPointer;
+extern u16* const sObjPalramPointer;
+extern u32* const sVisitedMinimapTilesPointer;
+extern union NonGameplayRAM* const sNonGameplayRamPointer;
+extern struct Sram* const sSramEwramPointer;
+extern struct Sram* const sSramFlashPointer;
 
 #ifdef __cplusplus
 }

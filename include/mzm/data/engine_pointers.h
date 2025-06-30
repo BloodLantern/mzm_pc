@@ -50,7 +50,7 @@ extern const ColorFadingFunc_T sColorFadingSubroutinePointers[4];
  * 2 : BG0 water moving flag
  * 3 : Power bomb related
  */
-extern u8 sHazeData[EFFECT_HAZE_END][4];
+extern const u8 sHazeData[EFFECT_HAZE_END][4];
 
 
 extern const BackgroundEffectBehaviorEntry_T* const sBackgroundEffectBehaviorPointers[BACKGROUND_EFFECT_END];

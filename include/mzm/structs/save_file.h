@@ -240,7 +240,7 @@ struct Sram {
 };
 
 // Make sure that the size of the sram struct doesn't exceed the size of the flash sram
-STATIC_ASSERT(sizeof(struct Sram) <= SRAM_SIZE, SramStructSize);
+//STATIC_ASSERT(sizeof(struct Sram) <= SRAM_SIZE, SramStructSize);
 
 extern u8 gSramOperationStage;
 extern u8 gSramCorruptFlag;

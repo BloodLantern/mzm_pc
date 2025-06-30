@@ -370,7 +370,7 @@ u32 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
  */
 u32 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
 {
-    const struct Door* pDoor;
+    const struct Door* pDoor = NULL;
     struct HatchData* pHatch;
     s32 i;
     s32 j;

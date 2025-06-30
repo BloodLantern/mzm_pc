@@ -23,11 +23,6 @@
  */
 void ClipdataSetupCode(void)
 {
-    // Copy code to RAM
-    DMA_SET(3, ClipdataConvertToCollision + 1, gNonGameplayRam.inGame, C_32_2_16(DMA_ENABLE, 0x140));
-
-    // Set pointer
-    gClipdataCodePointer = (ClipFunc_T)(gNonGameplayRam.inGame + 1);
 }
 
 /**
@@ -64,7 +59,7 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
             collision.actorType = CLIPDATA_ACTOR_SAMUS;
 
             // Call convert function
-            result = gClipdataCodePointer(&collision);
+            result = ClipdataConvertToCollision(&collision);
         }
         else
         {
@@ -134,7 +129,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
     collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[clipdata];
     collision.subPixelY = yPosition % BLOCK_SIZE;
     collision.subPixelX = xPosition % BLOCK_SIZE;
-    return clipdata = gClipdataCodePointer(&collision);
+    return clipdata = ClipdataConvertToCollision(&collision);
 }
 
 /**

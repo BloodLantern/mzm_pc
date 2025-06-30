@@ -31,11 +31,6 @@ void ClearGfxRam(void)
  */
 void LoadInterruptCode(void)
 {
-    // Transfer code
-    DmaTransfer(3, IntrMain, &gInterruptCode, sizeof(gInterruptCode), 16);
-
-    // Set pointer
-    gIntrCodePointer = &gInterruptCode;
 }
 
 /**

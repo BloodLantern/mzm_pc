@@ -789,8 +789,7 @@ void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
     overLimit = TRUE;
-    // FIXME use symbol
-    pItem = (u8*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo); // gItemsCollected
+    pItem = (u8*)gItemsCollected + i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo);
 
     // Find empty slot
     for (i = 0; i < limit; i++, pItem += 4)
@@ -836,8 +835,7 @@ void BgClipRemoveCollectedTanks(void)
 
     i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
-    // FIXME use symbol
-    pItem = (struct ItemInfo*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA; // gItemsCollected
+    pItem = (struct ItemInfo*)gItemsCollected + i * MAX_AMOUNT_OF_ITEMS_PER_AREA;
 
     for (i = 0; i < limit; i++, pItem++)
     {

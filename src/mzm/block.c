@@ -312,8 +312,7 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
         return FALSE;
 
     overLimit = TRUE;
-    // gNeverReformBlocks = gNeverReformBlocks
-    pBlock = (u8*)(gNeverReformBlocks + gCurrentArea * 512);
+    pBlock = (u8*)(gNeverReformBlocks[gCurrentArea]);
     i = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
 
     // Find empty slot
@@ -357,8 +356,7 @@ void BlockRemoveNeverReformBlocks(void)
     if (i)
         return;
 
-    // gNeverReformBlocks = gNeverReformBlocks
-    pBlock = (u8*)(gNeverReformBlocks + gCurrentArea * 512);
+    pBlock = (u8*)(gNeverReformBlocks[gCurrentArea]);
     limit = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
     for (var_0 = 0; i < limit; i += 2)
     {

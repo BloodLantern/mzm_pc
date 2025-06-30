@@ -5710,7 +5710,7 @@ u8 SamusShinesparking(struct SamusData* pData)
     u16 nextY;
     u16 nextSlope;
     s32 xOffset;
-    u8 stop;
+    u8 stop = 0;
 
     hittingSideBlock = FALSE;
 

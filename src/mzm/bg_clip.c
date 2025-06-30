@@ -697,7 +697,7 @@ void BgClipCheckGrabbingCrumbleBlock(u8 dontDestroy)
 u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
 {
     s32 i;
-    u8 action;
+    u8 action = 0;
 
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
     {

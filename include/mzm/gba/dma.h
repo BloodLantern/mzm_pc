@@ -23,7 +23,7 @@ extern "C"
 
 #define DMA_SET(...) DmaSet(__VA_ARGS__);
 
-void DmaSet(u8 channel, void *src, void *dst, u32 cnt);
+void DmaSet(u8 channel, const void *src, void *dst, u32 cnt);
 
 #define dma_fill(channel, val, dst, size, bit)                                 \
     {                                                                          \

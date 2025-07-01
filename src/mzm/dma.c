@@ -25,7 +25,7 @@ void DmaTransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize)
     memcpy(dst, src, len);
 }
 
-void DmaSet(u8 channel, void* src, void* dst, u32 cnt)
+void DmaSet(u8 channel, const void* src, void* dst, u32 cnt)
 {
     u32 len = cnt & 0xFFFF;
     u8 bitSize = cnt & DMA_32BIT >> 16 ? 32 : 16;

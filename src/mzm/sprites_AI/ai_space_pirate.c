@@ -1184,7 +1184,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
  * @brief 29940 | 2d8 | Checks if a pirate is colliding with another pirate when climbing
  *
  * @param direction Climbing direction
- * @return u8 1 if colliding, 0 otheriwse
+ * @return u8 1 if colliding, 0 otherwise
  */
 u8 SpacePirateCheckCollidingWithPirateWhenClimbing(u8 direction)
 {
@@ -1900,7 +1900,7 @@ void unk_29ef0(void)
 }
 
 /**
- * @brief 2a374 | 2c8 | Initializes a space pirat sprite
+ * @brief 2a374 | 2c8 | Initializes a space pirate sprite
  *
  */
 void SpacePirateInit(void)
@@ -4231,7 +4231,7 @@ void SpacePirateCrawlingStopped(void)
 /**
  * @brief 2c30c | 94 | Handles a space pirate dying
  *
- * @param playSound
+ * @param playSoundPlay sound
  */
 void SpacePirateDeath(u8 playSound)
 {

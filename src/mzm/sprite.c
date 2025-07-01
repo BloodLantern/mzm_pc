@@ -823,9 +823,9 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 }
 
 /**
- * @brief df24 | 4c | Calls : ClearSpriteData, LoadSpriteset,
- * CheckReloadEscapeDigitsGraphics, LoadLocationText, LoadRoomSprite
- * and SpawnSpacePiratesWaiting
+ * @brief df24 | 4c | Calls : SpriteClearData, SpriteLoadSpriteset,
+ * EscapeCheckReloadGraphics, SpriteUtilInitLocationText, SpriteLoadRoomSprites
+ * and SpawnWaitingPirates
  *
  */
 void SpriteLoadAllData(void)
@@ -944,7 +944,7 @@ void SpriteLoadGfx(u8 spriteId, u8 row)
  *
  * @param spriteId Sprite ID
  * @param row Palette Row
- * @param len Lenght (in rows)
+ * @param len Length (in rows)
  */
 void SpriteLoadPal(u8 spriteId, u8 row, u8 len)
 {
@@ -1082,7 +1082,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
  * @param ramSlot The RAM slot of the secondary sprite's parent
  * @param yPosition Y Position
  * @param xPosition X Position
- * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @param statusToAdd Additional status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
 u8 SpriteSpawnSecondary(u8 spriteId, u8 partNumber, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
@@ -1137,7 +1137,7 @@ u8 SpriteSpawnSecondary(u8 spriteId, u8 partNumber, u8 gfxSlot, u8 ramSlot, u16 
  * @param gfxSlot The sprite graphics slot
  * @param yPosition Y Position
  * @param xPosition X Position
- * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @param statusToAdd Additional status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF if the sprite couldn't spawn
  */
 u8 SpriteSpawnPrimary(u8 spriteId, u8 partNumber, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
@@ -1193,7 +1193,7 @@ u8 SpriteSpawnPrimary(u8 spriteId, u8 partNumber, u8 gfxSlot, u16 yPosition, u16
  * @param ramSlot The RAM slot of the sprite's parent
  * @param yPosition Y Position
  * @param xPosition X Position
- * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @param statusToAdd Additional status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
 u8 SpriteSpawnDropFollowers(u8 spriteId, u8 partNumber, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)

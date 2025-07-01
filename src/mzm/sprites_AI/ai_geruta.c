@@ -228,7 +228,7 @@ static void GerutaGoingDown(void)
 }
 
 /**
- * @brief 1ed8c | 48 | Checks if the bouning animation has ended
+ * @brief 1ed8c | 48 | Checks if the bouncing animation has ended
  *
  */
 static void GerutaCheckBouncingAnimEnded(void)

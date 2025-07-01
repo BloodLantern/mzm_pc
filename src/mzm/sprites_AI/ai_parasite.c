@@ -163,7 +163,7 @@ static void ParasiteGrabSamus(struct SpriteData* pSprite)
 /**
  * @brief 30100 | 190 | Handles a parasite having samus grabbed
  *
- * @param pSprite
+ * @param pSprite Sprite data pointer
  */
 static void ParasiteSamusGrabbed(struct SpriteData* pSprite)
 {
@@ -173,7 +173,7 @@ static void ParasiteSamusGrabbed(struct SpriteData* pSprite)
 
     if (gSamusData.pose == SPOSE_SCREW_ATTACKING)
     {
-        // Set expulsed
+        // Set expelled
         pSprite->pose = PARASITE_POSE_EXPULSED_INIT;
 
         xVelocity = gSpriteRng;
@@ -266,7 +266,7 @@ static void ParasiteSamusGrabbed(struct SpriteData* pSprite)
 }
 
 /**
- * @brief 30290 | 30 | Initializes a parasite to be expulsed
+ * @brief 30290 | 30 | Initializes a parasite to be expelled
  *
  * @param pSprite Sprite data pointer
  */
@@ -283,7 +283,7 @@ static void ParasiteExpelledInit(struct SpriteData* pSprite)
 }
 
 /**
- * @brief 302c0 | a0 | Handles a parasite being expulsed up
+ * @brief 302c0 | a0 | Handles a parasite being expelled up
  *
  * @param pSprite Sprite data pointer
  */
@@ -326,7 +326,7 @@ static void ParasiteExpelledUp(struct SpriteData* pSprite)
 }
 
 /**
- * @brief 30360 | a8 | Handles a parasite (multiple) being expulsed up
+ * @brief 30360 | a8 | Handles a parasite (multiple) being expelled up
  *
  * @param pSprite Sprite data pointer
  */
@@ -369,7 +369,7 @@ static void ParasiteMultipleExpelledUp(struct SpriteData* pSprite)
 }
 
 /**
- * @brief 30408 | e8 | Handles a parasite being expulsed (going down)
+ * @brief 30408 | e8 | Handles a parasite being expelled (going down)
  *
  * @param pSprite Sprite data pointer
  */
@@ -430,7 +430,7 @@ static void ParasiteExpelledDown(struct SpriteData* pSprite)
 }
 
 /**
- * @brief 304f0 | dc | Handles a parasite (multiple) being expulsed (going down)
+ * @brief 304f0 | dc | Handles a parasite (multiple) being expelled (going down)
  *
  * @param pSprite Sprite data pointer
  */
@@ -989,7 +989,7 @@ static void ParasiteLandingInit(struct SpriteData* pSprite)
 }
 
 /**
- * @brief 30cd4 | a0 | Handlse a parasite landing
+ * @brief 30cd4 | a0 | Handles a parasite landing
  *
  * @param pSprite Sprite data pointer
  */
@@ -1201,7 +1201,7 @@ static void ParasiteGeronGrabbed(struct SpriteData* pSprite)
 
     if (gSpriteData[ramSlot].pose == GERON_POSE_DELAY_BEFORE_DESTROYED)
     {
-        // Set expulsed
+        // Set expelled
         pSprite->pose = PARASITE_POSE_EXPULSED_INIT;
 
         xVelocity = gSpriteRng;

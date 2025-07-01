@@ -245,7 +245,7 @@ static void ImagoCoreFlashingAnim(void)
 }
 
 /**
- * @brief 420b8 | 34 | Updates the sde hitbox of Imago
+ * @brief 420b8 | 34 | Updates the side hitbox of Imago
  *
  */
 static void ImagoSetSidesHitbox(void)
@@ -924,7 +924,7 @@ static void ImagoChargeThroughWall(void)
 }
 
 /**
- * @brief 42bf8 | 378 | Handles Imago destryoing the wall
+ * @brief 42bf8 | 378 | Handles Imago destroying the wall
  *
  */
 static void ImagoDestroyWall(void)

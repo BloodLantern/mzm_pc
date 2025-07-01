@@ -774,7 +774,7 @@ static void ImagoLarvaPartDotCheckDisappearingAnimEnded(struct SubSpriteData* pS
 }
 
 /**
- * @brief 2636c | 68 | Checks if an Imago larva dot should re-appear
+ * @brief 2636c | 68 | Checks if an Imago larva dot should reappear
  *
  * @param pSub Sub sprite data pointer
  */

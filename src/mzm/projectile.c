@@ -644,7 +644,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
 /**
  * @brief 51440 | f8 | Subroutine for a charged normal beam
  *
- * @param pProj
+ * @param pProjProjectile data pointer
  */
 void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 {

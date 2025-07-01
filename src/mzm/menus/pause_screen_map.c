@@ -22,7 +22,7 @@
 #include "mzm_include.h"
 
 /**
- * @brief 6cef8 | 168 | Counts the number of tanks in the crrent area
+ * @brief 6cef8 | 168 | Counts the number of tanks in the current area
  *
  */
 void PauseScreenCountTanksInArea(void)

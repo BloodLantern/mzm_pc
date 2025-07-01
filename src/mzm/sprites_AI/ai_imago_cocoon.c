@@ -908,7 +908,7 @@ static void ImagoCocoonVineSpawnSpore(void)
 }
 
 /**
- * 27aec | 44 | Handles the Imago cocoon ceilig vine being idle
+ * 27aec | 44 | Handles the Imago cocoon ceiling vine being idle
  *
  */
 static void ImagoCocoonCeilingVineIdle(void)
